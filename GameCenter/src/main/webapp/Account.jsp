@@ -17,6 +17,7 @@
 	    Email=(String)session.getAttribute("Email");
 	    PuntiFedelta = (int)session.getAttribute("PuntiFedelta");
 	}
+	/*prova*/
 %>
 <!DOCTYPE html>
 <html>
