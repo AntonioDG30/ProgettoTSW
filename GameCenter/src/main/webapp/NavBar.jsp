@@ -1,4 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<%!	
+	String EmailUtente="";
+%> 
+
+<%
+	synchronized(session) 
+	{
+		session = request.getSession();
+	    EmailUtente=(String)session.getAttribute("Email");
+	}
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,8 +48,22 @@ body {
 <div class="topnav">
   <a href="index.jsp">Home</a>
   <a href="Carrello.jsp">Carrello</a>
-  <a href="Login.jsp">Login</a>
+  <%
+  		if(EmailUtente != null)
+  		{
+  %>
+  <a href="Account.jsp">Account</a>
   <a href="./UserControl?action=Logout">Logout</a>
+  <%
+  		}
+  		else
+  		{
+  %>
+  <a href="Login.jsp">Login</a>
+  <%
+  		}
+  %>
+  
 </div>
 
 </body>
