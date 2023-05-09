@@ -56,7 +56,6 @@ body {
   <a href="./UserControl?action=Logout">Logout</a>
   <%
   		}
-  /*PROVA2*/
   		else
   		{
   %>
