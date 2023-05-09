@@ -16,6 +16,8 @@ public class ProductModel
 	private static final String TABLE_NAME_PEGI = "PEGI";
 	
 	
+	
+	
 	private static final String PIATTAFORMA_PS5 = "PlayStation 5";
 	private static final String PIATTAFORMA_PS4 = "PlayStation 4";
 	private static final String PIATTAFORMA_XboxSerieX = "XBOX Series X";
@@ -932,6 +934,10 @@ public class ProductModel
 		}
 		return (result != 0);
 	}
+	
+	
+	
+	
 	
 
 }

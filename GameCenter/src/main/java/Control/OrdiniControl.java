@@ -30,7 +30,7 @@ public class OrdiniControl extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
 	
-	static OrdineModel model = new OrdineModel();
+	static OrdineModel Model = new OrdineModel();
        
     
     public OrdiniControl() 
@@ -47,9 +47,17 @@ public class OrdiniControl extends HttpServlet
 		{	
 			if (action.equalsIgnoreCase("Dettagli")) 
 			{
-				request.removeAttribute("Result");
-				request.setAttribute("Result", "Andremo ai dettagli");
-				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Account.jsp");
+				try 
+				{
+					int CodOrdine = Integer.parseInt(request.getParameter("CodOrdine"));
+					request.removeAttribute("Ordini");
+					request.setAttribute("Ordini", Model.DettagliOrdine(CodOrdine));
+				} 
+				catch (SQLException e) 
+				{
+					System.out.println("Error:" + e.getMessage());
+				}
+				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/DettagliOrdine.jsp");
 				dispatcher.forward(request, response);	
 			}
 		}
@@ -59,7 +67,7 @@ public class OrdiniControl extends HttpServlet
 			{
 			    String Email=(String) request.getSession().getAttribute("Email");
 				request.removeAttribute("Ordini");
-				request.setAttribute("Ordini", model.ElencoOrdiniByCliente(Email));
+				request.setAttribute("Ordini", Model.ElencoOrdiniByCliente(Email));
 			} 
 			catch (SQLException e) 
 			{
