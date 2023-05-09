@@ -66,7 +66,7 @@ public class OrdiniControl extends HttpServlet
 				System.out.println("Error:" + e.getMessage());
 			}
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Account.jsp");
-			dispatcher.forward(request, response);  
+			dispatcher.forward(request, response);
 		}
 	}
 
