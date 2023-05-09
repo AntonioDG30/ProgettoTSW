@@ -62,7 +62,6 @@ public class General_ProductControl extends HttpServlet
 				
 				if (action.equalsIgnoreCase("Dettagli")) 
 				{
-					request.removeAttribute("Result");
 					String CodSeriale = request.getParameter("CodSeriale");
 					request.removeAttribute("product");
 					request.setAttribute("product", model.Dettagli(CodSeriale));
