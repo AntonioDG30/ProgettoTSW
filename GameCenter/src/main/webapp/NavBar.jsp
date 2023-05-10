@@ -14,6 +14,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 body {
@@ -46,7 +47,7 @@ body {
 <body>
 
 <div class="topnav">
-  <a href="index.jsp">Home</a>
+  <a href="index.jsp"><img src="Immagini/Logo1_Scontornato.png" alt="Home" width="150" height="20"></a>
   <a href="Carrello.jsp">Carrello</a>
   <%
   		if(EmailUtente != null)
