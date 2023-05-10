@@ -62,6 +62,39 @@ public class OrdiniControl extends HttpServlet
 				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/DettagliOrdine.jsp");
 				dispatcher.forward(request, response);	
 			}
+			
+			
+			if (action.equalsIgnoreCase("VisualizzaOrdini")) 
+			{
+				if(request.getParameter("ParteMod").contentEquals("Parte1"))
+				{
+					try 
+					{
+						String Visualizzazione = request.getParameter("Visualizzazione");
+						if(Visualizzazione.contentEquals("Tutti"))
+						{
+							request.removeAttribute("Ordini");
+							request.setAttribute("Ordini", Model.ElencoOrdini());
+						}
+						else if (Visualizzazione.contentEquals("Cliente"))
+						{
+							request.removeAttribute("Result");
+							request.setAttribute("Result", "Scus");
+						}
+						else if (Visualizzazione.contentEquals("Periodo"))
+						{
+							request.removeAttribute("Result");
+							request.setAttribute("Result", "Scus2");
+						}
+					} 
+					catch (SQLException e) 
+					{
+						System.out.println("Error:" + e.getMessage());
+					}
+				}
+				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Admin.jsp");
+				dispatcher.forward(request, response);	
+			}
 		}
 		else
 		{

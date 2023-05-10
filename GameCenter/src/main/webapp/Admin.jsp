@@ -14,7 +14,7 @@
 	TipologiaInserimento = (String) request.getAttribute("TipologiaInserimento");
 	Collection<?> Genere = (Collection<?>) request.getAttribute("Genere");
 	Collection<?> PEGI = (Collection<?>) request.getAttribute("PEGI");
-	
+	Collection<?> Ordini = (Collection<?>) request.getAttribute("Ordini");
 	
 	synchronized(session) 
 	{
@@ -56,6 +56,10 @@
 			{
 		 	display:none; 	
 			}
+			#theFormDiv6
+			{
+		 	display:none; 	
+			}
 		</style>
 	</head>
 	<body>
@@ -85,6 +89,7 @@
   				<p><a title="open form" href="" onclick="return showForm('theFormDiv1');">Elimina Prodotto</a></p>
   				<p><a title="open form" href="" onclick="return showForm('theFormDiv2');">Aggiungi Prodotto</a></p>
   				<p><a title="open form" href="" onclick="return showForm('theFormDiv3');">Modifica Prodotto</a></p>
+  				<p><a title="open form" href="" onclick="return showForm('theFormDiv6');">Visualizza Elenco Ordini</a></p>
 			</div>
 		
 		
@@ -113,6 +118,9 @@
 				</pre>
 			</form>
 		</div>
+		
+		
+		
 		<div id="theFormDiv5">
 			<% 
 				if(TipologiaInserimento != null)
@@ -195,6 +203,9 @@
 				</pre>
 			</form>
 		</div>
+		
+		
+		
 		<div id="theFormDiv4">
 			<%
 				if (product != null) 
@@ -376,6 +387,62 @@
 				<%
 					}	
 				%>
+		</div>
+		
+		<div id="theFormDiv6">
+			<form method="post" action="./OrdiniControl?action=VisualizzaOrdini">
+				<pre>
+					Quali ordini vuoi visualizzare:	<select name="Visualizzazione" required>
+							   		<option value="Tutti">Visualizza tutti gli ordini</option>
+							   		<option value="Cliente">Visualizza ordini di un determinato cliente</option>
+							   		<option value="Periodo">Visualizza gli ordini di un determinato periodo</option>
+							   </select>
+					<input type="hidden" name="ParteMod" value="Parte1">
+					<input type="submit"> <input type="reset">
+					<input type="button" id="bCancel" name="bCancel" value="Annulla Operazione" onclick="hideForm('theFormDiv6'); ">
+				</pre>
+			</form>
+		</div>
+		
+		
+		
+		<div id="theFromDiv7">
+		<%
+			if (Ordini != null && Ordini.size() != 0) 
+			{
+		%>
+			<h2>Ordini Effettuati</h2>
+			<table border="1">
+				<tr>
+					<th>Cliente</th>
+					<th>DataAcquisto</th>
+					<th>PrezzoTotale</th>
+					<th>StatoOrdine</th>
+					<th>Azioni</th>
+				</tr>
+				<%
+					
+						Iterator<?> it = Ordini.iterator();
+						while (it.hasNext()) 
+						{
+							OrdineBean bean = (OrdineBean) it.next();
+				%>
+				
+				<tr>
+					<td><%=bean.getEmail()%></td>
+					<td><%=bean.getDataAcquisto()%></td>
+					<td><%=bean.getPrezzoTotale()%></td>
+					<td><%=bean.getStatoOrdine()%></td>
+					<td>
+						<a href="OrdiniControl?action=Dettagli&CodOrdine=<%=bean.getCodOrdine()%>">Dettagli</a>
+					</td>
+					
+				</tr>
+				<%
+						}
+					}
+				%>
+			</table>
 		</div>
 		
 	</body>
