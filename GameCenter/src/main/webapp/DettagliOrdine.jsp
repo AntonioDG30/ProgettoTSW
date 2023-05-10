@@ -4,10 +4,12 @@
 
 <%!	
 	String Email="";
+	int CodOrdine=0;
     float PrezzoTotale=0;
 %>
 
 <%
+	CodOrdine = Integer.parseInt(request.getParameter("CodOrdine"));
 	Collection<?> Ordini = (Collection<?>) request.getAttribute("Ordini");
 
 	synchronized(session) 
@@ -27,7 +29,7 @@
 	<body>
 		<%@include file="NavBar.jsp" %>
 		
-		<h2>Prodotti</h2>
+		<h2>Dettagli ordine: <%=CodOrdine%></h2>
 		<table border="1">
 			<tr>
 				<th>Foto</th>
