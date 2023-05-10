@@ -56,7 +56,7 @@
 				%>
 				<tr>
 					<td colspan="2">Prezzo Totale: <%=PrezzoTotaleString%></td>
-				    <td colspan="2"><a href="./index.jsp"><input type="button" value="Acquista"></a></td>
+				    <td colspan="2"><a href="./OrdiniControl?action=Acquista&PrezzoTotale=<%=PrezzoTotale%>"><input type="button" value="Acquista"></a></td>
 			</tr>
 				</table>		
 		<% 

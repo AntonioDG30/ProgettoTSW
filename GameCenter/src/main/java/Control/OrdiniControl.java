@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import javax.servlet.http.Part;
 import java.io.FileOutputStream;
+import java.util.Collection;
+import java.util.LinkedList;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -61,6 +63,37 @@ public class OrdiniControl extends HttpServlet
 				}
 				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/DettagliOrdine.jsp");
 				dispatcher.forward(request, response);	
+			}
+			
+			if (action.equalsIgnoreCase("Acquista")) 
+			{
+				try 
+				{
+					if (request.getSession().getAttribute("Email") != null)
+					{
+						String Email=(String) request.getSession().getAttribute("Email");
+						CarrelloBean Carrello=(CarrelloBean) request.getSession().getAttribute("Carrello");
+						float PrezzoTotale =  Float.parseFloat(request.getParameter("PrezzoTotale"));
+						
+						request.removeAttribute("Result");
+						if(Model.Acquisto(Carrello, PrezzoTotale, Email))
+						{
+							request.setAttribute("Result", "Grazie per aver acquistato sul nostro sito");
+						}
+						else
+						{
+							request.setAttribute("Result", "Errore imprevisto, riprova.");
+						}
+					}
+					else
+					{
+						response.sendRedirect("./Login.jsp");
+					}
+				} 
+				catch (SQLException e) 
+				{
+					System.out.println("Error:" + e.getMessage());
+				}
 			}
 			
 			

@@ -6,6 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.List;
+import java.time.LocalDate;
+
 
 public class OrdineModel 
 {
@@ -230,6 +233,70 @@ public class OrdineModel
 			}
 		}
 		return products;
+	}
+	
+	
+	public synchronized Boolean Acquisto(CarrelloBean Carrello, float PrezzoTotale, String Email) throws SQLException
+	{
+		Connection con = null;
+		PreparedStatement ps1 = null;
+		PreparedStatement ps2 = null;
+		PreparedStatement ps3 = null;
+		
+		
+		int result1 = 0, result2 = 1, result3 = 1;
+
+		String SQL = "INSERT INTO " + OrdineModel.TABLE_NAME_ORDINE + " (PercentualeSconto, DataAcquisto, PrezzoTotale, StatoOrdine, Email) VALUES (0, ?, ?, 'In Lavorazione', ?)";
+		try 
+		{
+			con = DBConnectionPool.getConnection();
+			ps1 = con.prepareStatement(SQL);
+			ps1.setString(1, LocalDate.now().toString());
+			ps1.setFloat(2, PrezzoTotale);
+			ps1.setString(3, Email);
+			result1 = ps1.executeUpdate();
+	   		con.commit();
+			
+			/*List<ProductBean> ProdottoCarrello = Carrello.getListaCarrello(); 	
+		   	for(ProductBean Prod: ProdottoCarrello) 
+		   	{
+		   		ps2 = con.prepareStatement(SQL);
+		   		ps2.setString(1, Prod.CodSeriale);
+		   		
+		   	
+		   		
+
+		   		
+		   	}*/
+			
+			
+		} 
+		catch(SQLException e)
+		{
+			System.out.println("Error: " + e.getMessage());
+		}
+		finally
+		{
+			if(ps1 != null)
+			{
+				ps1.close();
+			}
+			if(ps2 != null)
+			{
+				ps2.close();
+			}
+			if(ps3 != null)
+			{
+				ps3.close();
+			}
+			if(con != null)
+			{
+				DBConnectionPool.releaseConnection(con);
+			}
+		}
+		
+
+		return (result1 != 0 && result2 != 0 && result3 != 0);
 	}
 
 }
