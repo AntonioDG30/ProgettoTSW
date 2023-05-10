@@ -70,7 +70,7 @@
 	<div id="theFormDiv1">
 		<form method="post" action="./UserControl?action=RegistraDatiSensibili">
 			<pre>
-				Inserisci il CodSeriale del prodotto da eliminare:
+				Inserisci i tuoi dati personali:
 				Codice Fiscale: <input type="text" name="CF" placeholder="Inserisci Codice Fiscale" required>	
 				Nome: <input type="text" name="Nome" placeholder="Inserisci Nome" required>	
 				Cognome: <input type="text" name="Cognome" placeholder="Inserisci Cognome" required>	

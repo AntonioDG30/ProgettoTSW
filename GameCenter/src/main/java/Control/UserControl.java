@@ -70,7 +70,6 @@ public class UserControl extends HttpServlet
 							}
 							else
 							{
-								request.getSession().setAttribute("PuntiFedelta", utente.getPuntiFedelta());
 								response.sendRedirect("./index.jsp");
 							}
 						}								

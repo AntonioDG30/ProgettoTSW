@@ -33,6 +33,7 @@ public class OrdiniControl extends HttpServlet
 	private static final long serialVersionUID = 1L;
 	
 	static OrdineModel Model = new OrdineModel();
+	static UserModel Umodel = new UserModel();
        
     
     public OrdiniControl() 
@@ -54,8 +55,7 @@ public class OrdiniControl extends HttpServlet
 					int CodOrdine = Integer.parseInt(request.getParameter("CodOrdine"));
 					request.removeAttribute("Ordini");
 					request.setAttribute("Ordini", Model.DettagliOrdine(CodOrdine));
-					request.removeAttribute("CodOrdine");
-					request.setAttribute("CodOrdine", Model.DettagliOrdine(CodOrdine));
+					
 				} 
 				catch (SQLException e) 
 				{
@@ -78,12 +78,18 @@ public class OrdiniControl extends HttpServlet
 						request.removeAttribute("Result");
 						if(Model.Acquisto(Carrello, PrezzoTotale, Email))
 						{
+							request.removeAttribute("PuntiFedelta");
+							request.setAttribute("PuntiFedelta", Umodel.getPuntiFedelta(Email));
+							request.removeAttribute("Ordini");
+							request.setAttribute("Ordini", Model.ElencoOrdiniByCliente(Email));
 							request.setAttribute("Result", "Grazie per aver acquistato sul nostro sito");
 						}
 						else
 						{
 							request.setAttribute("Result", "Errore imprevisto, riprova.");
 						}
+						RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Account.jsp");
+						dispatcher.forward(request, response);
 					}
 					else
 					{
@@ -159,6 +165,8 @@ public class OrdiniControl extends HttpServlet
 			try 
 			{
 			    String Email=(String) request.getSession().getAttribute("Email");
+			    request.removeAttribute("PuntiFedelta");
+				request.setAttribute("PuntiFedelta", Umodel.getPuntiFedelta(Email));
 				request.removeAttribute("Ordini");
 				request.setAttribute("Ordini", Model.ElencoOrdiniByCliente(Email));
 			} 

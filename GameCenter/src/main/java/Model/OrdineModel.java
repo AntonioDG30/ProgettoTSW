@@ -16,6 +16,7 @@ public class OrdineModel
 	private static final String TABLE_NAME_PRODOTTI_INCLUSI_ORDINE = "Include";
 	private static final String TABLE_NAME_PRODOTTO = "Prodotto";
 	private static final String TABLE_NAME_CARATTERISTICHE = "Caratteristiche";
+	private static final String TABLE_NAME_UTENTE = "Utente";
 	
 	
 	public synchronized Collection<OrdineBean> ElencoOrdini() throws SQLException
@@ -242,11 +243,17 @@ public class OrdineModel
 		PreparedStatement ps1 = null;
 		PreparedStatement ps2 = null;
 		PreparedStatement ps3 = null;
+		PreparedStatement ps4 = null;
+		PreparedStatement ps5 = null;
 		
 		
-		int result1 = 0, result2 = 1, result3 = 1;
+		int result1 = 0, result2 = 0, result3 = 1;
 
 		String SQL = "INSERT INTO " + OrdineModel.TABLE_NAME_ORDINE + " (PercentualeSconto, DataAcquisto, PrezzoTotale, StatoOrdine, Email) VALUES (0, ?, ?, 'In Lavorazione', ?)";
+		String SQL2 = "SELECT LAST_INSERT_ID() AS CodOrdine";
+		String SQL3 = "INSERT INTO " + OrdineModel.TABLE_NAME_PRODOTTI_INCLUSI_ORDINE + " (Quantita, CodSeriale, CodOrdine) VALUES (?, ?, ?)";
+		String SQL4 = "SELECT PuntiFedelta FROM " + OrdineModel.TABLE_NAME_UTENTE + " WHERE Email = ?";
+		String SQL5 = "UPDATE " + OrdineModel.TABLE_NAME_UTENTE + " SET PuntiFedelta = ? WHERE Email = ?";
 		try 
 		{
 			con = DBConnectionPool.getConnection();
@@ -255,20 +262,42 @@ public class OrdineModel
 			ps1.setFloat(2, PrezzoTotale);
 			ps1.setString(3, Email);
 			result1 = ps1.executeUpdate();
-	   		con.commit();
+	   		
+	   		
+	   		
+	   		ps2 = con.prepareStatement(SQL2);
+	   		ResultSet rs2 = ps2.executeQuery();
+			rs2.next();
+			int CodOrdine = rs2.getInt("CodOrdine");
 			
-			/*List<ProductBean> ProdottoCarrello = Carrello.getListaCarrello(); 	
+			
+			
+			List<ProductBean> ProdottoCarrello = Carrello.getListaCarrello(); 	
 		   	for(ProductBean Prod: ProdottoCarrello) 
 		   	{
-		   		ps2 = con.prepareStatement(SQL);
-		   		ps2.setString(1, Prod.CodSeriale);
-		   		
+		   		ps3 = con.prepareStatement(SQL3);
+		   		ps3.setInt(1, Prod.getQuantita());
+		   		ps3.setString(2, Prod.getCodSeriale());
+		   		ps3.setInt(3, CodOrdine);
+		   		result2 = ps3.executeUpdate();
+		   	}
 		   	
-		   		
-
-		   		
-		   	}*/
+		   
+		   	ps4 = con.prepareStatement(SQL4);
+		   	ps4.setString(1, Email);
+		   	ResultSet rs4 = ps4.executeQuery();
+			rs4.next();
+			int PuntiFedelta = rs4.getInt("PuntiFedelta");
 			
+			
+		   	
+			PuntiFedelta = (int) (PuntiFedelta + (PrezzoTotale/10));
+		   	ps5 = con.prepareStatement(SQL5);
+	   		ps5.setInt(1, PuntiFedelta);
+	   		ps5.setString(2, Email);
+	   		result3 = ps5.executeUpdate();
+		   	
+		   	con.commit();
 			
 		} 
 		catch(SQLException e)

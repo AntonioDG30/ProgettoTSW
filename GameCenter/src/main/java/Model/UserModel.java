@@ -201,4 +201,46 @@ public class UserModel
 		return (rs != 0);
 			
 	}
+	
+	
+	public synchronized int getPuntiFedelta(String email) throws SQLException 
+	{
+		Connection con = null;
+		PreparedStatement ps = null;
+		
+		int PuntiFedelta = 0;
+		
+		String SQL = "SELECT PuntiFedelta FROM " + UserModel.TABLE_NAME_UTENTE + " WHERE Email = ?";
+
+		try 
+		{
+			con = DBConnectionPool.getConnection();
+			ps = con.prepareStatement(SQL);
+			ps.setString(1, email);
+		   	ResultSet rs = ps.executeQuery();
+			rs.next();
+			PuntiFedelta = rs.getInt("PuntiFedelta");
+
+
+		} 
+		catch(SQLException e)
+		{
+			System.out.println("Error: " + e.getMessage());
+		}
+		finally
+		{
+			if(ps != null)
+			{
+				ps.close();
+			}
+			if(con != null)
+			{
+				DBConnectionPool.releaseConnection(con);
+			}
+		}
+		
+
+		return PuntiFedelta;
+			
+	}
 }

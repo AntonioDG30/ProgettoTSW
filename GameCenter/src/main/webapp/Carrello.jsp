@@ -20,7 +20,7 @@
 	<%@ page contentType="text/html; charset=UTF-8" import="java.util.*,Model.*,java.text.DecimalFormat"%>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>Insert title here</title>
+		<title>Carrello</title>
 	</head>
 	<body>
 		<%@include file="NavBar.jsp" %>

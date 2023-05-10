@@ -2,6 +2,7 @@
 
 <%!	
 	String Email="";
+	Boolean Tipo;
 	String Result="";
 	String FormMod="";
 	String TipologiaInserimento="";
@@ -22,6 +23,7 @@
 	{
 		session = request.getSession();
 	    Email=(String)session.getAttribute("Email");
+	    Tipo=(Boolean)session.getAttribute("Tipo");
 	}
 %>
 <!DOCTYPE html>
@@ -67,7 +69,7 @@
 	<body>
 		<%@include file="NavBar.jsp" %>
 		<% 
-			if(Email != null) 
+			if(Email != null && (!Tipo)) 
 			{
 		%>
 		<h2><%=Email%>, benvenuto nella pagina admin</h2>

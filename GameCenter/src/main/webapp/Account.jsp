@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" session="true" %>
 
 
 
@@ -9,26 +9,25 @@
 	int PuntiFedelta=0;
 %>
 <%	
-
-	Result = (String) request.getAttribute("Result");
-	FormMod = (String) request.getAttribute("FormMod");
-	
-	synchronized(session) 
-	{
-		session = request.getSession();
-	    Email=(String)session.getAttribute("Email");
-	    PuntiFedelta = (int)session.getAttribute("PuntiFedelta");
-	}
-
-%>
-<%	
 	Collection<?> Ordini = (Collection<?>) request.getAttribute("Ordini");
 	if(Ordini == null) 
 	{
 		response.sendRedirect("./OrdiniControl");	
 		return;
 	}
+	Result = (String) request.getAttribute("Result");
+	FormMod = (String) request.getAttribute("FormMod");
+	PuntiFedelta = (int) request.getAttribute("PuntiFedelta");
+	
+	synchronized(session) 
+	{
+		session = request.getSession();
+	    Email=(String)session.getAttribute("Email");
+	}
+	
+	
 %>
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -92,7 +91,7 @@
 				{
 			%>
 					<tr>
-						<td>Nessun ordine effettuato</td>
+						<td colspan="4">Nessun ordine effettuato</td>
 					</tr>
 			<%
 				}
