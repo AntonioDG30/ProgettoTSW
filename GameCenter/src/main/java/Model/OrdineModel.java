@@ -85,7 +85,7 @@ public class OrdineModel
 			while(rs.next()) 
 			{
 				ProductBean bean = new ProductBean();
-				bean.setQuantitaCarr(rs.getInt("Quantita"));
+				bean.setQuantita(rs.getInt("Quantita"));
 				bean.setCodSeriale(rs.getString("CodSeriale"));
 				
 				ps2 = con.prepareStatement(SQL2);

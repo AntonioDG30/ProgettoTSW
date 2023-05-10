@@ -43,7 +43,7 @@
 				%>
 						<tr>
 							<td><%=Prod.getNome()%></td>
-							<td><%=Prod.getQuantitaCarr()%></td>
+							<td><%=Prod.getQuantita()%></td>
 							<td><a href="General_ProductControl?action=RimuoviCarrello&CodSeriale=<%=Prod.getCodSeriale()%>">Rimuovi dal Carrello</a></td>
 						</tr>
 				<%

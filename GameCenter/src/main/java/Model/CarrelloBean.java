@@ -20,12 +20,12 @@ public class CarrelloBean
 			{
 				if(prod.getCodSeriale().contentEquals(product.getCodSeriale()) ) 
 				{
-					prod.incrementQuantitaCarr();
+					prod.incrementQuantita();
 					return;
 				}
 			}
 			this.ListaCarrello.add(product);
-			product.incrementQuantitaCarr();
+			product.incrementQuantita();
 
 		
 		
@@ -37,13 +37,13 @@ public class CarrelloBean
 		{
 			if(prod.getCodSeriale().contentEquals(product.getCodSeriale()) ) 
 			{
-				if(prod.getQuantitaCarr()==1)
+				if(prod.getQuantita()==1)
 				{
 					this.ListaCarrello.remove(prod);
 				}
 				else
 				{
-					prod.decrementQuantitaCarr();
+					prod.decrementQuantita();
 				}
 				break;
 			}

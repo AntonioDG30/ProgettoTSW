@@ -58,10 +58,10 @@
 						}						
 					%>
 				</td>
-				<td><%=bean.getQuantitaCarr()%></td>
+				<td><%=bean.getQuantita()%></td>
 				<td><%=bean.getNome()%></td>
 				<td><%=bean.getPrezzo()%></td>
-				<%PrezzoTotale = PrezzoTotale + (bean.getPrezzo() * bean.getQuantitaCarr());%>
+				<%PrezzoTotale = PrezzoTotale + (bean.getPrezzo() * bean.getQuantita());%>
 				<td><%=bean.getDescrizioneCompleta()%></td>
 				<%
 					if (!(bean.getTipologia())) 

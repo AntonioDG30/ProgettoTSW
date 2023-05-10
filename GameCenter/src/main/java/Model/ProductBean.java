@@ -16,7 +16,7 @@ public class ProductBean implements Serializable
 	String DescrizioneCompleta;
 	String Immagine;
 	boolean Tipologia;
-	int quantitaCarr;
+	int Quantita;
 	int PEGI;
 	String Genere;
 	int Disp_Ps5_Fisico;
@@ -42,7 +42,7 @@ public class ProductBean implements Serializable
 		this.DescrizioneCompleta="";
 		this.Immagine="";
 		this.Tipologia=false;
-		this.quantitaCarr=0;
+		this.Quantita=0;
 		this.PEGI=0;
 		this.Genere="";
 		this.Disp_Ps5_Fisico=0;
@@ -137,24 +137,24 @@ public class ProductBean implements Serializable
 		this.Tipologia = tipologia;
 	}
 
-	public int getQuantitaCarr() 
+	public int getQuantita() 
 	{
-		return quantitaCarr;
+		return Quantita;
 	}
 
-	public void setQuantitaCarr(int quantitaCarr) 
+	public void setQuantita(int quantita) 
 	{
-		this.quantitaCarr = quantitaCarr;
+		this.Quantita = quantita;
 	}
 	
-	public void incrementQuantitaCarr()
+	public void incrementQuantita()
 	{
-		this.quantitaCarr = this.quantitaCarr + 1;
+		this.Quantita = this.Quantita + 1;
 	}
 	
-	public void decrementQuantitaCarr()
+	public void decrementQuantita()
 	{
-		this.quantitaCarr = this.quantitaCarr - 1;
+		this.Quantita = this.Quantita - 1;
 	}
 
 	public int getPEGI() 
