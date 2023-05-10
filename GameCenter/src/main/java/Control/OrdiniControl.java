@@ -55,7 +55,6 @@ public class OrdiniControl extends HttpServlet
 					int CodOrdine = Integer.parseInt(request.getParameter("CodOrdine"));
 					request.removeAttribute("Ordini");
 					request.setAttribute("Ordini", Model.DettagliOrdine(CodOrdine));
-					
 				} 
 				catch (SQLException e) 
 				{
