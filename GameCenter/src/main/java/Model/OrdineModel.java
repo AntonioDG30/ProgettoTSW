@@ -86,6 +86,7 @@ public class OrdineModel
 				bean.setFattura(rs.getString("Fattura"));
 				bean.setPrezzoTotale(rs.getFloat("PrezzoTotale"));
 				bean.setStatoOrdine(rs.getString("StatoOrdine"));
+				bean.setEmail(rs.getString("Email"));
 				Ordini.add(bean);
 			}
 			
@@ -107,6 +108,57 @@ public class OrdineModel
 		}
 		return Ordini;
 	}
+	
+	
+	public synchronized Collection<OrdineBean> ElencoOrdiniByPeriodo(String DataInizio, String DataFine) throws SQLException
+	{
+		Connection con = null;
+		PreparedStatement ps = null;
+		
+		Collection<OrdineBean> Ordini = new LinkedList<OrdineBean>();
+		
+		String SQL = "SELECT * FROM " + OrdineModel.TABLE_NAME_ORDINE + " WHERE (DataAcquisto BETWEEN ? AND ?)";
+		try
+		{
+			con = DBConnectionPool.getConnection();
+			ps = con.prepareStatement(SQL);
+			ps.setString(1, DataInizio);
+			ps.setString(2, DataFine);
+
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) 
+			{
+				OrdineBean bean = new OrdineBean();
+				bean.setCodOrdine(rs.getInt("CodOrdine"));
+				bean.setPercentualeSconto(rs.getInt("PercentualeSconto"));
+				bean.setDataAcquisto(rs.getString("DataAcquisto"));
+				bean.setFattura(rs.getString("Fattura"));
+				bean.setPrezzoTotale(rs.getFloat("PrezzoTotale"));
+				bean.setStatoOrdine(rs.getString("StatoOrdine"));
+				bean.setEmail(rs.getString("Email"));
+				Ordini.add(bean);
+			}
+			
+		}
+		catch(SQLException e)
+		{
+			System.out.println("Error: " + e.getMessage());
+		}
+		finally
+		{
+			if(ps != null)
+			{
+				ps.close();
+			}
+			if(con != null)
+			{
+				DBConnectionPool.releaseConnection(con);
+			}
+		}
+		return Ordini;
+	}
+	
+	
 	
 	
 	public synchronized Collection<ProductBean> DettagliOrdine(int CodOrdine) throws SQLException

@@ -71,6 +71,7 @@ public class OrdiniControl extends HttpServlet
 					try 
 					{
 						String Visualizzazione = request.getParameter("Visualizzazione");
+						
 						if(Visualizzazione.contentEquals("Tutti"))
 						{
 							request.removeAttribute("Ordini");
@@ -78,13 +79,37 @@ public class OrdiniControl extends HttpServlet
 						}
 						else if (Visualizzazione.contentEquals("Cliente"))
 						{
-							request.removeAttribute("Result");
-							request.setAttribute("Result", "Scus");
+							request.removeAttribute("Visual");
+							request.setAttribute("Visual", Visualizzazione);
 						}
 						else if (Visualizzazione.contentEquals("Periodo"))
 						{
-							request.removeAttribute("Result");
-							request.setAttribute("Result", "Scus2");
+							request.removeAttribute("Visual");
+							request.setAttribute("Visual", Visualizzazione);
+						}
+					} 
+					catch (SQLException e) 
+					{
+						System.out.println("Error:" + e.getMessage());
+					}
+				}
+				else if(request.getParameter("ParteMod").contentEquals("Parte2"))
+				{
+					try 
+					{
+						if (request.getParameter("email") != null )
+						{
+							String Email = request.getParameter("email");
+							request.removeAttribute("Ordini");
+							request.setAttribute("Ordini", Model.ElencoOrdiniByCliente(Email));
+						}
+						else if (request.getParameter("DataInizio") != null &&
+								request.getParameter("DataFine") != null)
+						{
+							String DataInizio = request.getParameter("DataInizio");
+							String DataFine = request.getParameter("DataFine");
+							request.removeAttribute("Ordini");
+							request.setAttribute("Ordini", Model.ElencoOrdiniByPeriodo(DataInizio, DataFine));
 						}
 					} 
 					catch (SQLException e) 

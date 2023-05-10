@@ -5,6 +5,7 @@
 	String Result="";
 	String FormMod="";
 	String TipologiaInserimento="";
+	String Visual="";
 %>
 <%	
 
@@ -15,6 +16,7 @@
 	Collection<?> Genere = (Collection<?>) request.getAttribute("Genere");
 	Collection<?> PEGI = (Collection<?>) request.getAttribute("PEGI");
 	Collection<?> Ordini = (Collection<?>) request.getAttribute("Ordini");
+	Visual = (String) request.getAttribute("Visual");
 	
 	synchronized(session) 
 	{
@@ -406,7 +408,46 @@
 		
 		
 		
-		<div id="theFromDiv7">
+		<div id="theFormDiv7">
+		<%
+			if(Visual != null && Visual.contentEquals("Cliente"))
+			{
+		%>
+			<form method="post" action="./OrdiniControl?action=VisualizzaOrdini">
+				<pre>
+					Inserisci l'Email del cliente di cui visualizzare gli ordini:
+					Email: <input type="email" name="email" placeholder="Inserisci Email cliente" required>	
+					<input type="hidden" name="ParteMod" value="Parte2">			
+					<input type="submit" > <input type="reset">
+					<input type="button" id="bCancel" name="bCancel" value="Annulla Operazione" onclick="hideForm('theFormDiv7');">
+				</pre>
+			</form>
+		<%	
+			}
+			else if(Visual != null && Visual.contentEquals("Periodo"))
+			{
+		%>
+			<form method="post" action="./OrdiniControl?action=VisualizzaOrdini">
+				<pre>
+					Inserisci il periodo di cui visualizzare gli ordini:
+					Data inizio: <input type="date" name="DataInizio" placeholder="Inserisci Data inizio periodo" required>	
+					Data Fine: <input type="date" name="DataFine" placeholder="Inserisci Data fine periodo" required>	
+					<input type="hidden" name="ParteMod" value="Parte2">			
+					<input type="submit" > <input type="reset">
+					<input type="button" id="bCancel" name="bCancel" value="Annulla Operazione" onclick="hideForm('theFormDiv7');">
+				</pre>
+			</form>
+		<%		
+			}
+		
+		%>
+			
+			
+		</div>
+		
+		
+		
+		<div id="theFromDiv8">
 		<%
 			if (Ordini != null && Ordini.size() != 0) 
 			{

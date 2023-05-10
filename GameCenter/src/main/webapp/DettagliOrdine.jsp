@@ -98,8 +98,8 @@
 				String PrezzoTotaleString = df.format(PrezzoTotale);
 			%>
 			<tr>
-				<td align="right">Prezzo Totale: <%=PrezzoTotaleString%></td>
-				<td><a href="./index.jsp"><input type="button" value="Scarica Fattura"></a></td>
+				<td colspan="4">Prezzo Totale: <%=PrezzoTotaleString%></td>
+				<td colspan="3"><a href="./index.jsp"><input type="button" value="Scarica Fattura"></a></td>
 			</tr>
 		</table>
 		
