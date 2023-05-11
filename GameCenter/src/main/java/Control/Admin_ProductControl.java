@@ -114,7 +114,7 @@ public class Admin_ProductControl extends HttpServlet
 						product.setNome(request.getParameter("Nome"));
 						Part ImmaginePart = request.getPart("Immagine");
 						String ImmagineFileName = ImmaginePart.getSubmittedFileName();
-						String Path = "C:/Users/anton/eclipse-workspace/GameCenter.zip_expanded/GameCenter/src/main/webapp/Immagini/" +ImmagineFileName;
+						String Path = "C:/Users/anton/git/ProgettoTSW/GameCenter/src/main/webapp/Immagini/" +ImmagineFileName;
 						try
 						{
 							FileOutputStream fos = new FileOutputStream(Path);
@@ -206,7 +206,7 @@ public class Admin_ProductControl extends HttpServlet
 						{
 							Part ImmaginePart = request.getPart("Immagine");
 							String ImmagineFileName = ImmaginePart.getSubmittedFileName();
-							String Path = "C:/Users/anton/eclipse-workspace/GameCenter.zip_expanded/GameCenter/src/main/webapp/Immagini/" +ImmagineFileName;
+							String Path = "C:/Users/anton/git/ProgettoTSW/GameCenter/src/main/webapp/Immagini/" +ImmagineFileName;
 							try
 							{
 								FileOutputStream fos = new FileOutputStream(Path);
