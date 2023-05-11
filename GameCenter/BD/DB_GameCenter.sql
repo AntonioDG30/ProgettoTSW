@@ -84,7 +84,7 @@ CREATE TABLE DatiSensibileUtente
     Provincia char(2) NOT NULL,
     NumeroTelefono varchar(20) NOT NULL,
     Email varchar(50) NOT NULL,
-    PRIMARY KEY(CodiceFiscale, Email),
+    PRIMARY KEY(CodiceFiscale),
     FOREIGN KEY(Email) REFERENCES Utente(Email) ON UPDATE cascade ON DELETE cascade
 );
 
@@ -110,7 +110,7 @@ CREATE TABLE Ordine
     PercentualeSconto int,
     DataAcquisto date NOT NULL,
     Fattura varchar(100),
-    PrezzoTotale int,
+    PrezzoTotale float,
     StatoOrdine varchar(30) NOT NULL,
     Email varchar(50) NOT NULL,
     PRIMARY KEY(CodOrdine),
@@ -306,7 +306,9 @@ VALUES ('77','FBDTRNCF54','XBOX Series X','Fisico');
 
 
 INSERT INTO Utente(Email, PasswordUtente, PuntiFedelta, Tipo)
-VALUES ('Carlo.Tucci@gmail.com', 'cliente', '0', 1);
+VALUES ('Carlo.Tucci@gmail.com', 'cliente', '283', 1);
+INSERT INTO Utente(Email, PasswordUtente, PuntiFedelta, Tipo)
+VALUES ('Pasquale.Corvino@gmail.com', 'cliente', '11', 1);
 INSERT INTO Utente(Email, PasswordUtente, PuntiFedelta, Tipo)
 VALUES ('Luca.Rossi@gmail.com', 'admin', '0', 0);
 
@@ -314,11 +316,16 @@ VALUES ('Luca.Rossi@gmail.com', 'admin', '0', 0);
 INSERT INTO DatiSensibileUtente(CodiceFiscale, Nome, Cognome, CAP, Via, Civico, Citta, Provincia, NumeroTelefono, Email)
 VALUES ('TCCCRL02M12H501L', 'Carlo', 'Tucci', '00118', 'Giovanni Falcone', '3', 'Roma', 'RO', '+393342518794', 'Carlo.Tucci@gmail.com');
 INSERT INTO DatiSensibileUtente(CodiceFiscale, Nome, Cognome, CAP, Via, Civico, Citta, Provincia, NumeroTelefono, Email)
+VALUES ('CRYU34FTOK903DGW', 'Pasquale', 'Corvini', '80020', 'Campania', '3', 'Frattaminore', 'NA', '+393334455667', 'Pasquale.Corvino@gmail.com');
+INSERT INTO DatiSensibileUtente(CodiceFiscale, Nome, Cognome, CAP, Via, Civico, Citta, Provincia, NumeroTelefono, Email)
 VALUES ('RSSLCU96M27L219U', 'Luca', 'Rossi', '10071', 'Clanio', '24', 'Torino', 'TO', '+393478951025','Luca.Rossi@gmail.com');
 
 
 INSERT INTO MetodoPagamento(NumeroCarta, TitolareCarta, Scadenza, Email)
 VALUES ('5879485763284798', 'Carlo Tucci', '2024-06-12', 'Carlo.Tucci@gmail.com');
+INSERT INTO MetodoPagamento(NumeroCarta, TitolareCarta, Scadenza, Email)
+VALUES ('5684956215478955', 'Pasquale Corvino', '2027-02-11', 'Pasquale.Corvino@gmail.com');
+
 
 INSERT INTO StatoOrdine(Stato)
 VALUES ('In Lavorazione');
@@ -330,14 +337,26 @@ INSERT INTO StatoOrdine(Stato)
 VALUES ('Consegnato');
 
 INSERT INTO Ordine(PercentualeSconto, DataAcquisto, PrezzoTotale, StatoOrdine, Email)
-VALUES ('0','2024-04-06','660','In Lavorazione','Carlo.Tucci@gmail.com');
-
+VALUES ('0','2023-01-03','660','In Lavorazione','Carlo.Tucci@gmail.com');
+INSERT INTO Ordine(PercentualeSconto, DataAcquisto, PrezzoTotale, StatoOrdine, Email)
+VALUES ('0','2023-02-05','114.95','In Lavorazione','Pasquale.Corvino@gmail.com');
+INSERT INTO Ordine(PercentualeSconto, DataAcquisto, PrezzoTotale, StatoOrdine, Email)
+VALUES ('0','2023-04-06','2174.99','In Lavorazione','Carlo.Tucci@gmail.com');
 
 INSERT INTO Include(Quantita, CodSeriale, CodOrdine)
 VALUES ('2','DVCH5342SDR','01');
 INSERT INTO Include(Quantita, CodSeriale, CodOrdine)
 VALUES ('1','ACX5Z6DGXMUJR454','01');
-
+INSERT INTO Include(Quantita, CodSeriale, CodOrdine)
+VALUES ('3','BYD32A5KYNC4E3','02');
+INSERT INTO Include(Quantita, CodSeriale, CodOrdine)
+VALUES ('2','45HY33DD2SE24','02');
+INSERT INTO Include(Quantita, CodSeriale, CodOrdine)
+VALUES ('1','AMREDHZOCDS','03');
+INSERT INTO Include(Quantita, CodSeriale, CodOrdine)
+VALUES ('1','CUR3N43VS23YA','03');
 
 INSERT INTO Recensione(Descrizione, Valutazione, CodSeriale, Email)
 VALUES ('La console è perfetta ed è molto divertente da usare', '5', 'ACX5Z6DGXMUJR454', 'Carlo.Tucci@gmail.com');
+INSERT INTO Recensione(Descrizione, Valutazione, CodSeriale, Email)
+VALUES ('Bel gioco', '4', '45HY33DD2SE24', 'Pasquale.Corvino@gmail.com');

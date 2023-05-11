@@ -47,10 +47,8 @@ public class Fattura extends HttpServlet
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
 		String servletPath = "C:/Users/anton/git/ProgettoTSW/GameCenter/src/main/webapp";
-	    System.out.println("Servlet path: " + servletPath);
 	    File file = new File(servletPath + "/TemplateFattura.pdf");
 	    PDDocument fattura = PDDocument.load(file);
-	    System.out.println("Aperto il documento");
 	    
 	    
 	    //OrdineModel Omodel = new OrdineModel();
@@ -60,22 +58,19 @@ public class Fattura extends HttpServlet
 	    
 	    
 	    
-	    PDPage page = (PDPage)fattura.getDocumentCatalog().getPages().get(0); //carico la prima pagina del documento TemplateFattura12
-											//aggiungi e non sostituire, non comprimere
+	    PDPage page = (PDPage)fattura.getDocumentCatalog().getPages().get(0);											
 	    PDPageContentStream contentStream = new PDPageContentStream(fattura, page, PDPageContentStream.AppendMode.APPEND, true, true);
-	    
 	    PDType1Font font = PDType1Font.TIMES_ROMAN;
 	    
-	    contentStream.beginText(); //inizio a scrivere
+	    contentStream.beginText();
 	    contentStream.setFont(font, 9);
 	    
-	    contentStream.newLineAtOffset(265, 195); //prende le coordinate (x,y) del documento in cui iniziare a scrivere
+	    contentStream.newLineAtOffset(265, 195); 
 	    contentStream.showText("Antonio"); 
 	    contentStream.endText();
 	    contentStream.close();
-	    fattura.save(servletPath + "/Fatture/Fattura.pdf"); //salva il documeto in una fonte di output in questo caso response
-	    fattura.close();
-	    System.out.println("Chiuso il documento");   
+	    fattura.save(servletPath + "/Fatture/Fattura.pdf");
+	    fattura.close(); 
 	}
 
 
