@@ -102,9 +102,7 @@
 			<tr>
 				<td colspan="4">Prezzo Totale: <%=PrezzoTotaleString%></td>
 				<td colspan="3">
-					<form method="post" action="./Fattura">
-						<input type="submit" value="Scarica Fattura2">
-					</form>
+					<a href="OrdiniControl?action=Fattura>">Fattura</a><br>
 				</td>
 			</tr>
 		</table>
