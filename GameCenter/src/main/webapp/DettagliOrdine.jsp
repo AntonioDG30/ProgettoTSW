@@ -9,8 +9,6 @@
 %>
 
 <%
-
-
 	CodOrdine = Integer.parseInt(request.getParameter("CodOrdine"));
 	Collection<?> Ordini = (Collection<?>) request.getAttribute("Ordini");
 
@@ -103,7 +101,11 @@
 			%>
 			<tr>
 				<td colspan="4">Prezzo Totale: <%=PrezzoTotaleString%></td>
-				<td colspan="3"><a href="./Fattura"><input type="button" value="Scarica Fattura"></a></td>
+				<td colspan="3">
+					<form method="post" action="./Fattura">
+						<input type="submit" value="Scarica Fattura2">
+					</form>
+				</td>
 			</tr>
 		</table>
 		

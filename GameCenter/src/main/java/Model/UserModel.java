@@ -239,7 +239,7 @@ public class UserModel
 			}
 		}
 		
-
+		System.out.println("punti: " + PuntiFedelta);
 		return PuntiFedelta;
 			
 	}
