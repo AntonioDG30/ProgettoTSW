@@ -243,4 +243,54 @@ public class UserModel
 		return PuntiFedelta;
 			
 	}
+	
+	
+	
+	public synchronized UserBean RicercaDatiSensibili(String email) throws SQLException 
+	{
+		Connection con = null;
+		PreparedStatement ps = null;
+		UserBean bean = new UserBean();
+		String SQL = "SELECT * FROM " + UserModel.TABLE_NAME_DATI + " WHERE Email = ?";
+
+		try 
+		{
+			con = DBConnectionPool.getConnection();
+			ps = con.prepareStatement(SQL);
+			ps.setString(1, email);
+
+			ResultSet rs = ps.executeQuery();
+
+			while (rs.next()) 
+			{
+				bean.setCodiceFiscale(rs.getString("CodiceFiscale"));
+				bean.setNome(rs.getString("Nome"));
+				bean.setCognome(rs.getString("Cognome"));
+				bean.setCAP(rs.getInt("CAP"));
+				bean.setVia(rs.getString("Via"));
+				bean.setCivico(rs.getInt("Civico"));
+				bean.setCitta(rs.getString("Citta"));
+				bean.setProvincia(rs.getString("Provincia"));
+				bean.setNumeroTelefono(rs.getString("NumeroTelefono"));
+				
+			}
+
+		} 
+		catch(SQLException e)
+		{
+			System.out.println("Error: " + e.getMessage());
+		}
+		finally
+		{
+			if(ps != null)
+			{
+				ps.close();
+			}
+			if(con != null)
+			{
+				DBConnectionPool.releaseConnection(con);
+			}
+		}
+		return bean;			
+	}
 }

@@ -327,5 +327,44 @@ public class OrdineModel
 
 		return (result1 != 0 && result2 != 0 && result3 != 0);
 	}
+	
+	
+	
+	
+	public synchronized String RicercaFattura(int CodOrdine) throws SQLException
+	{
+		Connection con = null;
+		PreparedStatement ps = null;
+		
+		String PDF = "";
+		
+		String SQL = "SELECT Fattura FROM " + OrdineModel.TABLE_NAME_ORDINE + " WHERE CodOrdine = ?";
+		try
+		{
+			con = DBConnectionPool.getConnection();
+			ps = con.prepareStatement(SQL);
+			ps.setInt(1, CodOrdine);
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+			PDF = rs.getString("Fattura");
+			
+		}
+		catch(SQLException e)
+		{
+			System.out.println("Error: " + e.getMessage());
+		}
+		finally
+		{
+			if(ps != null)
+			{
+				ps.close();
+			}
+			if(con != null)
+			{
+				DBConnectionPool.releaseConnection(con);
+			}
+		}
+		return PDF;
+	}
 
 }
