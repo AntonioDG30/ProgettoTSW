@@ -40,18 +40,23 @@ public class Fattura extends HttpServlet
         super();
     }
     
+    float x=0, y=0, z=0;
     
 
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
+		OrdineModel Omodel = new OrdineModel();
+		
+		z++;
+		String zs = Float.toString(z);
 		String servletPath = "C:/Users/anton/git/ProgettoTSW/GameCenter/src/main/webapp";
 	    File file = new File(servletPath + "/TemplateFattura.pdf");
 	    PDDocument fattura = PDDocument.load(file);
 	    
 	    
-	    //OrdineModel Omodel = new OrdineModel();
+	    
 	    //ProductModel Pmodel = new ProductModel();
 	    
 	    
@@ -62,12 +67,87 @@ public class Fattura extends HttpServlet
 	    PDPageContentStream contentStream = new PDPageContentStream(fattura, page, PDPageContentStream.AppendMode.APPEND, true, true);
 	    PDType1Font font = PDType1Font.TIMES_ROMAN;
 	    
-	    contentStream.beginText();
-	    contentStream.setFont(font, 9);
-	    
-	    contentStream.newLineAtOffset(265, 195); 
-	    contentStream.showText("Antonio"); 
+	    x = (float) 425;
+	    y = (float) 768.55;
+ 	    contentStream.beginText();
+	    contentStream.setFont(font, 11);
+	    contentStream.newLineAtOffset(x, y); 
+	    contentStream.showText(zs); 
 	    contentStream.endText();
+
+	    
+	    y = (float) 754;
+	    contentStream.beginText();
+	    contentStream.setFont(font, 11);
+	    contentStream.newLineAtOffset(x, y); 
+	    contentStream.showText(zs); 
+	    contentStream.endText();
+	    
+	    
+	    x = (float) 395;
+	    y = (float) 710;
+	    contentStream.beginText();
+	    contentStream.setFont(font, 11);
+	    contentStream.newLineAtOffset(x, y); 
+	    contentStream.showText(zs); 
+	    contentStream.endText();
+	    
+	    
+	    y = y - 10;
+	    contentStream.beginText();
+	    contentStream.setFont(font, 11);
+	    contentStream.newLineAtOffset(x, y); 
+	    contentStream.showText(zs); 
+	    contentStream.endText();
+	    
+	    y = y - 10;
+	    contentStream.beginText();
+	    contentStream.setFont(font, 11);
+	    contentStream.newLineAtOffset(x, y); 
+	    contentStream.showText(zs); 
+	    contentStream.endText();
+	    
+	    y = y - 10;
+	    contentStream.beginText();
+	    contentStream.setFont(font, 11);
+	    contentStream.newLineAtOffset(x, y); 
+	    contentStream.showText(zs); 
+	    contentStream.endText();
+	    
+	    y = y - 10;
+	    contentStream.beginText();
+	    contentStream.setFont(font, 11);
+	    contentStream.newLineAtOffset(x, y); 
+	    contentStream.showText(zs); 
+	    contentStream.endText();
+	    
+	    
+	    
+	    y = (float) 590;
+	    for(int j=0; j<20; j++)
+	    {
+	    	x = (float) 53;
+	    	for(int i=0; i<4; i++)
+		    {
+	    		contentStream.beginText();
+	    	    contentStream.setFont(font, 11);
+	    	    contentStream.newLineAtOffset(x, y); 
+	    	    contentStream.showText(zs); 
+	    	    contentStream.endText();
+	    	    x = x + 124;
+		    }
+	    	y = y - 17;
+	    }
+	    //System.out.println("x: " + x + ", y: " + y);
+	    
+	    x = (float) 488;
+	    y = (float) 62;
+	    contentStream.beginText();
+	    contentStream.setFont(font, 11);
+	    contentStream.newLineAtOffset(x, y); 
+	    contentStream.showText(zs); 
+	    contentStream.endText();
+	    
 	    contentStream.close();
 	    fattura.save(servletPath + "/Fatture/Fattura.pdf");
 	    fattura.close(); 

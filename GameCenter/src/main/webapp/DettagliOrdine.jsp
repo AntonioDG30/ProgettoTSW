@@ -5,13 +5,13 @@
 <%!	
 	String Email="";
 	int CodOrdine=0;
-    float PrezzoTotale=0;
+    float PrezzoTotale;
 %>
 
 <%
 	CodOrdine = Integer.parseInt(request.getParameter("CodOrdine"));
 	Collection<?> Ordini = (Collection<?>) request.getAttribute("Ordini");
-
+	PrezzoTotale = 0;
 	synchronized(session) 
 	{
 		session = request.getSession();
@@ -99,7 +99,7 @@
 			%>
 			<tr>
 				<td colspan="4">Prezzo Totale: <%=PrezzoTotaleString%></td>
-				<td colspan="3"><a href="./Fattura"><input type="button" value="Scarica Fattura"></a></td>
+				<td colspan="3"><a href="./Fattura?CodOrdine=<%=CodOrdine%>"><input type="button" value="Scarica Fattura"></a></td>
 			</tr>
 		</table>
 		
