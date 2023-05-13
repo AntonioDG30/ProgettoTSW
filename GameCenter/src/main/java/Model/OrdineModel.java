@@ -237,7 +237,7 @@ public class OrdineModel
 	}
 	
 	
-	public synchronized Boolean Acquisto(CarrelloBean Carrello, float PrezzoTotale, String Email) throws SQLException
+	public synchronized int Acquisto(CarrelloBean Carrello, float PrezzoTotale, String Email) throws SQLException
 	{
 		Connection con = null;
 		PreparedStatement ps1 = null;
@@ -248,6 +248,7 @@ public class OrdineModel
 		
 		
 		int result1 = 0, result2 = 0, result3 = 1;
+		int CodOrdine = 0;
 
 		String SQL = "INSERT INTO " + OrdineModel.TABLE_NAME_ORDINE + " (PercentualeSconto, DataAcquisto, PrezzoTotale, StatoOrdine, Email) VALUES (0, ?, ?, 'In Lavorazione', ?)";
 		String SQL2 = "SELECT LAST_INSERT_ID() AS CodOrdine";
@@ -268,7 +269,7 @@ public class OrdineModel
 	   		ps2 = con.prepareStatement(SQL2);
 	   		ResultSet rs2 = ps2.executeQuery();
 			rs2.next();
-			int CodOrdine = rs2.getInt("CodOrdine");
+			CodOrdine = rs2.getInt("CodOrdine");
 			
 			
 			
@@ -324,8 +325,15 @@ public class OrdineModel
 			}
 		}
 		
-
-		return (result1 != 0 && result2 != 0 && result3 != 0);
+        if (result1 != 0 && result2 != 0 && result3 != 0)
+        {
+        	return CodOrdine;
+        }
+        else
+        {
+        	return 0;
+        }
+		
 	}
 	
 	
@@ -365,6 +373,54 @@ public class OrdineModel
 			}
 		}
 		return PDF;
+	}
+	
+	
+	
+	public synchronized OrdineBean OrdineByCodOrdine(int CodOrdine) throws SQLException
+	{
+		Connection con = null;
+		PreparedStatement ps = null;
+		
+		OrdineBean bean = new OrdineBean();
+		
+		String SQL = "SELECT * FROM " + OrdineModel.TABLE_NAME_ORDINE + " WHERE CodOrdine = ?";
+		try
+		{
+			con = DBConnectionPool.getConnection();
+			ps = con.prepareStatement(SQL);
+			ps.setInt(1, CodOrdine);
+
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) 
+			{
+				
+				bean.setCodOrdine(rs.getInt("CodOrdine"));
+				bean.setPercentualeSconto(rs.getInt("PercentualeSconto"));
+				bean.setDataAcquisto(rs.getString("DataAcquisto"));
+				bean.setFattura(rs.getString("Fattura"));
+				bean.setPrezzoTotale(rs.getFloat("PrezzoTotale"));
+				bean.setStatoOrdine(rs.getString("StatoOrdine"));
+				bean.setEmail(rs.getString("Email"));
+			}
+			
+		}
+		catch(SQLException e)
+		{
+			System.out.println("Error: " + e.getMessage());
+		}
+		finally
+		{
+			if(ps != null)
+			{
+				ps.close();
+			}
+			if(con != null)
+			{
+				DBConnectionPool.releaseConnection(con);
+			}
+		}
+		return bean;
 	}
 
 }

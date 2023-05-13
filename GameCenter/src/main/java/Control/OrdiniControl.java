@@ -19,12 +19,20 @@ import java.util.Collection;
 import java.util.LinkedList;
 
 import java.io.IOException;
-import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+
+import java.io.File;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.Collection;
+import java.util.Iterator;
+
+import org.apache.pdfbox.pdmodel.PDDocument; 
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.font.PDType1Font;
+import java.text.DecimalFormat;
 
 
 @WebServlet("/OrdiniControl")
@@ -32,9 +40,10 @@ public class OrdiniControl extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
 	
-	static OrdineModel Model = new OrdineModel();
-	static UserModel Umodel = new UserModel();
-       
+	
+	static OrdineModel Omodel = new OrdineModel();
+	static ProductModel Pmodel = new ProductModel();
+	static UserModel Umodel = new UserModel();   
     
     public OrdiniControl() 
     {
@@ -54,7 +63,7 @@ public class OrdiniControl extends HttpServlet
 				{
 					int CodOrdine = Integer.parseInt(request.getParameter("CodOrdine"));
 					request.removeAttribute("Ordini");
-					request.setAttribute("Ordini", Model.DettagliOrdine(CodOrdine));
+					request.setAttribute("Ordini", Omodel.DettagliOrdine(CodOrdine));
 				} 
 				catch (SQLException e) 
 				{
@@ -75,13 +84,15 @@ public class OrdiniControl extends HttpServlet
 						float PrezzoTotale =  Float.parseFloat(request.getParameter("PrezzoTotale"));
 						
 						request.removeAttribute("Result");
-						if(Model.Acquisto(Carrello, PrezzoTotale, Email))
+						int CodOrdine = Omodel.Acquisto(Carrello, PrezzoTotale, Email);
+						if(CodOrdine != 0)
 						{
 							request.removeAttribute("PuntiFedelta");
 							request.setAttribute("PuntiFedelta", Umodel.getPuntiFedelta(Email));
 							request.removeAttribute("Ordini");
-							request.setAttribute("Ordini", Model.ElencoOrdiniByCliente(Email));
+							request.setAttribute("Ordini", Omodel.ElencoOrdiniByCliente(Email));
 							request.setAttribute("Result", "Grazie per aver acquistato sul nostro sito");
+							GeneraFattura(CodOrdine, PrezzoTotale, Email);
 						}
 						else
 						{
@@ -113,7 +124,7 @@ public class OrdiniControl extends HttpServlet
 						if(Visualizzazione.contentEquals("Tutti"))
 						{
 							request.removeAttribute("Ordini");
-							request.setAttribute("Ordini", Model.ElencoOrdini());
+							request.setAttribute("Ordini", Omodel.ElencoOrdini());
 						}
 						else if (Visualizzazione.contentEquals("Cliente"))
 						{
@@ -139,7 +150,7 @@ public class OrdiniControl extends HttpServlet
 						{
 							String Email = request.getParameter("email");
 							request.removeAttribute("Ordini");
-							request.setAttribute("Ordini", Model.ElencoOrdiniByCliente(Email));
+							request.setAttribute("Ordini", Omodel.ElencoOrdiniByCliente(Email));
 						}
 						else if (request.getParameter("DataInizio") != null &&
 								request.getParameter("DataFine") != null)
@@ -147,7 +158,7 @@ public class OrdiniControl extends HttpServlet
 							String DataInizio = request.getParameter("DataInizio");
 							String DataFine = request.getParameter("DataFine");
 							request.removeAttribute("Ordini");
-							request.setAttribute("Ordini", Model.ElencoOrdiniByPeriodo(DataInizio, DataFine));
+							request.setAttribute("Ordini", Omodel.ElencoOrdiniByPeriodo(DataInizio, DataFine));
 						}
 					} 
 					catch (SQLException e) 
@@ -167,7 +178,7 @@ public class OrdiniControl extends HttpServlet
 			    request.removeAttribute("PuntiFedelta");
 				request.setAttribute("PuntiFedelta", Umodel.getPuntiFedelta(Email));
 				request.removeAttribute("Ordini");
-				request.setAttribute("Ordini", Model.ElencoOrdiniByCliente(Email));
+				request.setAttribute("Ordini", Omodel.ElencoOrdiniByCliente(Email));
 			} 
 			catch (SQLException e) 
 			{
@@ -177,6 +188,159 @@ public class OrdiniControl extends HttpServlet
 			dispatcher.forward(request, response);
 		}
 	}
+
+	private void GeneraFattura(int CodOrdine, float PrezzoTotale, String Email) throws IOException 
+	{
+		
+		float x=0, y=0;
+		
+		try 
+		{
+			
+			String servletPath = "C:/Users/anton/git/ProgettoTSW/GameCenter/src/main/webapp";
+			String TotalPath = servletPath + "/Fatture/Fattura" + CodOrdine + ".pdf";
+			Float SubTotale = 0.0f;
+		
+			String PDF = Omodel.RicercaFattura(CodOrdine);
+		
+		
+		
+			if(!(PDF != null))
+			{
+			    File file = new File(servletPath + "/TemplateFattura.pdf");
+			    PDDocument fattura = PDDocument.load(file);    
+			    PDPage page = (PDPage)fattura.getDocumentCatalog().getPages().get(0);											
+			    PDPageContentStream contentStream = new PDPageContentStream(fattura, page, PDPageContentStream.AppendMode.APPEND, true, true);
+			    PDType1Font font = PDType1Font.TIMES_ROMAN;
+			    
+			    
+			    
+			    //Inserimento numero fattura
+			    x = (float) 450;
+			    y = (float) 768.55;
+		 	    contentStream.beginText();
+			    contentStream.setFont(font, 11);
+			    contentStream.newLineAtOffset(x, y); 
+			    contentStream.showText(Integer.toString(CodOrdine)); 
+			    contentStream.endText();
+	
+			    
+			    //inserimento data fattura
+			    OrdineBean Ordine = Omodel.OrdineByCodOrdine(CodOrdine);
+			    y = (float) 754;
+			    contentStream.beginText();
+			    contentStream.setFont(font, 11);
+			    contentStream.newLineAtOffset(x, y); 
+			    contentStream.showText(Ordine.getDataAcquisto()); 
+			    contentStream.endText();
+			    
+			    
+			    //inserimento Dati Utente
+			    UserBean Utente = Umodel.RicercaDatiSensibili(Email); 
+			    
+			    x = (float) 395;
+			    y = (float) 710;
+			    contentStream.beginText();
+			    contentStream.setFont(font, 11);
+			    contentStream.newLineAtOffset(x, y); 
+			    contentStream.showText(Utente.getNome() + " " + Utente.getCognome()); 
+			    contentStream.endText();
+			    
+			    
+			    y = y - (float) 14.5;
+			    contentStream.beginText();
+			    contentStream.setFont(font, 11);
+			    contentStream.newLineAtOffset(x, y); 
+			    contentStream.showText(Utente.getVia() + ", " + Utente.getCivico()); 
+			    contentStream.endText();
+			    
+			    y = y - (float) 14.5;
+			    contentStream.beginText();
+			    contentStream.setFont(font, 11);
+			    contentStream.newLineAtOffset(x, y); 
+			    contentStream.showText(Utente.getCitta() + ", " + Utente.getProvincia() + ", " + Utente.getCAP()); 
+			    contentStream.endText();
+			    
+			    
+			    y = y - (float) 14.5;
+			    contentStream.beginText();
+			    contentStream.setFont(font, 11);
+			    contentStream.newLineAtOffset(x, y); 
+			    contentStream.showText(Email); 
+			    contentStream.endText();
+			    
+			    //inserimento prodotti
+			    y = (float) 604;
+			    Collection<?> Ordini = (Collection<?>) Omodel.DettagliOrdine(CodOrdine);
+			    if (Ordini != null && Ordini.size() != 0) 
+				{
+					Iterator<?> it = Ordini.iterator();
+					while (it.hasNext()) 
+					{
+						x = (float) 83;
+						ProductBean bean = (ProductBean) it.next();
+						contentStream.beginText();
+						contentStream.setFont(font, 11);
+						contentStream.newLineAtOffset(x, y);
+						contentStream.showText(Integer.toString(bean.getQuantita())); 
+			    	    contentStream.endText();
+			    	    
+			    	    
+			    	    x = 124;
+			    	    contentStream.beginText();
+						contentStream.setFont(font, 11);
+						contentStream.newLineAtOffset(x, y);
+						contentStream.showText(bean.getNome()); 
+			    	    contentStream.endText();
+			    	    
+			    	    
+			    	    x = 390;
+			    	    contentStream.beginText();
+						contentStream.setFont(font, 11);
+						contentStream.newLineAtOffset(x, y);
+						contentStream.showText(Float.toString(bean.getPrezzo())); 
+			    	    contentStream.endText();
+			    	    
+			    	    
+			    	    Float PrezzoTotRiga = (float) bean.getPrezzo() * bean.getQuantita();
+			    	    x = 485;
+			    	    contentStream.beginText();
+						contentStream.setFont(font, 11);
+						contentStream.newLineAtOffset(x, y);
+						contentStream.showText(Float.toString(PrezzoTotRiga)); 
+			    	    contentStream.endText();
+			    	    SubTotale = SubTotale + PrezzoTotRiga;
+			    	    y = y - (float) 16.42;
+					}
+					
+				}
+			    
+			    DecimalFormat df = new DecimalFormat("#.##"); 
+				String SubTotaleString = df.format(SubTotale);
+			    
+			    x = (float) 500;
+			    y = (float) 94;
+			    contentStream.beginText();
+			    contentStream.setFont(font, 11);
+			    contentStream.newLineAtOffset(x, y); 
+			    contentStream.showText(SubTotaleString); 
+			    contentStream.endText();
+			    
+			    
+			    
+			    contentStream.close();
+			    fattura.save(TotalPath);
+			    fattura.close();
+
+			}
+		}
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		
+	}
+
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{

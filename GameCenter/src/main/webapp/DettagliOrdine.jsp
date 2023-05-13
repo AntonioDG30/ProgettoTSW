@@ -17,6 +17,7 @@
 		session = request.getSession();
 	    Email=(String)session.getAttribute("Email");
 	}
+	String PathFattura = "Fatture/Fattura" + CodOrdine + ".pdf";
 %>
 <!DOCTYPE html>
 <html>
@@ -80,10 +81,26 @@
 				<td>Non Disponibile</td>
 				<%
 					}
+				
+				
 				%>
 			</tr>
+				
 			<%
 					}
+					//Tronchiamo float a solo due cifre decimali
+					DecimalFormat df = new DecimalFormat("#.##"); 
+					String PrezzoTotaleString = df.format(PrezzoTotale);
+			%>
+					<tr>
+					<td colspan="4">Prezzo Totale: <%=PrezzoTotaleString%></td>
+					<td colspan="3">
+						<a href="<%=PathFattura%>" download="Fattura.pdf">
+							Download Fattura
+						</a>
+					</td>
+				</tr>
+			<%
 				}
 				else
 				{
@@ -93,14 +110,9 @@
 					</tr>
 			<%
 				}
-				/*Tronchiamo float a solo due cifre decimali*/
-				DecimalFormat df = new DecimalFormat("#.##"); 
-				String PrezzoTotaleString = df.format(PrezzoTotale);
+				
 			%>
-			<tr>
-				<td colspan="4">Prezzo Totale: <%=PrezzoTotaleString%></td>
-				<td colspan="3"><a href="./Fattura?CodOrdine=<%=CodOrdine%>"><input type="button" value="Scarica Fattura"></a></td>
-			</tr>
+			
 		</table>
 		
 		

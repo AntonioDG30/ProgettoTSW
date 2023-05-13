@@ -14,6 +14,8 @@
 	    Email=(String)session.getAttribute("Email");
 	    Carrello=(CarrelloBean)session.getAttribute("Carrello");
 	}
+	
+	PrezzoTotale=0;
 %>
 <!DOCTYPE html>
 <html>
