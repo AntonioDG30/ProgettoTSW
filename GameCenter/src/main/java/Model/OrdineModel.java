@@ -336,6 +336,43 @@ public class OrdineModel
 		
 	}
 	
+	public synchronized void UpdateFattura(int CodOrdine) throws SQLException
+	{
+		Connection con = null;
+		PreparedStatement ps = null;
+		
+		String Path = "Fattura" + CodOrdine + ".pdf";
+		
+
+		String SQL = "UPDATE " + OrdineModel.TABLE_NAME_ORDINE + " SET Fattura = ? WHERE CodOrdine = ?";
+		try 
+		{
+			con = DBConnectionPool.getConnection();
+			ps = con.prepareStatement(SQL);
+			ps.setString(1, Path);
+			ps.setInt(2, CodOrdine);
+			ps.executeUpdate();
+		   	con.commit();
+			
+		} 
+		catch(SQLException e)
+		{
+			System.out.println("Error: " + e.getMessage());
+		}
+		finally
+		{
+			if(ps != null)
+			{
+				ps.close();
+			}
+			if(con != null)
+			{
+				DBConnectionPool.releaseConnection(con);
+			}
+		}
+		
+	}
+	
 	
 	
 	

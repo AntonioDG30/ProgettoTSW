@@ -6,10 +6,12 @@
 	String Email="";
 	int CodOrdine=0;
     float PrezzoTotale;
+    String Fattura="";
 %>
 
 <%
 	CodOrdine = Integer.parseInt(request.getParameter("CodOrdine"));
+	Fattura = (String) request.getAttribute("Fattura");
 	Collection<?> Ordini = (Collection<?>) request.getAttribute("Ordini");
 	PrezzoTotale = 0;
 	synchronized(session) 
@@ -17,7 +19,7 @@
 		session = request.getSession();
 	    Email=(String)session.getAttribute("Email");
 	}
-	String PathFattura = "Fatture/Fattura" + CodOrdine + ".pdf";
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -31,6 +33,7 @@
 		<%@include file="NavBar.jsp" %>
 		
 		<h2>Dettagli ordine: <%=CodOrdine%></h2>
+
 		<table border="1">
 			<tr>
 				<th>Foto</th>
@@ -95,7 +98,7 @@
 					<tr>
 					<td colspan="4">Prezzo Totale: <%=PrezzoTotaleString%></td>
 					<td colspan="3">
-						<a href="<%=PathFattura%>" download="Fattura.pdf">
+						<a href="Fatture/<%=Fattura%>" download="Fattura.pdf">
 							Download Fattura
 						</a>
 					</td>

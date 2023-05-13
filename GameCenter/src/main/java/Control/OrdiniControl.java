@@ -64,6 +64,9 @@ public class OrdiniControl extends HttpServlet
 					int CodOrdine = Integer.parseInt(request.getParameter("CodOrdine"));
 					request.removeAttribute("Ordini");
 					request.setAttribute("Ordini", Omodel.DettagliOrdine(CodOrdine));
+					request.removeAttribute("Fattura");
+					request.setAttribute("Fattura", Omodel.RicercaFattura(CodOrdine));
+					
 				} 
 				catch (SQLException e) 
 				{
@@ -93,6 +96,7 @@ public class OrdiniControl extends HttpServlet
 							request.setAttribute("Ordini", Omodel.ElencoOrdiniByCliente(Email));
 							request.setAttribute("Result", "Grazie per aver acquistato sul nostro sito");
 							GeneraFattura(CodOrdine, PrezzoTotale, Email);
+							Omodel.UpdateFattura(CodOrdine);
 						}
 						else
 						{
@@ -193,6 +197,7 @@ public class OrdiniControl extends HttpServlet
 	{
 		
 		float x=0, y=0;
+		int limit = 3, numProd = 0;
 		
 		try 
 		{
@@ -274,9 +279,25 @@ public class OrdiniControl extends HttpServlet
 			    Collection<?> Ordini = (Collection<?>) Omodel.DettagliOrdine(CodOrdine);
 			    if (Ordini != null && Ordini.size() != 0) 
 				{
+			    	
 					Iterator<?> it = Ordini.iterator();
 					while (it.hasNext()) 
 					{
+						numProd++;
+						if(numProd > limit )
+			    	    {
+			    	    	System.out.println("Finito spazio su questa pagina ");
+			    	    	file = new File(servletPath + "/Template_Page2.pdf");
+				    		page = (PDPage)PDDocument.load(file).getDocumentCatalog().getPages().get(0);
+				    		
+				    		fattura.addPage(page);
+				    		
+				 		    contentStream.close();
+				    		
+				    		contentStream = new PDPageContentStream(fattura, page, PDPageContentStream.AppendMode.APPEND, true, true);
+			  	    	  	y = (float) 752; //resetto la y sulla nuova pagina
+			  	    	  	numProd = 1;
+			    	    }
 						x = (float) 83;
 						ProductBean bean = (ProductBean) it.next();
 						contentStream.beginText();
@@ -311,19 +332,51 @@ public class OrdiniControl extends HttpServlet
 			    	    contentStream.endText();
 			    	    SubTotale = SubTotale + PrezzoTotRiga;
 			    	    y = y - (float) 16.42;
+			    	    System.out.println(numProd);
+			    	   
+			    	    
 					}
 					
 				}
 			    
+			    contentStream.addRect(448.7f, 89, 93, 17);
+			    contentStream.stroke();
+			    contentStream.fill();
+			    
 			    DecimalFormat df = new DecimalFormat("#.##"); 
 				String SubTotaleString = df.format(SubTotale);
 			    
-			    x = (float) 500;
+			    x = (float) 451;
 			    y = (float) 94;
 			    contentStream.beginText();
 			    contentStream.setFont(font, 11);
 			    contentStream.newLineAtOffset(x, y); 
-			    contentStream.showText(SubTotaleString); 
+			    contentStream.showText("Sconto: " + SubTotaleString); 
+			    contentStream.endText();
+			    
+			    
+			    contentStream.addRect(448.7f, 72.5f, 93, 17);
+			    contentStream.stroke();
+			    contentStream.fill();
+			    x = (float) 451;
+			    y = (float) 77.5f;
+			    contentStream.beginText();
+			    contentStream.setFont(font, 11);
+			    contentStream.newLineAtOffset(x, y); 
+			    contentStream.showText("Totale: " + SubTotaleString); 
+			    contentStream.endText();
+			    
+			    
+			    
+			    contentStream.addRect(448.7f, 56, 93, 17);
+			    contentStream.stroke();
+			    contentStream.fill();
+			    x = (float) 451;
+			    y = (float) 61;
+			    contentStream.beginText();
+			    contentStream.setFont(font, 11);
+			    contentStream.newLineAtOffset(x, y); 
+			    contentStream.showText("Di cui IVA: " + SubTotaleString); 
 			    contentStream.endText();
 			    
 			    
