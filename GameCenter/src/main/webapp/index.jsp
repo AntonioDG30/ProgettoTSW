@@ -89,7 +89,6 @@
 				<td><%=bean.getDescrizioneRidotta()%></td>
 				<td>
 					<a href="General_ProductControl?action=Dettagli&CodSeriale=<%=bean.getCodSeriale()%>">Dettagli</a><br>
-					<a href="General_ProductControl?action=AggiungiCarrello&CodSeriale=<%=bean.getCodSeriale()%>">Aggiungi Carrello</a>
 				</td>
 				
 			</tr>

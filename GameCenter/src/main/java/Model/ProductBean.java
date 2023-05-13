@@ -19,6 +19,7 @@ public class ProductBean implements Serializable
 	int Quantita;
 	int PEGI;
 	String Genere;
+	String Piattaforma;
 	int Disp_Ps5_Fisico;
 	int Disp_Ps5_Digitale;
 	int Disp_Ps4_Fisico;
@@ -45,6 +46,7 @@ public class ProductBean implements Serializable
 		this.Quantita=0;
 		this.PEGI=0;
 		this.Genere="";
+		this.Piattaforma="";
 		this.Disp_Ps5_Fisico=0;
 		this.Disp_Ps5_Digitale=0;
 		this.Disp_Ps4_Fisico=0;
@@ -175,6 +177,18 @@ public class ProductBean implements Serializable
 	public void setGenere(String genere) 
 	{
 		this.Genere = genere;
+	}
+	
+	
+
+	public String getPiattaforma()
+	{
+		return Piattaforma;
+	}
+
+	public void setPiattaforma(String piattaforma) 
+	{
+		this.Piattaforma = piattaforma;
 	}
 
 	public int getDisp_Ps5_Fisico() 

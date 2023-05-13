@@ -74,7 +74,8 @@ public class General_ProductControl extends HttpServlet
 				if (action.equalsIgnoreCase("AggiungiCarrello")) 
 				{
 					String CodSeriale = request.getParameter("CodSeriale");
-					Carrello.AggiungiProdotto(model.Dettagli(CodSeriale));
+					String Piattaforma = request.getParameter("Piattaforma");
+					Carrello.AggiungiProdotto(model.Dettagli(CodSeriale), Piattaforma);
 					request.getSession().setAttribute("Carrello", Carrello);
 					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
 					dispatcher.forward(request, response);

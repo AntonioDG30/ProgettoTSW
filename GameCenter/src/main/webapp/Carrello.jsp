@@ -36,6 +36,7 @@
 					<th>Nome</th>
 					<th>Quantita</th>
 					<th>Prezzo</th>
+					<th>Piattaforma</th>
 					<th>Azione</th>
 				</tr>
 				<% 
@@ -47,6 +48,7 @@
 							<td><%=Prod.getNome()%></td>
 							<td><%=Prod.getQuantita()%></td>
 							<td><%=Prod.getPrezzo()%></td>
+							<td><%=Prod.getPiattaforma()%></td>
 							<%PrezzoTotale = PrezzoTotale + (Prod.getPrezzo() * Prod.getQuantita());%>
 							<td><a href="General_ProductControl?action=RimuoviCarrello&CodSeriale=<%=Prod.getCodSeriale()%>">Rimuovi dal Carrello</a></td>
 						</tr>
@@ -57,8 +59,8 @@
 					String PrezzoTotaleString = df.format(PrezzoTotale);
 				%>
 				<tr>
-					<td colspan="2">Prezzo Totale: <%=PrezzoTotaleString%></td>
-				    <td colspan="2"><a href="./OrdiniControl?action=Acquista&PrezzoTotale=<%=PrezzoTotale%>"><input type="button" value="Acquista"></a></td>
+					<td colspan="3">Prezzo Totale: <%=PrezzoTotaleString%></td>
+				    <td colspan="2"><a href="./OrdiniControl?action=Checkout"><input type="button" value="Acquista"></a></td>
 			</tr>
 				</table>		
 		<% 

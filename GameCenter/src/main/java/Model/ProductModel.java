@@ -101,7 +101,9 @@ public class ProductModel
 				bean.setNome(rs.getString("Nome"));
 				bean.setPrezzo(rs.getFloat("Prezzo"));
 				bean.setDataUscita(rs.getString("DataUscita"));
+				bean.setDescrizioneRidotta(rs.getString("DescrizioneRidotta"));
 				bean.setDescrizioneCompleta(rs.getString("DescrizioneCompleta"));
+				bean.setImmagine(rs.getString("Immagine"));
 				bean.setTipologia(rs.getBoolean("FlagTipologia"));
 				if(!rs.getBoolean("FlagTipologia"))
 				{

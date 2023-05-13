@@ -13,12 +13,12 @@ public class CarrelloBean
 		this.ListaCarrello = new ArrayList<ProductBean>();
 	}
 	
-	public void AggiungiProdotto(ProductBean product)
+	public void AggiungiProdotto(ProductBean product, String Piattaforma)
 	{
-
+			product.setPiattaforma(Piattaforma);
 			for(ProductBean prod : ListaCarrello) 
 			{
-				if(prod.getCodSeriale().contentEquals(product.getCodSeriale()) ) 
+				if(prod.getCodSeriale().contentEquals(product.getCodSeriale()) && prod.getPiattaforma().contentEquals(product.getPiattaforma())) 
 				{
 					prod.incrementQuantita();
 					return;

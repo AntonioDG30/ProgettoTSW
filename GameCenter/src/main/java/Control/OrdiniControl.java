@@ -76,6 +76,32 @@ public class OrdiniControl extends HttpServlet
 				dispatcher.forward(request, response);	
 			}
 			
+			if (action.equalsIgnoreCase("Checkout")) 
+			{
+				try 
+				{
+					if (request.getSession().getAttribute("Email") != null)
+					{
+						String Email=(String) request.getSession().getAttribute("Email");
+						CarrelloBean Carrello=(CarrelloBean) request.getSession().getAttribute("Carrello");
+						request.removeAttribute("PuntiFedelta");
+						request.setAttribute("PuntiFedelta", Umodel.getPuntiFedelta(Email));
+						request.removeAttribute("Prodotti");
+						request.setAttribute("Prodotti", Carrello);
+						RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Checkout.jsp");
+						dispatcher.forward(request, response);
+					}
+					else
+					{
+						response.sendRedirect("./Login.jsp");
+					}
+				} 
+				catch (SQLException e) 
+				{
+					System.out.println("Error:" + e.getMessage());
+				}
+			}
+			
 			if (action.equalsIgnoreCase("Acquista")) 
 			{
 				try 
@@ -97,6 +123,7 @@ public class OrdiniControl extends HttpServlet
 							request.setAttribute("Result", "Grazie per aver acquistato sul nostro sito");
 							GeneraFattura(CodOrdine, PrezzoTotale, Email);
 							Omodel.UpdateFattura(CodOrdine);
+							request.getSession().setAttribute("Carrello", null);
 						}
 						else
 						{
