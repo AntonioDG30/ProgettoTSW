@@ -221,8 +221,8 @@ public class OrdiniControl extends HttpServlet
 			    
 			    
 			    //Inserimento numero fattura
-			    x = (float) 450;
-			    y = (float) 768.55;
+			    x = 450;
+			    y = 768.55f;
 		 	    contentStream.beginText();
 			    contentStream.setFont(font, 11);
 			    contentStream.newLineAtOffset(x, y); 
@@ -232,7 +232,7 @@ public class OrdiniControl extends HttpServlet
 			    
 			    //inserimento data fattura
 			    OrdineBean Ordine = Omodel.OrdineByCodOrdine(CodOrdine);
-			    y = (float) 754;
+			    y = 754;
 			    contentStream.beginText();
 			    contentStream.setFont(font, 11);
 			    contentStream.newLineAtOffset(x, y); 
@@ -243,8 +243,8 @@ public class OrdiniControl extends HttpServlet
 			    //inserimento Dati Utente
 			    UserBean Utente = Umodel.RicercaDatiSensibili(Email); 
 			    
-			    x = (float) 395;
-			    y = (float) 710;
+			    x = 395;
+			    y = 710;
 			    contentStream.beginText();
 			    contentStream.setFont(font, 11);
 			    contentStream.newLineAtOffset(x, y); 
@@ -252,14 +252,14 @@ public class OrdiniControl extends HttpServlet
 			    contentStream.endText();
 			    
 			    
-			    y = y - (float) 14.5;
+			    y = y - 14.5f;
 			    contentStream.beginText();
 			    contentStream.setFont(font, 11);
 			    contentStream.newLineAtOffset(x, y); 
 			    contentStream.showText(Utente.getVia() + ", " + Utente.getCivico()); 
 			    contentStream.endText();
 			    
-			    y = y - (float) 14.5;
+			    y = y - 14.5f;
 			    contentStream.beginText();
 			    contentStream.setFont(font, 11);
 			    contentStream.newLineAtOffset(x, y); 
@@ -267,7 +267,7 @@ public class OrdiniControl extends HttpServlet
 			    contentStream.endText();
 			    
 			    
-			    y = y - (float) 14.5;
+			    y = y - 14.5f;
 			    contentStream.beginText();
 			    contentStream.setFont(font, 11);
 			    contentStream.newLineAtOffset(x, y); 
@@ -275,7 +275,7 @@ public class OrdiniControl extends HttpServlet
 			    contentStream.endText();
 			    
 			    //inserimento prodotti
-			    y = (float) 604;
+			    y = 604;
 			    Collection<?> Ordini = (Collection<?>) Omodel.DettagliOrdine(CodOrdine);
 			    if (Ordini != null && Ordini.size() != 0) 
 				{
@@ -295,10 +295,10 @@ public class OrdiniControl extends HttpServlet
 				 		    contentStream.close();
 				    		
 				    		contentStream = new PDPageContentStream(fattura, page, PDPageContentStream.AppendMode.APPEND, true, true);
-			  	    	  	y = (float) 752; //resetto la y sulla nuova pagina
+			  	    	  	y = 752; 
 			  	    	  	numProd = 1;
 			    	    }
-						x = (float) 83;
+						x = 83;
 						ProductBean bean = (ProductBean) it.next();
 						contentStream.beginText();
 						contentStream.setFont(font, 11);
@@ -323,7 +323,7 @@ public class OrdiniControl extends HttpServlet
 			    	    contentStream.endText();
 			    	    
 			    	    
-			    	    Float PrezzoTotRiga = (float) bean.getPrezzo() * bean.getQuantita();
+			    	    float PrezzoTotRiga = (float) bean.getPrezzo() * bean.getQuantita();
 			    	    x = 485;
 			    	    contentStream.beginText();
 						contentStream.setFont(font, 11);
@@ -331,7 +331,7 @@ public class OrdiniControl extends HttpServlet
 						contentStream.showText(Float.toString(PrezzoTotRiga)); 
 			    	    contentStream.endText();
 			    	    SubTotale = SubTotale + PrezzoTotRiga;
-			    	    y = y - (float) 16.42;
+			    	    y = y - 16.42f;
 			    	    System.out.println(numProd);
 			    	   
 			    	    
@@ -346,8 +346,8 @@ public class OrdiniControl extends HttpServlet
 			    DecimalFormat df = new DecimalFormat("#.##"); 
 				String SubTotaleString = df.format(SubTotale);
 			    
-			    x = (float) 451;
-			    y = (float) 94;
+			    x = 451;
+			    y = 94;
 			    contentStream.beginText();
 			    contentStream.setFont(font, 11);
 			    contentStream.newLineAtOffset(x, y); 
@@ -358,8 +358,8 @@ public class OrdiniControl extends HttpServlet
 			    contentStream.addRect(448.7f, 72.5f, 93, 17);
 			    contentStream.stroke();
 			    contentStream.fill();
-			    x = (float) 451;
-			    y = (float) 77.5f;
+			    x = 451;
+			    y = 77.5f;
 			    contentStream.beginText();
 			    contentStream.setFont(font, 11);
 			    contentStream.newLineAtOffset(x, y); 
@@ -371,8 +371,8 @@ public class OrdiniControl extends HttpServlet
 			    contentStream.addRect(448.7f, 56, 93, 17);
 			    contentStream.stroke();
 			    contentStream.fill();
-			    x = (float) 451;
-			    y = (float) 61;
+			    x = 451;
+			    y = 61;
 			    contentStream.beginText();
 			    contentStream.setFont(font, 11);
 			    contentStream.newLineAtOffset(x, y); 
