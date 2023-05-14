@@ -165,6 +165,48 @@ public class UserControl extends HttpServlet
 				
 			
 			}
+			
+			
+			if (action.equalsIgnoreCase("VisualizzaUtenti")) 
+			{
+				if(request.getParameter("ParteMod").contentEquals("Parte1"))
+				{
+					try 
+					{
+						String Visualizzazione = request.getParameter("VisualizzazioneUtente");
+						
+						if(Visualizzazione.contentEquals("Tutti"))
+						{
+							request.removeAttribute("Clienti");
+							request.setAttribute("Clienti", model.ElencoClienti());
+						}
+						else if (Visualizzazione.contentEquals("ClienteSpecifico"))
+						{
+							request.removeAttribute("Clienti");
+							request.setAttribute("Visual", Visualizzazione);
+						}
+					} 
+					catch (SQLException e) 
+					{
+						System.out.println("Error:" + e.getMessage());
+					}
+				}
+				else if(request.getParameter("ParteMod").contentEquals("Parte2"))
+				{
+					try 
+					{
+						String Email = request.getParameter("email");
+						request.removeAttribute("Cliente");
+						request.setAttribute("Cliente", model.RicercaCliente(Email));
+					} 
+					catch (SQLException e) 
+					{
+						System.out.println("Error:" + e.getMessage());
+					}
+				}
+				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Admin.jsp");
+				dispatcher.forward(request, response);	
+			}
 		}
 		
 		

@@ -17,6 +17,8 @@
 	Collection<?> Genere = (Collection<?>) request.getAttribute("Genere");
 	Collection<?> PEGI = (Collection<?>) request.getAttribute("PEGI");
 	Collection<?> Ordini = (Collection<?>) request.getAttribute("Ordini");
+	Collection<?> Clienti = (Collection<?>) request.getAttribute("Clienti");
+	UserBean Cliente = (UserBean) request.getAttribute("Cliente");
 	Visual = (String) request.getAttribute("Visual");
 	
 	synchronized(session) 
@@ -64,6 +66,10 @@
 			{
 		 	display:none; 	
 			}
+			#theFormDiv9
+			{
+		 	display:none; 	
+			}
 		</style>
 	</head>
 	<body>
@@ -94,6 +100,7 @@
   				<p><a title="open form" href="" onclick="return showForm('theFormDiv2');">Aggiungi Prodotto</a></p>
   				<p><a title="open form" href="" onclick="return showForm('theFormDiv3');">Modifica Prodotto</a></p>
   				<p><a title="open form" href="" onclick="return showForm('theFormDiv6');">Visualizza Elenco Ordini</a></p>
+  				<p><a title="open form" href="" onclick="return showForm('theFormDiv9');">Visualizza Elenco Clienti</a></p>
 			</div>
 		
 		
@@ -396,7 +403,7 @@
 		<div id="theFormDiv6">
 			<form method="post" action="./OrdiniControl?action=VisualizzaOrdini">
 				<pre>
-					Quali ordini vuoi visualizzare:	<select name="Visualizzazione" required>
+					Quali ordini vuoi visualizzare:	<select name="VisualizzazioneOrdini" required>
 							   		<option value="Tutti">Visualizza tutti gli ordini</option>
 							   		<option value="Cliente">Visualizza ordini di un determinato cliente</option>
 							   		<option value="Periodo">Visualizza gli ordini di un determinato periodo</option>
@@ -486,6 +493,113 @@
 					}
 				%>
 			</table>
+		</div>
+		
+		
+		
+		
+		<div id="theFormDiv9">
+			<form method="post" action="./UserControl?action=VisualizzaUtenti">
+				<pre>
+					Cosa vuoi visualizzare?	<select name="VisualizzazioneUtente" required>
+							   		<option value="Tutti">Visualizza tutti i clienti</option>
+							   		<option value="ClienteSpecifico">Visualizza un determinato cliente</option>
+							   </select>
+					<input type="hidden" name="ParteMod" value="Parte1">
+					<input type="submit"> <input type="reset">
+					<input type="button" id="bCancel" name="bCancel" value="Annulla Operazione" onclick="hideForm('theFormDiv6'); ">
+				</pre>
+			</form>
+		</div>
+		
+		<div id="theFormDiv10">
+		<%
+			if(Visual != null && Visual.contentEquals("ClienteSpecifico"))
+			{
+		%>
+			<form method="post" action="./UserControl?action=VisualizzaUtenti">
+				<pre>
+					Inserisci l'Email del cliente che vuoi visualizzare:
+					Email: <input type="email" name="email" placeholder="Inserisci Email cliente" required>	
+					<input type="hidden" name="ParteMod" value="Parte2">			
+					<input type="submit" > <input type="reset">
+					<input type="button" id="bCancel" name="bCancel" value="Annulla Operazione" onclick="hideForm('theFormDiv10');">
+				</pre>
+			</form>
+		<%	
+			}
+		%>
+		
+		<div id="theFromDiv11">
+		<%
+			if (Clienti != null && Clienti.size() != 0) 
+			{
+		%>
+			<h2>Elenco Clienti:</h2>
+			<table border="1">
+				<tr>
+					<th>Cliente</th>
+					<th>Punti Fedeltà</th>
+					<th>Codice Fiscale</th>
+					<th>Nome</th>
+					<th>Cognome</th>
+					<th>Indirizzo</th>
+					<th>Telefono</th>
+				</tr>
+				<%
+					
+						Iterator<?> it = Ordini.iterator();
+						while (it.hasNext()) 
+						{
+							UserBean bean = (UserBean) it.next();
+				%>
+				
+				<tr>
+					<td><%=bean.getEmail()%></td>
+					<td><%=bean.getPuntiFedelta()%></td>
+					<td><%=bean.getCodiceFiscale()%></td>
+					<td><%=bean.getNome()%></td>
+					<td><%=bean.getCognome()%></td>
+					<td><%=bean.getVia()%>, <%=bean.getCivico()%>, <%=bean.getCAP()%>, <%=bean.getCitta()%>, <%=bean.getProvincia()%></td>
+					<td><%=bean.getNumeroTelefono()%></td>
+
+					
+				</tr>
+			</table>
+				<%
+						}
+					}
+		
+			else if (Cliente != null)
+			{
+				%>
+				<h2>Cliente:</h2>
+				<table border="1">
+					<tr>
+						<th>Cliente</th>
+						<th>Punti Fedeltà</th>
+						<th>Codice Fiscale</th>
+						<th>Nome</th>
+						<th>Cognome</th>
+						<th>Indirizzo</th>
+						<th>Telefono</th>
+					</tr>
+					<tr>
+						<td><%=Cliente.getEmail()%></td>
+						<td><%=Cliente.getPuntiFedelta()%></td>
+						<td><%=Cliente.getCodiceFiscale()%></td>
+						<td><%=Cliente.getNome()%></td>
+						<td><%=Cliente.getCognome()%></td>
+						<td><%=Cliente.getNumeroTelefono()%></td>
+	
+						
+					</tr>
+				
+			</table>
+			
+			<%
+						}
+				%>
 		</div>
 		
 	</body>

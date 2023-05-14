@@ -293,4 +293,136 @@ public class UserModel
 		}
 		return bean;			
 	}
+	
+	
+	public synchronized Collection<UserBean> ElencoClienti() throws SQLException 
+	{
+		Connection con = null;
+		PreparedStatement ps = null;
+
+		String SQL = "SELECT * FROM " + UserModel.TABLE_NAME_UTENTE + " WHERE Email = ?";
+		String SQL2 = "SELECT * FROM " + UserModel.TABLE_NAME_DATI + " WHERE Email = ?";
+		
+		Collection<UserBean> Clienti = new LinkedList<UserBean>();
+		
+		try 
+		{
+			con = DBConnectionPool.getConnection();
+			ps = con.prepareStatement(SQL);
+
+			ResultSet rs = ps.executeQuery();
+
+			while (rs.next()) 
+			{
+				UserBean bean = new UserBean();
+				bean.setEmail(rs.getString("Email"));
+				bean.setPassword(rs.getString("PasswordUtente"));
+				bean.setPuntiFedelta(rs.getInt("PuntiFedelta"));
+			    bean.setTipo(rs.getBoolean("Tipo"));
+			    
+			    ps = con.prepareStatement(SQL2);
+				ps.setString(1, bean.getEmail());
+				
+				ResultSet rs2 = ps.executeQuery();
+				while (rs2.next()) 
+				{
+					bean.setCodiceFiscale(rs.getString("CodiceFiscale"));
+					bean.setNome(rs.getString("Nome"));
+					bean.setCognome(rs.getString("Cognome"));
+					bean.setCAP(rs.getInt("CAP"));
+					bean.setVia(rs.getString("Via"));
+					bean.setCivico(rs.getInt("Civico"));
+					bean.setCitta(rs.getString("Citta"));
+					bean.setProvincia(rs.getString("Provincia"));
+					bean.setNumeroTelefono(rs.getString("NumeroTelefono"));
+				}
+				
+				
+				Clienti.add(bean);
+			}
+
+		} 
+		catch(SQLException e)
+		{
+			System.out.println("Error: " + e.getMessage());
+		}
+		finally
+		{
+			if(ps != null)
+			{
+				ps.close();
+			}
+			if(con != null)
+			{
+				DBConnectionPool.releaseConnection(con);
+			}
+		}
+
+		return Clienti;
+			
+	}
+	
+	
+	
+	public synchronized UserBean RicercaCliente(String Email) throws SQLException 
+	{
+		Connection con = null;
+		PreparedStatement ps = null;
+		PreparedStatement ps2 = null;
+
+		String SQL = "SELECT * FROM " + UserModel.TABLE_NAME_UTENTE + " WHERE Email = ?";
+		String SQL2 = "SELECT * FROM " + UserModel.TABLE_NAME_DATI + " WHERE Email = ?";
+		
+		UserBean Cliente = new UserBean();
+		
+		try 
+		{
+			con = DBConnectionPool.getConnection();
+			ps = con.prepareStatement(SQL);
+
+			ResultSet rs = ps.executeQuery();
+
+			rs.next();
+			Cliente.setEmail(rs.getString("Email"));
+			Cliente.setPuntiFedelta(rs.getInt("PuntiFedelta"));
+			Cliente.setTipo(rs.getBoolean("Tipo"));
+		    
+		    ps2 = con.prepareStatement(SQL2);
+			ps2.setString(1, Email);
+			
+			ResultSet rs2 = ps.executeQuery();
+			rs2.next();
+			Cliente.setCodiceFiscale(rs.getString("CodiceFiscale"));
+			Cliente.setNome(rs.getString("Nome"));
+			Cliente.setCognome(rs.getString("Cognome"));
+			Cliente.setCAP(rs.getInt("CAP"));
+			Cliente.setVia(rs.getString("Via"));
+			Cliente.setCivico(rs.getInt("Civico"));
+			Cliente.setCitta(rs.getString("Citta"));
+			Cliente.setProvincia(rs.getString("Provincia"));
+			Cliente.setNumeroTelefono(rs.getString("NumeroTelefono"));
+		} 
+		catch(SQLException e)
+		{
+			System.out.println("Error: " + e.getMessage());
+		}
+		finally
+		{
+			if(ps != null)
+			{
+				ps.close();
+			}
+			if(ps2 != null)
+			{
+				ps2.close();
+			}
+			if(con != null)
+			{
+				DBConnectionPool.releaseConnection(con);
+			}
+		}
+
+		return Cliente;
+			
+	}
 }

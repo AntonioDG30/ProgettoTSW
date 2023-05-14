@@ -150,7 +150,7 @@ public class OrdiniControl extends HttpServlet
 				{
 					try 
 					{
-						String Visualizzazione = request.getParameter("Visualizzazione");
+						String Visualizzazione = request.getParameter("VisualizzazioneOrdini");
 						
 						if(Visualizzazione.contentEquals("Tutti"))
 						{
