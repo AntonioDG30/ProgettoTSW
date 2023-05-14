@@ -548,7 +548,7 @@
 				</tr>
 				<%
 					
-						Iterator<?> it = Ordini.iterator();
+						Iterator<?> it = Clienti.iterator();
 						while (it.hasNext()) 
 						{
 							UserBean bean = (UserBean) it.next();
@@ -560,14 +560,18 @@
 					<td><%=bean.getCodiceFiscale()%></td>
 					<td><%=bean.getNome()%></td>
 					<td><%=bean.getCognome()%></td>
-					<td><%=bean.getVia()%>, <%=bean.getCivico()%>, <%=bean.getCAP()%>, <%=bean.getCitta()%>, <%=bean.getProvincia()%></td>
+					<td><%=bean.getVia()%> <%=bean.getCivico()%>, <%=bean.getCitta()%> (<%=bean.getProvincia()%>), <%=bean.getCAP()%></td>
 					<td><%=bean.getNumeroTelefono()%></td>
 
 					
 				</tr>
-			</table>
+			
 				<%
 						}
+						%>
+			</table>
+			
+				<%
 					}
 		
 			else if (Cliente != null)
@@ -590,6 +594,7 @@
 						<td><%=Cliente.getCodiceFiscale()%></td>
 						<td><%=Cliente.getNome()%></td>
 						<td><%=Cliente.getCognome()%></td>
+						<td><%=Cliente.getVia()%> <%=Cliente.getCivico()%>, <%=Cliente.getCitta()%> (<%=Cliente.getProvincia()%>), <%=Cliente.getCAP()%></td>
 						<td><%=Cliente.getNumeroTelefono()%></td>
 	
 						

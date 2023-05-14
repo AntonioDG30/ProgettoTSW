@@ -300,7 +300,7 @@ public class UserModel
 		Connection con = null;
 		PreparedStatement ps = null;
 
-		String SQL = "SELECT * FROM " + UserModel.TABLE_NAME_UTENTE + " WHERE Email = ?";
+		String SQL = "SELECT * FROM " + UserModel.TABLE_NAME_UTENTE + " WHERE Tipo = 1";
 		String SQL2 = "SELECT * FROM " + UserModel.TABLE_NAME_DATI + " WHERE Email = ?";
 		
 		Collection<UserBean> Clienti = new LinkedList<UserBean>();
@@ -321,20 +321,20 @@ public class UserModel
 			    bean.setTipo(rs.getBoolean("Tipo"));
 			    
 			    ps = con.prepareStatement(SQL2);
-				ps.setString(1, bean.getEmail());
+				ps.setString(1, rs.getString("Email"));
 				
 				ResultSet rs2 = ps.executeQuery();
 				while (rs2.next()) 
 				{
-					bean.setCodiceFiscale(rs.getString("CodiceFiscale"));
-					bean.setNome(rs.getString("Nome"));
-					bean.setCognome(rs.getString("Cognome"));
-					bean.setCAP(rs.getInt("CAP"));
-					bean.setVia(rs.getString("Via"));
-					bean.setCivico(rs.getInt("Civico"));
-					bean.setCitta(rs.getString("Citta"));
-					bean.setProvincia(rs.getString("Provincia"));
-					bean.setNumeroTelefono(rs.getString("NumeroTelefono"));
+					bean.setCodiceFiscale(rs2.getString("CodiceFiscale"));
+					bean.setNome(rs2.getString("Nome"));
+					bean.setCognome(rs2.getString("Cognome"));
+					bean.setCAP(rs2.getInt("CAP"));
+					bean.setVia(rs2.getString("Via"));
+					bean.setCivico(rs2.getInt("Civico"));
+					bean.setCitta(rs2.getString("Citta"));
+					bean.setProvincia(rs2.getString("Provincia"));
+					bean.setNumeroTelefono(rs2.getString("NumeroTelefono"));
 				}
 				
 				
@@ -379,6 +379,7 @@ public class UserModel
 		{
 			con = DBConnectionPool.getConnection();
 			ps = con.prepareStatement(SQL);
+			ps.setString(1, Email);
 
 			ResultSet rs = ps.executeQuery();
 
@@ -389,18 +390,17 @@ public class UserModel
 		    
 		    ps2 = con.prepareStatement(SQL2);
 			ps2.setString(1, Email);
-			
-			ResultSet rs2 = ps.executeQuery();
+			ResultSet rs2 = ps2.executeQuery();
 			rs2.next();
-			Cliente.setCodiceFiscale(rs.getString("CodiceFiscale"));
-			Cliente.setNome(rs.getString("Nome"));
-			Cliente.setCognome(rs.getString("Cognome"));
-			Cliente.setCAP(rs.getInt("CAP"));
-			Cliente.setVia(rs.getString("Via"));
-			Cliente.setCivico(rs.getInt("Civico"));
-			Cliente.setCitta(rs.getString("Citta"));
-			Cliente.setProvincia(rs.getString("Provincia"));
-			Cliente.setNumeroTelefono(rs.getString("NumeroTelefono"));
+			Cliente.setCodiceFiscale(rs2.getString("CodiceFiscale"));
+			Cliente.setNome(rs2.getString("Nome"));
+			Cliente.setCognome(rs2.getString("Cognome"));
+			Cliente.setCAP(rs2.getInt("CAP"));
+			Cliente.setVia(rs2.getString("Via"));
+			Cliente.setCivico(rs2.getInt("Civico"));
+			Cliente.setCitta(rs2.getString("Citta"));
+			Cliente.setProvincia(rs2.getString("Provincia"));
+			Cliente.setNumeroTelefono(rs2.getString("NumeroTelefono"));
 		} 
 		catch(SQLException e)
 		{
