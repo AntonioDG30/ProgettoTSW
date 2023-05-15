@@ -63,7 +63,6 @@ public class OrdiniControl extends HttpServlet
 				{
 					int CodOrdine = Integer.parseInt(request.getParameter("CodOrdine"));
 					float PrezzoEffettivo = Float.parseFloat(request.getParameter("PrezzoEffettivo"));
-					System.out.println(PrezzoEffettivo);
 					request.removeAttribute("Ordini");
 					request.setAttribute("Ordini", Omodel.DettagliOrdine(CodOrdine));
 					request.removeAttribute("PrezzoEffettivo");
@@ -116,11 +115,7 @@ public class OrdiniControl extends HttpServlet
 						String Email=(String) request.getSession().getAttribute("Email");
 						CarrelloBean Carrello=(CarrelloBean) request.getSession().getAttribute("Carrello");
 						float PrezzoTotale =  Float.parseFloat(request.getParameter("PrezzoTotale"));
-						float PuntiFedeltaUsati = Float.parseFloat(request.getParameter("Sconto"));
-						System.out.println("Email " + Email);
-						System.out.println("PrezzoTotale " + PrezzoTotale);
-						System.out.println("Sconto " + PuntiFedeltaUsati);
-						
+						float PuntiFedeltaUsati = Float.parseFloat(request.getParameter("Sconto"));						
 						request.removeAttribute("Result");
 						int CodOrdine = Omodel.Acquisto(Carrello, PrezzoTotale, PuntiFedeltaUsati, Email);
 						if(CodOrdine != 0)
@@ -323,7 +318,6 @@ public class OrdiniControl extends HttpServlet
 						numProd++;
 						if(numProd > limit )
 			    	    {
-			    	    	System.out.println("Finito spazio su questa pagina ");
 			    	    	file = new File(servletPath + "/Template_Page2.pdf");
 				    		page = (PDPage)PDDocument.load(file).getDocumentCatalog().getPages().get(0);
 				    		
@@ -368,10 +362,7 @@ public class OrdiniControl extends HttpServlet
 						contentStream.showText(Float.toString(PrezzoTotRiga)); 
 			    	    contentStream.endText();
 			    	    SubTotale = SubTotale + PrezzoTotRiga;
-			    	    y = y - 16.42f;
-			    	    System.out.println(numProd);
-			    	   
-			    	    
+			    	    y = y - 16.42f;  	   			    	    
 					}
 					
 				}
