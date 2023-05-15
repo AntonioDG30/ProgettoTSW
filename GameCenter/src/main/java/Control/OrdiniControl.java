@@ -62,10 +62,15 @@ public class OrdiniControl extends HttpServlet
 				try 
 				{
 					int CodOrdine = Integer.parseInt(request.getParameter("CodOrdine"));
+					float PrezzoEffettivo = Float.parseFloat(request.getParameter("PrezzoEffettivo"));
+					System.out.println(PrezzoEffettivo);
 					request.removeAttribute("Ordini");
 					request.setAttribute("Ordini", Omodel.DettagliOrdine(CodOrdine));
+					request.removeAttribute("PrezzoEffettivo");
+					request.setAttribute("PrezzoEffettivo", PrezzoEffettivo);
 					request.removeAttribute("Fattura");
 					request.setAttribute("Fattura", Omodel.RicercaFattura(CodOrdine));
+					
 					
 				} 
 				catch (SQLException e) 

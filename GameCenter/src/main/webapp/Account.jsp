@@ -83,7 +83,7 @@
 				<td><%=PrezzoTotaleString%></td>
 				<td><%=bean.getStatoOrdine()%></td>
 				<td>
-					<a href="OrdiniControl?action=Dettagli&CodOrdine=<%=bean.getCodOrdine()%>">Dettagli</a>
+					<a href="OrdiniControl?action=Dettagli&CodOrdine=<%=bean.getCodOrdine()%>&PrezzoEffettivo=<%=PrezzoTotaleString%>">Dettagli</a>
 				</td>
 				
 			</tr>

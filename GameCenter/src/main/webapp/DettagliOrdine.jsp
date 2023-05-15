@@ -6,11 +6,14 @@
 	String Email="";
 	int CodOrdine=0;
     float PrezzoTotale;
+    float PrezzoEffettivo; 
     String Fattura="";
+    String PrezzoTotaleString="";
 %>
 
 <%
 	CodOrdine = Integer.parseInt(request.getParameter("CodOrdine"));
+	PrezzoEffettivo = Float.parseFloat(request.getParameter("PrezzoEffettivo"));
 	Fattura = (String) request.getAttribute("Fattura");
 	Collection<?> Ordini = (Collection<?>) request.getAttribute("Ordini");
 	PrezzoTotale = 0;
@@ -84,19 +87,21 @@
 				<td>Non Disponibile</td>
 				<%
 					}
-				
+					Locale.setDefault(Locale.US);
+					PrezzoTotaleString = String.format("%.2f", PrezzoTotale - PrezzoEffettivo);
+					Locale.setDefault(Locale.ITALY);
 				
 				%>
 			</tr>
 				
 			<%
 					}
-					//Tronchiamo float a solo due cifre decimali
-					DecimalFormat df = new DecimalFormat("#.##"); 
-					String PrezzoTotaleString = df.format(PrezzoTotale);
 			%>
 					<tr>
-					<td colspan="4">Prezzo Totale: <%=PrezzoTotaleString%></td>
+					<td colspan="4">
+						Prezzo Totale: <%=PrezzoEffettivo%><br>
+						Sconto: -<%=PrezzoTotaleString%>
+					</td>
 					<td colspan="3">
 						<a href="Fatture/<%=Fattura%>" download="Fattura.pdf">
 							Download Fattura
