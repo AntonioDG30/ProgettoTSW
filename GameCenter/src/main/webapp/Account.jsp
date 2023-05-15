@@ -77,7 +77,10 @@
 			
 			<tr>
 				<td><%=bean.getDataAcquisto()%></td>
-				<td><%=bean.getPrezzoTotale()%></td>
+				<% Locale.setDefault(Locale.US);
+				String PrezzoTotaleString = String.format("%.2f", bean.getPrezzoTotale());
+				Locale.setDefault(Locale.ITALY);%>
+				<td><%=PrezzoTotaleString%></td>
 				<td><%=bean.getStatoOrdine()%></td>
 				<td>
 					<a href="OrdiniControl?action=Dettagli&CodOrdine=<%=bean.getCodOrdine()%>">Dettagli</a>

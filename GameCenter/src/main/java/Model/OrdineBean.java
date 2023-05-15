@@ -8,7 +8,7 @@ public class OrdineBean implements Serializable
 	private static final long serialVersionUID = 1L;
 	
 	int CodOrdine;
-	int PercentualeSconto;
+	float Sconto;
 	String DataAcquisto;
 	String Fattura;
 	float PrezzoTotale;
@@ -18,7 +18,7 @@ public class OrdineBean implements Serializable
 	public OrdineBean() 
 	{
 		this.CodOrdine=0;
-		this.PercentualeSconto=0;
+		this.Sconto=0;
 		this.DataAcquisto="";
 		this.Fattura="";
 		this.PrezzoTotale=0;
@@ -36,14 +36,14 @@ public class OrdineBean implements Serializable
 		this.CodOrdine = codOrdine;
 	}
 
-	public int getPercentualeSconto() 
+	public float getSconto() 
 	{
-		return PercentualeSconto;
+		return Sconto;
 	}
 
-	public void setPercentualeSconto(int percentualeSconto) 
+	public void setSconto(float Sconto) 
 	{
-		this.PercentualeSconto = percentualeSconto;
+		this.Sconto = Sconto;
 	}
 
 	public String getDataAcquisto() 

@@ -37,7 +37,7 @@ public class OrdineModel
 			{
 				OrdineBean bean = new OrdineBean();
 				bean.setCodOrdine(rs.getInt("CodOrdine"));
-				bean.setPercentualeSconto(rs.getInt("PercentualeSconto"));
+				bean.setSconto(rs.getInt("Sconto"));
 				bean.setDataAcquisto(rs.getString("DataAcquisto"));
 				bean.setFattura(rs.getString("Fattura"));
 				bean.setPrezzoTotale(rs.getFloat("PrezzoTotale"));
@@ -85,7 +85,7 @@ public class OrdineModel
 			{
 				OrdineBean bean = new OrdineBean();
 				bean.setCodOrdine(rs.getInt("CodOrdine"));
-				bean.setPercentualeSconto(rs.getInt("PercentualeSconto"));
+				bean.setSconto(rs.getInt("Sconto"));
 				bean.setDataAcquisto(rs.getString("DataAcquisto"));
 				bean.setFattura(rs.getString("Fattura"));
 				bean.setPrezzoTotale(rs.getFloat("PrezzoTotale"));
@@ -134,7 +134,7 @@ public class OrdineModel
 			{
 				OrdineBean bean = new OrdineBean();
 				bean.setCodOrdine(rs.getInt("CodOrdine"));
-				bean.setPercentualeSconto(rs.getInt("PercentualeSconto"));
+				bean.setSconto(rs.getInt("Sconto"));
 				bean.setDataAcquisto(rs.getString("DataAcquisto"));
 				bean.setFattura(rs.getString("Fattura"));
 				bean.setPrezzoTotale(rs.getFloat("PrezzoTotale"));
@@ -237,7 +237,7 @@ public class OrdineModel
 	}
 	
 	
-	public synchronized int Acquisto(CarrelloBean Carrello, float PrezzoTotale, String Email) throws SQLException
+	public synchronized int Acquisto(CarrelloBean Carrello, float PrezzoTotale, float PuntiFedeltàUsati, String Email) throws SQLException
 	{
 		Connection con = null;
 		PreparedStatement ps1 = null;
@@ -250,7 +250,7 @@ public class OrdineModel
 		int result1 = 0, result2 = 0, result3 = 1;
 		int CodOrdine = 0;
 
-		String SQL = "INSERT INTO " + OrdineModel.TABLE_NAME_ORDINE + " (PercentualeSconto, DataAcquisto, PrezzoTotale, StatoOrdine, Email) VALUES (0, ?, ?, 'In Lavorazione', ?)";
+		String SQL = "INSERT INTO " + OrdineModel.TABLE_NAME_ORDINE + " (Sconto, DataAcquisto, PrezzoTotale, StatoOrdine, Email) VALUES (?, ?, ?, 'In Lavorazione', ?)";
 		String SQL2 = "SELECT LAST_INSERT_ID() AS CodOrdine";
 		String SQL3 = "INSERT INTO " + OrdineModel.TABLE_NAME_PRODOTTI_INCLUSI_ORDINE + " (Quantita, CodSeriale, CodOrdine) VALUES (?, ?, ?)";
 		String SQL4 = "SELECT PuntiFedelta FROM " + OrdineModel.TABLE_NAME_UTENTE + " WHERE Email = ?";
@@ -259,9 +259,11 @@ public class OrdineModel
 		{
 			con = DBConnectionPool.getConnection();
 			ps1 = con.prepareStatement(SQL);
-			ps1.setString(1, LocalDate.now().toString());
-			ps1.setFloat(2, PrezzoTotale);
-			ps1.setString(3, Email);
+			ps1.setFloat(1, -(PuntiFedeltàUsati/100));
+			System.out.print("P: -" + (PuntiFedeltàUsati/100));
+			ps1.setString(2, LocalDate.now().toString());
+			ps1.setFloat(3, (PrezzoTotale - (PuntiFedeltàUsati/100)));
+			ps1.setString(4, Email);
 			result1 = ps1.executeUpdate();
 	   		
 	   		
@@ -292,7 +294,7 @@ public class OrdineModel
 			
 			
 		   	
-			PuntiFedelta = (int) (PuntiFedelta + (PrezzoTotale/10));
+			PuntiFedelta = (int) (PuntiFedelta + (PrezzoTotale - PuntiFedeltàUsati));
 		   	ps5 = con.prepareStatement(SQL5);
 	   		ps5.setInt(1, PuntiFedelta);
 	   		ps5.setString(2, Email);
@@ -433,7 +435,7 @@ public class OrdineModel
 			{
 				
 				bean.setCodOrdine(rs.getInt("CodOrdine"));
-				bean.setPercentualeSconto(rs.getInt("PercentualeSconto"));
+				bean.setSconto(rs.getInt("Sconto"));
 				bean.setDataAcquisto(rs.getString("DataAcquisto"));
 				bean.setFattura(rs.getString("Fattura"));
 				bean.setPrezzoTotale(rs.getFloat("PrezzoTotale"));

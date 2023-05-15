@@ -6,6 +6,7 @@
 	String Email="";
 	String Result="";
 	int PuntiFedelta=0;
+	Float ScontoMax = 0.0f; 
     float PrezzoTotale;
     CarrelloBean Carrello = null; 
 %>
@@ -24,7 +25,7 @@
 %>
 <!DOCTYPE html>
 <html>
-	<%@ page contentType="text/html; charset=UTF-8" import="java.util.*,Model.*,java.text.DecimalFormat"%>
+	<%@ page contentType="text/html; charset=UTF-8" import="java.util.*,Model.*"%>
 	
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -45,12 +46,7 @@
 			
 			da creare
 			
-			<h3>Punti Fedeltà:</h3>
 			
-			Possiedi <%= PuntiFedelta %> Punti Fedeltà, ogni punto equivale ad 1 centesimo di sconto.<br>
-			Quanti punti vuoi utilizzare per il tuo acquisto (0 se non vuoi utilizzarli)?<br>
-			
-			<input type="number" name="Sconto"  min=0 max=<%= PuntiFedelta %> required>
 			
 			
 			<h3>Dettagli Prodotti che stai acquistando:</h3>
@@ -102,12 +98,27 @@
 				{
 					//response.sendRedirect("./index.jsp");
 				}
+			
+
 				/*Tronchiamo float a solo due cifre decimali*/
-				DecimalFormat df = new DecimalFormat("#.##"); 
-				String PrezzoTotaleString = df.format(PrezzoTotale);
+				Locale.setDefault(Locale.US);
+				String PrezzoTotaleString = String.format("%.2f", PrezzoTotale);
+				ScontoMax = Math.min((PrezzoTotale* 100), PuntiFedelta);
+				Locale.setDefault(Locale.ITALY);
+				
 			%>
+			
+			<h3>Punti Fedeltà:</h3>
+			
+			Possiedi <%= PuntiFedelta %> Punti Fedeltà, ogni punto equivale ad 1 centesimo di sconto.<br>
+			Quanti punti vuoi utilizzare per il tuo acquisto (0 se non vuoi utilizzarli )?<br>
+			
+			<input type="number" name="Sconto"  min=0 max=<%= ScontoMax  %> required>
+			
+			
 			<h3>Resoconto Ordine: </h3>
 			Prezzo Totale: <%=PrezzoTotaleString%> <br>
+			<input type="hidden" name="PrezzoTotale" value="<%=PrezzoTotaleString%>"> 
 			<input type="submit" value="Concludi Ordine">
 		</form>
 	</body>

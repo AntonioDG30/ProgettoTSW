@@ -19,7 +19,7 @@
 %>
 <!DOCTYPE html>
 <html>
-	<%@ page contentType="text/html; charset=UTF-8" import="java.util.*,Model.*,java.text.DecimalFormat"%>
+	<%@ page contentType="text/html; charset=UTF-8" import="java.util.*,Model.*"%>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>Carrello</title>
@@ -55,8 +55,9 @@
 				<%
 					} 
 				   	/*Tronchiamo float a solo due cifre decimali*/
-					DecimalFormat df = new DecimalFormat("#.##"); 
-					String PrezzoTotaleString = df.format(PrezzoTotale);
+					Locale.setDefault(Locale.US);
+					String PrezzoTotaleString = String.format("%.2f", PrezzoTotale);
+					Locale.setDefault(Locale.ITALY);
 				%>
 				<tr>
 					<td colspan="3">Prezzo Totale: <%=PrezzoTotaleString%></td>
@@ -72,5 +73,7 @@
 		<%					
 			}
 		%>
+		
+		
 	</body>
 </html>

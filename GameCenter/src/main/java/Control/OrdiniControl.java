@@ -104,16 +104,20 @@ public class OrdiniControl extends HttpServlet
 			
 			if (action.equalsIgnoreCase("Acquista")) 
 			{
-				try 
+				if (request.getSession().getAttribute("Email") != null)
 				{
-					if (request.getSession().getAttribute("Email") != null)
+					try
 					{
 						String Email=(String) request.getSession().getAttribute("Email");
 						CarrelloBean Carrello=(CarrelloBean) request.getSession().getAttribute("Carrello");
 						float PrezzoTotale =  Float.parseFloat(request.getParameter("PrezzoTotale"));
+						float PuntiFedeltaUsati = Float.parseFloat(request.getParameter("Sconto"));
+						System.out.println("Email " + Email);
+						System.out.println("PrezzoTotale " + PrezzoTotale);
+						System.out.println("Sconto " + PuntiFedeltaUsati);
 						
 						request.removeAttribute("Result");
-						int CodOrdine = Omodel.Acquisto(Carrello, PrezzoTotale, Email);
+						int CodOrdine = Omodel.Acquisto(Carrello, PrezzoTotale, PuntiFedeltaUsati, Email);
 						if(CodOrdine != 0)
 						{
 							request.removeAttribute("PuntiFedelta");
@@ -121,25 +125,26 @@ public class OrdiniControl extends HttpServlet
 							request.removeAttribute("Ordini");
 							request.setAttribute("Ordini", Omodel.ElencoOrdiniByCliente(Email));
 							request.setAttribute("Result", "Grazie per aver acquistato sul nostro sito");
-							GeneraFattura(CodOrdine, PrezzoTotale, Email);
-							Omodel.UpdateFattura(CodOrdine);
+							//GeneraFattura(CodOrdine, PrezzoTotale, Email);
+							//Omodel.UpdateFattura(CodOrdine);
 							request.getSession().setAttribute("Carrello", null);
 						}
 						else
 						{
 							request.setAttribute("Result", "Errore imprevisto, riprova.");
 						}
-						RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Account.jsp");
-						dispatcher.forward(request, response);
 					}
-					else
+					catch (SQLException e) 
 					{
-						response.sendRedirect("./Login.jsp");
+						System.out.println("Error:" + e.getMessage());
 					}
-				} 
-				catch (SQLException e) 
+					
+					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Account.jsp");
+					dispatcher.forward(request, response);
+				}
+				else
 				{
-					System.out.println("Error:" + e.getMessage());
+					response.sendRedirect("./Login.jsp");
 				}
 			}
 			
