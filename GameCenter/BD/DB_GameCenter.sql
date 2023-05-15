@@ -107,7 +107,7 @@ CREATE TABLE StatoOrdine
 CREATE TABLE Ordine
 (
     CodOrdine int NOT NULL AUTO_INCREMENT,
-    PercentualeSconto int,
+    Sconto float,
     DataAcquisto date NOT NULL,
     Fattura varchar(100),
     PrezzoTotale float,
@@ -306,9 +306,9 @@ VALUES ('77','FBDTRNCF54','XBOX Series X','Fisico');
 
 
 INSERT INTO Utente(Email, PasswordUtente, PuntiFedelta, Tipo)
-VALUES ('Carlo.Tucci@gmail.com', 'cliente', '283', 1);
+VALUES ('Carlo.Tucci@gmail.com', 'cliente', '2834', 1);
 INSERT INTO Utente(Email, PasswordUtente, PuntiFedelta, Tipo)
-VALUES ('Pasquale.Corvino@gmail.com', 'cliente', '11', 1);
+VALUES ('Pasquale.Corvino@gmail.com', 'cliente', '114', 1);
 INSERT INTO Utente(Email, PasswordUtente, PuntiFedelta, Tipo)
 VALUES ('Luca.Rossi@gmail.com', 'admin', '0', 0);
 
@@ -336,12 +336,12 @@ VALUES ('In Consegna');
 INSERT INTO StatoOrdine(Stato)
 VALUES ('Consegnato');
 
-INSERT INTO Ordine(PercentualeSconto, DataAcquisto, PrezzoTotale, StatoOrdine, Email)
-VALUES ('0','2023-01-03','660','In Lavorazione','Carlo.Tucci@gmail.com');
-INSERT INTO Ordine(PercentualeSconto, DataAcquisto, PrezzoTotale, StatoOrdine, Email)
-VALUES ('0','2023-02-05','114.95','In Lavorazione','Pasquale.Corvino@gmail.com');
-INSERT INTO Ordine(PercentualeSconto, DataAcquisto, PrezzoTotale, StatoOrdine, Email)
-VALUES ('0','2023-04-06','2174.99','In Lavorazione','Carlo.Tucci@gmail.com');
+INSERT INTO Ordine(Sconto, DataAcquisto, PrezzoTotale, StatoOrdine, Email)
+VALUES ('-0','2023-01-03','660','In Lavorazione','Carlo.Tucci@gmail.com');
+INSERT INTO Ordine(Sconto, DataAcquisto, PrezzoTotale, StatoOrdine, Email)
+VALUES ('-0','2023-02-05','114.95','In Lavorazione','Pasquale.Corvino@gmail.com');
+INSERT INTO Ordine(Sconto, DataAcquisto, PrezzoTotale, StatoOrdine, Email)
+VALUES ('-0','2023-04-06','2174.99','In Lavorazione','Carlo.Tucci@gmail.com');
 
 INSERT INTO Include(Quantita, CodSeriale, CodOrdine)
 VALUES ('2','DVCH5342SDR','01');

@@ -17,6 +17,17 @@ public class OrdineModel
 	private static final String TABLE_NAME_PRODOTTO = "Prodotto";
 	private static final String TABLE_NAME_CARATTERISTICHE = "Caratteristiche";
 	private static final String TABLE_NAME_UTENTE = "Utente";
+	private static final String TABLE_NAME_DISPONIBILITA = "Disponibilita";
+	
+	private static final String PIATTAFORMA_PS5 = "PlayStation 5";
+	private static final String PIATTAFORMA_PS4 = "PlayStation 4";
+	private static final String PIATTAFORMA_XboxSerieX = "XBOX Series X";
+	private static final String PIATTAFORMA_XboxSerieS = "XBOX Series S";
+	private static final String PIATTAFORMA_PC = "PC";
+	
+	
+	private static final String FORMATO_DIGITALE = "Digitale";
+	private static final String FORMATO_FISICO = "Fisico";
 	
 	
 	public synchronized Collection<OrdineBean> ElencoOrdini() throws SQLException
@@ -237,6 +248,9 @@ public class OrdineModel
 	}
 	
 	
+	
+	
+	
 	public synchronized int Acquisto(CarrelloBean Carrello, float PrezzoTotale, float PuntiFedeltàUsati, String Email) throws SQLException
 	{
 		Connection con = null;
@@ -247,7 +261,7 @@ public class OrdineModel
 		PreparedStatement ps5 = null;
 		
 		
-		int result1 = 0, result2 = 0, result3 = 1;
+		int result1 = 0, result2 = 0, result3 = 0, result4 = 0;
 		int CodOrdine = 0;
 
 		String SQL = "INSERT INTO " + OrdineModel.TABLE_NAME_ORDINE + " (Sconto, DataAcquisto, PrezzoTotale, StatoOrdine, Email) VALUES (?, ?, ?, 'In Lavorazione', ?)";
@@ -283,6 +297,62 @@ public class OrdineModel
 		   		ps3.setString(2, Prod.getCodSeriale());
 		   		ps3.setInt(3, CodOrdine);
 		   		result2 = ps3.executeUpdate();
+		   		
+		   		
+		   		
+		   		String Piattaforma="";
+		   		String Formato="";
+
+		   		if (Prod.getPiattaforma().contentEquals("Ps5 Digitale"))
+		   		{
+		   			Piattaforma = OrdineModel.PIATTAFORMA_PS5;
+		   			Formato = OrdineModel.FORMATO_DIGITALE;
+		   		}
+		   		if (Prod.getPiattaforma().contentEquals("Ps5 Fisico"))
+		   		{
+		   			Piattaforma = OrdineModel.PIATTAFORMA_PS5;
+		   			Formato = OrdineModel.FORMATO_FISICO;
+		   		}
+		   		if (Prod.getPiattaforma().contentEquals("Ps4 Digitale"))
+		   		{
+		   			Piattaforma = OrdineModel.PIATTAFORMA_PS4;
+		   			Formato = OrdineModel.FORMATO_DIGITALE;
+		   		}
+		   		if (Prod.getPiattaforma().contentEquals("Ps4 Fisico"))
+		   		{
+		   			Piattaforma = OrdineModel.PIATTAFORMA_PS4;
+		   			Formato = OrdineModel.FORMATO_FISICO;
+		   		}
+		   		if (Prod.getPiattaforma().contentEquals("XboxX Digitale"))
+		   		{
+		   			Piattaforma = OrdineModel.PIATTAFORMA_XboxSerieX ;
+		   			Formato = OrdineModel.FORMATO_DIGITALE;
+		   		}
+		   		if (Prod.getPiattaforma().contentEquals("XboxX Fisico"))
+		   		{
+		   			Piattaforma = OrdineModel.PIATTAFORMA_XboxSerieX;
+		   			Formato = OrdineModel.FORMATO_FISICO;
+		   		}
+		   		if (Prod.getPiattaforma().contentEquals("XboxS Digitale"))
+		   		{
+		   			Piattaforma = OrdineModel.PIATTAFORMA_XboxSerieS ;
+		   			Formato = OrdineModel.FORMATO_DIGITALE;
+		   		}
+		   		if (Prod.getPiattaforma().contentEquals("Pc Digitale"))
+		   		{
+		   			Piattaforma = OrdineModel.PIATTAFORMA_PC ;
+		   			Formato = OrdineModel.FORMATO_DIGITALE;
+		   		}
+		   		if (Prod.getPiattaforma().contentEquals("Pc Fisico"))
+		   		{
+		   			Piattaforma = OrdineModel.PIATTAFORMA_PC;
+		   			Formato = OrdineModel.FORMATO_FISICO;
+		   		}
+		   		
+		   		if(ModDisponibilita(Prod.getCodSeriale(), Prod.getQuantita(), Piattaforma, Formato))
+		   		{
+		   			result4 = 1;
+		   		}
 		   	}
 		   	
 		   
@@ -299,7 +369,8 @@ public class OrdineModel
 	   		ps5.setInt(1, PuntiFedelta);
 	   		ps5.setString(2, Email);
 	   		result3 = ps5.executeUpdate();
-		   	
+
+	   		
 		   	con.commit();
 			
 		} 
@@ -336,6 +407,45 @@ public class OrdineModel
         	return 0;
         }
 		
+	}
+	
+	
+	public synchronized boolean ModDisponibilita(String CodSerialeMod, int quantita, String Piattaforma, String Formato) throws SQLException 
+	{
+		Connection con = null;
+		PreparedStatement ps = null;
+
+		int result = 0;
+
+		String SQL = "UPDATE " + OrdineModel.TABLE_NAME_DISPONIBILITA + " SET QuantitaDisponibile = QuantitaDisponibile - ? " + " WHERE CodSeriale = ? AND NomePiattaforma = ? AND TipoFormato = ?";
+
+		try 
+		{
+			con = DBConnectionPool.getConnection();
+			ps = con.prepareStatement(SQL);
+			ps.setInt(1, quantita);
+			ps.setString(2, CodSerialeMod);
+			ps.setString(3, Piattaforma);
+			ps.setString(4, Formato);
+			result = ps.executeUpdate();
+			con.commit();
+		} 
+		catch(SQLException e)
+		{
+			System.out.println("Error: " + e.getMessage());
+		}
+		finally
+		{
+			if(ps != null)
+			{
+				ps.close();
+			}
+			if(con != null)
+			{
+				DBConnectionPool.releaseConnection(con);
+			}
+		}
+		return (result != 0);
 	}
 	
 	public synchronized void UpdateFattura(int CodOrdine) throws SQLException

@@ -17,7 +17,7 @@ import javax.servlet.http.Part;
 import java.io.FileOutputStream;
 import java.util.Collection;
 import java.util.LinkedList;
-
+import java.util.Locale;
 import java.io.IOException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -44,6 +44,8 @@ public class OrdiniControl extends HttpServlet
 	static OrdineModel Omodel = new OrdineModel();
 	static ProductModel Pmodel = new ProductModel();
 	static UserModel Umodel = new UserModel();   
+	
+	
     
     public OrdiniControl() 
     {
@@ -125,8 +127,8 @@ public class OrdiniControl extends HttpServlet
 							request.removeAttribute("Ordini");
 							request.setAttribute("Ordini", Omodel.ElencoOrdiniByCliente(Email));
 							request.setAttribute("Result", "Grazie per aver acquistato sul nostro sito");
-							//GeneraFattura(CodOrdine, PrezzoTotale, Email);
-							//Omodel.UpdateFattura(CodOrdine);
+							GeneraFattura(CodOrdine, PrezzoTotale, PuntiFedeltaUsati, Email);
+							Omodel.UpdateFattura(CodOrdine);
 							request.getSession().setAttribute("Carrello", null);
 						}
 						else
@@ -225,11 +227,11 @@ public class OrdiniControl extends HttpServlet
 		}
 	}
 
-	private void GeneraFattura(int CodOrdine, float PrezzoTotale, String Email) throws IOException 
+	private void GeneraFattura(int CodOrdine, float PrezzoTotale, float PuntiFedeltaUsati, String Email) throws IOException 
 	{
 		
 		float x=0, y=0;
-		int limit = 3, numProd = 0;
+		int limit = 31, numProd = 0;
 		
 		try 
 		{
@@ -328,6 +330,7 @@ public class OrdiniControl extends HttpServlet
 				    		contentStream = new PDPageContentStream(fattura, page, PDPageContentStream.AppendMode.APPEND, true, true);
 			  	    	  	y = 752; 
 			  	    	  	numProd = 1;
+			  	    	  	limit = 40; 
 			    	    }
 						x = 83;
 						ProductBean bean = (ProductBean) it.next();
@@ -371,16 +374,16 @@ public class OrdiniControl extends HttpServlet
 			    contentStream.stroke();
 			    contentStream.fill();
 			    
-			    DecimalFormat df = new DecimalFormat("#.##"); 
-				String SubTotaleString = df.format(SubTotale);
+			    
 			    
 			    x = 451;
 			    y = 94;
 			    contentStream.beginText();
 			    contentStream.setFont(font, 11);
 			    contentStream.newLineAtOffset(x, y); 
-			    contentStream.showText("Sconto: " + SubTotaleString); 
+			    contentStream.showText("SubTotale: " + SubTotale); 
 			    contentStream.endText();
+			    
 			    
 			    
 			    contentStream.addRect(448.7f, 72.5f, 93, 17);
@@ -391,10 +394,12 @@ public class OrdiniControl extends HttpServlet
 			    contentStream.beginText();
 			    contentStream.setFont(font, 11);
 			    contentStream.newLineAtOffset(x, y); 
-			    contentStream.showText("Totale: " + SubTotaleString); 
+			    contentStream.showText("Sconto: -" + (PuntiFedeltaUsati/100)); 
 			    contentStream.endText();
 			    
-			    
+			    Locale.setDefault(Locale.US);
+				float Totale = SubTotale -  (PuntiFedeltaUsati/100);
+			    String TotaleS = String.format("%.2f", Totale);
 			    
 			    contentStream.addRect(448.7f, 56, 93, 17);
 			    contentStream.stroke();
@@ -404,9 +409,22 @@ public class OrdiniControl extends HttpServlet
 			    contentStream.beginText();
 			    contentStream.setFont(font, 11);
 			    contentStream.newLineAtOffset(x, y); 
-			    contentStream.showText("Di cui IVA: " + SubTotaleString); 
+			    contentStream.showText("Totale: " + TotaleS); 
 			    contentStream.endText();
 			    
+			    String IVA = String.format("%.2f", (Totale * 0.22f));
+			    Locale.setDefault(Locale.ITALY);
+			    
+			    contentStream.addRect(448.7f, 39.5f, 93, 17);
+			    contentStream.stroke();
+			    contentStream.fill();
+			    x = 451;
+			    y = 44.5f;
+			    contentStream.beginText();
+			    contentStream.setFont(font, 11);
+			    contentStream.newLineAtOffset(x, y); 
+			    contentStream.showText("Di cui IVA: " + IVA); 
+			    contentStream.endText();
 			    
 			    
 			    contentStream.close();
