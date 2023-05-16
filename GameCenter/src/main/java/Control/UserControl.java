@@ -207,6 +207,26 @@ public class UserControl extends HttpServlet
 				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Admin.jsp");
 				dispatcher.forward(request, response);	
 			}
+			
+			
+			
+			if (action.equalsIgnoreCase("VisualizzaDati"))
+			{
+				try 
+				{
+					String Email = (String) request.getSession().getAttribute("Email");
+					request.removeAttribute("Cliente");	
+					request.setAttribute("Cliente", model.RicercaCliente(Email));
+					request.removeAttribute("PuntiFedelta");
+					request.setAttribute("PuntiFedelta", model.getPuntiFedelta(Email));
+				} 
+				catch (SQLException e) 
+				{
+					e.printStackTrace();
+				}
+				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Account.jsp");
+				dispatcher.forward(request, response);	
+			}
 		}
 		
 		

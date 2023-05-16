@@ -10,14 +10,10 @@
 %>
 <%	
 	Collection<?> Ordini = (Collection<?>) request.getAttribute("Ordini");
-	if(Ordini == null) 
-	{
-		response.sendRedirect("./OrdiniControl");	
-		return;
-	}
 	Result = (String) request.getAttribute("Result");
 	FormMod = (String) request.getAttribute("FormMod");
 	PuntiFedelta = (int) request.getAttribute("PuntiFedelta");
+	UserBean Utente = (UserBean) request.getAttribute("Cliente");
 	
 	synchronized(session) 
 	{
@@ -99,6 +95,43 @@
 			<%
 				}
 			%>
-		</table>	
+		</table>
+
+		
+		<form method="post" action="./UserControl?action=VisualizzaDati">
+			<pre>		
+				<input type="submit" name="Visual1" value="VisualizzaDati">
+			</pre>
+		</form>
+    
+    <%
+			if (Utente != null)
+	{
+	%>
+	
+	<h2>Cliente</h2>
+	<table border="1">
+		<tr>
+			<th>Cliente</th>
+			<th>Punti Fedeltà</th>
+			<th>Codice Fiscale</th>
+			<th>Nome</th>
+			<th>Cognome</th>
+			<th>Indirizzo</th>
+			<th>Telefono</th>
+		</tr>
+		
+		<tr>
+			<td><%=Utente.getEmail()%></td>
+			<td><%=Utente.getPuntiFedelta()%></td>
+			<td><%=Utente.getCodiceFiscale()%></td>
+			<td><%=Utente.getNome()%></td>
+			<td><%=Utente.getCognome()%></td>
+			<td><%=Utente.getVia()%>,<%=Utente.getCivico()%>,<%=Utente.getCitta()%>, <%=Utente.getCAP()%> </td>
+			<td><%=Utente.getNumeroTelefono() %></td>
+		</tr>
+	</table>
+ 	
+ 	<% } %>	
 	</body>
 </html>

@@ -53,7 +53,7 @@ body {
   		if(EmailUtente != null)
   		{
   %>
-  <a href="Account.jsp">Account</a>
+  <a href="./OrdiniControl">Account</a>
   <a href="./UserControl?action=Logout">Logout</a>
   <%
   		}
