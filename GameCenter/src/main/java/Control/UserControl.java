@@ -223,7 +223,6 @@ public class UserControl extends HttpServlet
 					request.setAttribute("PuntiFedelta", model.getPuntiFedelta(Email));
 					request.removeAttribute("Ordini");
 					request.setAttribute("Ordini", Omodel.ElencoOrdiniByCliente(Email));
-					
 				} 
 				catch (SQLException e) 
 				{

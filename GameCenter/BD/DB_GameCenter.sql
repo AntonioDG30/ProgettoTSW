@@ -143,6 +143,16 @@ CREATE TABLE Include
     FOREIGN KEY(CodOrdine) REFERENCES Ordine(CodOrdine) ON UPDATE cascade ON DELETE cascade
 );
 
+CREATE TABLE Comprende
+(
+	CodOrdine int NOT NULL,
+    CodIndirizzo int NOT NULL,
+    NumeroCarta char(16) NOT NULL,
+    FOREIGN KEY(CodOrdine) REFERENCES Ordine(CodOrdine) ON UPDATE cascade ON DELETE cascade,
+    FOREIGN KEY(CodIndirizzo) REFERENCES IndirizziSpedizione(CodIndirizzo) ON UPDATE cascade ON DELETE cascade,
+	FOREIGN KEY(NumeroCarta) REFERENCES MetodoPagamento(NumeroCarta) ON UPDATE cascade ON DELETE cascade
+);
+
 CREATE TABLE Recensione
 (
     CodRecensione int NOT NULL AUTO_INCREMENT,
@@ -340,6 +350,8 @@ VALUES ('RSSLCU96M27L219U', 'Luca', 'Rossi', '10071', 'Clanio', '24', 'Torino', 
 INSERT INTO MetodoPagamento(NumeroCarta, TitolareCarta, Scadenza, Email)
 VALUES ('5879485763284798', 'Carlo Tucci', '2024-06-12', 'Carlo.Tucci@gmail.com');
 INSERT INTO MetodoPagamento(NumeroCarta, TitolareCarta, Scadenza, Email)
+VALUES ('5896475896542158', 'Carlo Tucci', '2025-03-22', 'Carlo.Tucci@gmail.com');
+INSERT INTO MetodoPagamento(NumeroCarta, TitolareCarta, Scadenza, Email)
 VALUES ('5684956215478955', 'Pasquale Corvino', '2027-02-11', 'Pasquale.Corvino@gmail.com');
 
 
@@ -348,7 +360,7 @@ VALUES ('Carlo', 'Tucci', '00118', 'Giovanni Falcone', '3', 'Roma', 'RO', '+3933
 INSERT INTO IndirizziSpedizione(Nome, Cognome, CAP, Via, Civico, Citta, Provincia, NumeroTelefono, Email)
 VALUES ('Pasquale', 'Corvini', '80020', 'Campania', '3', 'Frattaminore', 'NA', '+393334455667', 'Pasquale.Corvino@gmail.com');
 INSERT INTO IndirizziSpedizione(Nome, Cognome, CAP, Via, Civico, Citta, Provincia, NumeroTelefono, Email)
-VALUES ('Pasquale', 'Corvini', '80020', 'Roma', '31', 'Orta Di Atella', 'CE', '+393332211000', 'Pasquale.Corvino@gmail.com');
+VALUES ('Carlo', 'Tucci', '80020', 'Roma', '31', 'Orta Di Atella', 'CE', '+393332211000', 'Carlo.Tucci@gmail.com');
 
 
 INSERT INTO StatoOrdine(Stato)
@@ -379,6 +391,13 @@ INSERT INTO Include(Quantita, CodSeriale, CodOrdine)
 VALUES ('1','AMREDHZOCDS','03');
 INSERT INTO Include(Quantita, CodSeriale, CodOrdine)
 VALUES ('1','CUR3N43VS23YA','03');
+
+INSERT INTO Comprende(CodOrdine, CodIndirizzo, NumeroCarta)
+VALUES('01', '01', '5879485763284798');
+INSERT INTO Comprende(CodOrdine, CodIndirizzo, NumeroCarta)
+VALUES('02', '02', '5684956215478955');
+INSERT INTO Comprende(CodOrdine, CodIndirizzo, NumeroCarta)
+VALUES('03', '01', '5879485763284798');
 
 INSERT INTO Recensione(Descrizione, Valutazione, CodSeriale, Email)
 VALUES ('La console è perfetta ed è molto divertente da usare', '5', 'ACX5Z6DGXMUJR454', 'Carlo.Tucci@gmail.com');
