@@ -25,6 +25,8 @@ public class UserControl extends HttpServlet
 	private static final long serialVersionUID = 1L;
 	
 	static UserModel model = new UserModel();
+	static OrdineModel Omodel = new OrdineModel();
+	static ProductModel Pmodel = new ProductModel();
        
     public UserControl() 
     {
@@ -219,6 +221,9 @@ public class UserControl extends HttpServlet
 					request.setAttribute("Cliente", model.RicercaCliente(Email));
 					request.removeAttribute("PuntiFedelta");
 					request.setAttribute("PuntiFedelta", model.getPuntiFedelta(Email));
+					request.removeAttribute("Ordini");
+					request.setAttribute("Ordini", Omodel.ElencoOrdiniByCliente(Email));
+					
 				} 
 				catch (SQLException e) 
 				{
