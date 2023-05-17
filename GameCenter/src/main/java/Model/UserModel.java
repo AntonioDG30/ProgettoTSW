@@ -11,6 +11,7 @@ public class UserModel
 {
 	private static final String TABLE_NAME_UTENTE = "Utente";
 	private static final String TABLE_NAME_DATI = "DatiSensibileUtente";
+	private static final String TABLE_NAME_INDIRIZZI = "IndirizziSpedizione";
 	
 	public synchronized UserBean RicercaUtente(String email,String password) throws SQLException 
 	{
@@ -241,6 +242,60 @@ public class UserModel
 		
 
 		return PuntiFedelta;
+			
+	}
+	
+	
+	public synchronized Collection<IndirizziSpedizioneBean> getIndirizziSpedizione(String email) throws SQLException 
+	{
+		Connection con = null;
+		PreparedStatement ps = null;
+		
+		String SQL = "SELECT * FROM " + UserModel.TABLE_NAME_INDIRIZZI + " WHERE Email = ?";
+
+		Collection<IndirizziSpedizioneBean> Indirizzi = new LinkedList<IndirizziSpedizioneBean>();
+		
+		try 
+		{
+			con = DBConnectionPool.getConnection();
+			ps = con.prepareStatement(SQL);
+			ps.setString(1, email);
+			ResultSet rs = ps.executeQuery();
+
+			while (rs.next()) 
+			{
+				IndirizziSpedizioneBean bean = new IndirizziSpedizioneBean();
+				bean.setCodIndirizzo(rs.getInt("CodIndirizzo"));
+				bean.setEmail(rs.getString("Email"));
+				bean.setNome(rs.getString("Nome"));
+				bean.setCognome(rs.getString("Cognome"));
+				bean.setCAP(rs.getInt("CAP"));
+				bean.setVia(rs.getString("Via"));
+				bean.setCivico(rs.getInt("Civico"));
+				bean.setCitta(rs.getString("Citta"));
+				bean.setProvincia(rs.getString("Provincia"));
+				bean.setNumeroTelefono(rs.getString("NumeroTelefono"));
+				Indirizzi.add(bean);
+			}
+
+		} 
+		catch(SQLException e)
+		{
+			System.out.println("Error: " + e.getMessage());
+		}
+		finally
+		{
+			if(ps != null)
+			{
+				ps.close();
+			}
+			if(con != null)
+			{
+				DBConnectionPool.releaseConnection(con);
+			}
+		}
+
+		return Indirizzi;
 			
 	}
 	

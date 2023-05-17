@@ -98,6 +98,22 @@ CREATE TABLE MetodoPagamento
     FOREIGN KEY(Email) REFERENCES Utente(Email) ON UPDATE cascade ON DELETE cascade
 );
 
+CREATE TABLE IndirizziSpedizione
+(
+	CodIndirizzo int NOT NULL AUTO_INCREMENT,
+    Nome varchar(50) NOT NULL,
+    Cognome varchar(50) NOT NULL,
+    CAP int NOT NULL,
+    Via varchar(20) NOT NULL,
+    Civico int NOT NULL,
+    Citta varchar(50) NOT NULL,
+    Provincia char(2) NOT NULL,
+    NumeroTelefono varchar(20) NOT NULL,
+    Email varchar(50) NOT NULL,
+    PRIMARY KEY(CodIndirizzo),
+    FOREIGN KEY(Email) REFERENCES Utente(Email) ON UPDATE cascade ON DELETE cascade
+);
+
 CREATE TABLE StatoOrdine
 (
     Stato varchar(50) NOT NULL,
@@ -325,6 +341,14 @@ INSERT INTO MetodoPagamento(NumeroCarta, TitolareCarta, Scadenza, Email)
 VALUES ('5879485763284798', 'Carlo Tucci', '2024-06-12', 'Carlo.Tucci@gmail.com');
 INSERT INTO MetodoPagamento(NumeroCarta, TitolareCarta, Scadenza, Email)
 VALUES ('5684956215478955', 'Pasquale Corvino', '2027-02-11', 'Pasquale.Corvino@gmail.com');
+
+
+INSERT INTO IndirizziSpedizione(Nome, Cognome, CAP, Via, Civico, Citta, Provincia, NumeroTelefono, Email)
+VALUES ('Carlo', 'Tucci', '00118', 'Giovanni Falcone', '3', 'Roma', 'RO', '+393342518794', 'Carlo.Tucci@gmail.com');
+INSERT INTO IndirizziSpedizione(Nome, Cognome, CAP, Via, Civico, Citta, Provincia, NumeroTelefono, Email)
+VALUES ('Pasquale', 'Corvini', '80020', 'Campania', '3', 'Frattaminore', 'NA', '+393334455667', 'Pasquale.Corvino@gmail.com');
+INSERT INTO IndirizziSpedizione(Nome, Cognome, CAP, Via, Civico, Citta, Provincia, NumeroTelefono, Email)
+VALUES ('Pasquale', 'Corvini', '80020', 'Roma', '31', 'Orta Di Atella', 'CE', '+393332211000', 'Pasquale.Corvino@gmail.com');
 
 
 INSERT INTO StatoOrdine(Stato)

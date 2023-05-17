@@ -15,6 +15,7 @@
 	PrezzoTotale = 0;
 	PuntiFedelta = (int) request.getAttribute("PuntiFedelta");
 	Result = (String) request.getAttribute("Result");
+	Collection<?> Indirizzi = (Collection<?>) request.getAttribute("Indirizzi");
 	synchronized(session) 
 	{
 		session = request.getSession();
@@ -38,8 +39,30 @@
 		<form method="post" action="./OrdiniControl?action=Acquista">
 			<h1>Pagina di Checkout</h1>
 			<h3>Indirizzo di Spedizione:</h3>
-			
-			da creare
+			<%
+				if (Indirizzi != null && Indirizzi.size() != 0) 
+				{
+					Iterator<?> it = Indirizzi.iterator();
+					while (it.hasNext()) 
+					{
+						IndirizziSpedizioneBean bean = (IndirizziSpedizioneBean) it.next();
+			%>
+			<input type="radio" id="<%=bean.getCodIndirizzo()%>" name="IndirizzoScelto" value="<%=bean.getCodIndirizzo()%>">
+			<label for="<%=bean.getCodIndirizzo()%>">
+				Nome Cognome: <%=bean.getNome()%> <%=bean.getCognome()%> <br>
+				Indirizzo: Via <%=bean.getVia()%>, <%=bean.getCivico()%>, <%=bean.getCitta()%>, <%=bean.getCAP()%>  <br>
+				Num: <%=bean.getNumeroTelefono()%>
+			</label><br>
+			<%
+					}
+				}
+				else
+				{
+			%>
+					Nessun Indirizzo Memorizzato
+			<%
+				}
+			%>
 			
 			
 			<h3>Metodo Pagamento:</h3>

@@ -92,6 +92,8 @@ public class OrdiniControl extends HttpServlet
 						CarrelloBean Carrello=(CarrelloBean) request.getSession().getAttribute("Carrello");
 						request.removeAttribute("PuntiFedelta");
 						request.setAttribute("PuntiFedelta", Umodel.getPuntiFedelta(Email));
+						request.removeAttribute("Indirizzi");
+						request.setAttribute("Indirizzi", Umodel.getIndirizziSpedizione(Email));
 						request.removeAttribute("Prodotti");
 						request.setAttribute("Prodotti", Carrello);
 						RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Checkout.jsp");
