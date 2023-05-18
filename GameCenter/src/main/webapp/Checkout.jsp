@@ -16,6 +16,7 @@
 	PuntiFedelta = (int) request.getAttribute("PuntiFedelta");
 	Result = (String) request.getAttribute("Result");
 	Collection<?> Indirizzi = (Collection<?>) request.getAttribute("Indirizzi");
+	Collection<?> MetodiPagamento = (Collection<?>) request.getAttribute("MetodiPagamento");
 	synchronized(session) 
 	{
 		session = request.getSession();
@@ -67,7 +68,28 @@
 			
 			<h3>Metodo Pagamento:</h3>
 			
-			da creare
+			<%
+				if (MetodiPagamento != null && MetodiPagamento.size() != 0) 
+				{
+					Iterator<?> it = MetodiPagamento.iterator();
+					while (it.hasNext()) 
+					{
+						MetodiPagamentoBean bean = (MetodiPagamentoBean) it.next();
+			%>
+			<input type="radio" id="<%=bean.getNumeroCarta()%>" name="MetodoScelto" value="<%=bean.getNumeroCarta()%>">
+			<label for="<%=bean.getNumeroCarta()%>">
+				Carta: <%=bean.getNumeroCarta()%>, <%=bean.getTitolareCarta()%>, <%=bean.getScadenza()%> 
+			</label><br>
+			<%
+					}
+				}
+				else
+				{
+			%>
+					Nessun Indirizzo Memorizzato
+			<%
+				}
+			%>
 			
 			
 			

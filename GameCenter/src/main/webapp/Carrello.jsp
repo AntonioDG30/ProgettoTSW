@@ -27,7 +27,7 @@
 	<body>
 		<%@include file="NavBar.jsp" %>
 		<% 
-			if(Carrello != null) 
+			if(Carrello != null && Carrello.getListaCarrello().size() != 0) 
 			{ 
 		%>
 				<h2>Carrello</h2>

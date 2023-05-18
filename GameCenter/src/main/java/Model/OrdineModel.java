@@ -18,6 +18,7 @@ public class OrdineModel
 	private static final String TABLE_NAME_CARATTERISTICHE = "Caratteristiche";
 	private static final String TABLE_NAME_UTENTE = "Utente";
 	private static final String TABLE_NAME_DISPONIBILITA = "Disponibilita";
+	private static final String TABLE_NAME_METODI_INDIRIZZI_ORDINE = "Comprende";
 	
 	private static final String PIATTAFORMA_PS5 = "PlayStation 5";
 	private static final String PIATTAFORMA_PS4 = "PlayStation 4";
@@ -447,6 +448,43 @@ public class OrdineModel
 		}
 		return (result != 0);
 	}
+	
+	public synchronized void UpdateComprende(int CodOrdine,  int CodIndirizzo, String NumeroCarta) throws SQLException
+	{
+		Connection con = null;
+		PreparedStatement ps = null;		
+
+		String SQL = "INSERT INTO " + OrdineModel.TABLE_NAME_METODI_INDIRIZZI_ORDINE + " (CodOrdine, CodIndirizzo, NumeroCarta) VALUES (?, ?, ?)";
+		try 
+		{
+			con = DBConnectionPool.getConnection();
+			ps = con.prepareStatement(SQL);
+			ps.setInt(1, CodOrdine);
+			ps.setInt(2, CodIndirizzo);
+			ps.setString(3, NumeroCarta);
+			ps.executeUpdate();
+		   	con.commit();
+			
+		} 
+		catch(SQLException e)
+		{
+			System.out.println("Error: " + e.getMessage());
+		}
+		finally
+		{
+			if(ps != null)
+			{
+				ps.close();
+			}
+			if(con != null)
+			{
+				DBConnectionPool.releaseConnection(con);
+			}
+		}
+		
+	}
+	
+	
 	
 	public synchronized void UpdateFattura(int CodOrdine) throws SQLException
 	{

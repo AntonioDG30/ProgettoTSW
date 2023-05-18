@@ -132,6 +132,26 @@
 		</tr>
 	</table>
  	
- 	<% } %>	
+ 	
+ 	<form action="./UserControl?action=ModificaDati" method="post">
+ 		<h2>Dati sensibili</h2>
+		<h5>(inserisci solo i dati che desideri modificare)</h5>
+ 		<pre> 	
+		    CodiceFiscale: <input type="text" id="CodiceFiscale" name="CodiceFiscale">
+		    Nome: <input type="text" id="Nome" name="Nome">
+		    Cognome: <input type="text" id="Cognome" name="Cognome">
+		    CAP: <input type="number" id="CAP" name="CAP">
+		    Via: <input type="text" id="Via" name="Via">
+		    Civico: <input type="number" id="Civico" name="Civico">
+		    Citta:  <input type="text" id="Citta" name="Citta">
+		    Provincia: <input type="text" id="Provincia" name="Provincia">
+		    Telefono: <input type="text" id="NumeroTelefono" name="NumeroTelefono">
+		    Email: <input type="text" id="Email" name="Email">
+		   	<input type="submit" name="Visual2" value="Aggiorna dati">  
+		</pre>
+    </form>
+ 	<% 
+ 		} 
+ 	%>	
 	</body>
 </html>

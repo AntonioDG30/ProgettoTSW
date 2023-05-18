@@ -231,6 +231,47 @@ public class UserControl extends HttpServlet
 				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Account.jsp");
 				dispatcher.forward(request, response);	
 			}
+			
+			
+			
+			if (action.equalsIgnoreCase("ModificaDati"))
+			{
+					String email = (String) request.getSession().getAttribute("Email");
+					String CF = request.getParameter("CodiceFiscale");
+					String Nome = request.getParameter("Nome");
+					String Cognome = request.getParameter("Cognome");
+					int CAP = Integer.parseInt(request.getParameter("CAP"));
+					String Citta = request.getParameter("Citta");
+					String Provincia = request.getParameter("Provincia");
+					String Via = request.getParameter("Via");
+					int Civico = Integer.parseInt(request.getParameter("Civico"));
+					String Telefono = request.getParameter("NumeroTelefono");
+				try
+				{
+					if(model.ModificaCliente(email,CF,Nome,Cognome,CAP,Citta,Provincia,Via,Civico,Telefono))
+					{
+						request.removeAttribute("Result");
+						request.setAttribute("Result", "Dati modificati correttamente");
+					}
+					else
+					{
+						request.removeAttribute("Result");
+						request.setAttribute("Result", "Errore modifica dati sesnsibili. Riprova");
+					}
+					request.removeAttribute("Cliente");	
+					request.setAttribute("Cliente", model.RicercaCliente(email));
+					request.removeAttribute("PuntiFedelta");
+					request.setAttribute("PuntiFedelta", model.getPuntiFedelta(email));
+					request.removeAttribute("Ordini");
+					request.setAttribute("Ordini", Omodel.ElencoOrdiniByCliente(email));
+					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Account.jsp");
+					dispatcher.forward(request, response);	
+				} 
+				catch (SQLException e) 
+				{
+					e.printStackTrace();
+				}
+			}
 		}
 		
 		

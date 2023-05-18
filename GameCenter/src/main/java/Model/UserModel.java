@@ -12,6 +12,8 @@ public class UserModel
 	private static final String TABLE_NAME_UTENTE = "Utente";
 	private static final String TABLE_NAME_DATI = "DatiSensibileUtente";
 	private static final String TABLE_NAME_INDIRIZZI = "IndirizziSpedizione";
+	private static final String TABLE_NAME_METODIPAGAMENTO = "MetodoPagamento";
+	
 	
 	public synchronized UserBean RicercaUtente(String email,String password) throws SQLException 
 	{
@@ -301,6 +303,55 @@ public class UserModel
 	
 	
 	
+	public synchronized Collection<MetodiPagamentoBean> getMetodiPagamento(String email) throws SQLException 
+	{
+		Connection con = null;
+		PreparedStatement ps = null;
+		
+		String SQL = "SELECT * FROM " + UserModel.TABLE_NAME_METODIPAGAMENTO + " WHERE Email = ?";
+
+		Collection<MetodiPagamentoBean> MetodoPagamento = new LinkedList<MetodiPagamentoBean>();
+		
+		try 
+		{
+			con = DBConnectionPool.getConnection();
+			ps = con.prepareStatement(SQL);
+			ps.setString(1, email);
+			ResultSet rs = ps.executeQuery();
+
+			while (rs.next()) 
+			{
+				MetodiPagamentoBean bean = new MetodiPagamentoBean();
+				bean.setNumeroCarta(rs.getString("NumeroCarta"));
+				bean.setTitolareCarta(rs.getString("TitolareCarta"));
+				bean.setScadenza(rs.getString("Scadenza"));
+				bean.setEmail(rs.getString("Email"));
+				MetodoPagamento.add(bean);
+			}
+
+		} 
+		catch(SQLException e)
+		{
+			System.out.println("Error: " + e.getMessage());
+		}
+		finally
+		{
+			if(ps != null)
+			{
+				ps.close();
+			}
+			if(con != null)
+			{
+				DBConnectionPool.releaseConnection(con);
+			}
+		}
+
+		return MetodoPagamento;
+			
+	}
+	
+	
+	
 	public synchronized UserBean RicercaDatiSensibili(String email) throws SQLException 
 	{
 		Connection con = null;
@@ -478,6 +529,46 @@ public class UserModel
 		}
 
 		return Cliente;
+			
+	}
+	
+	
+	
+	public synchronized boolean ModificaCliente(String email,String CF,String Nome,String Cognome,int CAP,String Citta,String Provincia,String Via,int Civico,String Telefono) throws SQLException 
+	{
+		Connection con = null;
+		
+		try 
+		{
+			con = DBConnectionPool.getConnection();
+			
+			String updateQuery = "UPDATE " + UserModel.TABLE_NAME_DATI + " SET col1 = ?, col2 = ?, col3 = ?, col4 = ?, col5 = ?, col6 = ?, col7 = ?, col8 = ?, col9 = ?, col10 = ?";
+
+            PreparedStatement pstmt = con.prepareStatement(updateQuery);
+            pstmt.setString(1, CF);
+            pstmt.setString(2, Nome);
+            pstmt.setString(3, Cognome);
+            pstmt.setInt(4, CAP);
+            pstmt.setString(5, Via);
+            pstmt.setInt(6, Civico);
+            pstmt.setString(7, Citta);
+            pstmt.setString(8, Provincia);
+            pstmt.setString(9, Telefono);
+            pstmt.setString(10, email);
+
+            int rowsAffected = pstmt.executeUpdate();
+            System.out.println(rowsAffected + " righe aggiornate.");
+            
+            return true;
+            
+        } 
+		catch (SQLException e) 
+		{
+            System.out.println("Errore durante la connessione al database: " + e.getMessage());
+        }
+		return false;
+			
+			
 			
 	}
 }

@@ -94,6 +94,8 @@ public class OrdiniControl extends HttpServlet
 						request.setAttribute("PuntiFedelta", Umodel.getPuntiFedelta(Email));
 						request.removeAttribute("Indirizzi");
 						request.setAttribute("Indirizzi", Umodel.getIndirizziSpedizione(Email));
+						request.removeAttribute("MetodiPagamento");
+						request.setAttribute("MetodiPagamento", Umodel.getMetodiPagamento(Email));
 						request.removeAttribute("Prodotti");
 						request.setAttribute("Prodotti", Carrello);
 						RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Checkout.jsp");
@@ -124,6 +126,9 @@ public class OrdiniControl extends HttpServlet
 						int CodOrdine = Omodel.Acquisto(Carrello, PrezzoTotale, PuntiFedeltaUsati, Email);
 						if(CodOrdine != 0)
 						{
+							int codIndirizzo = Integer.parseInt(request.getParameter("IndirizzoScelto"));
+							String NumeroCarta = request.getParameter("MetodoScelto");
+							Omodel.UpdateComprende(CodOrdine, codIndirizzo, NumeroCarta);
 							request.removeAttribute("PuntiFedelta");
 							request.setAttribute("PuntiFedelta", Umodel.getPuntiFedelta(Email));
 							request.removeAttribute("Ordini");
