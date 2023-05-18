@@ -86,7 +86,7 @@
 				else
 				{
 			%>
-					Nessun Indirizzo Memorizzato
+					Nessun Metodo di pagamento memorizzato
 			<%
 				}
 			%>
