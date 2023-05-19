@@ -169,6 +169,9 @@ public class UserControl extends HttpServlet
 			}
 			
 			
+			
+			
+			
 			if (action.equalsIgnoreCase("VisualizzaUtenti")) 
 			{
 				if(request.getParameter("ParteMod").contentEquals("Parte1"))
@@ -271,6 +274,71 @@ public class UserControl extends HttpServlet
 				{
 					e.printStackTrace();
 				}
+			}
+			
+			
+			
+			if (action.equalsIgnoreCase("NuovoIndirizzo")) 
+			{
+				String email = (String) request.getSession().getAttribute("Email");
+				String Nome = request.getParameter("Nome");
+				String Cognome = request.getParameter("Cognome");
+				int CAP = Integer.parseInt(request.getParameter("CAP"));
+				String Citta = request.getParameter("Citta");
+				String Provincia = request.getParameter("Provincia");
+				String Via = request.getParameter("Via");
+				int Civico = Integer.parseInt(request.getParameter("Civico"));
+				String Telefono = request.getParameter("Telefono");
+				try 
+				{
+					if(model.RegistraNuovoIndirizzo(Nome, Cognome, CAP, Citta, Provincia, Via, Civico, Telefono, email))
+					{
+						response.sendRedirect("./OrdiniControl?action=Checkout");
+					}
+					else
+					{
+						request.removeAttribute("Result");
+						request.setAttribute("Result", "Errore salvataggio Indirizzo. Riprova");
+						RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/RegistraIndirizzo.jsp");
+						dispatcher.forward(request, response);
+					}
+				} 
+				catch (SQLException e) 
+				{
+					System.out.println("Error:" + e.getMessage());
+				}
+				
+			
+			}
+			
+			
+			
+			if (action.equalsIgnoreCase("NuovoMetodoPagamento")) 
+			{
+				String email = (String) request.getSession().getAttribute("Email");
+				String NumeroCarta = request.getParameter("NumeroCarta");
+				String Titolare = request.getParameter("Titolare");
+				String DataScadenza = request.getParameter("DataScadenza");
+				try 
+				{
+					if(model.RegistraNuovoMetodoPagamento(NumeroCarta, Titolare, DataScadenza, email))
+					{
+						response.sendRedirect("./OrdiniControl?action=Checkout");
+					}
+					else
+					{
+						request.removeAttribute("Result");
+						request.setAttribute("Result", "Errore salvataggio Metodo Pagamento. Riprova");
+						RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/RegistraMetodoPagamento.jsp");
+						dispatcher.forward(request, response);
+					}
+				} 
+				catch (SQLException e) 
+				{
+					System.out.println("Error:" + e.getMessage());
+				}
+				
+			
 			}
 		}
 		

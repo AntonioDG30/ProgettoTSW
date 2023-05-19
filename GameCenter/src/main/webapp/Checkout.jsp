@@ -65,6 +65,7 @@
 				}
 			%>
 			
+			<a href="RegistraIndirizzo.jsp">Vuoi aggiungere un nuovo indirizzo di spedizione?</a>
 			
 			<h3>Metodo Pagamento:</h3>
 			
@@ -91,7 +92,7 @@
 				}
 			%>
 			
-			
+		<a href="RegistraMetodoPagamento.jsp">Vuoi aggiungere un nuovo metodo di pagamento?</a>
 			
 			
 			<h3>Dettagli Prodotti che stai acquistando:</h3>

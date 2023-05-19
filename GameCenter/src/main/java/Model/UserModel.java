@@ -15,6 +15,7 @@ public class UserModel
 	private static final String TABLE_NAME_METODIPAGAMENTO = "MetodoPagamento";
 	
 	
+	
 	public synchronized UserBean RicercaUtente(String email,String password) throws SQLException 
 	{
 		Connection con = null;
@@ -567,8 +568,100 @@ public class UserModel
             System.out.println("Errore durante la connessione al database: " + e.getMessage());
         }
 		return false;
+	}
 			
-			
+	public synchronized boolean RegistraNuovoIndirizzo(String Nome, String Cognome, int CAP, String Citta, String Provincia, String Via, int Civico, String Telefono, String email) throws SQLException 
+	{
+		Connection con = null;
+		PreparedStatement ps = null;
+
+		int rs = 0;
+
+		String SQL = "INSERT INTO " + UserModel.TABLE_NAME_INDIRIZZI + " (Nome, Cognome, CAP, Via, Civico, Citta, Provincia, NumeroTelefono, Email) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) ";
+
+		try 
+		{
+			con = DBConnectionPool.getConnection();
+			ps = con.prepareStatement(SQL);
+			ps.setString(1, Nome);
+			ps.setString(2, Cognome);
+			ps.setInt(3, CAP);
+			ps.setString(4, Via);
+			ps.setInt(5, Civico);
+			ps.setString(6, Citta);
+			ps.setString(7, Provincia);
+			ps.setString(8, Telefono);
+			ps.setString(9, email);
+
+			rs = ps.executeUpdate();
+			con.commit();
+
+
+		} 
+		catch(SQLException e)
+		{
+			System.out.println("Error: " + e.getMessage());
+		}
+		finally
+		{
+			if(ps != null)
+			{
+				ps.close();
+			}
+			if(con != null)
+			{
+				DBConnectionPool.releaseConnection(con);
+			}
+		}
+		
+
+		return (rs != 0);
 			
 	}
+	
+	
+	
+	public synchronized boolean RegistraNuovoMetodoPagamento(String NumeroCarta, String Intestatario, String DataScadenza, String Email) throws SQLException 
+	{
+		Connection con = null;
+		PreparedStatement ps = null;
+
+		int rs = 0;
+
+		String SQL = "INSERT INTO " + UserModel.TABLE_NAME_METODIPAGAMENTO + " (NumeroCarta, TitolareCarta, Scadenza, Email) VALUES (?, ?, ?, ?) ";
+
+		try 
+		{
+			con = DBConnectionPool.getConnection();
+			ps = con.prepareStatement(SQL);
+			ps.setString(1, NumeroCarta);
+			ps.setString(2, Intestatario);
+			ps.setString(3, DataScadenza);
+			ps.setString(4, Email);
+			rs = ps.executeUpdate();
+			con.commit();
+
+
+		} 
+		catch(SQLException e)
+		{
+			System.out.println("Error: " + e.getMessage());
+		}
+		finally
+		{
+			if(ps != null)
+			{
+				ps.close();
+			}
+			if(con != null)
+			{
+				DBConnectionPool.releaseConnection(con);
+			}
+		}
+		
+
+		return (rs != 0);
+			
+	}
+
 }
