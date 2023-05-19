@@ -19,6 +19,7 @@ public class OrdineModel
 	private static final String TABLE_NAME_UTENTE = "Utente";
 	private static final String TABLE_NAME_DISPONIBILITA = "Disponibilita";
 	private static final String TABLE_NAME_METODI_INDIRIZZI_ORDINE = "Comprende";
+	private static final String TABLE_NAME_RECENSIONE = "Recensione";
 	
 	private static final String PIATTAFORMA_PS5 = "PlayStation 5";
 	private static final String PIATTAFORMA_PS4 = "PlayStation 4";
@@ -608,6 +609,44 @@ public class OrdineModel
 			}
 		}
 		return bean;
+	}
+	
+	
+	public synchronized void Recensione(int Valutazione, String Descrizione, String CodProdotto, String Email) throws SQLException
+	{
+		Connection con = null;
+		PreparedStatement ps = null;
+		
+
+		String SQL = "INSERT INTO " + OrdineModel.TABLE_NAME_RECENSIONE + " (Descrizione, Valutazione, CodSeriale, Email) VALUES (?, ?, ?, ?)";
+		try 
+		{
+			con = DBConnectionPool.getConnection();
+			ps = con.prepareStatement(SQL);
+			ps.setString(1, Descrizione);
+			ps.setInt(2, Valutazione);
+			ps.setString(3, CodProdotto);
+			ps.setString(4, Email);
+			ps.executeUpdate();
+		   	con.commit();
+			
+		} 
+		catch(SQLException e)
+		{
+			System.out.println("Error: " + e.getMessage());
+		}
+		finally
+		{
+			if(ps != null)
+			{
+				ps.close();
+			}
+			if(con != null)
+			{
+				DBConnectionPool.releaseConnection(con);
+			}
+		}
+		
 	}
 
 }

@@ -82,6 +82,26 @@ public class OrdiniControl extends HttpServlet
 				dispatcher.forward(request, response);	
 			}
 			
+			
+			if (action.equalsIgnoreCase("Recensione")) 
+			{
+				try 
+				{
+					String Email=(String) request.getSession().getAttribute("Email");
+					String CodProdotto = request.getParameter("CodProdotto");
+					int Valutazione = Integer.parseInt(request.getParameter("Valutazione"));
+					String Descrizione = request.getParameter("Descrizione");
+					Omodel.Recensione(Valutazione, Descrizione, CodProdotto, Email);
+					request.removeAttribute("Result");
+					request.setAttribute("Result", "Recensione inserita Correttamente");				
+				} 
+				catch (SQLException e) 
+				{
+					System.out.println("Error:" + e.getMessage());
+				}
+				response.sendRedirect("./OrdiniControl");	
+			}
+			
 			if (action.equalsIgnoreCase("Checkout")) 
 			{
 				try 

@@ -46,6 +46,7 @@
 				<th>DescrizioneCompleta</th>
 				<th>PEGI</th>
 				<th>Genere</th>
+				<th>Azioni</th>
 			</tr>
 			<%
 				if (Ordini != null && Ordini.size() != 0) 
@@ -72,30 +73,30 @@
 				<td><%=bean.getPrezzo()%></td>
 				<%PrezzoTotale = PrezzoTotale + (bean.getPrezzo() * bean.getQuantita());%>
 				<td><%=bean.getDescrizioneCompleta()%></td>
-				<%
-					if (!(bean.getTipologia())) 
-					{
-				%>
+					<%
+						if (!(bean.getTipologia())) 
+						{
+					%>
 				<td><%=bean.getPEGI()%></td>
 				<td><%=bean.getGenere()%></td>
-				<%
-					}
-					else
-					{
-				%>
+					<%
+						}
+						else
+						{
+					%>
 				<td>Non Disponibile</td>
 				<td>Non Disponibile</td>
-				<%
-					}
-					Locale.setDefault(Locale.US);
-					PrezzoTotaleString = String.format("%.2f", PrezzoTotale - PrezzoEffettivo);
-					Locale.setDefault(Locale.ITALY);
-				
-				%>
+					<%
+						}
+					%>
+				<td><a href="./Recensione.jsp?Prodotto=<%=bean.getCodSeriale()%>">Recensione</a></td>
 			</tr>
 				
 			<%
 					}
+					Locale.setDefault(Locale.US);
+					PrezzoTotaleString = String.format("%.2f", PrezzoTotale - PrezzoEffettivo);
+					Locale.setDefault(Locale.ITALY);
 			%>
 					<tr>
 					<td colspan="4">
