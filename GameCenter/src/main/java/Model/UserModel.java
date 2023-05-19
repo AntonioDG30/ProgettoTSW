@@ -663,5 +663,331 @@ public class UserModel
 		return (rs != 0);
 			
 	}
+	
+	
+	public synchronized boolean ModCodiceFiscale(String email,String CF) throws SQLException 
+	{
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try 
+		{
+			con = DBConnectionPool.getConnection();
+			
+			String updateQuery = "UPDATE " + UserModel.TABLE_NAME_DATI + " SET CodiceFiscale = ? " + " WHERE email = ?";
+
+            pstmt = con.prepareStatement(updateQuery);
+            pstmt.setString(1, CF);
+            pstmt.setString(2, email);
+            result = pstmt.executeUpdate();
+            con.commit();               
+        } 
+		catch (SQLException e) 
+		{
+            System.out.println("Errore durante la connessione al database: " + e.getMessage());           
+        }	
+		finally
+		{
+			if(pstmt != null)
+			{
+				pstmt.close();
+			}
+			if(con != null)
+			{
+				DBConnectionPool.releaseConnection(con);
+			}
+		}
+		return (result != 0);
+		
+	}
+	
+	public synchronized boolean ModNome(String email,String Nome) throws SQLException 
+	{
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try 
+		{
+			con = DBConnectionPool.getConnection();
+			
+			String updateQuery = "UPDATE " + UserModel.TABLE_NAME_DATI + " SET Nome = ? " + " WHERE email = ?";
+
+            pstmt = con.prepareStatement(updateQuery);
+            pstmt.setString(1, Nome);
+            pstmt.setString(2, email);
+            result = pstmt.executeUpdate();
+            con.commit();   
+        } 
+		catch (SQLException e) 
+		{
+            System.out.println("Errore durante la connessione al database: " + e.getMessage());
+        }	
+		finally
+		{
+			if(pstmt != null)
+			{
+				pstmt.close();
+			}
+			if(con != null)
+			{
+				DBConnectionPool.releaseConnection(con);
+			}
+		}
+		return (result != 0);
+	}
+	
+	public synchronized boolean ModCognome(String email,String Cognome) throws SQLException 
+	{
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try 
+		{
+			con = DBConnectionPool.getConnection();
+			
+			String updateQuery = "UPDATE " + UserModel.TABLE_NAME_DATI + " SET Cognome = ? " + " WHERE email = ?";
+
+            pstmt = con.prepareStatement(updateQuery);
+            pstmt.setString(1, Cognome);
+            pstmt.setString(2, email);
+            result = pstmt.executeUpdate();
+            con.commit();     
+        } 
+		catch (SQLException e) 
+		{
+            System.out.println("Errore durante la connessione al database: " + e.getMessage());
+        }	
+		finally
+		{
+			if(pstmt != null)
+			{
+				pstmt.close();
+			}
+			if(con != null)
+			{
+				DBConnectionPool.releaseConnection(con);
+			}
+		}
+		return (result != 0);
+	}
+	
+	public synchronized boolean ModCAP(String email,int CAP) throws SQLException 
+	{
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try 
+		{
+			con = DBConnectionPool.getConnection();
+			
+			String updateQuery = "UPDATE " + UserModel.TABLE_NAME_DATI + " SET CAP = ? " + " WHERE email = ?";
+
+            pstmt = con.prepareStatement(updateQuery);
+            pstmt.setInt(1, CAP);
+            pstmt.setString(2, email);
+            result = pstmt.executeUpdate();
+            con.commit();        
+        } 
+		catch (SQLException e) 
+		{
+            System.out.println("Errore durante la connessione al database: " + e.getMessage());
+        }	
+		finally
+		{
+			if(pstmt != null)
+			{
+				pstmt.close();
+			}
+			if(con != null)
+			{
+				DBConnectionPool.releaseConnection(con);
+			}
+		}
+		return (result != 0);
+	}
+	
+	public synchronized boolean ModCitta(String email,String Citta) throws SQLException 
+	{
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try 
+		{
+			con = DBConnectionPool.getConnection();
+			
+			String updateQuery = "UPDATE " + UserModel.TABLE_NAME_DATI + " SET Citta = ? " + "WHERE email = ?";
+
+            pstmt = con.prepareStatement(updateQuery);
+            pstmt.setString(1, Citta);
+            pstmt.setString(2, email);
+            result = pstmt.executeUpdate();
+            con.commit();        
+        } 
+		catch (SQLException e) 
+		{
+            System.out.println("Errore durante la connessione al database: " + e.getMessage());
+        }	
+		finally
+		{
+			if(pstmt != null)
+			{
+				pstmt.close();
+			}
+			if(con != null)
+			{
+				DBConnectionPool.releaseConnection(con);
+			}
+		}
+		return (result != 0);
+	}
+	
+	public synchronized boolean ModProvincia(String email,String Provincia) throws SQLException 
+	{
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try 
+		{
+			con = DBConnectionPool.getConnection();
+			
+			String updateQuery = "UPDATE " + UserModel.TABLE_NAME_DATI + " SET Provincia = ? " + "WHERE email = ?";
+
+            pstmt = con.prepareStatement(updateQuery);
+            pstmt.setString(1, Provincia);
+            pstmt.setString(2, email);
+            result = pstmt.executeUpdate();
+            con.commit();      
+        } 
+		catch (SQLException e) 
+		{
+            System.out.println("Errore durante la connessione al database: " + e.getMessage());
+        }
+		finally
+		{
+			if(pstmt != null)
+			{
+				pstmt.close();
+			}
+			if(con != null)
+			{
+				DBConnectionPool.releaseConnection(con);
+			}
+		}
+		return (result != 0);
+	}
+	
+	public synchronized boolean ModVia(String email,String Via) throws SQLException 
+	{
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try 
+		{
+			con = DBConnectionPool.getConnection();
+			
+			String updateQuery = " UPDATE " + UserModel.TABLE_NAME_DATI + " SET Via = ? " + " WHERE email = ?";
+
+            pstmt = con.prepareStatement(updateQuery);
+            pstmt.setString(1, Via);
+            pstmt.setString(2, email);
+            result = pstmt.executeUpdate();
+            con.commit();        
+        } 
+		catch (SQLException e) 
+		{
+            System.out.println("Errore durante la connessione al database: " + e.getMessage());
+        }
+		finally
+		{
+			if(pstmt != null)
+			{
+				pstmt.close();
+			}
+			if(con != null)
+			{
+				DBConnectionPool.releaseConnection(con);
+			}
+		}
+		return (result != 0);
+	}
+	
+	public synchronized boolean ModCivico(String email,int Civico) throws SQLException 
+	{
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try 
+		{
+			con = DBConnectionPool.getConnection();
+			
+			String updateQuery = "UPDATE " + UserModel.TABLE_NAME_DATI + " SET Civico = ? " + " WHERE email = ?";
+
+            pstmt = con.prepareStatement(updateQuery);
+            pstmt.setInt(1, Civico);
+            pstmt.setString(2, email);  
+            result = pstmt.executeUpdate();
+            con.commit(); 
+        } 
+		catch (SQLException e) 
+		{
+            System.out.println("Errore durante la connessione al database: " + e.getMessage());
+        }	
+		finally
+		{
+			if(pstmt != null)
+			{
+				pstmt.close();
+			}
+			if(con != null)
+			{
+				DBConnectionPool.releaseConnection(con);
+			}
+		}
+		return (result != 0);
+	}
+	
+	public synchronized boolean ModTelefono(String email,String Telefono) throws SQLException 
+	{
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try 
+		{
+			con = DBConnectionPool.getConnection();
+			
+			String updateQuery = "UPDATE " + UserModel.TABLE_NAME_DATI + " SET NumeroTelefono = ? " + " WHERE email = ?";
+
+            pstmt = con.prepareStatement(updateQuery);
+            pstmt.setString(1, Telefono);
+            pstmt.setString(2, email);
+            result = pstmt.executeUpdate();
+            con.commit();        
+        } 
+		catch (SQLException e) 
+		{
+            System.out.println("Errore durante la connessione al database: " + e.getMessage());
+        }
+		finally
+		{
+			if(pstmt != null)
+			{
+				pstmt.close();
+			}
+			if(con != null)
+			{
+				DBConnectionPool.releaseConnection(con);
+			}
+		}
+		return (result != 0);
+	}
 
 }

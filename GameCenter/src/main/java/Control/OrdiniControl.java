@@ -71,8 +71,7 @@ public class OrdiniControl extends HttpServlet
 					request.setAttribute("PrezzoEffettivo", PrezzoEffettivo);
 					request.removeAttribute("Fattura");
 					request.setAttribute("Fattura", Omodel.RicercaFattura(CodOrdine));
-					
-					
+
 				} 
 				catch (SQLException e) 
 				{
@@ -91,15 +90,32 @@ public class OrdiniControl extends HttpServlet
 					String CodProdotto = request.getParameter("CodProdotto");
 					int Valutazione = Integer.parseInt(request.getParameter("Valutazione"));
 					String Descrizione = request.getParameter("Descrizione");
-					Omodel.Recensione(Valutazione, Descrizione, CodProdotto, Email);
 					request.removeAttribute("Result");
-					request.setAttribute("Result", "Recensione inserita Correttamente");				
+					if(Omodel.Recensione(Valutazione, Descrizione, CodProdotto, Email))
+					{
+						request.setAttribute("Result", "Recensione inserita Correttamente");
+					    request.removeAttribute("PuntiFedelta");
+						request.setAttribute("PuntiFedelta", Umodel.getPuntiFedelta(Email));
+						request.removeAttribute("Ordini");
+						request.setAttribute("Ordini", Omodel.ElencoOrdiniByCliente(Email));
+						RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Account.jsp");
+						dispatcher.forward(request, response);						
+					}
+					else
+					{
+						request.setAttribute("Result", "Recensione non inserita. Riprova!");
+						request.removeAttribute("CodProdotto");
+						request.setAttribute("CodProdotto", CodProdotto);
+						RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Recensione.jsp");
+						dispatcher.forward(request, response);
+					}
+					
 				} 
 				catch (SQLException e) 
 				{
 					System.out.println("Error:" + e.getMessage());
 				}
-				response.sendRedirect("./OrdiniControl");	
+					
 			}
 			
 			if (action.equalsIgnoreCase("Checkout")) 

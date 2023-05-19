@@ -146,7 +146,6 @@
 		    Citta:  <input type="text" id="Citta" name="Citta">
 		    Provincia: <input type="text" id="Provincia" name="Provincia">
 		    Telefono: <input type="text" id="NumeroTelefono" name="NumeroTelefono">
-		    Email: <input type="text" id="Email" name="Email">
 		   	<input type="submit" name="Visual2" value="Aggiorna dati">  
 		</pre>
     </form>

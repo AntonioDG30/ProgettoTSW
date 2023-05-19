@@ -400,7 +400,7 @@ public class OrdineModel
 			}
 		}
 		
-        if (result1 != 0 && result2 != 0 && result3 != 0)
+        if (result1 != 0 && result2 != 0 && result3 != 0 && result4 != 0)
         {
         	return CodOrdine;
         }
@@ -612,11 +612,12 @@ public class OrdineModel
 	}
 	
 	
-	public synchronized void Recensione(int Valutazione, String Descrizione, String CodProdotto, String Email) throws SQLException
+	public synchronized boolean Recensione(int Valutazione, String Descrizione, String CodProdotto, String Email) throws SQLException
 	{
 		Connection con = null;
 		PreparedStatement ps = null;
 		
+		int result = 0;
 
 		String SQL = "INSERT INTO " + OrdineModel.TABLE_NAME_RECENSIONE + " (Descrizione, Valutazione, CodSeriale, Email) VALUES (?, ?, ?, ?)";
 		try 
@@ -627,7 +628,7 @@ public class OrdineModel
 			ps.setInt(2, Valutazione);
 			ps.setString(3, CodProdotto);
 			ps.setString(4, Email);
-			ps.executeUpdate();
+			result = ps.executeUpdate();
 		   	con.commit();
 			
 		} 
@@ -647,6 +648,7 @@ public class OrdineModel
 			}
 		}
 		
+		return (result != 0);
 	}
 
 }

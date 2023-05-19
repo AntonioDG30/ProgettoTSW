@@ -240,40 +240,117 @@ public class UserControl extends HttpServlet
 			if (action.equalsIgnoreCase("ModificaDati"))
 			{
 					String email = (String) request.getSession().getAttribute("Email");
-					String CF = request.getParameter("CodiceFiscale");
-					String Nome = request.getParameter("Nome");
-					String Cognome = request.getParameter("Cognome");
-					int CAP = Integer.parseInt(request.getParameter("CAP"));
-					String Citta = request.getParameter("Citta");
-					String Provincia = request.getParameter("Provincia");
-					String Via = request.getParameter("Via");
-					int Civico = Integer.parseInt(request.getParameter("Civico"));
-					String Telefono = request.getParameter("NumeroTelefono");
-				try
-				{
-					if(model.ModificaCliente(email,CF,Nome,Cognome,CAP,Citta,Provincia,Via,Civico,Telefono))
+					Boolean RsCF = false, RsNome = false, RsCognome = false, 
+							RsCAP = false, RsCitta = false, RsProvincia = false, 
+							RsVia = false, RsCivico = false, RsNumeroTelefono = false;
+					
+					try
 					{
-						request.removeAttribute("Result");
-						request.setAttribute("Result", "Dati modificati correttamente");
+						if(!(request.getParameter("CodiceFiscale").isEmpty()))
+						{	
+							RsCF = model.ModCodiceFiscale(email, request.getParameter("CodiceFiscale"));
+						}
+						else
+						{
+							RsCF = true;
+						}
+						
+						if(!(request.getParameter("Nome").isEmpty()))
+						{	
+							RsNome = model.ModNome(email, request.getParameter("Nome"));
+						}
+						else
+						{
+							RsNome = true;
+						}
+						
+						if(!(request.getParameter("Cognome").isEmpty()))
+						{	
+							RsCognome = model.ModCognome(email, request.getParameter("Cognome"));
+						}
+						else
+						{
+							RsCognome = true;
+						}
+						
+						if(!(request.getParameter("CAP").isEmpty()))
+						{	
+							int CAP = Integer.parseInt(request.getParameter("CAP"));
+							RsCAP = model.ModCAP(email, CAP);
+						}
+						else
+						{
+							RsCAP = true;
+						}
+						
+						if(!(request.getParameter("Citta").isEmpty()))
+						{	
+							RsCitta = model.ModCitta(email, request.getParameter("Citta"));
+						}
+						else
+						{
+							RsCitta = true;
+						}
+						
+						if(!(request.getParameter("Provincia").isEmpty()))
+						{	
+							RsProvincia = model.ModProvincia(email, request.getParameter("Provincia"));
+						}
+						else
+						{
+							RsProvincia = true;
+						}
+						
+						if(!(request.getParameter("Via").isEmpty()))
+						{	
+							RsVia = model.ModVia(email, request.getParameter("Via"));
+						}
+						else
+						{
+							RsVia = true;
+						}
+						
+						if(!(request.getParameter("Civico").isEmpty()))
+						{	
+							int Civico = Integer.parseInt(request.getParameter("Civico"));
+							RsCivico = model.ModCivico(email, Civico);
+						}
+						else
+						{
+							RsCivico = true;
+						}
+						
+						if(!(request.getParameter("NumeroTelefono").isEmpty()))
+						{	
+							RsNumeroTelefono = model.ModTelefono(email, request.getParameter("NumeroTelefono"));
+						}
+						else
+						{
+							RsNumeroTelefono = true;
+						}
+						
+						if(RsCF && RsNome && RsCognome && RsCAP && RsCitta && RsProvincia && RsVia && RsCivico && RsNumeroTelefono)
+						{
+							request.setAttribute("Result", "I tuoi dati sono stati modificati correttamente.");
+						}
+						else
+						{
+							request.setAttribute("Result", "Errore imprevisto, riprova.");
+						}
+						request.removeAttribute("Cliente");	
+						request.setAttribute("Cliente", model.RicercaCliente(email));
+						request.removeAttribute("PuntiFedelta");
+						request.setAttribute("PuntiFedelta", model.getPuntiFedelta(email));
+						request.removeAttribute("Ordini");
+						request.setAttribute("Ordini", Omodel.ElencoOrdiniByCliente(email));
 					}
-					else
+					catch (SQLException e) 
 					{
-						request.removeAttribute("Result");
-						request.setAttribute("Result", "Errore modifica dati sesnsibili. Riprova");
+						e.printStackTrace();
 					}
-					request.removeAttribute("Cliente");	
-					request.setAttribute("Cliente", model.RicercaCliente(email));
-					request.removeAttribute("PuntiFedelta");
-					request.setAttribute("PuntiFedelta", model.getPuntiFedelta(email));
-					request.removeAttribute("Ordini");
-					request.setAttribute("Ordini", Omodel.ElencoOrdiniByCliente(email));
+					
 					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Account.jsp");
-					dispatcher.forward(request, response);	
-				} 
-				catch (SQLException e) 
-				{
-					e.printStackTrace();
-				}
+					dispatcher.forward(request, response);
 			}
 			
 			
