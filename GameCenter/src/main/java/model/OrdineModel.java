@@ -217,13 +217,27 @@ public class OrdineModel
 						bean.setTipologia(rs2.getBoolean("FlagTipologia"));
 						if(!(bean.getTipologia()))
 						{
-							ps3 = con.prepareStatement(SQL3);
-							ps3.setString(1, rs.getString("CodSeriale"));
-							ResultSet rs3 = ps3.executeQuery();
-							while(rs3.next()) 
+							try
 							{
-								bean.setPEGI(rs3.getInt("CodPEGI"));
-								bean.setGenere(rs3.getString("NomeGenere"));
+								ps3 = con.prepareStatement(SQL3);
+								ps3.setString(1, rs.getString("CodSeriale"));
+								ResultSet rs3 = ps3.executeQuery();
+								while(rs3.next()) 
+								{
+									bean.setPEGI(rs3.getInt("CodPEGI"));
+									bean.setGenere(rs3.getString("NomeGenere"));
+								}
+							}
+							catch(SQLException e)
+							{
+								System.out.println("Error: " + e.getMessage());
+							}
+							finally
+							{
+								if(ps3 != null)
+								{
+									ps3.close();
+								}
 							}
 						}
 					}
@@ -238,7 +252,6 @@ public class OrdineModel
 					{
 						ps2.close();
 					}
-
 				}
 				products.add(bean);
 			}
@@ -253,14 +266,6 @@ public class OrdineModel
 			if(ps != null)
 			{
 				ps.close();
-			}
-			if(ps2 != null)
-			{
-				ps2.close();
-			}
-			if(ps3 != null)
-			{
-				ps3.close();
 			}
 			if(con != null)
 			{
@@ -286,6 +291,7 @@ public class OrdineModel
 		
 		int result1 = 0, result2 = 0, result3 = 0, result4 = 0;
 		int CodOrdine = 0;
+		int PuntiFedelta =0;
 
 		String SQL = "INSERT INTO " + OrdineModel.TABLE_NAME_ORDINE + " (Sconto, DataAcquisto, PrezzoTotale, StatoOrdine, Email) VALUES (?, ?, ?, 'In Lavorazione', ?)";
 		String SQL2 = "SELECT LAST_INSERT_ID() AS CodOrdine";
@@ -304,94 +310,149 @@ public class OrdineModel
 			result1 = ps1.executeUpdate();
 	   		
 	   		
-	   		
-	   		ps2 = con.prepareStatement(SQL2);
-	   		ResultSet rs2 = ps2.executeQuery();
-			rs2.next();
-			CodOrdine = rs2.getInt("CodOrdine");
+	   		try
+	   		{
+	   			ps2 = con.prepareStatement(SQL2);
+		   		ResultSet rs2 = ps2.executeQuery();
+				rs2.next();
+				CodOrdine = rs2.getInt("CodOrdine");
+	   		}
+	   		catch(SQLException e)
+			{
+				System.out.println("Error: " + e.getMessage());
+			}
+			finally
+			{
+				if(ps2 != null)
+				{
+					ps2.close();
+				}
+			}
 			
 			
-			
-			List<ProductBean> ProdottoCarrello = Carrello.getListaCarrello(); 	
-		   	for(ProductBean Prod: ProdottoCarrello) 
-		   	{
-		   		ps3 = con.prepareStatement(SQL3);
-		   		ps3.setInt(1, Prod.getQuantita());
-		   		ps3.setString(2, Prod.getCodSeriale());
-		   		ps3.setInt(3, CodOrdine);
-		   		result2 = ps3.executeUpdate();
-		   		
-		   		
-		   		
-		   		String Piattaforma="";
-		   		String Formato="";
+			try
+			{
+				List<ProductBean> ProdottoCarrello = Carrello.getListaCarrello(); 	
+			   	for(ProductBean Prod: ProdottoCarrello) 
+			   	{
+			   		ps2 = con.prepareStatement(SQL3);
+			   		ps2.setInt(1, Prod.getQuantita());
+			   		ps2.setString(2, Prod.getCodSeriale());
+			   		ps2.setInt(3, CodOrdine);
+			   		result2 = ps2.executeUpdate();
+			   		
+			   		
+			   		
+			   		String Piattaforma="";
+			   		String Formato="";
 
-		   		if (Prod.getPiattaforma().contentEquals("Ps5 Digitale"))
-		   		{
-		   			Piattaforma = OrdineModel.PIATTAFORMA_PS5;
-		   			Formato = OrdineModel.FORMATO_DIGITALE;
-		   		}
-		   		if (Prod.getPiattaforma().contentEquals("Ps5 Fisico"))
-		   		{
-		   			Piattaforma = OrdineModel.PIATTAFORMA_PS5;
-		   			Formato = OrdineModel.FORMATO_FISICO;
-		   		}
-		   		if (Prod.getPiattaforma().contentEquals("Ps4 Digitale"))
-		   		{
-		   			Piattaforma = OrdineModel.PIATTAFORMA_PS4;
-		   			Formato = OrdineModel.FORMATO_DIGITALE;
-		   		}
-		   		if (Prod.getPiattaforma().contentEquals("Ps4 Fisico"))
-		   		{
-		   			Piattaforma = OrdineModel.PIATTAFORMA_PS4;
-		   			Formato = OrdineModel.FORMATO_FISICO;
-		   		}
-		   		if (Prod.getPiattaforma().contentEquals("XboxX Digitale"))
-		   		{
-		   			Piattaforma = OrdineModel.PIATTAFORMA_XboxSerieX ;
-		   			Formato = OrdineModel.FORMATO_DIGITALE;
-		   		}
-		   		if (Prod.getPiattaforma().contentEquals("XboxX Fisico"))
-		   		{
-		   			Piattaforma = OrdineModel.PIATTAFORMA_XboxSerieX;
-		   			Formato = OrdineModel.FORMATO_FISICO;
-		   		}
-		   		if (Prod.getPiattaforma().contentEquals("XboxS Digitale"))
-		   		{
-		   			Piattaforma = OrdineModel.PIATTAFORMA_XboxSerieS ;
-		   			Formato = OrdineModel.FORMATO_DIGITALE;
-		   		}
-		   		if (Prod.getPiattaforma().contentEquals("Pc Digitale"))
-		   		{
-		   			Piattaforma = OrdineModel.PIATTAFORMA_PC ;
-		   			Formato = OrdineModel.FORMATO_DIGITALE;
-		   		}
-		   		if (Prod.getPiattaforma().contentEquals("Pc Fisico"))
-		   		{
-		   			Piattaforma = OrdineModel.PIATTAFORMA_PC;
-		   			Formato = OrdineModel.FORMATO_FISICO;
-		   		}
-		   		
-		   		if(ModDisponibilita(Prod.getCodSeriale(), Prod.getQuantita(), Piattaforma, Formato))
-		   		{
-		   			result4 = 1;
-		   		}
-		   	}
+			   		if (Prod.getPiattaforma().contentEquals("Ps5 Digitale"))
+			   		{
+			   			Piattaforma = OrdineModel.PIATTAFORMA_PS5;
+			   			Formato = OrdineModel.FORMATO_DIGITALE;
+			   		}
+			   		if (Prod.getPiattaforma().contentEquals("Ps5 Fisico"))
+			   		{
+			   			Piattaforma = OrdineModel.PIATTAFORMA_PS5;
+			   			Formato = OrdineModel.FORMATO_FISICO;
+			   		}
+			   		if (Prod.getPiattaforma().contentEquals("Ps4 Digitale"))
+			   		{
+			   			Piattaforma = OrdineModel.PIATTAFORMA_PS4;
+			   			Formato = OrdineModel.FORMATO_DIGITALE;
+			   		}
+			   		if (Prod.getPiattaforma().contentEquals("Ps4 Fisico"))
+			   		{
+			   			Piattaforma = OrdineModel.PIATTAFORMA_PS4;
+			   			Formato = OrdineModel.FORMATO_FISICO;
+			   		}
+			   		if (Prod.getPiattaforma().contentEquals("XboxX Digitale"))
+			   		{
+			   			Piattaforma = OrdineModel.PIATTAFORMA_XboxSerieX ;
+			   			Formato = OrdineModel.FORMATO_DIGITALE;
+			   		}
+			   		if (Prod.getPiattaforma().contentEquals("XboxX Fisico"))
+			   		{
+			   			Piattaforma = OrdineModel.PIATTAFORMA_XboxSerieX;
+			   			Formato = OrdineModel.FORMATO_FISICO;
+			   		}
+			   		if (Prod.getPiattaforma().contentEquals("XboxS Digitale"))
+			   		{
+			   			Piattaforma = OrdineModel.PIATTAFORMA_XboxSerieS ;
+			   			Formato = OrdineModel.FORMATO_DIGITALE;
+			   		}
+			   		if (Prod.getPiattaforma().contentEquals("Pc Digitale"))
+			   		{
+			   			Piattaforma = OrdineModel.PIATTAFORMA_PC ;
+			   			Formato = OrdineModel.FORMATO_DIGITALE;
+			   		}
+			   		if (Prod.getPiattaforma().contentEquals("Pc Fisico"))
+			   		{
+			   			Piattaforma = OrdineModel.PIATTAFORMA_PC;
+			   			Formato = OrdineModel.FORMATO_FISICO;
+			   		}
+			   		
+			   		if(ModDisponibilita(Prod.getCodSeriale(), Prod.getQuantita(), Piattaforma, Formato))
+			   		{
+			   			result3 = 1;
+			   		}
+			   	}
+			}
+			catch(SQLException e)
+			{
+				System.out.println("Error: " + e.getMessage());
+			}
+			finally
+			{
+				if(ps2 != null)
+				{
+					ps2.close();
+				}
+			}
+			
 		   	
-		   
-		   	ps4 = con.prepareStatement(SQL4);
-		   	ps4.setString(1, Email);
-		   	ResultSet rs4 = ps4.executeQuery();
-			rs4.next();
-			int PuntiFedelta = rs4.getInt("PuntiFedelta");
+			try
+			{
+				ps2 = con.prepareStatement(SQL4);
+			   	ps2.setString(1, Email);
+			   	ResultSet rs2 = ps2.executeQuery();
+				rs2.next();
+				PuntiFedelta = rs2.getInt("PuntiFedelta");
+			}
+			catch(SQLException e)
+			{
+				System.out.println("Error: " + e.getMessage());
+			}
+			finally
+			{
+				if(ps2 != null)
+				{
+					ps2.close();
+				}
+			}
+		   	
 			
 			
-		   	
-			PuntiFedelta = (int) (PuntiFedelta + (PrezzoTotale - PuntiFedeltàUsati));
-		   	ps5 = con.prepareStatement(SQL5);
-	   		ps5.setInt(1, PuntiFedelta);
-	   		ps5.setString(2, Email);
-	   		result3 = ps5.executeUpdate();
+			try
+			{
+				PuntiFedelta = (int) (PuntiFedelta + (PrezzoTotale - PuntiFedeltàUsati));
+			   	ps2 = con.prepareStatement(SQL5);
+		   		ps2.setInt(1, PuntiFedelta);
+		   		ps2.setString(2, Email);
+		   		result4 = ps2.executeUpdate();
+			}
+			catch(SQLException e)
+			{
+				System.out.println("Error: " + e.getMessage());
+			}
+			finally
+			{
+				if(ps2 != null)
+				{
+					ps2.close();
+				}
+			}
+			
 
 	   		
 		   	con.commit();
@@ -406,22 +467,6 @@ public class OrdineModel
 			if(ps1 != null)
 			{
 				ps1.close();
-			}
-			if(ps2 != null)
-			{
-				ps2.close();
-			}
-			if(ps3 != null)
-			{
-				ps3.close();
-			}
-			if(ps4 != null)
-			{
-				ps4.close();
-			}
-			if(ps5 != null)
-			{
-				ps5.close();
 			}
 			if(con != null)
 			{
