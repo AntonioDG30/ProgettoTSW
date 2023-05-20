@@ -343,36 +343,41 @@ INSERT INTO Disponibilita(QuantitaDisponibile, CodSeriale, NomePiattaforma, Tipo
 VALUES ('77',@XBOXXcode,'XBOX Series X','Fisico');
 
 
+SET @CARLOemail := 'Carlo.Tucci@gmail.com';
+SET @PASQUALEemail := 'Pasquale.Corvino@gmail.com';
+SET @LUCAemail := 'Luca.Rossi@gmail.com';
+
+
 INSERT INTO Utente(Email, PasswordUtente, PuntiFedelta, Tipo)
-VALUES ('Carlo.Tucci@gmail.com', 'cliente', '2834', 1);
+VALUES (@CARLOemail, 'cliente', '2834', 1);
 INSERT INTO Utente(Email, PasswordUtente, PuntiFedelta, Tipo)
-VALUES ('Pasquale.Corvino@gmail.com', 'cliente', '114', 1);
+VALUES (@PASQUALEemail, 'cliente', '114', 1);
 INSERT INTO Utente(Email, PasswordUtente, PuntiFedelta, Tipo)
-VALUES ('Luca.Rossi@gmail.com', 'admin', '0', 0);
+VALUES (@LUCAemail, 'admin', '0', 0);
 
 
 INSERT INTO DatiSensibileUtente(CodiceFiscale, Nome, Cognome, CAP, Via, Civico, Citta, Provincia, NumeroTelefono, Email)
-VALUES ('TCCCRL02M12H501L', 'Carlo', 'Tucci', '00118', 'Giovanni Falcone', '3', 'Roma', 'RO', '+393342518794', 'Carlo.Tucci@gmail.com');
+VALUES ('TCCCRL02M12H501L', 'Carlo', 'Tucci', '00118', 'Giovanni Falcone', '3', 'Roma', 'RO', '+393342518794', @CARLOemail);
 INSERT INTO DatiSensibileUtente(CodiceFiscale, Nome, Cognome, CAP, Via, Civico, Citta, Provincia, NumeroTelefono, Email)
-VALUES ('CRYU34FTOK903DGW', 'Pasquale', 'Corvini', '80020', 'Campania', '3', 'Frattaminore', 'NA', '+393334455667', 'Pasquale.Corvino@gmail.com');
+VALUES ('CRYU34FTOK903DGW', 'Pasquale', 'Corvini', '80020', 'Campania', '3', 'Frattaminore', 'NA', '+393334455667', @PASQUALEemail);
 INSERT INTO DatiSensibileUtente(CodiceFiscale, Nome, Cognome, CAP, Via, Civico, Citta, Provincia, NumeroTelefono, Email)
-VALUES ('RSSLCU96M27L219U', 'Luca', 'Rossi', '10071', 'Clanio', '24', 'Torino', 'TO', '+393478951025','Luca.Rossi@gmail.com');
+VALUES ('RSSLCU96M27L219U', 'Luca', 'Rossi', '10071', 'Clanio', '24', 'Torino', 'TO', '+393478951025',@LUCAemail);
 
 
 INSERT INTO MetodoPagamento(NumeroCarta, TitolareCarta, Scadenza, Email)
-VALUES ('5879485763284798', 'Carlo Tucci', '2024-06-12', 'Carlo.Tucci@gmail.com');
+VALUES ('5879485763284798', 'Carlo Tucci', '2024-06-12', @CARLOemail);
 INSERT INTO MetodoPagamento(NumeroCarta, TitolareCarta, Scadenza, Email)
-VALUES ('5896475896542158', 'Carlo Tucci', '2025-03-22', 'Carlo.Tucci@gmail.com');
+VALUES ('5896475896542158', 'Carlo Tucci', '2025-03-22', @CARLOemail);
 INSERT INTO MetodoPagamento(NumeroCarta, TitolareCarta, Scadenza, Email)
-VALUES ('5684956215478955', 'Pasquale Corvino', '2027-02-11', 'Pasquale.Corvino@gmail.com');
+VALUES ('5684956215478955', 'Pasquale Corvino', '2027-02-11', @PASQUALEemail);
 
 
 INSERT INTO IndirizziSpedizione(Nome, Cognome, CAP, Via, Civico, Citta, Provincia, NumeroTelefono, Email)
-VALUES ('Carlo', 'Tucci', '00118', 'Giovanni Falcone', '3', 'Roma', 'RO', '+393342518794', 'Carlo.Tucci@gmail.com');
+VALUES ('Carlo', 'Tucci', '00118', 'Giovanni Falcone', '3', 'Roma', 'RO', '+393342518794', @CARLOemail);
 INSERT INTO IndirizziSpedizione(Nome, Cognome, CAP, Via, Civico, Citta, Provincia, NumeroTelefono, Email)
-VALUES ('Pasquale', 'Corvini', '80020', 'Campania', '3', 'Frattaminore', 'NA', '+393334455667', 'Pasquale.Corvino@gmail.com');
+VALUES ('Pasquale', 'Corvini', '80020', 'Campania', '3', 'Frattaminore', 'NA', '+393334455667', @PASQUALEemail);
 INSERT INTO IndirizziSpedizione(Nome, Cognome, CAP, Via, Civico, Citta, Provincia, NumeroTelefono, Email)
-VALUES ('Carlo', 'Tucci', '80020', 'Roma', '31', 'Orta Di Atella', 'CE', '+393332211000', 'Carlo.Tucci@gmail.com');
+VALUES ('Carlo', 'Tucci', '80020', 'Roma', '31', 'Orta Di Atella', 'CE', '+393332211000', @CARLOemail);
 
 
 INSERT INTO StatoOrdine(Stato)
@@ -385,11 +390,11 @@ INSERT INTO StatoOrdine(Stato)
 VALUES ('Consegnato');
 
 INSERT INTO Ordine(Sconto, DataAcquisto, PrezzoTotale, StatoOrdine, Email)
-VALUES ('-0','2023-01-03','660','In Lavorazione','Carlo.Tucci@gmail.com');
+VALUES ('-0','2023-01-03','660','In Lavorazione',@CARLOemail);
 INSERT INTO Ordine(Sconto, DataAcquisto, PrezzoTotale, StatoOrdine, Email)
-VALUES ('-0','2023-02-05','114.95','In Lavorazione','Pasquale.Corvino@gmail.com');
+VALUES ('-0','2023-02-05','114.95','In Lavorazione',@PASQUALEemail);
 INSERT INTO Ordine(Sconto, DataAcquisto, PrezzoTotale, StatoOrdine, Email)
-VALUES ('-0','2023-04-06','2174.99','In Lavorazione','Carlo.Tucci@gmail.com');
+VALUES ('-0','2023-04-06','2174.99','In Lavorazione',@CARLOemail);
 
 INSERT INTO Include(Quantita, CodSeriale, CodOrdine)
 VALUES ('2',@DUALSENSEcode,'01');
@@ -409,9 +414,9 @@ VALUES('01', '01', '5879485763284798');
 INSERT INTO Comprende(CodOrdine, CodIndirizzo, NumeroCarta)
 VALUES('02', '02', '5684956215478955');
 INSERT INTO Comprende(CodOrdine, CodIndirizzo, NumeroCarta)
-VALUES('03', '01', '5879485763284798');
+VALUES('03', '01', '5896475896542158');
 
 INSERT INTO Recensione(Descrizione, Valutazione, CodSeriale, Email)
-VALUES ('La console è perfetta ed è molto divertente da usare', '5', @PS5code, 'Carlo.Tucci@gmail.com');
+VALUES ('La console è perfetta ed è molto divertente da usare', '5', @PS5code, @CARLOemail);
 INSERT INTO Recensione(Descrizione, Valutazione, CodSeriale, Email)
-VALUES ('Bel gioco', '4', @CYBERPUNK77code, 'Pasquale.Corvino@gmail.com');
+VALUES ('Bel gioco', '4', @CYBERPUNK77code, @PASQUALEemail);
