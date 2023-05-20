@@ -408,6 +408,7 @@ public class UserModel
 	{
 		Connection con = null;
 		PreparedStatement ps = null;
+		PreparedStatement ps2 = null;
 
 		String SQL = "SELECT * FROM " + UserModel.TABLE_NAME_UTENTE + " WHERE Tipo = 1";
 		String SQL2 = "SELECT * FROM " + UserModel.TABLE_NAME_DATI + " WHERE Email = ?";
@@ -431,10 +432,10 @@ public class UserModel
 			    
 			    try
 			    {
-			    	ps = con.prepareStatement(SQL2);
-					ps.setString(1, rs.getString("Email"));
+			    	ps2 = con.prepareStatement(SQL2);
+					ps2.setString(1, rs.getString("Email"));
 					
-					ResultSet rs2 = ps.executeQuery();
+					ResultSet rs2 = ps2.executeQuery();
 					while (rs2.next()) 
 					{
 						bean.setCodiceFiscale(rs2.getString("CodiceFiscale"));

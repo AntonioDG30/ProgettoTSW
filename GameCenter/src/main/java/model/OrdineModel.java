@@ -289,9 +289,6 @@ public class OrdineModel
 		Connection con = null;
 		PreparedStatement ps1 = null;
 		PreparedStatement ps2 = null;
-		PreparedStatement ps3 = null;
-		PreparedStatement ps4 = null;
-		PreparedStatement ps5 = null;
 		
 		
 		int result1 = 0, result2 = 0, result3 = 0, result4 = 0;

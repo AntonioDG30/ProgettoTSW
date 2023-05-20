@@ -552,19 +552,14 @@ public class ProductModel
 		Connection con = null;
 		PreparedStatement ps1 = null;
 		PreparedStatement ps2 = null;
-		PreparedStatement ps3 = null;
-		PreparedStatement ps4 = null;
-		PreparedStatement ps5 = null;
-		PreparedStatement ps6 = null;
-		PreparedStatement ps7 = null;
-		PreparedStatement ps8 = null;
-		PreparedStatement ps9 = null;
-		PreparedStatement ps10 = null;
-		PreparedStatement ps11 = null;
+
 		
 		int result1 = 0, result2 = 0, result3 = 0, result4 = 0, result5 = 0, result6 = 0, result7 = 0, result8 = 0, result9 = 0, result10 = 0, result11 = 0;
 
 		String SQL = "INSERT INTO " + ProductModel.TABLE_NAME_PRODOTTO + " (CodSeriale, Nome, Prezzo, DataUscita, DescrizioneRidotta, DescrizioneCompleta, Immagine, FlagTipologia, FlagVisibita) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1)";
+		String SQL2 = "INSERT INTO " + ProductModel.TABLE_NAME_CARATTERISTICHE + " (CodSeriale, NomeGenere, CodPEGI) VALUES (?, ?, ?)";
+		String SQL3 = "INSERT INTO " + ProductModel.TABLE_NAME_DISPONIBILITA + " (QuantitaDisponibile, CodSeriale, NomePiattaforma, TipoFormato) VALUES (?, ?, ?, ?)";
+
 		try 
 		{
 			con = DBConnectionPool.getConnection();
@@ -583,78 +578,226 @@ public class ProductModel
 			
 			if(!(product.getTipologia()))
 			{
-				String SQL2 = "INSERT INTO " + ProductModel.TABLE_NAME_CARATTERISTICHE + " (CodSeriale, NomeGenere, CodPEGI) VALUES (?, ?, ?)";
-				ps2 = con.prepareStatement(SQL2);
-				ps2.setString(1, product.getCodSeriale());
-				ps2.setString(2, product.getGenere());
-				ps2.setInt(3, product.getPEGI());
-				result2 = ps2.executeUpdate();
+				try
+				{
+					ps2 = con.prepareStatement(SQL2);
+					ps2.setString(1, product.getCodSeriale());
+					ps2.setString(2, product.getGenere());
+					ps2.setInt(3, product.getPEGI());
+					result2 = ps2.executeUpdate();
+				}
+				catch(SQLException e)
+				{
+					logger.log(Level.WARNING, e.getMessage());
+				}
+				finally
+				{
+					if(ps2 != null)
+					{
+						ps2.close();
+					}
+				}
 				
-				String SQL3 = "INSERT INTO " + ProductModel.TABLE_NAME_DISPONIBILITA + " (QuantitaDisponibile, CodSeriale, NomePiattaforma, TipoFormato) VALUES (?, ?, ?, ?)";
-				ps3 = con.prepareStatement(SQL3);
-				ps3.setInt(1, product.getDisp_Ps5_Digitale());
-				ps3.setString(2, product.getCodSeriale());
-				ps3.setString(3, PIATTAFORMA_PS5);
-				ps3.setString(4, FORMATO_DIGITALE);
-				result3 = ps3.executeUpdate();
 				
-				ps4 = con.prepareStatement(SQL3);
-				ps4.setInt(1, product.getDisp_Ps4_Digitale());
-				ps4.setString(2, product.getCodSeriale());
-				ps4.setString(3, PIATTAFORMA_PS4);
-				ps4.setString(4, FORMATO_DIGITALE);
-				result4 = ps4.executeUpdate();
+				try
+				{
+					ps2 = con.prepareStatement(SQL3);
+					ps2.setInt(1, product.getDisp_Ps5_Digitale());
+					ps2.setString(2, product.getCodSeriale());
+					ps2.setString(3, PIATTAFORMA_PS5);
+					ps2.setString(4, FORMATO_DIGITALE);
+					result3 = ps2.executeUpdate();
+				}
+				catch(SQLException e)
+				{
+					logger.log(Level.WARNING, e.getMessage());
+				}
+				finally
+				{
+					if(ps2 != null)
+					{
+						ps2.close();
+					}
+				}
 				
-				ps5 = con.prepareStatement(SQL3);
-				ps5.setInt(1, product.getDisp_XboxX_Digitale());
-				ps5.setString(2, product.getCodSeriale());
-				ps5.setString(3, PIATTAFORMA_XboxSerieX);
-				ps5.setString(4, FORMATO_DIGITALE);
-				result5 = ps5.executeUpdate();
 				
-				ps6 = con.prepareStatement(SQL3);
-				ps6.setInt(1, product.getDisp_XboxS_Digitale());
-				ps6.setString(2, product.getCodSeriale());
-				ps6.setString(3, PIATTAFORMA_XboxSerieS);
-				ps6.setString(4, FORMATO_DIGITALE);
-				result6 = ps6.executeUpdate();
+				try
+				{
+					ps2 = con.prepareStatement(SQL3);
+					ps2.setInt(1, product.getDisp_Ps4_Digitale());
+					ps2.setString(2, product.getCodSeriale());
+					ps2.setString(3, PIATTAFORMA_PS4);
+					ps2.setString(4, FORMATO_DIGITALE);
+					result4 = ps2.executeUpdate();
+				}
+				catch(SQLException e)
+				{
+					logger.log(Level.WARNING, e.getMessage());
+				}
+				finally
+				{
+					if(ps2 != null)
+					{
+						ps2.close();
+					}
+				}
 				
-				ps7 = con.prepareStatement(SQL3);
-				ps7.setInt(1, product.getDisp_Pc_Digitale());
-				ps7.setString(2, product.getCodSeriale());
-				ps7.setString(3, PIATTAFORMA_PC);
-				ps7.setString(4, FORMATO_DIGITALE);
-				result7 = ps7.executeUpdate();
+				
+				try
+				{
+					ps2 = con.prepareStatement(SQL3);
+					ps2.setInt(1, product.getDisp_XboxX_Digitale());
+					ps2.setString(2, product.getCodSeriale());
+					ps2.setString(3, PIATTAFORMA_XboxSerieX);
+					ps2.setString(4, FORMATO_DIGITALE);
+					result5 = ps2.executeUpdate();
+				}
+				catch(SQLException e)
+				{
+					logger.log(Level.WARNING, e.getMessage());
+				}
+				finally
+				{
+					if(ps2 != null)
+					{
+						ps2.close();
+					}
+				}
+				
+				
+				try
+				{
+					ps2 = con.prepareStatement(SQL3);
+					ps2.setInt(1, product.getDisp_XboxS_Digitale());
+					ps2.setString(2, product.getCodSeriale());
+					ps2.setString(3, PIATTAFORMA_XboxSerieS);
+					ps2.setString(4, FORMATO_DIGITALE);
+					result6 = ps2.executeUpdate();
+				}
+				catch(SQLException e)
+				{
+					logger.log(Level.WARNING, e.getMessage());
+				}
+				finally
+				{
+					if(ps2 != null)
+					{
+						ps2.close();
+					}
+				}
+				
+				
+				
+				try
+				{
+					ps2 = con.prepareStatement(SQL3);
+					ps2.setInt(1, product.getDisp_Pc_Digitale());
+					ps2.setString(2, product.getCodSeriale());
+					ps2.setString(3, PIATTAFORMA_PC);
+					ps2.setString(4, FORMATO_DIGITALE);
+					result7 = ps2.executeUpdate();
+				}
+				catch(SQLException e)
+				{
+					logger.log(Level.WARNING, e.getMessage());
+				}
+				finally
+				{
+					if(ps2 != null)
+					{
+						ps2.close();
+					}
+				}
 			}
 			
-			String SQL3 = "INSERT INTO " + ProductModel.TABLE_NAME_DISPONIBILITA + " (QuantitaDisponibile, CodSeriale, NomePiattaforma, TipoFormato) VALUES (?, ?, ?, ?)";
-			ps8 = con.prepareStatement(SQL3);
-			ps8.setInt(1, product.getDisp_Ps5_Fisico());
-			ps8.setString(2, product.getCodSeriale());
-			ps8.setString(3, PIATTAFORMA_PS5);
-			ps8.setString(4, FORMATO_FISICO);
-			result8 = ps8.executeUpdate();
+			try
+			{
+				ps2 = con.prepareStatement(SQL3);
+				ps2.setInt(1, product.getDisp_Ps5_Fisico());
+				ps2.setString(2, product.getCodSeriale());
+				ps2.setString(3, PIATTAFORMA_PS5);
+				ps2.setString(4, FORMATO_FISICO);
+				result8 = ps2.executeUpdate();
+			}
+			catch(SQLException e)
+			{
+				logger.log(Level.WARNING, e.getMessage());
+			}
+			finally
+			{
+				if(ps2 != null)
+				{
+					ps2.close();
+				}
+			}
 			
-			ps9 = con.prepareStatement(SQL3);
-			ps9.setInt(1, product.getDisp_Ps4_Fisico());
-			ps9.setString(2, product.getCodSeriale());
-			ps9.setString(3, PIATTAFORMA_PS4);
-			ps9.setString(4, FORMATO_FISICO);
-			result9 = ps9.executeUpdate();
 			
-			ps10 = con.prepareStatement(SQL3);
-			ps10.setInt(1, product.getDisp_XboxX_Fisico());
-			ps10.setString(2, product.getCodSeriale());
-			ps10.setString(3, PIATTAFORMA_XboxSerieX);
-			ps10.setString(4, FORMATO_FISICO);
-			result10 = ps10.executeUpdate();
+			try
+			{
+				ps2 = con.prepareStatement(SQL3);
+				ps2.setInt(1, product.getDisp_Ps4_Fisico());
+				ps2.setString(2, product.getCodSeriale());
+				ps2.setString(3, PIATTAFORMA_PS4);
+				ps2.setString(4, FORMATO_FISICO);
+				result9 = ps2.executeUpdate();
+			}
+			catch(SQLException e)
+			{
+				logger.log(Level.WARNING, e.getMessage());
+			}
+			finally
+			{
+				if(ps2 != null)
+				{
+					ps2.close();
+				}
+			}
 			
-			ps11 = con.prepareStatement(SQL3);
-			ps11.setInt(1, product.getDisp_Pc_Fisico());
-			ps11.setString(2, product.getCodSeriale());
-			ps11.setString(3, PIATTAFORMA_PC);
-			ps11.setString(4, FORMATO_FISICO);
-			result11 = ps11.executeUpdate();
+			
+			try
+			{
+				ps2 = con.prepareStatement(SQL3);
+				ps2.setInt(1, product.getDisp_XboxX_Fisico());
+				ps2.setString(2, product.getCodSeriale());
+				ps2.setString(3, PIATTAFORMA_XboxSerieX);
+				ps2.setString(4, FORMATO_FISICO);
+				result10 = ps2.executeUpdate();
+			}
+			catch(SQLException e)
+			{
+				logger.log(Level.WARNING, e.getMessage());
+			}
+			finally
+			{
+				if(ps2 != null)
+				{
+					ps2.close();
+				}
+			}
+			
+			
+			
+			try
+			{
+				ps2 = con.prepareStatement(SQL3);
+				ps2.setInt(1, product.getDisp_Pc_Fisico());
+				ps2.setString(2, product.getCodSeriale());
+				ps2.setString(3, PIATTAFORMA_PC);
+				ps2.setString(4, FORMATO_FISICO);
+				result11 = ps2.executeUpdate();
+			}
+			catch(SQLException e)
+			{
+				logger.log(Level.WARNING, e.getMessage());
+			}
+			finally
+			{
+				if(ps2 != null)
+				{
+					ps2.close();
+				}
+			}
+			
 			con.commit();
 		} 
 		catch(SQLException e)
@@ -666,46 +809,6 @@ public class ProductModel
 			if(ps1 != null)
 			{
 				ps1.close();
-			}
-			if(ps2 != null)
-			{
-				ps2.close();
-			}
-			if(ps3 != null)
-			{
-				ps3.close();
-			}
-			if(ps4 != null)
-			{
-				ps4.close();
-			}
-			if(ps5 != null)
-			{
-				ps5.close();
-			}
-			if(ps6 != null)
-			{
-				ps6.close();
-			}
-			if(ps7 != null)
-			{
-				ps7.close();
-			}
-			if(ps8 != null)
-			{
-				ps8.close();
-			}
-			if(ps9 != null)
-			{
-				ps9.close();
-			}
-			if(ps10 != null)
-			{
-				ps10.close();
-			}
-			if(ps11 != null)
-			{
-				ps11.close();
 			}
 			if(con != null)
 			{
