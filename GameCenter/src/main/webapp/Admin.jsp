@@ -105,7 +105,7 @@
 		
 		
 		<div id="theFormDiv1">
-			<form method="post" action="./Admin_ProductControl?action=Elimina">
+			<form method="post" action="./AdminProductControl?action=Elimina">
 				<pre>
 					Inserisci il CodSeriale del prodotto da eliminare:
 					CodSeriale: <input type="text" name="CodSeriale" placeholder="Inserisci" required>				
@@ -116,7 +116,7 @@
 		</div>
 		
 		<div id="theFormDiv2">
-			<form method="post" action="./Admin_ProductControl?action=Inserisci" enctype="multipart/form-data">
+			<form method="post" action="./AdminProductControl?action=Inserisci" enctype="multipart/form-data">
 				<pre>
 					Inserisci la tipologia del nuovo prodotto:	
 					Tipologia: <select name="Tipologia" required>
@@ -137,7 +137,7 @@
 				if(TipologiaInserimento != null)
 				{
 			%>
-				<form method="post" action="./Admin_ProductControl?action=Inserisci" enctype="multipart/form-data">
+				<form method="post" action="./AdminProductControl?action=Inserisci" enctype="multipart/form-data">
 					<pre>
 						Inserisci le caratteristiche del nuovo prodotto:
 						CodSeriale: <input type="text" name="CodSeriale" placeholder="Inserisci CodSeriale" required>
@@ -204,7 +204,7 @@
 		</div>
 		
 		<div id="theFormDiv3">
-			<form method="post" action="./Admin_ProductControl?action=Modifica">
+			<form method="post" action="./AdminProductControl?action=Modifica">
 				<pre>
 					Inserisci il CodSeriale del prodotto da modificare:
 					CodSeriale: <input type="text" name="CodSeriale" placeholder="Inserisci" required>
@@ -331,7 +331,7 @@
 							%>
 						</tr>
 					</table>			
-						<form method="post" action="./Admin_ProductControl?action=Modifica" enctype="multipart/form-data">
+						<form method="post" action="./AdminProductControl?action=Modifica" enctype="multipart/form-data">
 							<pre>
 								Compila i form delle SOLE caratteristiche che vuoi modificare del prodotto:
 								CodSeriale: <input type="text" name="CodSeriale" placeholder="Inserisci nuovo CodSeriale">

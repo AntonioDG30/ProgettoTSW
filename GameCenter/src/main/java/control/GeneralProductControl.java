@@ -15,8 +15,8 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 
 @MultipartConfig
-@WebServlet("/General_ProductControl")
-public class General_ProductControl extends HttpServlet 
+@WebServlet("/GeneralProductControl")
+public class GeneralProductControl extends HttpServlet 
 {
 	
 	private static final long serialVersionUID = 1L;
@@ -25,7 +25,7 @@ public class General_ProductControl extends HttpServlet
 	static ProductModel model = new ProductModel();
        
    
-    public General_ProductControl() 
+    public GeneralProductControl() 
     {
         super(); 
     }

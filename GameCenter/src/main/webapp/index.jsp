@@ -4,7 +4,7 @@
 	Collection<?> products = (Collection<?>) request.getAttribute("products");
 	if(products == null) 
 	{
-		response.sendRedirect("./General_ProductControl");	
+		response.sendRedirect("./GeneralProductControl");	
 		return;
 	}
 %>
@@ -88,7 +88,7 @@
 				<td><%=bean.getPrezzo()%></td>
 				<td><%=bean.getDescrizioneRidotta()%></td>
 				<td>
-					<a href="General_ProductControl?action=Dettagli&CodSeriale=<%=bean.getCodSeriale()%>">Dettagli</a><br>
+					<a href="GeneralProductControl?action=Dettagli&CodSeriale=<%=bean.getCodSeriale()%>">Dettagli</a><br>
 				</td>
 				
 			</tr>

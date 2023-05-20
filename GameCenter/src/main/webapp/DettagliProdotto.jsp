@@ -138,7 +138,7 @@
 					</tr>
 				</table>
 				<h2>Vuoi acquistare questo prodotto?</h2>
-				<form method="post" action="General_ProductControl?action=AggiungiCarrello&CodSeriale=<%=product.getCodSeriale()%>">
+				<form method="post" action="GeneralProductControl?action=AggiungiCarrello&CodSeriale=<%=product.getCodSeriale()%>">
 					Seleziona la piattaforma desiderata:<br>
 					<select name="Piattaforma" required>
 						<%

@@ -50,7 +50,7 @@
 							<td><%=Prod.getPrezzo()%></td>
 							<td><%=Prod.getPiattaforma()%></td>
 							<%PrezzoTotale = PrezzoTotale + (Prod.getPrezzo() * Prod.getQuantita());%>
-							<td><a href="General_ProductControl?action=RimuoviCarrello&CodSeriale=<%=Prod.getCodSeriale()%>">Rimuovi dal Carrello</a></td>
+							<td><a href="GeneralProductControl?action=RimuoviCarrello&CodSeriale=<%=Prod.getCodSeriale()%>">Rimuovi dal Carrello</a></td>
 						</tr>
 				<%
 					} 
