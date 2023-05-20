@@ -91,7 +91,7 @@
 					<td>
 						<form method=post action="./Recensione.jsp">
 							<input type="hidden" name="Prodotto" value="<%=bean.getCodSeriale()%>">
-							<input type="submit" value="Recensione">
+							<input type="submit" value="Recensisci prodotto">
 						</form>
 					</td>
 			</tr>
