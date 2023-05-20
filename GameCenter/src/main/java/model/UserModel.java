@@ -455,9 +455,9 @@ public class UserModel
 				}
 				finally
 				{
-					if(ps != null)
+					if(ps2 != null)
 					{
-						ps.close();
+						ps2.close();
 					}
 				}
 				Clienti.add(bean);
