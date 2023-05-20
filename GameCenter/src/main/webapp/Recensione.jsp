@@ -8,7 +8,7 @@
 %>
 
 <%
-	CodSeriale = (String) request.getParameter("Prodotto");
+	CodSeriale = (String) request.getAttribute("Prodotto");
 	synchronized(session) 
 	{
 		session = request.getSession();
