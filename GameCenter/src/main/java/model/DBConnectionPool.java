@@ -36,13 +36,13 @@ public class DBConnectionPool
 		try
 		{
 			newConnection = DriverManager.getConnection("jdbc:mysql://" + ip + ":" + port + "/" + db + params, username, pass);
+			newConnection.setAutoCommit(false);
 		}
 		catch(SQLException e)
 		{
-			System.out.println("Errore: " + e.getMessage());
+			newConnection.close();
 		}
 		
-		newConnection.setAutoCommit(false);
 		return newConnection;
 	}
 
