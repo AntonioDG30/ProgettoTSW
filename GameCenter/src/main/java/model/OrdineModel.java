@@ -335,85 +335,83 @@ public class OrdineModel
 			}
 			
 			
-			try
-			{
-				List<ProductBean> ProdottoCarrello = Carrello.getListaCarrello(); 	
-			   	for(ProductBean Prod: ProdottoCarrello) 
-			   	{
-			   		ps2 = con.prepareStatement(SQL3);
+			List<ProductBean> ProdottoCarrello = Carrello.getListaCarrello(); 	
+		   	for(ProductBean Prod: ProdottoCarrello) 
+		   	{
+		   		try
+		   		{
+		   			ps2 = con.prepareStatement(SQL3);
 			   		ps2.setInt(1, Prod.getQuantita());
 			   		ps2.setString(2, Prod.getCodSeriale());
 			   		ps2.setInt(3, CodOrdine);
 			   		result2 = ps2.executeUpdate();
-			   		
-			   		
-			   		
-			   		String Piattaforma="";
-			   		String Formato="";
-
-			   		if (Prod.getPiattaforma().contentEquals("Ps5 Digitale"))
-			   		{
-			   			Piattaforma = OrdineModel.PIATTAFORMA_PS5;
-			   			Formato = OrdineModel.FORMATO_DIGITALE;
-			   		}
-			   		if (Prod.getPiattaforma().contentEquals("Ps5 Fisico"))
-			   		{
-			   			Piattaforma = OrdineModel.PIATTAFORMA_PS5;
-			   			Formato = OrdineModel.FORMATO_FISICO;
-			   		}
-			   		if (Prod.getPiattaforma().contentEquals("Ps4 Digitale"))
-			   		{
-			   			Piattaforma = OrdineModel.PIATTAFORMA_PS4;
-			   			Formato = OrdineModel.FORMATO_DIGITALE;
-			   		}
-			   		if (Prod.getPiattaforma().contentEquals("Ps4 Fisico"))
-			   		{
-			   			Piattaforma = OrdineModel.PIATTAFORMA_PS4;
-			   			Formato = OrdineModel.FORMATO_FISICO;
-			   		}
-			   		if (Prod.getPiattaforma().contentEquals("XboxX Digitale"))
-			   		{
-			   			Piattaforma = OrdineModel.PIATTAFORMA_XboxSerieX ;
-			   			Formato = OrdineModel.FORMATO_DIGITALE;
-			   		}
-			   		if (Prod.getPiattaforma().contentEquals("XboxX Fisico"))
-			   		{
-			   			Piattaforma = OrdineModel.PIATTAFORMA_XboxSerieX;
-			   			Formato = OrdineModel.FORMATO_FISICO;
-			   		}
-			   		if (Prod.getPiattaforma().contentEquals("XboxS Digitale"))
-			   		{
-			   			Piattaforma = OrdineModel.PIATTAFORMA_XboxSerieS ;
-			   			Formato = OrdineModel.FORMATO_DIGITALE;
-			   		}
-			   		if (Prod.getPiattaforma().contentEquals("Pc Digitale"))
-			   		{
-			   			Piattaforma = OrdineModel.PIATTAFORMA_PC ;
-			   			Formato = OrdineModel.FORMATO_DIGITALE;
-			   		}
-			   		if (Prod.getPiattaforma().contentEquals("Pc Fisico"))
-			   		{
-			   			Piattaforma = OrdineModel.PIATTAFORMA_PC;
-			   			Formato = OrdineModel.FORMATO_FISICO;
-			   		}
-			   		
-			   		if(ModDisponibilita(Prod.getCodSeriale(), Prod.getQuantita(), Piattaforma, Formato))
-			   		{
-			   			result3 = 1;
-			   		}
-			   	}
-			}
-			catch(SQLException e)
-			{
-				logger.log(Level.WARNING, e.getMessage());
-			}
-			finally
-			{
-				if(ps2 != null)
+		   		}
+		   		catch(SQLException e)
 				{
-					ps2.close();
+					logger.log(Level.WARNING, e.getMessage());
 				}
-			}
+				finally
+				{
+					if(ps2 != null)
+					{
+						ps2.close();
+					}
+				}
+
+		   		String Piattaforma="";
+		   		String Formato="";
+
+		   		if (Prod.getPiattaforma().contentEquals("Ps5 Digitale"))
+		   		{
+		   			Piattaforma = OrdineModel.PIATTAFORMA_PS5;
+		   			Formato = OrdineModel.FORMATO_DIGITALE;
+		   		}
+		   		if (Prod.getPiattaforma().contentEquals("Ps5 Fisico"))
+		   		{
+		   			Piattaforma = OrdineModel.PIATTAFORMA_PS5;
+		   			Formato = OrdineModel.FORMATO_FISICO;
+		   		}
+		   		if (Prod.getPiattaforma().contentEquals("Ps4 Digitale"))
+		   		{
+		   			Piattaforma = OrdineModel.PIATTAFORMA_PS4;
+		   			Formato = OrdineModel.FORMATO_DIGITALE;
+		   		}
+		   		if (Prod.getPiattaforma().contentEquals("Ps4 Fisico"))
+		   		{
+		   			Piattaforma = OrdineModel.PIATTAFORMA_PS4;
+		   			Formato = OrdineModel.FORMATO_FISICO;
+		   		}
+		   		if (Prod.getPiattaforma().contentEquals("XboxX Digitale"))
+		   		{
+		   			Piattaforma = OrdineModel.PIATTAFORMA_XboxSerieX ;
+		   			Formato = OrdineModel.FORMATO_DIGITALE;
+		   		}
+		   		if (Prod.getPiattaforma().contentEquals("XboxX Fisico"))
+		   		{
+		   			Piattaforma = OrdineModel.PIATTAFORMA_XboxSerieX;
+		   			Formato = OrdineModel.FORMATO_FISICO;
+		   		}
+		   		if (Prod.getPiattaforma().contentEquals("XboxS Digitale"))
+		   		{
+		   			Piattaforma = OrdineModel.PIATTAFORMA_XboxSerieS ;
+		   			Formato = OrdineModel.FORMATO_DIGITALE;
+		   		}
+		   		if (Prod.getPiattaforma().contentEquals("Pc Digitale"))
+		   		{
+		   			Piattaforma = OrdineModel.PIATTAFORMA_PC ;
+		   			Formato = OrdineModel.FORMATO_DIGITALE;
+		   		}
+		   		if (Prod.getPiattaforma().contentEquals("Pc Fisico"))
+		   		{
+		   			Piattaforma = OrdineModel.PIATTAFORMA_PC;
+		   			Formato = OrdineModel.FORMATO_FISICO;
+		   		}
+		   		
+		   		if(ModDisponibilita(Prod.getCodSeriale(), Prod.getQuantita(), Piattaforma, Formato))
+		   		{
+		   			result3 = 1;
+		   		}
+		   	}
 			
 		   	
 			try
