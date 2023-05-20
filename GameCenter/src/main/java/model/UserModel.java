@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class UserModel 
 {
@@ -14,7 +16,7 @@ public class UserModel
 	private static final String TABLE_NAME_INDIRIZZI = "IndirizziSpedizione";
 	private static final String TABLE_NAME_METODIPAGAMENTO = "MetodoPagamento";
 	
-	
+	Logger logger = Logger.getLogger(OrdineModel.class.getName());
 	
 	public synchronized UserBean RicercaUtente(String email,String password) throws SQLException 
 	{
@@ -45,7 +47,7 @@ public class UserModel
 		} 
 		catch(SQLException e)
 		{
-			System.out.println("Error: " + e.getMessage());
+			logger.log(Level.WARNING, e.getMessage());
 		}
 		finally
 		{
@@ -97,7 +99,7 @@ public class UserModel
 		} 
 		catch(SQLException e)
 		{
-			System.out.println("Error: " + e.getMessage());
+			logger.log(Level.WARNING, e.getMessage());
 		}
 		finally
 		{
@@ -137,7 +139,7 @@ public class UserModel
 		} 
 		catch(SQLException e)
 		{
-			System.out.println("Error: " + e.getMessage());
+			logger.log(Level.WARNING, e.getMessage());
 		}
 		finally
 		{
@@ -187,7 +189,7 @@ public class UserModel
 		} 
 		catch(SQLException e)
 		{
-			System.out.println("Error: " + e.getMessage());
+			logger.log(Level.WARNING, e.getMessage());
 		}
 		finally
 		{
@@ -229,7 +231,7 @@ public class UserModel
 		} 
 		catch(SQLException e)
 		{
-			System.out.println("Error: " + e.getMessage());
+			logger.log(Level.WARNING, e.getMessage());
 		}
 		finally
 		{
@@ -284,7 +286,7 @@ public class UserModel
 		} 
 		catch(SQLException e)
 		{
-			System.out.println("Error: " + e.getMessage());
+			logger.log(Level.WARNING, e.getMessage());
 		}
 		finally
 		{
@@ -333,7 +335,7 @@ public class UserModel
 		} 
 		catch(SQLException e)
 		{
-			System.out.println("Error: " + e.getMessage());
+			logger.log(Level.WARNING, e.getMessage());
 		}
 		finally
 		{
@@ -385,7 +387,7 @@ public class UserModel
 		} 
 		catch(SQLException e)
 		{
-			System.out.println("Error: " + e.getMessage());
+			logger.log(Level.WARNING, e.getMessage());
 		}
 		finally
 		{
@@ -427,31 +429,43 @@ public class UserModel
 				bean.setPuntiFedelta(rs.getInt("PuntiFedelta"));
 			    bean.setTipo(rs.getBoolean("Tipo"));
 			    
-			    ps = con.prepareStatement(SQL2);
-				ps.setString(1, rs.getString("Email"));
-				
-				ResultSet rs2 = ps.executeQuery();
-				while (rs2.next()) 
+			    try
+			    {
+			    	ps = con.prepareStatement(SQL2);
+					ps.setString(1, rs.getString("Email"));
+					
+					ResultSet rs2 = ps.executeQuery();
+					while (rs2.next()) 
+					{
+						bean.setCodiceFiscale(rs2.getString("CodiceFiscale"));
+						bean.setNome(rs2.getString("Nome"));
+						bean.setCognome(rs2.getString("Cognome"));
+						bean.setCAP(rs2.getInt("CAP"));
+						bean.setVia(rs2.getString("Via"));
+						bean.setCivico(rs2.getInt("Civico"));
+						bean.setCitta(rs2.getString("Citta"));
+						bean.setProvincia(rs2.getString("Provincia"));
+						bean.setNumeroTelefono(rs2.getString("NumeroTelefono"));
+					}
+			    }
+			    catch(SQLException e)
 				{
-					bean.setCodiceFiscale(rs2.getString("CodiceFiscale"));
-					bean.setNome(rs2.getString("Nome"));
-					bean.setCognome(rs2.getString("Cognome"));
-					bean.setCAP(rs2.getInt("CAP"));
-					bean.setVia(rs2.getString("Via"));
-					bean.setCivico(rs2.getInt("Civico"));
-					bean.setCitta(rs2.getString("Citta"));
-					bean.setProvincia(rs2.getString("Provincia"));
-					bean.setNumeroTelefono(rs2.getString("NumeroTelefono"));
+					logger.log(Level.WARNING, e.getMessage());
 				}
-				
-				
+				finally
+				{
+					if(ps != null)
+					{
+						ps.close();
+					}
+				}
 				Clienti.add(bean);
 			}
 
 		} 
 		catch(SQLException e)
 		{
-			System.out.println("Error: " + e.getMessage());
+			logger.log(Level.WARNING, e.getMessage());
 		}
 		finally
 		{
@@ -490,38 +504,52 @@ public class UserModel
 
 			ResultSet rs = ps.executeQuery();
 
-			rs.next();
-			Cliente.setEmail(rs.getString("Email"));
-			Cliente.setPuntiFedelta(rs.getInt("PuntiFedelta"));
-			Cliente.setTipo(rs.getBoolean("Tipo"));
-		    
-		    ps2 = con.prepareStatement(SQL2);
-			ps2.setString(1, Email);
-			ResultSet rs2 = ps2.executeQuery();
-			rs2.next();
-			Cliente.setCodiceFiscale(rs2.getString("CodiceFiscale"));
-			Cliente.setNome(rs2.getString("Nome"));
-			Cliente.setCognome(rs2.getString("Cognome"));
-			Cliente.setCAP(rs2.getInt("CAP"));
-			Cliente.setVia(rs2.getString("Via"));
-			Cliente.setCivico(rs2.getInt("Civico"));
-			Cliente.setCitta(rs2.getString("Citta"));
-			Cliente.setProvincia(rs2.getString("Provincia"));
-			Cliente.setNumeroTelefono(rs2.getString("NumeroTelefono"));
+			if(rs.next())
+			{
+				Cliente.setEmail(rs.getString("Email"));
+				Cliente.setPuntiFedelta(rs.getInt("PuntiFedelta"));
+				Cliente.setTipo(rs.getBoolean("Tipo"));
+			    
+				try
+				{
+					ps2 = con.prepareStatement(SQL2);
+					ps2.setString(1, Email);
+					ResultSet rs2 = ps2.executeQuery();
+					if(rs2.next())
+					{
+						Cliente.setCodiceFiscale(rs2.getString("CodiceFiscale"));
+						Cliente.setNome(rs2.getString("Nome"));
+						Cliente.setCognome(rs2.getString("Cognome"));
+						Cliente.setCAP(rs2.getInt("CAP"));
+						Cliente.setVia(rs2.getString("Via"));
+						Cliente.setCivico(rs2.getInt("Civico"));
+						Cliente.setCitta(rs2.getString("Citta"));
+						Cliente.setProvincia(rs2.getString("Provincia"));
+						Cliente.setNumeroTelefono(rs2.getString("NumeroTelefono"));
+					}			
+				}
+				catch(SQLException e)
+				{
+					logger.log(Level.WARNING, e.getMessage());
+				}
+				finally
+				{
+					if(ps2 != null)
+					{
+						ps2.close();
+					}
+				} 
+			}	  
 		} 
 		catch(SQLException e)
 		{
-			System.out.println("Error: " + e.getMessage());
+			logger.log(Level.WARNING, e.getMessage());
 		}
 		finally
 		{
 			if(ps != null)
 			{
 				ps.close();
-			}
-			if(ps2 != null)
-			{
-				ps2.close();
 			}
 			if(con != null)
 			{
@@ -532,43 +560,7 @@ public class UserModel
 		return Cliente;
 			
 	}
-	
-	
-	
-	public synchronized boolean ModificaCliente(String email,String CF,String Nome,String Cognome,int CAP,String Citta,String Provincia,String Via,int Civico,String Telefono) throws SQLException 
-	{
-		Connection con = null;
-		
-		try 
-		{
-			con = DBConnectionPool.getConnection();
-			
-			String updateQuery = "UPDATE " + UserModel.TABLE_NAME_DATI + " SET col1 = ?, col2 = ?, col3 = ?, col4 = ?, col5 = ?, col6 = ?, col7 = ?, col8 = ?, col9 = ?, col10 = ?";
 
-            PreparedStatement pstmt = con.prepareStatement(updateQuery);
-            pstmt.setString(1, CF);
-            pstmt.setString(2, Nome);
-            pstmt.setString(3, Cognome);
-            pstmt.setInt(4, CAP);
-            pstmt.setString(5, Via);
-            pstmt.setInt(6, Civico);
-            pstmt.setString(7, Citta);
-            pstmt.setString(8, Provincia);
-            pstmt.setString(9, Telefono);
-            pstmt.setString(10, email);
-
-            int rowsAffected = pstmt.executeUpdate();
-            System.out.println(rowsAffected + " righe aggiornate.");
-            
-            return true;
-            
-        } 
-		catch (SQLException e) 
-		{
-            System.out.println("Errore durante la connessione al database: " + e.getMessage());
-        }
-		return false;
-	}
 			
 	public synchronized boolean RegistraNuovoIndirizzo(String Nome, String Cognome, int CAP, String Citta, String Provincia, String Via, int Civico, String Telefono, String email) throws SQLException 
 	{
@@ -600,7 +592,7 @@ public class UserModel
 		} 
 		catch(SQLException e)
 		{
-			System.out.println("Error: " + e.getMessage());
+			logger.log(Level.WARNING, e.getMessage());
 		}
 		finally
 		{
@@ -627,7 +619,6 @@ public class UserModel
 		PreparedStatement ps = null;
 
 		int rs = 0;
-
 		String SQL = "INSERT INTO " + UserModel.TABLE_NAME_METODIPAGAMENTO + " (NumeroCarta, TitolareCarta, Scadenza, Email) VALUES (?, ?, ?, ?) ";
 
 		try 
@@ -640,12 +631,10 @@ public class UserModel
 			ps.setString(4, Email);
 			rs = ps.executeUpdate();
 			con.commit();
-
-
 		} 
 		catch(SQLException e)
 		{
-			System.out.println("Error: " + e.getMessage());
+			logger.log(Level.WARNING, e.getMessage());
 		}
 		finally
 		{
