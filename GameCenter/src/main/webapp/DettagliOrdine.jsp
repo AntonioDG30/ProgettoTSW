@@ -25,7 +25,7 @@
 	
 %>
 <!DOCTYPE html>
-<html>
+<html lang="it">
 	<%@ page contentType="text/html; charset=UTF-8" import="java.util.*,model.*"%>
 	
 	<head>
@@ -34,10 +34,9 @@
 	</head>
 	<body>
 		<%@include file="NavBar.jsp" %>
-		
-		<h2>Dettagli ordine: <%=CodOrdine%></h2>
 
 		<table border="1">
+			<caption>Dettagli ordine: <%=CodOrdine%></caption>
 			<tr>
 				<th>Foto</th>
 				<th>Quantità</th>
@@ -128,11 +127,5 @@
 			%>
 			
 		</table>
-		
-		
-		
-		
-			
-		
 	</body>
 </html>

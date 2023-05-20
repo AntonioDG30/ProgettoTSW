@@ -13,9 +13,7 @@
 	
 %>
 <!DOCTYPE html>
-<html>
-	<%@ page contentType="text/html; charset=UTF-8" import="java.util.*,model.*"%>
-	
+<html lang="it">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>GameCenter</title>
@@ -39,5 +37,5 @@
 				<a href="./OrdiniControl?action=Checkout">Annulla Operazione</a>			
 			</pre>
 		</form>
-</body>
+	</body>
 </html>

@@ -23,7 +23,7 @@
 	}
 %>
 <!DOCTYPE html>
-<html>
+<html lang="it">
 	<%@ page contentType="text/html; charset=UTF-8" import="java.util.*,model.*"%>
 	
 	<head>
@@ -55,8 +55,9 @@
 			}
 		%>
 		
-		<h2>Prodotti</h2>
+
 		<table border="1">
+			<caption>Prodotti</caption>
 			<tr>
 				<th>Foto</th>
 				<th>Nome</th>

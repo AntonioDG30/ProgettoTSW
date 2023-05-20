@@ -241,6 +241,14 @@ public class OrdineModel
 			{
 				ps.close();
 			}
+			if(ps2 != null)
+			{
+				ps2.close();
+			}
+			if(ps3 != null)
+			{
+				ps3.close();
+			}
 			if(con != null)
 			{
 				DBConnectionPool.releaseConnection(con);
@@ -393,6 +401,14 @@ public class OrdineModel
 			if(ps3 != null)
 			{
 				ps3.close();
+			}
+			if(ps4 != null)
+			{
+				ps4.close();
+			}
+			if(ps5 != null)
+			{
+				ps5.close();
 			}
 			if(con != null)
 			{

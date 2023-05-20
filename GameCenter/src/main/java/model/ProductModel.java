@@ -219,11 +219,21 @@ public class ProductModel
 			{
 				ps.close();
 			}
+			if(ps2 != null)
+			{
+				ps2.close();
+			}
+			if(ps3 != null)
+			{
+				ps3.close();
+			}
 			if(con != null)
 			{
 				DBConnectionPool.releaseConnection(con);
 			}
 		}
+		
+		
 		if(bean.getCodSeriale() != "")
 		{
 			return bean;
@@ -504,13 +514,17 @@ public class ProductModel
 			{
 				ps8.close();
 			}
-			if(ps8 != null)
+			if(ps9 != null)
 			{
-				ps8.close();
+				ps9.close();
 			}
-			if(ps8 != null)
+			if(ps10 != null)
 			{
-				ps8.close();
+				ps10.close();
+			}
+			if(ps11 != null)
+			{
+				ps11.close();
 			}
 			if(con != null)
 			{

@@ -25,7 +25,7 @@
 %>
 
 <!DOCTYPE html>
-<html>
+<html lang="it">
 	<head>
 		<%@ page contentType="text/html; charset=UTF-8" import="java.util.*,model.*"%>
 		<title>Account page</title>
@@ -54,8 +54,8 @@
 			}
 		%>
 		
-		<h2>Ordini Effettuati</h2>
 		<table border="1">
+			<caption>Ordini Effettuati</caption>
 			<tr>
 				<th>DataAcquisto</th>
 				<th>PrezzoTotale</th>
@@ -97,11 +97,9 @@
 			%>
 		</table>
 
-		
-		<form method="post" action="./UserControl?action=VisualizzaDati">
-			<pre>		
-				<input type="submit" name="Visual1" value="VisualizzaDati">
-			</pre>
+		</br>
+		<form method="post" action="./UserControl?action=VisualizzaDati">	
+			<input type="submit" name="Visual1" value="VisualizzaDati">
 		</form>
     
     <%
@@ -109,8 +107,8 @@
 	{
 	%>
 	
-	<h2>Cliente</h2>
 	<table border="1">
+		<caption>Cliente</caption>
 		<tr>
 			<th>Cliente</th>
 			<th>Punti Fedeltà</th>

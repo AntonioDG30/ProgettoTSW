@@ -29,7 +29,7 @@
 	}
 %>
 <!DOCTYPE html>
-<html>
+<html lang="it">
 	<%@ page contentType="text/html; charset=UTF-8" import="java.util.*,model.*"%>
 	<head>
 		<meta charset="ISO-8859-1">
@@ -222,8 +222,8 @@
 				if (product != null) 
 				{
 			%>
-					<h2>Dettagli</h2>
 					<table border="1">
+					<caption>Dettagli</caption>
 						<tr>
 							<th>Nome</th>
 							<th>Prezzo</th>
@@ -461,8 +461,8 @@
 			if (Ordini != null && Ordini.size() != 0) 
 			{
 		%>
-			<h2>Ordini Effettuati</h2>
 			<table border="1">
+				<caption>Ordini Effettuati</caption>
 				<tr>
 					<th>Cliente</th>
 					<th>DataAcquisto</th>
@@ -535,8 +535,8 @@
 			if (Clienti != null && Clienti.size() != 0) 
 			{
 		%>
-			<h2>Elenco Clienti:</h2>
 			<table border="1">
+				<caption>Elenco Clienti:</caption>
 				<tr>
 					<th>Cliente</th>
 					<th>Punti Fedeltà</th>
@@ -577,8 +577,8 @@
 			else if (Cliente != null)
 			{
 				%>
-				<h2>Cliente:</h2>
 				<table border="1">
+				<caption>Cliente:</caption>
 					<tr>
 						<th>Cliente</th>
 						<th>Punti Fedeltà</th>

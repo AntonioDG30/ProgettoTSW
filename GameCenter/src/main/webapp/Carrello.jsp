@@ -18,7 +18,7 @@
 	PrezzoTotale=0;
 %>
 <!DOCTYPE html>
-<html>
+<html lang="it">
 	<%@ page contentType="text/html; charset=UTF-8" import="java.util.*,model.*"%>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -30,28 +30,28 @@
 			if(Carrello != null && Carrello.getListaCarrello().size() != 0) 
 			{ 
 		%>
-				<h2>Carrello</h2>
 				<table border="1">
-				<tr>
-					<th>Nome</th>
-					<th>Quantita</th>
-					<th>Prezzo</th>
-					<th>Piattaforma</th>
-					<th>Azione</th>
-				</tr>
-				<% 
-					List<ProductBean> ProdottoCarrello = Carrello.getListaCarrello(); 	
-				   	for(ProductBean Prod: ProdottoCarrello) 
-				   	{
-				%>
-						<tr>
-							<td><%=Prod.getNome()%></td>
-							<td><%=Prod.getQuantita()%></td>
-							<td><%=Prod.getPrezzo()%></td>
-							<td><%=Prod.getPiattaforma()%></td>
-							<%PrezzoTotale = PrezzoTotale + (Prod.getPrezzo() * Prod.getQuantita());%>
-							<td><a href="GeneralProductControl?action=RimuoviCarrello&CodSeriale=<%=Prod.getCodSeriale()%>">Rimuovi dal Carrello</a></td>
-						</tr>
+					<caption>Carrello</caption>
+					<tr>
+						<th>Nome</th>
+						<th>Quantita</th>
+						<th>Prezzo</th>
+						<th>Piattaforma</th>
+						<th>Azione</th>
+					</tr>
+					<% 
+						List<ProductBean> ProdottoCarrello = Carrello.getListaCarrello(); 	
+					   	for(ProductBean Prod: ProdottoCarrello) 
+					   	{
+					%>
+					<tr>
+						<td><%=Prod.getNome()%></td>
+						<td><%=Prod.getQuantita()%></td>
+						<td><%=Prod.getPrezzo()%></td>
+						<td><%=Prod.getPiattaforma()%></td>
+						<%PrezzoTotale = PrezzoTotale + (Prod.getPrezzo() * Prod.getQuantita());%>
+						<td><a href="GeneralProductControl?action=RimuoviCarrello&CodSeriale=<%=Prod.getCodSeriale()%>">Rimuovi dal Carrello</a></td>
+					</tr>
 				<%
 					} 
 				   	/*Tronchiamo float a solo due cifre decimali*/

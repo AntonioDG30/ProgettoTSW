@@ -16,7 +16,7 @@
 	}
 %>
 <!DOCTYPE html>
-<html>
+<html lang="it">
 	<%@ page contentType="text/html; charset=UTF-8" import="java.util.*,model.*"%>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -28,8 +28,9 @@
 			if (product != null) 
 			{
 		%>
-				<h2>Dettagli</h2>
+
 				<table border="1">
+					<caption>Dettagli</caption>
 					<tr>
 						<th>Nome</th>
 						<th>Prezzo</th>
@@ -62,8 +63,8 @@
 					</tr>
 				</table>
 				<br>
-				<h2>Disponibilità per: <%=product.getNome()%></h2>
 				<table border="1">
+					<caption>Disponibilità per: <%=product.getNome()%></caption>
 					<tr>
 						<th>Piattaforma</th>
 						<th>Formato Fisico</th>
