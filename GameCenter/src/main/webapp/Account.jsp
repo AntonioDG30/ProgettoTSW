@@ -27,7 +27,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<%@ page contentType="text/html; charset=UTF-8" import="java.util.*,Model.*"%>
+		<%@ page contentType="text/html; charset=UTF-8" import="java.util.*,model.*"%>
 		<title>Account page</title>
 	</head>
 	<body>
