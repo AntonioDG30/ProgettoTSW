@@ -3,6 +3,7 @@ package control;
 import model.*;
 
 import java.io.IOException;
+
 import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
@@ -10,15 +11,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import java.io.IOException;
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-
 
 
 @WebServlet("/UserControl")
@@ -38,13 +31,13 @@ public class UserControl extends HttpServlet
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
 		String action = request.getParameter("action");
-		if(action != null) 
+		try
 		{
-			if (action.equalsIgnoreCase("Login")) 
+			if(action != null) 
 			{
-				UserBean utente = null;
-				try
+				if (action.equalsIgnoreCase("Login")) 
 				{
+					UserBean utente = null;
 					String email = request.getParameter("email");
 					String pass = request.getParameter("password");
 					
@@ -79,26 +72,19 @@ public class UserControl extends HttpServlet
 						}								
 					}					
 				}
-				catch (SQLException e) 
+				
+				if (action.equalsIgnoreCase("Logout")) 
 				{
-					System.out.println("Error:" + e.getMessage());
+					request.getSession().invalidate();
+					response.sendRedirect("./index.jsp");
 				}
-			}
-			
-			if (action.equalsIgnoreCase("Logout")) 
-			{
-				request.getSession().invalidate();
-				response.sendRedirect("./index.jsp");
-			}
-			
-			
-			if (action.equalsIgnoreCase("Registrati")) 
-			{
-				String email = request.getParameter("email");
-				String pass = request.getParameter("password");
-				UserBean utente = null;
-				try 
+				
+				
+				if (action.equalsIgnoreCase("Registrati")) 
 				{
+					String email = request.getParameter("email");
+					String pass = request.getParameter("password");
+					UserBean utente = null;
 					boolean Trovato = model.RicercaEmail(email);
 					if(Trovato)
 					{
@@ -126,30 +112,23 @@ public class UserControl extends HttpServlet
 						}
 						
 					}
-					
 				}
-				catch (SQLException e) 
+				
+				
+				
+				if (action.equalsIgnoreCase("RegistraDatiSensibili")) 
 				{
-					System.out.println("Error:" + e.getMessage());
-				}
-			}
-			
-			
-			
-			if (action.equalsIgnoreCase("RegistraDatiSensibili")) 
-			{
-				String email = (String) request.getSession().getAttribute("Email");
-				String CF = request.getParameter("CF");
-				String Nome = request.getParameter("Nome");
-				String Cognome = request.getParameter("Cognome");
-				int CAP = Integer.parseInt(request.getParameter("CAP"));
-				String Citta = request.getParameter("Citta");
-				String Provincia = request.getParameter("Provincia");
-				String Via = request.getParameter("Via");
-				int Civico = Integer.parseInt(request.getParameter("Civico"));
-				String Telefono = request.getParameter("Telefono");
-				try 
-				{
+					String email = (String) request.getSession().getAttribute("Email");
+					String CF = request.getParameter("CF");
+					String Nome = request.getParameter("Nome");
+					String Cognome = request.getParameter("Cognome");
+					int CAP = Integer.parseInt(request.getParameter("CAP"));
+					String Citta = request.getParameter("Citta");
+					String Provincia = request.getParameter("Provincia");
+					String Via = request.getParameter("Via");
+					int Civico = Integer.parseInt(request.getParameter("Civico"));
+					String Telefono = request.getParameter("Telefono");
+
 					if(model.RegistraDatiSensibili(email, CF, Nome, Cognome, CAP, Citta, Provincia, Via, Civico, Telefono))
 					{
 						response.sendRedirect("./index.jsp");
@@ -160,28 +139,18 @@ public class UserControl extends HttpServlet
 						request.setAttribute("Result", "Errore salvataggio dati sesnsibili. Riprova");
 						RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/RegistraDatiSensibili.jsp");
 						dispatcher.forward(request, response);
-					}
-				} 
-				catch (SQLException e) 
-				{
-					System.out.println("Error:" + e.getMessage());
+					}		
 				}
 				
-			
-			}
-			
-			
-			
-			
-			
-			if (action.equalsIgnoreCase("VisualizzaUtenti")) 
-			{
-				if(request.getParameter("ParteMod").contentEquals("Parte1"))
+				
+				
+				
+				
+				if (action.equalsIgnoreCase("VisualizzaUtenti")) 
 				{
-					try 
+					if(request.getParameter("ParteMod").contentEquals("Parte1"))
 					{
-						String Visualizzazione = request.getParameter("VisualizzazioneUtente");
-						
+						String Visualizzazione = request.getParameter("VisualizzazioneUtente");				
 						if(Visualizzazione.contentEquals("Tutti"))
 						{
 							request.removeAttribute("Clienti");
@@ -192,34 +161,20 @@ public class UserControl extends HttpServlet
 							request.removeAttribute("Clienti");
 							request.setAttribute("Visual", Visualizzazione);
 						}
-					} 
-					catch (SQLException e) 
-					{
-						System.out.println("Error:" + e.getMessage());
 					}
-				}
-				else if(request.getParameter("ParteMod").contentEquals("Parte2"))
-				{
-					try 
+					else if(request.getParameter("ParteMod").contentEquals("Parte2"))
 					{
 						String Email = request.getParameter("email");
 						request.removeAttribute("Cliente");
 						request.setAttribute("Cliente", model.RicercaCliente(Email));
-					} 
-					catch (SQLException e) 
-					{
-						System.out.println("Error:" + e.getMessage());
 					}
+					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Admin.jsp");
+					dispatcher.forward(request, response);	
 				}
-				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Admin.jsp");
-				dispatcher.forward(request, response);	
-			}
-			
-			
-			
-			if (action.equalsIgnoreCase("VisualizzaDati"))
-			{
-				try 
+				
+				
+				
+				if (action.equalsIgnoreCase("VisualizzaDati"))
 				{
 					String Email = (String) request.getSession().getAttribute("Email");
 					request.removeAttribute("Cliente");	
@@ -228,26 +183,19 @@ public class UserControl extends HttpServlet
 					request.setAttribute("PuntiFedelta", model.getPuntiFedelta(Email));
 					request.removeAttribute("Ordini");
 					request.setAttribute("Ordini", Omodel.ElencoOrdiniByCliente(Email));
-				} 
-				catch (SQLException e) 
-				{
-					e.printStackTrace();
+					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Account.jsp");
+					dispatcher.forward(request, response);	
 				}
-				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Account.jsp");
-				dispatcher.forward(request, response);	
-			}
-			
-			
-			
-			if (action.equalsIgnoreCase("ModificaDati"))
-			{
-					String email = (String) request.getSession().getAttribute("Email");
-					Boolean RsCF = false, RsNome = false, RsCognome = false, 
-							RsCAP = false, RsCitta = false, RsProvincia = false, 
-							RsVia = false, RsCivico = false, RsNumeroTelefono = false;
-					
-					try
-					{
+				
+				
+				
+				if (action.equalsIgnoreCase("ModificaDati"))
+				{
+						String email = (String) request.getSession().getAttribute("Email");
+						Boolean RsCF = false, RsNome = false, RsCognome = false, 
+								RsCAP = false, RsCitta = false, RsProvincia = false, 
+								RsVia = false, RsCivico = false, RsNumeroTelefono = false;
+
 						if(!(request.getParameter("CodiceFiscale").isEmpty()))
 						{	
 							RsCF = model.ModCodiceFiscale(email, request.getParameter("CodiceFiscale"));
@@ -331,6 +279,8 @@ public class UserControl extends HttpServlet
 							RsNumeroTelefono = true;
 						}
 						
+						
+						
 						if(RsCF && RsNome && RsCognome && RsCAP && RsCitta && RsProvincia && RsVia && RsCivico && RsNumeroTelefono)
 						{
 							request.setAttribute("Result", "I tuoi dati sono stati modificati correttamente.");
@@ -338,38 +288,32 @@ public class UserControl extends HttpServlet
 						else
 						{
 							request.setAttribute("Result", "Errore imprevisto, riprova.");
-						}
+						}			
+						
 						request.removeAttribute("Cliente");	
 						request.setAttribute("Cliente", model.RicercaCliente(email));
 						request.removeAttribute("PuntiFedelta");
 						request.setAttribute("PuntiFedelta", model.getPuntiFedelta(email));
 						request.removeAttribute("Ordini");
 						request.setAttribute("Ordini", Omodel.ElencoOrdiniByCliente(email));
-					}
-					catch (SQLException e) 
-					{
-						e.printStackTrace();
-					}
-					
-					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Account.jsp");
-					dispatcher.forward(request, response);
-			}
-			
-			
-			
-			if (action.equalsIgnoreCase("NuovoIndirizzo")) 
-			{
-				String email = (String) request.getSession().getAttribute("Email");
-				String Nome = request.getParameter("Nome");
-				String Cognome = request.getParameter("Cognome");
-				int CAP = Integer.parseInt(request.getParameter("CAP"));
-				String Citta = request.getParameter("Citta");
-				String Provincia = request.getParameter("Provincia");
-				String Via = request.getParameter("Via");
-				int Civico = Integer.parseInt(request.getParameter("Civico"));
-				String Telefono = request.getParameter("Telefono");
-				try 
+						RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Account.jsp");
+						dispatcher.forward(request, response);
+				}
+				
+				
+				
+				if (action.equalsIgnoreCase("NuovoIndirizzo")) 
 				{
+					String email = (String) request.getSession().getAttribute("Email");
+					String Nome = request.getParameter("Nome");
+					String Cognome = request.getParameter("Cognome");
+					int CAP = Integer.parseInt(request.getParameter("CAP"));
+					String Citta = request.getParameter("Citta");
+					String Provincia = request.getParameter("Provincia");
+					String Via = request.getParameter("Via");
+					int Civico = Integer.parseInt(request.getParameter("Civico"));
+					String Telefono = request.getParameter("Telefono");
+
 					if(model.RegistraNuovoIndirizzo(Nome, Cognome, CAP, Citta, Provincia, Via, Civico, Telefono, email))
 					{
 						response.sendRedirect("./OrdiniControl?action=Checkout");
@@ -381,25 +325,17 @@ public class UserControl extends HttpServlet
 						RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/RegistraIndirizzo.jsp");
 						dispatcher.forward(request, response);
 					}
-				} 
-				catch (SQLException e) 
-				{
-					System.out.println("Error:" + e.getMessage());
 				}
 				
-			
-			}
-			
-			
-			
-			if (action.equalsIgnoreCase("NuovoMetodoPagamento")) 
-			{
-				String email = (String) request.getSession().getAttribute("Email");
-				String NumeroCarta = request.getParameter("NumeroCarta");
-				String Titolare = request.getParameter("Titolare");
-				String DataScadenza = request.getParameter("DataScadenza");
-				try 
+				
+				
+				if (action.equalsIgnoreCase("NuovoMetodoPagamento")) 
 				{
+					String email = (String) request.getSession().getAttribute("Email");
+					String NumeroCarta = request.getParameter("NumeroCarta");
+					String Titolare = request.getParameter("Titolare");
+					String DataScadenza = request.getParameter("DataScadenza");
+
 					if(model.RegistraNuovoMetodoPagamento(NumeroCarta, Titolare, DataScadenza, email))
 					{
 						response.sendRedirect("./OrdiniControl?action=Checkout");
@@ -411,14 +347,13 @@ public class UserControl extends HttpServlet
 						RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/RegistraMetodoPagamento.jsp");
 						dispatcher.forward(request, response);
 					}
-				} 
-				catch (SQLException e) 
-				{
-					System.out.println("Error:" + e.getMessage());
 				}
-				
-			
 			}
+		
+		}
+		catch (SQLException e) 
+		{
+			System.out.println("Error:" + e.getMessage());
 		}
 		
 		

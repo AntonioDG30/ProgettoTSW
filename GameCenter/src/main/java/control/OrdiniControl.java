@@ -3,36 +3,26 @@ package control;
 import model.*;
 
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.File;
+
 import java.sql.SQLException;
-import java.sql.*;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import javax.servlet.http.Part;
-import java.io.FileOutputStream;
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.Locale;
-import java.io.IOException;
-import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 
-import java.io.File;
-import java.io.IOException;
-import java.sql.SQLException;
 import java.util.Collection;
+import java.util.Locale;
 import java.util.Iterator;
 
 import org.apache.pdfbox.pdmodel.PDDocument; 
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
-import java.text.DecimalFormat;
+
 
 
 @WebServlet("/OrdiniControl")
@@ -56,12 +46,11 @@ public class OrdiniControl extends HttpServlet
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
 		String action = request.getParameter("action");
-		
-		if(action != null) 
-		{	
-			if (action.equalsIgnoreCase("Dettagli")) 
-			{
-				try 
+		try
+		{
+			if(action != null) 
+			{	
+				if (action.equalsIgnoreCase("Dettagli")) 
 				{
 					int CodOrdine = Integer.parseInt(request.getParameter("CodOrdine"));
 					float PrezzoEffettivo = Float.parseFloat(request.getParameter("PrezzoEffettivo"));
@@ -72,24 +61,18 @@ public class OrdiniControl extends HttpServlet
 					request.removeAttribute("Fattura");
 					request.setAttribute("Fattura", Omodel.RicercaFattura(CodOrdine));
 
-				} 
-				catch (SQLException e) 
-				{
-					System.out.println("Error:" + e.getMessage());
+					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/DettagliOrdine.jsp");
+					dispatcher.forward(request, response);	
 				}
-				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/DettagliOrdine.jsp");
-				dispatcher.forward(request, response);	
-			}
-			
-			
-			if (action.equalsIgnoreCase("Recensione")) 
-			{
-				try 
+				
+				
+				if (action.equalsIgnoreCase("Recensione")) 
 				{
 					String Email=(String) request.getSession().getAttribute("Email");
 					String CodProdotto = request.getParameter("CodProdotto");
 					int Valutazione = Integer.parseInt(request.getParameter("Valutazione"));
 					String Descrizione = request.getParameter("Descrizione");
+					
 					request.removeAttribute("Result");
 					if(Omodel.Recensione(Valutazione, Descrizione, CodProdotto, Email))
 					{
@@ -109,18 +92,10 @@ public class OrdiniControl extends HttpServlet
 						RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Recensione.jsp");
 						dispatcher.forward(request, response);
 					}
-					
-				} 
-				catch (SQLException e) 
-				{
-					System.out.println("Error:" + e.getMessage());
+						
 				}
-					
-			}
-			
-			if (action.equalsIgnoreCase("Checkout")) 
-			{
-				try 
+				
+				if (action.equalsIgnoreCase("Checkout")) 
 				{
 					if (request.getSession().getAttribute("Email") != null)
 					{
@@ -141,23 +116,17 @@ public class OrdiniControl extends HttpServlet
 					{
 						response.sendRedirect("./Login.jsp");
 					}
-				} 
-				catch (SQLException e) 
-				{
-					System.out.println("Error:" + e.getMessage());
 				}
-			}
-			
-			if (action.equalsIgnoreCase("Acquista")) 
-			{
-				if (request.getSession().getAttribute("Email") != null)
+				
+				if (action.equalsIgnoreCase("Acquista")) 
 				{
-					try
+					if (request.getSession().getAttribute("Email") != null)
 					{
 						String Email=(String) request.getSession().getAttribute("Email");
 						CarrelloBean Carrello=(CarrelloBean) request.getSession().getAttribute("Carrello");
 						float PrezzoTotale =  Float.parseFloat(request.getParameter("PrezzoTotale"));
 						float PuntiFedeltaUsati = Float.parseFloat(request.getParameter("Sconto"));						
+						
 						request.removeAttribute("Result");
 						int CodOrdine = Omodel.Acquisto(Carrello, PrezzoTotale, PuntiFedeltaUsati, Email);
 						if(CodOrdine != 0)
@@ -178,30 +147,22 @@ public class OrdiniControl extends HttpServlet
 						{
 							request.setAttribute("Result", "Errore imprevisto, riprova.");
 						}
+						
+						RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Account.jsp");
+						dispatcher.forward(request, response);
 					}
-					catch (SQLException e) 
+					else
 					{
-						System.out.println("Error:" + e.getMessage());
+						response.sendRedirect("./Login.jsp");
 					}
-					
-					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Account.jsp");
-					dispatcher.forward(request, response);
 				}
-				else
+				
+				
+				if (action.equalsIgnoreCase("VisualizzaOrdini")) 
 				{
-					response.sendRedirect("./Login.jsp");
-				}
-			}
-			
-			
-			if (action.equalsIgnoreCase("VisualizzaOrdini")) 
-			{
-				if(request.getParameter("ParteMod").contentEquals("Parte1"))
-				{
-					try 
+					if(request.getParameter("ParteMod").contentEquals("Parte1"))
 					{
 						String Visualizzazione = request.getParameter("VisualizzazioneOrdini");
-						
 						if(Visualizzazione.contentEquals("Tutti"))
 						{
 							request.removeAttribute("Ordini");
@@ -217,16 +178,10 @@ public class OrdiniControl extends HttpServlet
 							request.removeAttribute("Visual");
 							request.setAttribute("Visual", Visualizzazione);
 						}
-					} 
-					catch (SQLException e) 
-					{
-						System.out.println("Error:" + e.getMessage());
 					}
-				}
-				else if(request.getParameter("ParteMod").contentEquals("Parte2"))
-				{
-					try 
+					else if(request.getParameter("ParteMod").contentEquals("Parte2"))
 					{
+
 						if (request.getParameter("email") != null )
 						{
 							String Email = request.getParameter("email");
@@ -241,33 +196,27 @@ public class OrdiniControl extends HttpServlet
 							request.removeAttribute("Ordini");
 							request.setAttribute("Ordini", Omodel.ElencoOrdiniByPeriodo(DataInizio, DataFine));
 						}
-					} 
-					catch (SQLException e) 
-					{
-						System.out.println("Error:" + e.getMessage());
 					}
+					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Admin.jsp");
+					dispatcher.forward(request, response);	
 				}
-				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Admin.jsp");
-				dispatcher.forward(request, response);	
 			}
-		}
-		else
-		{
-			try 
+			else
 			{
 			    String Email=(String) request.getSession().getAttribute("Email");
 			    request.removeAttribute("PuntiFedelta");
 				request.setAttribute("PuntiFedelta", Umodel.getPuntiFedelta(Email));
 				request.removeAttribute("Ordini");
 				request.setAttribute("Ordini", Omodel.ElencoOrdiniByCliente(Email));
-			} 
-			catch (SQLException e) 
-			{
-				System.out.println("Error:" + e.getMessage());
+				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Account.jsp");
+				dispatcher.forward(request, response);
 			}
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Account.jsp");
-			dispatcher.forward(request, response);
 		}
+		catch (SQLException e) 
+		{
+			System.out.println("Error:" + e.getMessage());
+		}
+		
 	}
 
 	private void GeneraFattura(int CodOrdine, float PrezzoTotale, float PuntiFedeltaUsati, String Email) throws IOException 
@@ -478,7 +427,7 @@ public class OrdiniControl extends HttpServlet
 		}
 		catch (SQLException e) 
 		{
-			e.printStackTrace();
+			System.out.println("Error:" + e.getMessage());
 		}
 		
 	}

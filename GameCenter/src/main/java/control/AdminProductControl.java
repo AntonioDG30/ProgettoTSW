@@ -4,6 +4,8 @@ import model.*;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.FileOutputStream;
+
 import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
@@ -11,10 +13,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import javax.servlet.http.Part;
-import java.io.FileOutputStream;
-
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 
@@ -109,19 +108,12 @@ public class AdminProductControl extends HttpServlet
 						Part ImmaginePart = request.getPart("Immagine");
 						String ImmagineFileName = ImmaginePart.getSubmittedFileName();
 						String Path = "C:/Users/anton/git/ProgettoTSW/GameCenter/src/main/webapp/Immagini/" +ImmagineFileName;
-						try
-						{
-							FileOutputStream fos = new FileOutputStream(Path);
-							InputStream is = ImmaginePart.getInputStream();
-							byte[] data = new byte[is.available()];
-							is.read(data);
-							fos.write(data);
-							fos.close();
-						}
-						catch (Exception e)
-						{
-							e.printStackTrace();
-						}
+						FileOutputStream fos = new FileOutputStream(Path);
+						InputStream is = ImmaginePart.getInputStream();
+						byte[] data = new byte[is.available()];
+						is.read(data);
+						fos.write(data);
+						fos.close();
 						product.setImmagine(ImmagineFileName);
 						product.setPrezzo(Float.parseFloat(request.getParameter("Prezzo")));
 						product.setDataUscita(request.getParameter("DataUscita"));	
@@ -201,20 +193,12 @@ public class AdminProductControl extends HttpServlet
 							Part ImmaginePart = request.getPart("Immagine");
 							String ImmagineFileName = ImmaginePart.getSubmittedFileName();
 							String Path = "C:/Users/anton/git/ProgettoTSW/GameCenter/src/main/webapp/Immagini/" +ImmagineFileName;
-							try
-							{
-								FileOutputStream fos = new FileOutputStream(Path);
-								InputStream is = ImmaginePart.getInputStream();
-								byte[] data = new byte[is.available()];
-								is.read(data);
-								fos.write(data);
-								fos.close();
-							}
-							catch (Exception e)
-							{
-								e.printStackTrace();
-							}
-							
+							FileOutputStream fos = new FileOutputStream(Path);
+							InputStream is = ImmaginePart.getInputStream();
+							byte[] data = new byte[is.available()];
+							is.read(data);
+							fos.write(data);
+							fos.close();
 							RsImmagine = model.ModImmagine(codSerialeMod, ImmagineFileName);
 						}
 						else
@@ -391,6 +375,10 @@ public class AdminProductControl extends HttpServlet
 				
 		}
 		catch (SQLException e) 
+		{
+			System.out.println("Error:" + e.getMessage());
+		}
+		catch (Exception e)
 		{
 			System.out.println("Error:" + e.getMessage());
 		}
