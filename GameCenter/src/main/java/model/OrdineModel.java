@@ -1,5 +1,6 @@
 package model;
 
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -8,6 +9,8 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.time.LocalDate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class OrdineModel 
@@ -30,6 +33,8 @@ public class OrdineModel
 	
 	private static final String FORMATO_DIGITALE = "Digitale";
 	private static final String FORMATO_FISICO = "Fisico";
+	
+	Logger logger = Logger.getLogger(OrdineModel.class.getName());
 	
 	
 	public synchronized Collection<OrdineBean> ElencoOrdini() throws SQLException
@@ -62,7 +67,7 @@ public class OrdineModel
 		}
 		catch(SQLException e)
 		{
-			System.out.println("Error: " + e.getMessage());
+			logger.log(Level.WARNING, e.getMessage());
 		}
 		finally
 		{
@@ -110,7 +115,7 @@ public class OrdineModel
 		}
 		catch(SQLException e)
 		{
-			System.out.println("Error: " + e.getMessage());
+			logger.log(Level.WARNING, e.getMessage());
 		}
 		finally
 		{
@@ -159,7 +164,7 @@ public class OrdineModel
 		}
 		catch(SQLException e)
 		{
-			System.out.println("Error: " + e.getMessage());
+			logger.log(Level.WARNING, e.getMessage());
 		}
 		finally
 		{
@@ -230,7 +235,7 @@ public class OrdineModel
 							}
 							catch(SQLException e)
 							{
-								System.out.println("Error: " + e.getMessage());
+								logger.log(Level.WARNING, e.getMessage());
 							}
 							finally
 							{
@@ -244,7 +249,7 @@ public class OrdineModel
 				}
 				catch(SQLException e)
 				{
-					System.out.println("Error: " + e.getMessage());
+					logger.log(Level.WARNING, e.getMessage());
 				}
 				finally
 				{
@@ -259,7 +264,7 @@ public class OrdineModel
 		}
 		catch(SQLException e)
 		{
-			System.out.println("Error: " + e.getMessage());
+			logger.log(Level.WARNING, e.getMessage());
 		}
 		finally
 		{
@@ -319,7 +324,7 @@ public class OrdineModel
 	   		}
 	   		catch(SQLException e)
 			{
-				System.out.println("Error: " + e.getMessage());
+				logger.log(Level.WARNING, e.getMessage());
 			}
 			finally
 			{
@@ -400,7 +405,7 @@ public class OrdineModel
 			}
 			catch(SQLException e)
 			{
-				System.out.println("Error: " + e.getMessage());
+				logger.log(Level.WARNING, e.getMessage());
 			}
 			finally
 			{
@@ -421,7 +426,7 @@ public class OrdineModel
 			}
 			catch(SQLException e)
 			{
-				System.out.println("Error: " + e.getMessage());
+				logger.log(Level.WARNING, e.getMessage());
 			}
 			finally
 			{
@@ -443,7 +448,7 @@ public class OrdineModel
 			}
 			catch(SQLException e)
 			{
-				System.out.println("Error: " + e.getMessage());
+				logger.log(Level.WARNING, e.getMessage());
 			}
 			finally
 			{
@@ -460,7 +465,7 @@ public class OrdineModel
 		} 
 		catch(SQLException e)
 		{
-			System.out.println("Error: " + e.getMessage());
+			logger.log(Level.WARNING, e.getMessage());
 		}
 		finally
 		{
@@ -508,7 +513,7 @@ public class OrdineModel
 		} 
 		catch(SQLException e)
 		{
-			System.out.println("Error: " + e.getMessage());
+			logger.log(Level.WARNING, e.getMessage());
 		}
 		finally
 		{
@@ -543,7 +548,7 @@ public class OrdineModel
 		} 
 		catch(SQLException e)
 		{
-			System.out.println("Error: " + e.getMessage());
+			logger.log(Level.WARNING, e.getMessage());
 		}
 		finally
 		{
@@ -582,7 +587,7 @@ public class OrdineModel
 		} 
 		catch(SQLException e)
 		{
-			System.out.println("Error: " + e.getMessage());
+			logger.log(Level.WARNING, e.getMessage());
 		}
 		finally
 		{
@@ -621,7 +626,7 @@ public class OrdineModel
 		}
 		catch(SQLException e)
 		{
-			System.out.println("Error: " + e.getMessage());
+			logger.log(Level.WARNING, e.getMessage());
 		}
 		finally
 		{
@@ -669,7 +674,7 @@ public class OrdineModel
 		}
 		catch(SQLException e)
 		{
-			System.out.println("Error: " + e.getMessage());
+			logger.log(Level.WARNING, e.getMessage());
 		}
 		finally
 		{
@@ -708,7 +713,7 @@ public class OrdineModel
 		} 
 		catch(SQLException e)
 		{
-			System.out.println("Error: " + e.getMessage());
+			logger.log(Level.WARNING, e.getMessage());
 		}
 		finally
 		{
