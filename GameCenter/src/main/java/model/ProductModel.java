@@ -7,6 +7,9 @@ import java.sql.SQLException;
 import java.util.Collection;
 import java.util.LinkedList;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class ProductModel 
 {
 	private static final String TABLE_NAME_PRODOTTO = "Prodotto";
@@ -27,6 +30,12 @@ public class ProductModel
 	
 	private static final String FORMATO_DIGITALE = "Digitale";
 	private static final String FORMATO_FISICO = "Fisico";
+	
+	
+	Logger logger = Logger.getLogger(OrdineModel.class.getName());
+	
+	
+	
 	
 	public synchronized Collection<ProductBean> doAll() throws SQLException
 	{
@@ -57,7 +66,7 @@ public class ProductModel
 		}
 		catch(SQLException e)
 		{
-			System.out.println("Error: " + e.getMessage());
+			logger.log(Level.WARNING, e.getMessage());
 		}
 		finally
 		{
@@ -79,7 +88,8 @@ public class ProductModel
 		Connection con = null;
 		PreparedStatement ps = null;
 		PreparedStatement ps2 = null;
-		PreparedStatement ps3 = null;
+		ResultSet  rs2 = null;
+
 
 		ProductBean bean = new ProductBean();
 
@@ -107,125 +117,296 @@ public class ProductModel
 				bean.setTipologia(rs.getBoolean("FlagTipologia"));
 				if(!rs.getBoolean("FlagTipologia"))
 				{
-					ps2 = con.prepareStatement(SQL2);
+					try
+					{
+						ps2 = con.prepareStatement(SQL2);
+						ps2.setString(1, rs.getString("CodSeriale"));
+						rs2 = ps2.executeQuery();
+						while(rs2.next()) 
+						{
+							bean.setPEGI(rs2.getInt("CodPEGI"));
+							bean.setGenere(rs2.getString("NomeGenere"));
+						}
+					}
+					catch(SQLException e)
+					{
+						logger.log(Level.WARNING, e.getMessage());
+					}
+					finally
+					{
+						if(ps2 != null)
+						{
+							ps2.close();
+						}
+					}
+					
+					
+					
+					try
+					{
+						ps2 = con.prepareStatement(SQL3);
+						ps2.setString(1, rs.getString("CodSeriale"));
+						ps2.setString(2, PIATTAFORMA_PS5);
+						ps2.setString(3, FORMATO_DIGITALE);
+						rs2 = ps2.executeQuery();
+						while(rs2.next()) 
+						{
+							bean.setDisp_Ps5_Digitale(rs2.getInt("QuantitaDisponibile"));
+						}
+					}
+					catch(SQLException e)
+					{
+						logger.log(Level.WARNING, e.getMessage());
+					}
+					finally
+					{
+						if(ps2 != null)
+						{
+							ps2.close();
+						}
+					}
+					
+					
+					
+					try
+					{
+						ps2 = con.prepareStatement(SQL3);
+						ps2.setString(1, rs.getString("CodSeriale"));
+						ps2.setString(2, PIATTAFORMA_PS4);
+						ps2.setString(3, FORMATO_DIGITALE);
+						rs2 = ps2.executeQuery();
+						while(rs2.next()) 
+						{
+							bean.setDisp_Ps4_Digitale(rs2.getInt("QuantitaDisponibile"));
+						}
+					}
+					catch(SQLException e)
+					{
+						logger.log(Level.WARNING, e.getMessage());
+					}
+					finally
+					{
+						if(ps2 != null)
+						{
+							ps2.close();
+						}
+					}
+					
+					
+					
+					try
+					{
+						ps2 = con.prepareStatement(SQL3);
+						ps2.setString(1, rs.getString("CodSeriale"));
+						ps2.setString(2, PIATTAFORMA_XboxSerieX);
+						ps2.setString(3, FORMATO_DIGITALE);
+						rs2 = ps2.executeQuery();
+						while(rs2.next()) 
+						{
+							bean.setDisp_XboxX_Digitale(rs2.getInt("QuantitaDisponibile"));
+						}
+					}
+					catch(SQLException e)
+					{
+						logger.log(Level.WARNING, e.getMessage());
+					}
+					finally
+					{
+						if(ps2 != null)
+						{
+							ps2.close();
+						}
+					}
+					
+					
+					try
+					{
+						ps2 = con.prepareStatement(SQL3);
+						ps2.setString(1, rs.getString("CodSeriale"));
+						ps2.setString(2, PIATTAFORMA_XboxSerieS);
+						ps2.setString(3, FORMATO_DIGITALE);
+						rs2 = ps2.executeQuery();
+						while(rs2.next()) 
+						{
+							bean.setDisp_XboxS_Digitale(rs2.getInt("QuantitaDisponibile"));
+						}
+					}
+					catch(SQLException e)
+					{
+						logger.log(Level.WARNING, e.getMessage());
+					}
+					finally
+					{
+						if(ps2 != null)
+						{
+							ps2.close();
+						}
+					}
+					
+					
+					try
+					{
+						ps2 = con.prepareStatement(SQL3);
+						ps2.setString(1, rs.getString("CodSeriale"));
+						ps2.setString(2, PIATTAFORMA_PC);
+						ps2.setString(3, FORMATO_DIGITALE);
+						rs2 = ps2.executeQuery();
+						while(rs2.next()) 
+						{
+							bean.setDisp_Pc_Digitale(rs2.getInt("QuantitaDisponibile"));
+						}
+					}
+					catch(SQLException e)
+					{
+						logger.log(Level.WARNING, e.getMessage());
+					}
+					finally
+					{
+						if(ps2 != null)
+						{
+							ps2.close();
+						}
+					}
+					
+				}
+				
+				
+				
+				try
+				{
+					ps2 = con.prepareStatement(SQL3);
 					ps2.setString(1, rs.getString("CodSeriale"));
-					ResultSet rs2 = ps2.executeQuery();
+					ps2.setString(2, PIATTAFORMA_PS5);
+					ps2.setString(3, FORMATO_FISICO);
+					rs2 = ps2.executeQuery();
 					while(rs2.next()) 
 					{
-						bean.setPEGI(rs2.getInt("CodPEGI"));
-						bean.setGenere(rs2.getString("NomeGenere"));
-					}
-					ps3 = con.prepareStatement(SQL3);
-					ps3.setString(1, rs.getString("CodSeriale"));
-					ps3.setString(2, PIATTAFORMA_PS5);
-					ps3.setString(3, FORMATO_DIGITALE);
-					ResultSet  rs3 = ps3.executeQuery();
-					while(rs3.next()) 
-					{
-						bean.setDisp_Ps5_Digitale(rs3.getInt("QuantitaDisponibile"));
-					}
-					ps3 = con.prepareStatement(SQL3);
-					ps3.setString(1, rs.getString("CodSeriale"));
-					ps3.setString(2, PIATTAFORMA_PS4);
-					ps3.setString(3, FORMATO_DIGITALE);
-					rs3 = ps3.executeQuery();
-					while(rs3.next()) 
-					{
-						bean.setDisp_Ps4_Digitale(rs3.getInt("QuantitaDisponibile"));
-					}
-					ps3 = con.prepareStatement(SQL3);
-					ps3.setString(1, rs.getString("CodSeriale"));
-					ps3.setString(2, PIATTAFORMA_XboxSerieX);
-					ps3.setString(3, FORMATO_DIGITALE);
-					rs3 = ps3.executeQuery();
-					while(rs3.next()) 
-					{
-						bean.setDisp_XboxX_Digitale(rs3.getInt("QuantitaDisponibile"));
-					}
-					ps3 = con.prepareStatement(SQL3);
-					ps3.setString(1, rs.getString("CodSeriale"));
-					ps3.setString(2, PIATTAFORMA_XboxSerieS);
-					ps3.setString(3, FORMATO_DIGITALE);
-					rs3 = ps3.executeQuery();
-					while(rs3.next()) 
-					{
-						bean.setDisp_XboxS_Digitale(rs3.getInt("QuantitaDisponibile"));
-					}
-					ps3 = con.prepareStatement(SQL3);
-					ps3.setString(1, rs.getString("CodSeriale"));
-					ps3.setString(2, PIATTAFORMA_PC);
-					ps3.setString(3, FORMATO_DIGITALE);
-					rs3 = ps3.executeQuery();
-					while(rs3.next()) 
-					{
-						bean.setDisp_Pc_Digitale(rs3.getInt("QuantitaDisponibile"));
+						bean.setDisp_Ps5_Fisico(rs2.getInt("QuantitaDisponibile"));
 					}
 				}
-				ps3 = con.prepareStatement(SQL3);
-				ps3.setString(1, rs.getString("CodSeriale"));
-				ps3.setString(2, PIATTAFORMA_PS5);
-				ps3.setString(3, FORMATO_FISICO);
-				ResultSet rs3 = ps3.executeQuery();
-				while(rs3.next()) 
+				catch(SQLException e)
 				{
-					bean.setDisp_Ps5_Fisico(rs3.getInt("QuantitaDisponibile"));
+					logger.log(Level.WARNING, e.getMessage());
 				}
-				ps3 = con.prepareStatement(SQL3);
-				ps3.setString(1, rs.getString("CodSeriale"));
-				ps3.setString(2, PIATTAFORMA_PS4);
-				ps3.setString(3, FORMATO_FISICO);
-				rs3 = ps3.executeQuery();
-				while(rs3.next()) 
+				finally
 				{
-					bean.setDisp_Ps4_Fisico(rs3.getInt("QuantitaDisponibile"));
+					if(ps2 != null)
+					{
+						ps2.close();
+					}
 				}
-				ps3 = con.prepareStatement(SQL3);
-				ps3.setString(1, rs.getString("CodSeriale"));
-				ps3.setString(2, PIATTAFORMA_XboxSerieX);
-				ps3.setString(3, FORMATO_FISICO);
-				rs3 = ps3.executeQuery();
-				while(rs3.next()) 
+				
+				
+				try
 				{
-					bean.setDisp_XboxX_Fisico(rs3.getInt("QuantitaDisponibile"));
+					ps2 = con.prepareStatement(SQL3);
+					ps2.setString(1, rs.getString("CodSeriale"));
+					ps2.setString(2, PIATTAFORMA_PS4);
+					ps2.setString(3, FORMATO_FISICO);
+					rs2 = ps2.executeQuery();
+					while(rs2.next()) 
+					{
+						bean.setDisp_Ps4_Fisico(rs2.getInt("QuantitaDisponibile"));
+					}
 				}
-				ps3 = con.prepareStatement(SQL3);
-				ps3.setString(1, rs.getString("CodSeriale"));
-				ps3.setString(2, PIATTAFORMA_XboxSerieS);
-				ps3.setString(3, FORMATO_FISICO);
-				rs3 = ps3.executeQuery();
-				while(rs3.next()) 
+				catch(SQLException e)
 				{
-					bean.setDisp_XboxS_Fisico(rs3.getInt("QuantitaDisponibile"));
+					logger.log(Level.WARNING, e.getMessage());
 				}
-				ps3 = con.prepareStatement(SQL3);
-				ps3.setString(1, rs.getString("CodSeriale"));
-				ps3.setString(2, PIATTAFORMA_PC);
-				ps3.setString(3, FORMATO_FISICO);
-				rs3 = ps3.executeQuery();
-				while(rs3.next()) 
+				finally
 				{
-					bean.setDisp_Pc_Fisico(rs3.getInt("QuantitaDisponibile"));
+					if(ps2 != null)
+					{
+						ps2.close();
+					}
+				}
+				
+				
+				try
+				{
+					ps2 = con.prepareStatement(SQL3);
+					ps2.setString(1, rs.getString("CodSeriale"));
+					ps2.setString(2, PIATTAFORMA_XboxSerieX);
+					ps2.setString(3, FORMATO_FISICO);
+					rs2 = ps2.executeQuery();
+					while(rs2.next()) 
+					{
+						bean.setDisp_XboxX_Fisico(rs2.getInt("QuantitaDisponibile"));
+					}
+				}
+				catch(SQLException e)
+				{
+					logger.log(Level.WARNING, e.getMessage());
+				}
+				finally
+				{
+					if(ps2 != null)
+					{
+						ps2.close();
+					}
+				}
+				
+				
+				try
+				{
+					ps2 = con.prepareStatement(SQL3);
+					ps2.setString(1, rs.getString("CodSeriale"));
+					ps2.setString(2, PIATTAFORMA_XboxSerieS);
+					ps2.setString(3, FORMATO_FISICO);
+					rs2 = ps2.executeQuery();
+					while(rs2.next()) 
+					{
+						bean.setDisp_XboxS_Fisico(rs2.getInt("QuantitaDisponibile"));
+					}
+				}
+				catch(SQLException e)
+				{
+					logger.log(Level.WARNING, e.getMessage());
+				}
+				finally
+				{
+					if(ps2 != null)
+					{
+						ps2.close();
+					}
+				}
+				
+				
+				try
+				{
+					ps2 = con.prepareStatement(SQL3);
+					ps2.setString(1, rs.getString("CodSeriale"));
+					ps2.setString(2, PIATTAFORMA_PC);
+					ps2.setString(3, FORMATO_FISICO);
+					rs2 = ps2.executeQuery();
+					while(rs2.next()) 
+					{
+						bean.setDisp_Pc_Fisico(rs2.getInt("QuantitaDisponibile"));
+					}
+				}
+				catch(SQLException e)
+				{
+					logger.log(Level.WARNING, e.getMessage());
+				}
+				finally
+				{
+					if(ps2 != null)
+					{
+						ps2.close();
+					}
 				}
 			}
 
 		} 
 		catch(SQLException e)
 		{
-			System.out.println("Error: " + e.getMessage());
+			logger.log(Level.WARNING, e.getMessage());
 		}
 		finally
 		{
 			if(ps != null)
 			{
 				ps.close();
-			}
-			if(ps2 != null)
-			{
-				ps2.close();
-			}
-			if(ps3 != null)
-			{
-				ps3.close();
 			}
 			if(con != null)
 			{
@@ -264,7 +445,7 @@ public class ProductModel
 		} 
 		catch(SQLException e)
 		{
-			System.out.println("Error: " + e.getMessage());
+			logger.log(Level.WARNING, e.getMessage());
 		}
 		finally
 		{
@@ -306,7 +487,7 @@ public class ProductModel
 		}
 		catch(SQLException e)
 		{
-			System.out.println("Error: " + e.getMessage());
+			logger.log(Level.WARNING, e.getMessage());
 		}
 		finally
 		{
@@ -348,7 +529,7 @@ public class ProductModel
 		}
 		catch(SQLException e)
 		{
-			System.out.println("Error: " + e.getMessage());
+			logger.log(Level.WARNING, e.getMessage());
 		}
 		finally
 		{
@@ -478,7 +659,7 @@ public class ProductModel
 		} 
 		catch(SQLException e)
 		{
-			System.out.println("Error: " + e.getMessage());
+			logger.log(Level.WARNING, e.getMessage());
 		}
 		finally
 		{
@@ -566,7 +747,7 @@ public class ProductModel
 		} 
 		catch(SQLException e)
 		{
-			System.out.println("Error: " + e.getMessage());
+			logger.log(Level.WARNING, e.getMessage());
 		}
 		finally
 		{
@@ -603,7 +784,7 @@ public class ProductModel
 		} 
 		catch(SQLException e)
 		{
-			System.out.println("Error: " + e.getMessage());
+			logger.log(Level.WARNING, e.getMessage());
 		}
 		finally
 		{
@@ -640,7 +821,7 @@ public class ProductModel
 		} 
 		catch(SQLException e)
 		{
-			System.out.println("Error: " + e.getMessage());
+			logger.log(Level.WARNING, e.getMessage());
 		}
 		finally
 		{
@@ -677,7 +858,7 @@ public class ProductModel
 		} 
 		catch(SQLException e)
 		{
-			System.out.println("Error: " + e.getMessage());
+			logger.log(Level.WARNING, e.getMessage());
 		}
 		finally
 		{
@@ -715,7 +896,7 @@ public class ProductModel
 		} 
 		catch(SQLException e)
 		{
-			System.out.println("Error: " + e.getMessage());
+			logger.log(Level.WARNING, e.getMessage());
 		}
 		finally
 		{
@@ -752,7 +933,7 @@ public class ProductModel
 		} 
 		catch(SQLException e)
 		{
-			System.out.println("Error: " + e.getMessage());
+			logger.log(Level.WARNING, e.getMessage());
 		}
 		finally
 		{
@@ -788,7 +969,7 @@ public class ProductModel
 		} 
 		catch(SQLException e)
 		{
-			System.out.println("Error: " + e.getMessage());
+			logger.log(Level.WARNING, e.getMessage());
 		}
 		finally
 		{
@@ -824,7 +1005,7 @@ public class ProductModel
 		} 
 		catch(SQLException e)
 		{
-			System.out.println("Error: " + e.getMessage());
+			logger.log(Level.WARNING, e.getMessage());
 		}
 		finally
 		{
@@ -860,7 +1041,7 @@ public class ProductModel
 		} 
 		catch(SQLException e)
 		{
-			System.out.println("Error: " + e.getMessage());
+			logger.log(Level.WARNING, e.getMessage());
 		}
 		finally
 		{
@@ -898,7 +1079,7 @@ public class ProductModel
 		} 
 		catch(SQLException e)
 		{
-			System.out.println("Error: " + e.getMessage());
+			logger.log(Level.WARNING, e.getMessage());
 		}
 		finally
 		{
@@ -935,7 +1116,7 @@ public class ProductModel
 		} 
 		catch(SQLException e)
 		{
-			System.out.println("Error: " + e.getMessage());
+			logger.log(Level.WARNING, e.getMessage());
 		}
 		finally
 		{
