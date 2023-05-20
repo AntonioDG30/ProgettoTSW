@@ -26,7 +26,7 @@
 	
 %>
 <!DOCTYPE html>
-<html>
+<html lang="it">
 	<%@ page contentType="text/html; charset=UTF-8" import="java.util.*,model.*"%>
 	
 	<head>
@@ -93,22 +93,20 @@
 			%>
 			
 		<a href="RegistraMetodoPagamento.jsp">Vuoi aggiungere un nuovo metodo di pagamento?</a>
-			
-			
-			<h3>Dettagli Prodotti che stai acquistando:</h3>
 	
 			<%
 				if(Carrello != null) 
 				{ 
 			%>
 					<table border="1">
-					<tr>
-						<th>Immagine</th>
-						<th>Nome</th>
-						<th>Prezzo</th>
-						<th>Descrizione Ridotta</th>
-						<th>Piattaforma</th>
-					</tr>
+						<caption>Dettagli Prodotti che stai acquistando:</caption>
+						<tr>
+							<th>Immagine</th>
+							<th>Nome</th>
+							<th>Prezzo</th>
+							<th>Descrizione Ridotta</th>
+							<th>Piattaforma</th>
+						</tr>
 					<% 
 						List<ProductBean> ProdottoCarrello = Carrello.getListaCarrello(); 	
 					   	for(ProductBean Prod: ProdottoCarrello) 

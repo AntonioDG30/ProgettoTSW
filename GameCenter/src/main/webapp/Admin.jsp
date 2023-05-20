@@ -255,9 +255,10 @@
 							%>
 						</tr>
 					</table>
+				
 					<br>
-					<h2>Disponibilità per: <%=product.getNome()%></h2>
 					<table border="1">
+						<caption>Disponibilità per: <%=product.getNome()%></caption>
 						<tr>
 							<th>Piattaforma</th>
 							<th>Formato Fisico</th>

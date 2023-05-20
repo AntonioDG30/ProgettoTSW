@@ -203,30 +203,43 @@ public class OrdineModel
 				ProductBean bean = new ProductBean();
 				bean.setQuantita(rs.getInt("Quantita"));
 				bean.setCodSeriale(rs.getString("CodSeriale"));
-				
-				ps2 = con.prepareStatement(SQL2);
-				ps2.setString(1, rs.getString("CodSeriale"));
-				ResultSet rs2 = ps2.executeQuery();
-				while(rs2.next()) 
+				try
 				{
-					bean.setNome(rs2.getString("Nome"));
-					bean.setPrezzo(rs2.getFloat("Prezzo"));
-					bean.setDescrizioneCompleta(rs2.getString("DescrizioneCompleta"));
-					bean.setImmagine(rs2.getString("Immagine"));
-					bean.setTipologia(rs2.getBoolean("FlagTipologia"));
-					if(!(bean.getTipologia()))
+					ps2 = con.prepareStatement(SQL2);
+					ps2.setString(1, rs.getString("CodSeriale"));
+					ResultSet rs2 = ps2.executeQuery();
+					while(rs2.next()) 
 					{
-						ps3 = con.prepareStatement(SQL3);
-						ps3.setString(1, rs.getString("CodSeriale"));
-						ResultSet rs3 = ps3.executeQuery();
-						while(rs3.next()) 
+						bean.setNome(rs2.getString("Nome"));
+						bean.setPrezzo(rs2.getFloat("Prezzo"));
+						bean.setDescrizioneCompleta(rs2.getString("DescrizioneCompleta"));
+						bean.setImmagine(rs2.getString("Immagine"));
+						bean.setTipologia(rs2.getBoolean("FlagTipologia"));
+						if(!(bean.getTipologia()))
 						{
-							bean.setPEGI(rs3.getInt("CodPEGI"));
-							bean.setGenere(rs3.getString("NomeGenere"));
+							ps3 = con.prepareStatement(SQL3);
+							ps3.setString(1, rs.getString("CodSeriale"));
+							ResultSet rs3 = ps3.executeQuery();
+							while(rs3.next()) 
+							{
+								bean.setPEGI(rs3.getInt("CodPEGI"));
+								bean.setGenere(rs3.getString("NomeGenere"));
+							}
 						}
 					}
 				}
-				
+				catch(SQLException e)
+				{
+					System.out.println("Error: " + e.getMessage());
+				}
+				finally
+				{
+					if(ps2 != null)
+					{
+						ps2.close();
+					}
+
+				}
 				products.add(bean);
 			}
 			
