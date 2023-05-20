@@ -40,7 +40,10 @@ public class DBConnectionPool
 		}
 		catch(SQLException e)
 		{
-			newConnection.close();
+			if(newConnection != null)
+			{
+				newConnection.close();
+			}
 		}
 		
 		return newConnection;
