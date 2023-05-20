@@ -18,7 +18,7 @@ public class DBConnectionPool
 		} 
         catch (ClassNotFoundException e) 
         {
-			System.out.printf("DB driver non trovato! %d", e.getMessage());
+			System.out.println("DB driver non trovato! Errore: " + e.getMessage());
 		} 
         
 	}
@@ -30,11 +30,11 @@ public class DBConnectionPool
 		String port = "3306";
 		String db = "GameCenter";
 		String username = "root";
-		String password = "Digiorgio";
+		String pass = "Digiorgio";
 		String params = "?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
         
 
-		newConnection = DriverManager.getConnection("jdbc:mysql://" + ip + ":" + port + "/" + db + params, username, password);
+		newConnection = DriverManager.getConnection("jdbc:mysql://" + ip + ":" + port + "/" + db + params, username, pass);
 
 		newConnection.setAutoCommit(false);
 		return newConnection;
