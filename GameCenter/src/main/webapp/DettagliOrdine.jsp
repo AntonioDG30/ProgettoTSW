@@ -89,7 +89,12 @@
 					<%
 						}
 					%>
-				<td><a href="./Recensione.jsp?Prodotto=<%=bean.getCodSeriale()%>">Recensione</a></td>
+					<td>
+						<form method=post action="./Recensione.jsp">
+							<input type="hidden" name="Prodotto" value="<%=bean.getCodSeriale()%>">
+							<input type="submit" value="Recensione">
+						</form>
+					</td>
 			</tr>
 				
 			<%
