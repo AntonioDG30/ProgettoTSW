@@ -111,8 +111,10 @@ public class AdminProductControl extends HttpServlet
 						FileOutputStream fos = new FileOutputStream(Path);
 						InputStream is = ImmaginePart.getInputStream();
 						byte[] data = new byte[is.available()];
-						is.read(data);
-						fos.write(data);
+						if(is.read(data) > 0)
+						{
+							fos.write(data);
+						}
 						fos.close();
 						product.setImmagine(ImmagineFileName);
 						product.setPrezzo(Float.parseFloat(request.getParameter("Prezzo")));
@@ -196,8 +198,10 @@ public class AdminProductControl extends HttpServlet
 							FileOutputStream fos = new FileOutputStream(Path);
 							InputStream is = ImmaginePart.getInputStream();
 							byte[] data = new byte[is.available()];
-							is.read(data);
-							fos.write(data);
+							if(is.read(data) > 0)
+							{
+								fos.write(data);
+							}
 							fos.close();
 							RsImmagine = model.ModImmagine(codSerialeMod, ImmagineFileName);
 						}
