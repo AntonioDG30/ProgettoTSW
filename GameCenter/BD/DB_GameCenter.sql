@@ -367,7 +367,7 @@ INSERT INTO StatoOrdine(Stato)
 VALUES ('In Lavorazione');
 INSERT INTO StatoOrdine(Stato)
 VALUES ('Spedito');
-INSERT INTO StatoOrdine(Stato)
+INSERT INTO StatoOrdine(Stato) 
 VALUES ('In Consegna');
 INSERT INTO StatoOrdine(Stato)
 VALUES ('Consegnato');
