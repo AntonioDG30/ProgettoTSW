@@ -33,9 +33,15 @@ public class DBConnectionPool
 		String pass = "Digiorgio";
 		String params = "?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
         
-
-		newConnection = DriverManager.getConnection("jdbc:mysql://" + ip + ":" + port + "/" + db + params, username, pass);
-
+		try
+		{
+			newConnection = DriverManager.getConnection("jdbc:mysql://" + ip + ":" + port + "/" + db + params, username, pass);
+		}
+		catch(SQLException e)
+		{
+			System.out.println("Errore: " + e.getMessage());
+		}
+		
 		newConnection.setAutoCommit(false);
 		return newConnection;
 	}
