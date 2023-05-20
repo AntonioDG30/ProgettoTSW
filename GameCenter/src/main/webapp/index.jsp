@@ -57,7 +57,7 @@
 		
 
 		<table border="1">
-			<caption>Prodotti</caption>
+			<caption>Prodotti:</caption>
 			<tr>
 				<th>Foto</th>
 				<th>Nome</th>
