@@ -61,11 +61,11 @@ public class OrdiniControl extends HttpServlet
 					int CodOrdine = Integer.parseInt(request.getParameter("CodOrdine"));
 					float PrezzoEffettivo = Float.parseFloat(request.getParameter("PrezzoEffettivo"));
 					request.removeAttribute("Ordini");
-					request.setAttribute("Ordini", Omodel.DettagliOrdine(CodOrdine));
+					request.setAttribute("Ordini", Omodel.dettagliOrdine(CodOrdine));
 					request.removeAttribute("PrezzoEffettivo");
 					request.setAttribute("PrezzoEffettivo", PrezzoEffettivo);
 					request.removeAttribute("Fattura");
-					request.setAttribute("Fattura", Omodel.RicercaFattura(CodOrdine));
+					request.setAttribute("Fattura", Omodel.ricercaFattura(CodOrdine));
 
 					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/DettagliOrdine.jsp");
 					dispatcher.forward(request, response);	
@@ -80,13 +80,13 @@ public class OrdiniControl extends HttpServlet
 					String Descrizione = request.getParameter("Descrizione");
 					
 					request.removeAttribute("Result");
-					if(Omodel.Recensione(Valutazione, Descrizione, CodProdotto, Email))
+					if(Omodel.recensione(Valutazione, Descrizione, CodProdotto, Email))
 					{
 						request.setAttribute("Result", "Recensione inserita Correttamente");
 					    request.removeAttribute("PuntiFedelta");
 						request.setAttribute("PuntiFedelta", Umodel.getPuntiFedelta(Email));
 						request.removeAttribute("Ordini");
-						request.setAttribute("Ordini", Omodel.ElencoOrdiniByCliente(Email));
+						request.setAttribute("Ordini", Omodel.elencoOrdiniByCliente(Email));
 						RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Account.jsp");
 						dispatcher.forward(request, response);						
 					}
@@ -134,19 +134,19 @@ public class OrdiniControl extends HttpServlet
 						float PuntiFedeltaUsati = Float.parseFloat(request.getParameter("Sconto"));						
 						
 						request.removeAttribute("Result");
-						int CodOrdine = Omodel.Acquisto(Carrello, PrezzoTotale, PuntiFedeltaUsati, Email);
+						int CodOrdine = Omodel.acquisto(Carrello, PrezzoTotale, PuntiFedeltaUsati, Email);
 						if(CodOrdine != 0)
 						{
 							int codIndirizzo = Integer.parseInt(request.getParameter("IndirizzoScelto"));
 							String NumeroCarta = request.getParameter("MetodoScelto");
-							Omodel.UpdateComprende(CodOrdine, codIndirizzo, NumeroCarta);
+							Omodel.updateComprende(CodOrdine, codIndirizzo, NumeroCarta);
 							request.removeAttribute("PuntiFedelta");
 							request.setAttribute("PuntiFedelta", Umodel.getPuntiFedelta(Email));
 							request.removeAttribute("Ordini");
-							request.setAttribute("Ordini", Omodel.ElencoOrdiniByCliente(Email));
+							request.setAttribute("Ordini", Omodel.elencoOrdiniByCliente(Email));
 							request.setAttribute("Result", "Grazie per aver acquistato sul nostro sito");
-							GeneraFattura(CodOrdine, PrezzoTotale, PuntiFedeltaUsati, Email);
-							Omodel.UpdateFattura(CodOrdine);
+							generaFattura(CodOrdine, PrezzoTotale, PuntiFedeltaUsati, Email);
+							Omodel.updateFattura(CodOrdine);
 							request.getSession().setAttribute("Carrello", null);
 						}
 						else
@@ -172,7 +172,7 @@ public class OrdiniControl extends HttpServlet
 						if(Visualizzazione.contentEquals("Tutti"))
 						{
 							request.removeAttribute("Ordini");
-							request.setAttribute("Ordini", Omodel.ElencoOrdini());
+							request.setAttribute("Ordini", Omodel.elencoOrdini());
 						}
 						else if (Visualizzazione.contentEquals("Cliente"))
 						{
@@ -192,7 +192,7 @@ public class OrdiniControl extends HttpServlet
 						{
 							String Email = request.getParameter("email");
 							request.removeAttribute("Ordini");
-							request.setAttribute("Ordini", Omodel.ElencoOrdiniByCliente(Email));
+							request.setAttribute("Ordini", Omodel.elencoOrdiniByCliente(Email));
 						}
 						else if (request.getParameter("DataInizio") != null &&
 								request.getParameter("DataFine") != null)
@@ -200,7 +200,7 @@ public class OrdiniControl extends HttpServlet
 							String DataInizio = request.getParameter("DataInizio");
 							String DataFine = request.getParameter("DataFine");
 							request.removeAttribute("Ordini");
-							request.setAttribute("Ordini", Omodel.ElencoOrdiniByPeriodo(DataInizio, DataFine));
+							request.setAttribute("Ordini", Omodel.elencoOrdiniByPeriodo(DataInizio, DataFine));
 						}
 					}
 					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Admin.jsp");
@@ -213,7 +213,7 @@ public class OrdiniControl extends HttpServlet
 			    request.removeAttribute("PuntiFedelta");
 				request.setAttribute("PuntiFedelta", Umodel.getPuntiFedelta(Email));
 				request.removeAttribute("Ordini");
-				request.setAttribute("Ordini", Omodel.ElencoOrdiniByCliente(Email));
+				request.setAttribute("Ordini", Omodel.elencoOrdiniByCliente(Email));
 				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Account.jsp");
 				dispatcher.forward(request, response);
 			}
@@ -225,7 +225,7 @@ public class OrdiniControl extends HttpServlet
 		
 	}
 
-	private void GeneraFattura(int CodOrdine, float PrezzoTotale, float PuntiFedeltaUsati, String Email) throws IOException 
+	private void generaFattura(int CodOrdine, float PrezzoTotale, float PuntiFedeltaUsati, String Email) throws IOException 
 	{
 		
 		float x=0, y=0;
@@ -238,7 +238,7 @@ public class OrdiniControl extends HttpServlet
 			String TotalPath = servletPath + "/Fatture/Fattura" + CodOrdine + ".pdf";
 			Float SubTotale = 0.0f;
 		
-			String PDF = Omodel.RicercaFattura(CodOrdine);
+			String PDF = Omodel.ricercaFattura(CodOrdine);
 		
 		
 		
@@ -263,7 +263,7 @@ public class OrdiniControl extends HttpServlet
 	
 			    
 			    //inserimento data fattura
-			    OrdineBean Ordine = Omodel.OrdineByCodOrdine(CodOrdine);
+			    OrdineBean Ordine = Omodel.ordineByCodOrdine(CodOrdine);
 			    y = 754;
 			    contentStream.beginText();
 			    contentStream.setFont(font, 11);
@@ -273,7 +273,7 @@ public class OrdiniControl extends HttpServlet
 			    
 			    
 			    //inserimento Dati Utente
-			    UserBean Utente = Umodel.RicercaDatiSensibili(Email); 
+			    UserBean Utente = Umodel.ricercaDatiSensibili(Email); 
 			    
 			    x = 395;
 			    y = 710;
@@ -308,7 +308,7 @@ public class OrdiniControl extends HttpServlet
 			    
 			    //inserimento prodotti
 			    y = 604;
-			    Collection<?> Ordini = (Collection<?>) Omodel.DettagliOrdine(CodOrdine);
+			    Collection<?> Ordini = (Collection<?>) Omodel.dettagliOrdine(CodOrdine);
 			    if (Ordini != null && Ordini.size() != 0) 
 				{
 			    	

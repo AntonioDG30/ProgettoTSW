@@ -37,7 +37,7 @@ public class OrdineModel
 	Logger logger = Logger.getLogger(OrdineModel.class.getName());
 	
 	
-	public synchronized Collection<OrdineBean> ElencoOrdini() throws SQLException
+	public synchronized Collection<OrdineBean> elencoOrdini() throws SQLException
 	{
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -84,7 +84,7 @@ public class OrdineModel
 	}
 	
 	
-	public synchronized Collection<OrdineBean> ElencoOrdiniByCliente(String Email) throws SQLException
+	public synchronized Collection<OrdineBean> elencoOrdiniByCliente(String Email) throws SQLException
 	{
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -132,7 +132,7 @@ public class OrdineModel
 	}
 	
 	
-	public synchronized Collection<OrdineBean> ElencoOrdiniByPeriodo(String DataInizio, String DataFine) throws SQLException
+	public synchronized Collection<OrdineBean> elencoOrdiniByPeriodo(String DataInizio, String DataFine) throws SQLException
 	{
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -183,7 +183,7 @@ public class OrdineModel
 	
 	
 	
-	public synchronized Collection<ProductBean> DettagliOrdine(int CodOrdine) throws SQLException
+	public synchronized Collection<ProductBean> dettagliOrdine(int CodOrdine) throws SQLException
 	{
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -284,7 +284,7 @@ public class OrdineModel
 	
 	
 	
-	public synchronized int Acquisto(CarrelloBean Carrello, float PrezzoTotale, float PuntiFedeltàUsati, String Email) throws SQLException
+	public synchronized int acquisto(CarrelloBean Carrello, float PrezzoTotale, float PuntiFedeltàUsati, String Email) throws SQLException
 	{
 		Connection con = null;
 		PreparedStatement ps1 = null;
@@ -403,7 +403,7 @@ public class OrdineModel
 		   			Formato = OrdineModel.FORMATO_FISICO;
 		   		}
 		   		
-		   		if(ModDisponibilita(Prod.getCodSeriale(), Prod.getQuantita(), Piattaforma, Formato))
+		   		if(modDisponibilita(Prod.getCodSeriale(), Prod.getQuantita(), Piattaforma, Formato))
 		   		{
 		   			result3 = 1;
 		   		}
@@ -485,7 +485,7 @@ public class OrdineModel
 	}
 	
 	
-	public synchronized boolean ModDisponibilita(String CodSerialeMod, int quantita, String Piattaforma, String Formato) throws SQLException 
+	public synchronized boolean modDisponibilita(String CodSerialeMod, int quantita, String Piattaforma, String Formato) throws SQLException 
 	{
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -523,7 +523,7 @@ public class OrdineModel
 		return (result != 0);
 	}
 	
-	public synchronized void UpdateComprende(int CodOrdine,  int CodIndirizzo, String NumeroCarta) throws SQLException
+	public synchronized void updateComprende(int CodOrdine,  int CodIndirizzo, String NumeroCarta) throws SQLException
 	{
 		Connection con = null;
 		PreparedStatement ps = null;		
@@ -560,7 +560,7 @@ public class OrdineModel
 	
 	
 	
-	public synchronized void UpdateFattura(int CodOrdine) throws SQLException
+	public synchronized void updateFattura(int CodOrdine) throws SQLException
 	{
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -600,7 +600,7 @@ public class OrdineModel
 	
 	
 	
-	public synchronized String RicercaFattura(int CodOrdine) throws SQLException
+	public synchronized String ricercaFattura(int CodOrdine) throws SQLException
 	{
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -638,7 +638,7 @@ public class OrdineModel
 	
 	
 	
-	public synchronized OrdineBean OrdineByCodOrdine(int CodOrdine) throws SQLException
+	public synchronized OrdineBean ordineByCodOrdine(int CodOrdine) throws SQLException
 	{
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -685,7 +685,7 @@ public class OrdineModel
 	}
 	
 	
-	public synchronized boolean Recensione(int Valutazione, String Descrizione, String CodProdotto, String Email) throws SQLException
+	public synchronized boolean recensione(int Valutazione, String Descrizione, String CodProdotto, String Email) throws SQLException
 	{
 		Connection con = null;
 		PreparedStatement ps = null;

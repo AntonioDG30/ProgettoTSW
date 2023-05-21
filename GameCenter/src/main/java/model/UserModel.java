@@ -18,7 +18,7 @@ public class UserModel
 	
 	Logger logger = Logger.getLogger(UserModel.class.getName());
 	
-	public synchronized UserBean RicercaUtente(String email,String password) throws SQLException 
+	public synchronized UserBean ricercaUtente(String email,String password) throws SQLException 
 	{
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -76,7 +76,7 @@ public class UserModel
 	
 	
 	
-	public synchronized boolean RicercaEmail(String email) throws SQLException 
+	public synchronized boolean ricercaEmail(String email) throws SQLException 
 	{
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -116,7 +116,7 @@ public class UserModel
 	}
 	
 	
-	public synchronized boolean RegistraUtente(String email,String password) throws SQLException 
+	public synchronized boolean registraUtente(String email,String password) throws SQLException 
 	{
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -158,7 +158,7 @@ public class UserModel
 			
 	}
 	
-	public synchronized boolean RegistraDatiSensibili(String email, String CF, String Nome, String Cognome, int CAP, String Citta, String Provincia, String Via, int Civico, String Telefono) throws SQLException 
+	public synchronized boolean registraDatiSensibili(String email, String CF, String Nome, String Cognome, int CAP, String Citta, String Provincia, String Via, int Civico, String Telefono) throws SQLException 
 	{
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -355,7 +355,7 @@ public class UserModel
 	
 	
 	
-	public synchronized UserBean RicercaDatiSensibili(String email) throws SQLException 
+	public synchronized UserBean ricercaDatiSensibili(String email) throws SQLException 
 	{
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -404,7 +404,7 @@ public class UserModel
 	}
 	
 	
-	public synchronized Collection<UserBean> ElencoClienti() throws SQLException 
+	public synchronized Collection<UserBean> elencoClienti() throws SQLException 
 	{
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -486,7 +486,7 @@ public class UserModel
 	
 	
 	
-	public synchronized UserBean RicercaCliente(String Email) throws SQLException 
+	public synchronized UserBean ricercaCliente(String Email) throws SQLException 
 	{
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -563,7 +563,7 @@ public class UserModel
 	}
 
 			
-	public synchronized boolean RegistraNuovoIndirizzo(String Nome, String Cognome, int CAP, String Citta, String Provincia, String Via, int Civico, String Telefono, String email) throws SQLException 
+	public synchronized boolean registraNuovoIndirizzo(String Nome, String Cognome, int CAP, String Citta, String Provincia, String Via, int Civico, String Telefono, String email) throws SQLException 
 	{
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -614,7 +614,7 @@ public class UserModel
 	
 	
 	
-	public synchronized boolean RegistraNuovoMetodoPagamento(String NumeroCarta, String Intestatario, String DataScadenza, String Email) throws SQLException 
+	public synchronized boolean registraNuovoMetodoPagamento(String NumeroCarta, String Intestatario, String DataScadenza, String Email) throws SQLException 
 	{
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -655,7 +655,7 @@ public class UserModel
 	}
 	
 	
-	public synchronized boolean ModCodiceFiscale(String email,String CF) throws SQLException 
+	public synchronized boolean modCodiceFiscale(String email,String CF) throws SQLException 
 	{
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -692,7 +692,7 @@ public class UserModel
 		
 	}
 	
-	public synchronized boolean ModNome(String email,String Nome) throws SQLException 
+	public synchronized boolean modNome(String email,String Nome) throws SQLException 
 	{
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -728,7 +728,7 @@ public class UserModel
 		return (result != 0);
 	}
 	
-	public synchronized boolean ModCognome(String email,String Cognome) throws SQLException 
+	public synchronized boolean modCognome(String email,String Cognome) throws SQLException 
 	{
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -764,7 +764,7 @@ public class UserModel
 		return (result != 0);
 	}
 	
-	public synchronized boolean ModCAP(String email,int CAP) throws SQLException 
+	public synchronized boolean modCAP(String email,int CAP) throws SQLException 
 	{
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -800,7 +800,7 @@ public class UserModel
 		return (result != 0);
 	}
 	
-	public synchronized boolean ModCitta(String email,String Citta) throws SQLException 
+	public synchronized boolean modCitta(String email,String Citta) throws SQLException 
 	{
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -836,7 +836,7 @@ public class UserModel
 		return (result != 0);
 	}
 	
-	public synchronized boolean ModProvincia(String email,String Provincia) throws SQLException 
+	public synchronized boolean modProvincia(String email,String Provincia) throws SQLException 
 	{
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -872,7 +872,7 @@ public class UserModel
 		return (result != 0);
 	}
 	
-	public synchronized boolean ModVia(String email,String Via) throws SQLException 
+	public synchronized boolean modVia(String email,String Via) throws SQLException 
 	{
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -908,7 +908,7 @@ public class UserModel
 		return (result != 0);
 	}
 	
-	public synchronized boolean ModCivico(String email,int Civico) throws SQLException 
+	public synchronized boolean modCivico(String email,int Civico) throws SQLException 
 	{
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -944,7 +944,7 @@ public class UserModel
 		return (result != 0);
 	}
 	
-	public synchronized boolean ModTelefono(String email,String Telefono) throws SQLException 
+	public synchronized boolean modTelefono(String email,String Telefono) throws SQLException 
 	{
 		Connection con = null;
 		PreparedStatement pstmt = null;

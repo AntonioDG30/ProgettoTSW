@@ -83,7 +83,7 @@ public class ProductModel
 	}
 	
 	
-	public synchronized ProductBean Dettagli(String CodSeriale) throws SQLException 
+	public synchronized ProductBean dettagli(String CodSeriale) throws SQLException 
 	{
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -426,7 +426,7 @@ public class ProductModel
 	}
 	
 	
-	public synchronized boolean Elimina(String CodSeriale) throws SQLException 
+	public synchronized boolean elimina(String CodSeriale) throws SQLException 
 	{
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -546,7 +546,7 @@ public class ProductModel
 	}
 	
 	
-	public synchronized boolean Inserisci(ProductBean product) throws SQLException 
+	public synchronized boolean inserisci(ProductBean product) throws SQLException 
 	{
 
 		Connection con = null;
@@ -830,7 +830,7 @@ public class ProductModel
 	}
 	
 	
-	public synchronized boolean ModNome(String CodSerialeMod, String Nome) throws SQLException 
+	public synchronized boolean modNome(String CodSerialeMod, String Nome) throws SQLException 
 	{
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -867,7 +867,7 @@ public class ProductModel
 	}
 	
 	
-	public synchronized boolean ModPrezzo(String CodSerialeMod, Float Prezzo) throws SQLException 
+	public synchronized boolean modPrezzo(String CodSerialeMod, Float Prezzo) throws SQLException 
 	{
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -904,7 +904,7 @@ public class ProductModel
 	}
 	
 	
-	public synchronized boolean ModDataUscita(String CodSerialeMod, String DataUscita) throws SQLException 
+	public synchronized boolean modDataUscita(String CodSerialeMod, String DataUscita) throws SQLException 
 	{
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -941,7 +941,7 @@ public class ProductModel
 	}
 	
 	
-	public synchronized boolean ModDescrizioneRidotta(String CodSerialeMod, String DescrizioneRidotta) throws SQLException 
+	public synchronized boolean modDescrizioneRidotta(String CodSerialeMod, String DescrizioneRidotta) throws SQLException 
 	{
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -979,7 +979,7 @@ public class ProductModel
 	
 	
 	
-	public synchronized boolean ModDescrizioneCompleta(String CodSerialeMod, String DescrizioneCompleta) throws SQLException 
+	public synchronized boolean modDescrizioneCompleta(String CodSerialeMod, String DescrizioneCompleta) throws SQLException 
 	{
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -1016,7 +1016,7 @@ public class ProductModel
 	}
 	
 	
-	/*public synchronized boolean ModTipologia(String CodSerialeMod, Boolean Tipologia) throws SQLException 
+	/*public synchronized boolean modTipologia(String CodSerialeMod, Boolean Tipologia) throws SQLException 
 	{
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -1052,7 +1052,7 @@ public class ProductModel
 		return (result != 0);
 	}*/
 	
-	public synchronized boolean ModPEGI(String CodSerialeMod, int PEGI) throws SQLException 
+	public synchronized boolean modPEGI(String CodSerialeMod, int PEGI) throws SQLException 
 	{
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -1088,7 +1088,7 @@ public class ProductModel
 		return (result != 0);
 	}
 	
-	public synchronized boolean ModGenere(String CodSerialeMod, String Genere) throws SQLException 
+	public synchronized boolean modGenere(String CodSerialeMod, String Genere) throws SQLException 
 	{
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -1124,7 +1124,7 @@ public class ProductModel
 		return (result != 0);
 	}
 	
-	public synchronized boolean ModImmagine(String CodSerialeMod, String Immagine) throws SQLException 
+	public synchronized boolean modImmagine(String CodSerialeMod, String Immagine) throws SQLException 
 	{
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -1160,7 +1160,7 @@ public class ProductModel
 		return (result != 0);
 	}
 	
-	public synchronized boolean ModDisponibilita(String CodSerialeMod, int  Disp, String Piattaforma, String Formato) throws SQLException 
+	public synchronized boolean modDisponibilita(String CodSerialeMod, int  Disp, String Piattaforma, String Formato) throws SQLException 
 	{
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -1199,7 +1199,7 @@ public class ProductModel
 	}
 	
 	
-	public synchronized boolean ModCodSeriale(String CodSerialeMod, String CodSeriale) throws SQLException 
+	public synchronized boolean modCodSeriale(String CodSerialeMod, String CodSeriale) throws SQLException 
 	{
 		Connection con = null;
 		PreparedStatement ps = null;

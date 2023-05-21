@@ -52,7 +52,7 @@ public class UserControl extends HttpServlet
 						
 					else 
 					{
-						utente = model.RicercaUtente(email, pass);
+						utente = model.ricercaUtente(email, pass);
 						if(utente == null)
 						{
 							request.removeAttribute("Result");
@@ -89,7 +89,7 @@ public class UserControl extends HttpServlet
 					String email = request.getParameter("email");
 					String pass = request.getParameter("password");
 					UserBean utente = null;
-					boolean Trovato = model.RicercaEmail(email);
+					boolean Trovato = model.ricercaEmail(email);
 					if(Trovato)
 					{
 						request.removeAttribute("Result");
@@ -99,9 +99,9 @@ public class UserControl extends HttpServlet
 					}
 					else
 					{
-						if(model.RegistraUtente(email, pass))
+						if(model.registraUtente(email, pass))
 						{
-							utente = model.RicercaUtente(email, pass);
+							utente = model.ricercaUtente(email, pass);
 							request.getSession().setAttribute("Email", utente.getEmail());
 							request.getSession().setAttribute("Tipo", utente.getTipo());
 							request.getSession().setAttribute("PuntiFedelta", utente.getPuntiFedelta());
@@ -133,7 +133,7 @@ public class UserControl extends HttpServlet
 					int Civico = Integer.parseInt(request.getParameter("Civico"));
 					String Telefono = request.getParameter("Telefono");
 
-					if(model.RegistraDatiSensibili(email, CF, Nome, Cognome, CAP, Citta, Provincia, Via, Civico, Telefono))
+					if(model.registraDatiSensibili(email, CF, Nome, Cognome, CAP, Citta, Provincia, Via, Civico, Telefono))
 					{
 						response.sendRedirect("./index.jsp");
 					}
@@ -158,7 +158,7 @@ public class UserControl extends HttpServlet
 						if(Visualizzazione.contentEquals("Tutti"))
 						{
 							request.removeAttribute("Clienti");
-							request.setAttribute("Clienti", model.ElencoClienti());
+							request.setAttribute("Clienti", model.elencoClienti());
 						}
 						else if (Visualizzazione.contentEquals("ClienteSpecifico"))
 						{
@@ -170,7 +170,7 @@ public class UserControl extends HttpServlet
 					{
 						String Email = request.getParameter("email");
 						request.removeAttribute("Cliente");
-						request.setAttribute("Cliente", model.RicercaCliente(Email));
+						request.setAttribute("Cliente", model.ricercaCliente(Email));
 					}
 					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Admin.jsp");
 					dispatcher.forward(request, response);	
@@ -182,11 +182,11 @@ public class UserControl extends HttpServlet
 				{
 					String Email = (String) request.getSession().getAttribute("Email");
 					request.removeAttribute("Cliente");	
-					request.setAttribute("Cliente", model.RicercaCliente(Email));
+					request.setAttribute("Cliente", model.ricercaCliente(Email));
 					request.removeAttribute("PuntiFedelta");
 					request.setAttribute("PuntiFedelta", model.getPuntiFedelta(Email));
 					request.removeAttribute("Ordini");
-					request.setAttribute("Ordini", Omodel.ElencoOrdiniByCliente(Email));
+					request.setAttribute("Ordini", Omodel.elencoOrdiniByCliente(Email));
 					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Account.jsp");
 					dispatcher.forward(request, response);	
 				}
@@ -202,7 +202,7 @@ public class UserControl extends HttpServlet
 
 						if(!(request.getParameter("CodiceFiscale").isEmpty()))
 						{	
-							RsCF = model.ModCodiceFiscale(email, request.getParameter("CodiceFiscale"));
+							RsCF = model.modCodiceFiscale(email, request.getParameter("CodiceFiscale"));
 						}
 						else
 						{
@@ -211,7 +211,7 @@ public class UserControl extends HttpServlet
 						
 						if(!(request.getParameter("Nome").isEmpty()))
 						{	
-							RsNome = model.ModNome(email, request.getParameter("Nome"));
+							RsNome = model.modNome(email, request.getParameter("Nome"));
 						}
 						else
 						{
@@ -220,7 +220,7 @@ public class UserControl extends HttpServlet
 						
 						if(!(request.getParameter("Cognome").isEmpty()))
 						{	
-							RsCognome = model.ModCognome(email, request.getParameter("Cognome"));
+							RsCognome = model.modCognome(email, request.getParameter("Cognome"));
 						}
 						else
 						{
@@ -230,7 +230,7 @@ public class UserControl extends HttpServlet
 						if(!(request.getParameter("CAP").isEmpty()))
 						{	
 							int CAP = Integer.parseInt(request.getParameter("CAP"));
-							RsCAP = model.ModCAP(email, CAP);
+							RsCAP = model.modCAP(email, CAP);
 						}
 						else
 						{
@@ -239,7 +239,7 @@ public class UserControl extends HttpServlet
 						
 						if(!(request.getParameter("Citta").isEmpty()))
 						{	
-							RsCitta = model.ModCitta(email, request.getParameter("Citta"));
+							RsCitta = model.modCitta(email, request.getParameter("Citta"));
 						}
 						else
 						{
@@ -248,7 +248,7 @@ public class UserControl extends HttpServlet
 						
 						if(!(request.getParameter("Provincia").isEmpty()))
 						{	
-							RsProvincia = model.ModProvincia(email, request.getParameter("Provincia"));
+							RsProvincia = model.modProvincia(email, request.getParameter("Provincia"));
 						}
 						else
 						{
@@ -257,7 +257,7 @@ public class UserControl extends HttpServlet
 						
 						if(!(request.getParameter("Via").isEmpty()))
 						{	
-							RsVia = model.ModVia(email, request.getParameter("Via"));
+							RsVia = model.modVia(email, request.getParameter("Via"));
 						}
 						else
 						{
@@ -267,7 +267,7 @@ public class UserControl extends HttpServlet
 						if(!(request.getParameter("Civico").isEmpty()))
 						{	
 							int Civico = Integer.parseInt(request.getParameter("Civico"));
-							RsCivico = model.ModCivico(email, Civico);
+							RsCivico = model.modCivico(email, Civico);
 						}
 						else
 						{
@@ -276,7 +276,7 @@ public class UserControl extends HttpServlet
 						
 						if(!(request.getParameter("NumeroTelefono").isEmpty()))
 						{	
-							RsNumeroTelefono = model.ModTelefono(email, request.getParameter("NumeroTelefono"));
+							RsNumeroTelefono = model.modTelefono(email, request.getParameter("NumeroTelefono"));
 						}
 						else
 						{
@@ -295,11 +295,11 @@ public class UserControl extends HttpServlet
 						}			
 						
 						request.removeAttribute("Cliente");	
-						request.setAttribute("Cliente", model.RicercaCliente(email));
+						request.setAttribute("Cliente", model.ricercaCliente(email));
 						request.removeAttribute("PuntiFedelta");
 						request.setAttribute("PuntiFedelta", model.getPuntiFedelta(email));
 						request.removeAttribute("Ordini");
-						request.setAttribute("Ordini", Omodel.ElencoOrdiniByCliente(email));
+						request.setAttribute("Ordini", Omodel.elencoOrdiniByCliente(email));
 						RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Account.jsp");
 						dispatcher.forward(request, response);
 				}
@@ -318,7 +318,7 @@ public class UserControl extends HttpServlet
 					int Civico = Integer.parseInt(request.getParameter("Civico"));
 					String Telefono = request.getParameter("Telefono");
 
-					if(model.RegistraNuovoIndirizzo(Nome, Cognome, CAP, Citta, Provincia, Via, Civico, Telefono, email))
+					if(model.registraNuovoIndirizzo(Nome, Cognome, CAP, Citta, Provincia, Via, Civico, Telefono, email))
 					{
 						response.sendRedirect("./OrdiniControl?action=Checkout");
 					}
@@ -340,7 +340,7 @@ public class UserControl extends HttpServlet
 					String Titolare = request.getParameter("Titolare");
 					String DataScadenza = request.getParameter("DataScadenza");
 
-					if(model.RegistraNuovoMetodoPagamento(NumeroCarta, Titolare, DataScadenza, email))
+					if(model.registraNuovoMetodoPagamento(NumeroCarta, Titolare, DataScadenza, email))
 					{
 						response.sendRedirect("./OrdiniControl?action=Checkout");
 					}
