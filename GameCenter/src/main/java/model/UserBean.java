@@ -14,7 +14,7 @@ public class UserBean implements Serializable
 	String codiceFiscale;
 	String nome;
 	String cognome;
-	int CAP;
+	int cap;
 	String via;
 	int civico;
 	String citta;
@@ -31,7 +31,7 @@ public class UserBean implements Serializable
 		this.codiceFiscale="";
 		this.nome="";
 		this.cognome="";
-		this.CAP=0;
+		this.cap=0;
 		this.via="";
 		this.civico=0;
 		this.citta="";
@@ -111,12 +111,12 @@ public class UserBean implements Serializable
 
 	public int getCAP() 
 	{
-		return CAP;
+		return cap;
 	}
 
-	public void setCAP(int CAP) 
+	public void setCAP(int cap) 
 	{
-		this.CAP = CAP;
+		this.cap = cap;
 	}
 
 	public String getVia() 
@@ -173,7 +173,7 @@ public class UserBean implements Serializable
 	public String toString() 
 	{
 		return "UserBean [email=" + email + ", password=" + password + ", puntiFedelta=" + puntiFedelta + ", tipo="
-				+ tipo + ", codiceFiscale=" + codiceFiscale + ", nome=" + nome + ", cognome=" + cognome + ", CAP=" + CAP
+				+ tipo + ", codiceFiscale=" + codiceFiscale + ", nome=" + nome + ", cognome=" + cognome + ", CAP=" + cap
 				+ ", via=" + via + ", civico=" + civico + ", citta=" + citta + ", provincia=" + provincia
 				+ ", numeroTelefono=" + numeroTelefono + "]";
 	}

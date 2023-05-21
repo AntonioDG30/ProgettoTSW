@@ -10,7 +10,7 @@ public class CarrelloBean
 
 	public CarrelloBean() 
 	{
-		this.listaCarrello = new ArrayList<ProductBean>();
+		this.listaCarrello = new ArrayList<>();
 	}
 	
 	public void aggiungiProdotto(ProductBean product, String piattaforma)

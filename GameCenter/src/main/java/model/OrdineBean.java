@@ -41,9 +41,9 @@ public class OrdineBean implements Serializable
 		return sconto;
 	}
 
-	public void setSconto(float Sconto) 
+	public void setSconto(float sconto) 
 	{
-		this.sconto = Sconto;
+		this.sconto = sconto;
 	}
 
 	public String getDataAcquisto() 

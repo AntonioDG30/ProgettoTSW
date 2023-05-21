@@ -11,7 +11,7 @@ public class IndirizziSpedizioneBean implements Serializable
 	String email;
 	String nome;
 	String cognome;
-	int CAP;
+	int cap;
 	String via;
 	int civico;
 	String citta;
@@ -25,7 +25,7 @@ public class IndirizziSpedizioneBean implements Serializable
 		this.email="";
 		this.nome="";
 		this.cognome="";
-		this.CAP=0;
+		this.cap=0;
 		this.via="";
 		this.civico=0;
 		this.citta="";
@@ -77,12 +77,12 @@ public class IndirizziSpedizioneBean implements Serializable
 
 	public int getCAP() 
 	{
-		return CAP;
+		return cap;
 	}
 
-	public void setCAP(int CAP) 
+	public void setCAP(int cap) 
 	{
-		this.CAP = CAP;
+		this.cap = cap;
 	}
 
 	public String getVia() 
@@ -139,7 +139,7 @@ public class IndirizziSpedizioneBean implements Serializable
 	public String toString() 
 	{
 		return "IndirizziSpedizioneBean [codIndirizzo=" + codIndirizzo + ", email=" + email + ", nome=" + nome
-				+ ", cognome=" + cognome + ", CAP=" + CAP + ", via=" + via + ", civico=" + civico + ", citta=" + citta
+				+ ", cognome=" + cognome + ", CAP=" + cap + ", via=" + via + ", civico=" + civico + ", citta=" + citta
 				+ ", provincia=" + provincia + ", numeroTelefono=" + numeroTelefono + "]";
 	}
 	
