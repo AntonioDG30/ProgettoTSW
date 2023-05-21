@@ -5,6 +5,8 @@ import model.*;
 import java.io.IOException;
 
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -22,6 +24,8 @@ public class UserControl extends HttpServlet
 	static UserModel model = new UserModel();
 	static OrdineModel Omodel = new OrdineModel();
 	static ProductModel Pmodel = new ProductModel();
+	
+	Logger logger = Logger.getLogger(UserControl.class.getName());
        
     public UserControl() 
     {
@@ -353,7 +357,7 @@ public class UserControl extends HttpServlet
 		}
 		catch (SQLException e) 
 		{
-			System.out.println("Error:" + e.getMessage());
+			logger.log(Level.WARNING, e.getMessage());
 		}
 		
 		

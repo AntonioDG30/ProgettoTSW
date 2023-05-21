@@ -5,9 +5,12 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DBConnectionPool 
 {
+	static Logger logger = Logger.getLogger(DBConnectionPool.class.getName());
 	private static List<Connection> freeDbConnections;
 	static 
     {
@@ -18,7 +21,7 @@ public class DBConnectionPool
 		} 
         catch (ClassNotFoundException e) 
         {
-			System.out.println("DB driver non trovato! Errore: " + e.getMessage());
+        	logger.log(Level.WARNING, "DB driver non trovato! Errore: " + e.getMessage());
 		} 
         
 	}

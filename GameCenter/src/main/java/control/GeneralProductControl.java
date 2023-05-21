@@ -5,6 +5,8 @@ import model.*;
 import java.io.IOException;
 
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -23,6 +25,8 @@ public class GeneralProductControl extends HttpServlet
 
 	
 	static ProductModel model = new ProductModel();
+	
+	Logger logger = Logger.getLogger(GeneralProductControl.class.getName());
        
    
     public GeneralProductControl() 
@@ -94,7 +98,7 @@ public class GeneralProductControl extends HttpServlet
 		}
 		catch (SQLException e) 
 		{
-			System.out.println("Error:" + e.getMessage());
+			logger.log(Level.WARNING, e.getMessage());
 		}
 		
 		

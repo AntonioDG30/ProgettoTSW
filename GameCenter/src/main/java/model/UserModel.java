@@ -16,7 +16,7 @@ public class UserModel
 	private static final String TABLE_NAME_INDIRIZZI = "IndirizziSpedizione";
 	private static final String TABLE_NAME_METODIPAGAMENTO = "MetodoPagamento";
 	
-	Logger logger = Logger.getLogger(OrdineModel.class.getName());
+	Logger logger = Logger.getLogger(UserModel.class.getName());
 	
 	public synchronized UserBean RicercaUtente(String email,String password) throws SQLException 
 	{
@@ -675,7 +675,7 @@ public class UserModel
         } 
 		catch (SQLException e) 
 		{
-            System.out.println("Errore durante la connessione al database: " + e.getMessage());           
+			logger.log(Level.WARNING, e.getMessage());        
         }	
 		finally
 		{
@@ -712,7 +712,7 @@ public class UserModel
         } 
 		catch (SQLException e) 
 		{
-            System.out.println("Errore durante la connessione al database: " + e.getMessage());
+			logger.log(Level.WARNING, e.getMessage());
         }	
 		finally
 		{
@@ -748,7 +748,7 @@ public class UserModel
         } 
 		catch (SQLException e) 
 		{
-            System.out.println("Errore durante la connessione al database: " + e.getMessage());
+			logger.log(Level.WARNING, e.getMessage());
         }	
 		finally
 		{
@@ -784,7 +784,7 @@ public class UserModel
         } 
 		catch (SQLException e) 
 		{
-            System.out.println("Errore durante la connessione al database: " + e.getMessage());
+			logger.log(Level.WARNING, e.getMessage());
         }	
 		finally
 		{
@@ -820,7 +820,7 @@ public class UserModel
         } 
 		catch (SQLException e) 
 		{
-            System.out.println("Errore durante la connessione al database: " + e.getMessage());
+			logger.log(Level.WARNING, e.getMessage());
         }	
 		finally
 		{
@@ -856,7 +856,7 @@ public class UserModel
         } 
 		catch (SQLException e) 
 		{
-            System.out.println("Errore durante la connessione al database: " + e.getMessage());
+			logger.log(Level.WARNING, e.getMessage());
         }
 		finally
 		{
@@ -892,7 +892,7 @@ public class UserModel
         } 
 		catch (SQLException e) 
 		{
-            System.out.println("Errore durante la connessione al database: " + e.getMessage());
+			logger.log(Level.WARNING, e.getMessage());
         }
 		finally
 		{
@@ -928,7 +928,7 @@ public class UserModel
         } 
 		catch (SQLException e) 
 		{
-            System.out.println("Errore durante la connessione al database: " + e.getMessage());
+			logger.log(Level.WARNING, e.getMessage());
         }	
 		finally
 		{
@@ -964,7 +964,7 @@ public class UserModel
         } 
 		catch (SQLException e) 
 		{
-            System.out.println("Errore durante la connessione al database: " + e.getMessage());
+			logger.log(Level.WARNING, e.getMessage());
         }
 		finally
 		{

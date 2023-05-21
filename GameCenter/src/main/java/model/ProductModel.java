@@ -32,7 +32,7 @@ public class ProductModel
 	private static final String FORMATO_FISICO = "Fisico";
 	
 	
-	Logger logger = Logger.getLogger(OrdineModel.class.getName());
+	Logger logger = Logger.getLogger(ProductModel.class.getName());
 	
 	
 	

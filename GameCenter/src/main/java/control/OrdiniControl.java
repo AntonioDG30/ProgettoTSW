@@ -16,12 +16,16 @@ import javax.servlet.annotation.WebServlet;
 
 import java.util.Collection;
 import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.Iterator;
 
 import org.apache.pdfbox.pdmodel.PDDocument; 
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
+
+
 
 
 
@@ -35,6 +39,8 @@ public class OrdiniControl extends HttpServlet
 	static ProductModel Pmodel = new ProductModel();
 	static UserModel Umodel = new UserModel();   
 	
+	
+	Logger logger = Logger.getLogger(OrdiniControl.class.getName());
 	
     
     public OrdiniControl() 
@@ -214,7 +220,7 @@ public class OrdiniControl extends HttpServlet
 		}
 		catch (SQLException e) 
 		{
-			System.out.println("Error:" + e.getMessage());
+			logger.log(Level.WARNING, e.getMessage());
 		}
 		
 	}
@@ -427,7 +433,7 @@ public class OrdiniControl extends HttpServlet
 		}
 		catch (SQLException e) 
 		{
-			System.out.println("Error:" + e.getMessage());
+			logger.log(Level.WARNING, e.getMessage());
 		}
 		
 	}

@@ -7,6 +7,8 @@ import java.io.InputStream;
 import java.io.FileOutputStream;
 
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -38,6 +40,9 @@ public class AdminProductControl extends HttpServlet
 	
 	private static final String FORMATO_DIGITALE = "Digitale";
 	private static final String FORMATO_FISICO = "Fisico";
+	
+	
+	Logger logger = Logger.getLogger(AdminProductControl.class.getName());
        
    
     public AdminProductControl() 
@@ -380,11 +385,11 @@ public class AdminProductControl extends HttpServlet
 		}
 		catch (SQLException e) 
 		{
-			System.out.println("Error:" + e.getMessage());
+			logger.log(Level.WARNING, e.getMessage());
 		}
 		catch (Exception e)
 		{
-			System.out.println("Error:" + e.getMessage());
+			logger.log(Level.WARNING, e.getMessage());
 		}
 		
 		

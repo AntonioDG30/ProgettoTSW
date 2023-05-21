@@ -305,7 +305,6 @@ public class OrdineModel
 			con = DBConnectionPool.getConnection();
 			ps1 = con.prepareStatement(SQL);
 			ps1.setFloat(1, -(PuntiFedeltàUsati/100));
-			System.out.print("P: -" + (PuntiFedeltàUsati/100));
 			ps1.setString(2, LocalDate.now().toString());
 			ps1.setFloat(3, (PrezzoTotale - (PuntiFedeltàUsati/100)));
 			ps1.setString(4, Email);
