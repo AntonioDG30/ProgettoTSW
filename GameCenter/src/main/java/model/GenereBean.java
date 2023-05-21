@@ -6,27 +6,27 @@ public class GenereBean implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 	
-	String NomeGenere;
+	String nomeGenere;
 
 	public GenereBean() 
 	{
-		this.NomeGenere="";
+		this.nomeGenere="";
 	}
 
 	public String getNomeGenere() 
 	{
-		return NomeGenere;
+		return nomeGenere;
 	}
 
 	public void setNomeGenere(String nomeGenere) 
 	{
-		this.NomeGenere = nomeGenere;
+		this.nomeGenere = nomeGenere;
 	}
 
 	@Override
 	public String toString() 
 	{
-		return "GenereBean [NomeGenere=" + NomeGenere + "]";
+		return "GenereBean [NomeGenere=" + nomeGenere + "]";
 	}
 
 

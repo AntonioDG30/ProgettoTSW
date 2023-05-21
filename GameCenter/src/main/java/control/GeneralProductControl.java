@@ -68,7 +68,7 @@ public class GeneralProductControl extends HttpServlet
 				{
 					String CodSeriale = request.getParameter("CodSeriale");
 					String Piattaforma = request.getParameter("Piattaforma");
-					Carrello.AggiungiProdotto(model.dettagli(CodSeriale), Piattaforma);
+					Carrello.aggiungiProdotto(model.dettagli(CodSeriale), Piattaforma);
 					request.getSession().setAttribute("Carrello", Carrello);
 					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
 					dispatcher.forward(request, response);
@@ -80,7 +80,7 @@ public class GeneralProductControl extends HttpServlet
 				if (action.equalsIgnoreCase("RimuoviCarrello")) 
 				{
 					String CodSeriale = request.getParameter("CodSeriale");
-					Carrello.RimuoviProdotto(model.dettagli(CodSeriale));
+					Carrello.rimuoviProdotto(model.dettagli(CodSeriale));
 					request.getSession().setAttribute("Carrello", Carrello);
 					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Carrello.jsp");
 					dispatcher.forward(request, response);

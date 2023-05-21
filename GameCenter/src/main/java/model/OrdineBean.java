@@ -7,93 +7,101 @@ public class OrdineBean implements Serializable
 	
 	private static final long serialVersionUID = 1L;
 	
-	int CodOrdine;
-	float Sconto;
-	String DataAcquisto;
-	String Fattura;
-	float PrezzoTotale;
-	String StatoOrdine;
-	String Email;
+	int codOrdine;
+	float sconto;
+	String dataAcquisto;
+	String fattura;
+	float prezzoTotale;
+	String statoOrdine;
+	String email;
 
 	public OrdineBean() 
 	{
-		this.CodOrdine=0;
-		this.Sconto=0;
-		this.DataAcquisto="";
-		this.Fattura="";
-		this.PrezzoTotale=0;
-		this.StatoOrdine="";
-		this.Email="";
+		this.codOrdine=0;
+		this.sconto=0;
+		this.dataAcquisto="";
+		this.fattura="";
+		this.prezzoTotale=0;
+		this.statoOrdine="";
+		this.email="";
 	}
 
 	public int getCodOrdine() 
 	{
-		return CodOrdine;
+		return codOrdine;
 	}
 
 	public void setCodOrdine(int codOrdine) 
 	{
-		this.CodOrdine = codOrdine;
+		this.codOrdine = codOrdine;
 	}
 
 	public float getSconto() 
 	{
-		return Sconto;
+		return sconto;
 	}
 
 	public void setSconto(float Sconto) 
 	{
-		this.Sconto = Sconto;
+		this.sconto = Sconto;
 	}
 
 	public String getDataAcquisto() 
 	{
-		return DataAcquisto;
+		return dataAcquisto;
 	}
 
 	public void setDataAcquisto(String dataAcquisto) 
 	{
-		this.DataAcquisto = dataAcquisto;
+		this.dataAcquisto = dataAcquisto;
 	}
 
 	public String getFattura() 
 	{
-		return Fattura;
+		return fattura;
 	}
 
 	public void setFattura(String fattura) 
 	{
-		this.Fattura = fattura;
+		this.fattura = fattura;
 	}
 
 	public float getPrezzoTotale() 
 	{
-		return PrezzoTotale;
+		return prezzoTotale;
 	}
 
 	public void setPrezzoTotale(float prezzoTotale) 
 	{
-		this.PrezzoTotale = prezzoTotale;
+		this.prezzoTotale = prezzoTotale;
 	}
 
 	public String getStatoOrdine() 
 	{
-		return StatoOrdine;
+		return statoOrdine;
 	}
 
 	public void setStatoOrdine(String statoOrdine) 
 	{
-		this.StatoOrdine = statoOrdine;
+		this.statoOrdine = statoOrdine;
 	}
 
 	public String getEmail() 
 	{
-		return Email;
+		return email;
 	}
 
 	public void setEmail(String email) 
 	{
-		this.Email = email;
+		this.email = email;
+	}
+
+	@Override
+	public String toString() 
+	{
+		return "OrdineBean [codOrdine=" + codOrdine + ", sconto=" + sconto + ", dataAcquisto=" + dataAcquisto
+				+ ", fattura=" + fattura + ", prezzoTotale=" + prezzoTotale + ", statoOrdine=" + statoOrdine
+				+ ", email=" + email + "]";
 	}
 	
 	

@@ -6,17 +6,17 @@ import java.util.List;
 
 public class CarrelloBean 
 {
-	private List<ProductBean> ListaCarrello;
+	private List<ProductBean> listaCarrello;
 
 	public CarrelloBean() 
 	{
-		this.ListaCarrello = new ArrayList<ProductBean>();
+		this.listaCarrello = new ArrayList<ProductBean>();
 	}
 	
-	public void AggiungiProdotto(ProductBean product, String Piattaforma)
+	public void aggiungiProdotto(ProductBean product, String piattaforma)
 	{
-			product.setPiattaforma(Piattaforma);
-			for(ProductBean prod : ListaCarrello) 
+			product.setPiattaforma(piattaforma);
+			for(ProductBean prod : listaCarrello) 
 			{
 				if(prod.getCodSeriale().contentEquals(product.getCodSeriale()) && prod.getPiattaforma().contentEquals(product.getPiattaforma())) 
 				{
@@ -24,22 +24,22 @@ public class CarrelloBean
 					return;
 				}
 			}
-			this.ListaCarrello.add(product);
+			this.listaCarrello.add(product);
 			product.incrementQuantita();
 
 		
 		
 	}
 	
-	public void RimuoviProdotto(ProductBean product) 
+	public void rimuoviProdotto(ProductBean product) 
 	{
-		for(ProductBean prod : ListaCarrello) 
+		for(ProductBean prod : listaCarrello) 
 		{
 			if(prod.getCodSeriale().contentEquals(product.getCodSeriale()) ) 
 			{
 				if(prod.getQuantita()==1)
 				{
-					this.ListaCarrello.remove(prod);
+					this.listaCarrello.remove(prod);
 				}
 				else
 				{
@@ -52,16 +52,17 @@ public class CarrelloBean
 
 	public List<ProductBean> getListaCarrello() 
 	{
-		return ListaCarrello;
+		return listaCarrello;
 	}
 
 	public void setListaCarrello(List<ProductBean> listaCarrello) 
 	{
-		this.ListaCarrello = listaCarrello;
+		this.listaCarrello = listaCarrello;
 	}
-	
-	
-	
 
-
+	@Override
+	public String toString() 
+	{
+		return "CarrelloBean [listaCarrello=" + listaCarrello + "]";
+	}
 }

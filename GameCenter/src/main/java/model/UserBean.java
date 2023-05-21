@@ -7,108 +7,106 @@ public class UserBean implements Serializable
 	
 	private static final long serialVersionUID = 1L;
 	
-	String Email;
-	String Password;
-	int PuntiFedelta;
-	boolean Tipo;
-	String CodiceFiscale;
-	String Nome;
-	String Cognome;
+	String email;
+	String password;
+	int puntiFedelta;
+	boolean tipo;
+	String codiceFiscale;
+	String nome;
+	String cognome;
 	int CAP;
-	String Via;
-	int Civico;
-	String Citta;
-	String Provincia;
-	String NumeroTelefono;
+	String via;
+	int civico;
+	String citta;
+	String provincia;
+	String numeroTelefono;
 	
 
 	public UserBean() 
 	{
-		this.Email="";
-		this.Password="";
-		this.PuntiFedelta=0;
-		this.Tipo=false;
-		this.CodiceFiscale="";
-		this.Nome="";
-		this.Cognome="";
+		this.email="";
+		this.password="";
+		this.puntiFedelta=0;
+		this.tipo=false;
+		this.codiceFiscale="";
+		this.nome="";
+		this.cognome="";
 		this.CAP=0;
-		this.Via="";
-		this.Civico=0;
-		this.Citta="";
-		this.Provincia="";
-		this.NumeroTelefono="";
+		this.via="";
+		this.civico=0;
+		this.citta="";
+		this.provincia="";
+		this.numeroTelefono="";
 	}
 
 	public String getEmail() 
 	{
-		return Email;
+		return email;
 	}
 
 	public void setEmail(String email) 
 	{
-		this.Email = email;
+		this.email = email;
 	}
 
 	public String getPassword() 
 	{
-		return Password;
+		return password;
 	}
 
 	public void setPassword(String password) 
 	{
-		this.Password = password;
+		this.password = password;
 	}
 	
 	public int getPuntiFedelta() 
 	{
-		return PuntiFedelta;
+		return puntiFedelta;
 	}
 
 	public void setPuntiFedelta(int puntifedelta) 
 	{
-		this.PuntiFedelta = puntifedelta;
+		this.puntiFedelta = puntifedelta;
 	}
 
 	public boolean getTipo() 
 	{
-		return Tipo;
+		return tipo;
 	}
 
 	public void setTipo(boolean tipo) 
 	{
-		this.Tipo = tipo;
+		this.tipo = tipo;
 	}
 	
-	
-
 	public String getCodiceFiscale() 
 	{
-		return CodiceFiscale;
+		return codiceFiscale;
 	}
 
 	public void setCodiceFiscale(String codiceFiscale) 
 	{
-		this.CodiceFiscale = codiceFiscale;
+		this.codiceFiscale = codiceFiscale;
 	}
 
 	public String getNome() 
 	{
-		return Nome;
+		return nome;
 	}
 
 	public void setNome(String nome) 
 	{
-		this.Nome = nome;
+		this.nome = nome;
 	}
 
 	public String getCognome() 
 	{
-		return Cognome;
+		return cognome;
 	}
 
 	public void setCognome(String cognome) 
 	{
-		this.Cognome = cognome;
+		this.cognome = cognome;
 	}
 
 	public int getCAP() 
@@ -123,62 +121,62 @@ public class UserBean implements Serializable
 
 	public String getVia() 
 	{
-		return Via;
+		return via;
 	}
 
 	public void setVia(String via) 
 	{
-		this.Via = via;
+		this.via = via;
 	}
 
 	public int getCivico() 
 	{
-		return Civico;
+		return civico;
 	}
 
 	public void setCivico(int civico) 
 	{
-		this.Civico = civico;
+		this.civico = civico;
 	}
 
 	public String getCitta() 
 	{
-		return Citta;
+		return citta;
 	}
 
 	public void setCitta(String citta) 
 	{
-		this.Citta = citta;
+		this.citta = citta;
 	}
 
 	public String getProvincia() 
 	{
-		return Provincia;
+		return provincia;
 	}
 
 	public void setProvincia(String provincia) 
 	{
-		this.Provincia = provincia;
+		this.provincia = provincia;
 	}
 
 	public String getNumeroTelefono() 
 	{
-		return NumeroTelefono;
+		return numeroTelefono;
 	}
 
 	public void setNumeroTelefono(String numeroTelefono) 
 	{
-		this.NumeroTelefono = numeroTelefono;
+		this.numeroTelefono = numeroTelefono;
 	}
 
 	@Override
-	public String toString() {
-		return "UserBean [Email=" + Email + ", Password=" + Password + ", PuntiFedelta=" + PuntiFedelta + ", Tipo="
-				+ Tipo + ", CodiceFiscale=" + CodiceFiscale + ", Nome=" + Nome + ", Cognome=" + Cognome + ", CAP=" + CAP
-				+ ", Via=" + Via + ", Civico=" + Civico + ", Citta=" + Citta + ", Provincia=" + Provincia
-				+ ", NumeroTelefono=" + NumeroTelefono + "]";
+	public String toString() 
+	{
+		return "UserBean [email=" + email + ", password=" + password + ", puntiFedelta=" + puntiFedelta + ", tipo="
+				+ tipo + ", codiceFiscale=" + codiceFiscale + ", nome=" + nome + ", cognome=" + cognome + ", CAP=" + CAP
+				+ ", via=" + via + ", civico=" + civico + ", citta=" + citta + ", provincia=" + provincia
+				+ ", numeroTelefono=" + numeroTelefono + "]";
 	}
-
 	
 	
 }

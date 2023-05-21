@@ -6,21 +6,27 @@ public class PegiBean implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 	
-	int CodPEGI;
+	int codPEGI;
 
 	public PegiBean() 
 	{
-		this.CodPEGI=3;
+		this.codPEGI=3;
 	}
 
 	public int getCodPEGI() 
 	{
-		return CodPEGI;
+		return codPEGI;
 	}
 
 	public void setCodPEGI(int CodPEGI) 
 	{
-		this.CodPEGI = CodPEGI;
+		this.codPEGI = CodPEGI;
+	}
+
+	@Override
+	public String toString() 
+	{
+		return "PegiBean [codPEGI=" + codPEGI + "]";
 	}
 
 	

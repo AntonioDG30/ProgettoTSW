@@ -6,67 +6,63 @@ public class MetodiPagamentoBean implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 	
-	String NumeroCarta;
-    String TitolareCarta;
-    String Scadenza;
-    String Email; 
+	String numeroCarta;
+    String titolareCarta;
+    String scadenza;
+    String email; 
     
     public MetodiPagamentoBean() 
 	{
-    	this.NumeroCarta="";
-		this.TitolareCarta="";
-		this.Scadenza="";
-		this.Email="";
+    	this.numeroCarta="";
+		this.titolareCarta="";
+		this.scadenza="";
+		this.email="";
 	}
 
 	public String getNumeroCarta() 
 	{
-		return NumeroCarta;
+		return numeroCarta;
 	}
 
 	public void setNumeroCarta(String numeroCarta) 
 	{
-		this.NumeroCarta = numeroCarta;
+		this.numeroCarta = numeroCarta;
 	}
 
-	public String getTitolareCarta() {
-		return TitolareCarta;
+	public String getTitolareCarta() 
+	{
+		return titolareCarta;
 	}
 
 	public void setTitolareCarta(String titolareCarta) 
 	{
-		this.TitolareCarta = titolareCarta;
+		this.titolareCarta = titolareCarta;
 	}
 
 	public String getScadenza() 
 	{
-		return Scadenza;
+		return scadenza;
 	}
 
 	public void setScadenza(String scadenza)
 	{
-		this.Scadenza = scadenza;
+		this.scadenza = scadenza;
 	}
 
-	public String getEmail() {
-		return Email;
+	public String getEmail() 
+	{
+		return email;
 	}
 
 	public void setEmail(String email) 
 	{
-		this.Email = email;
+		this.email = email;
 	}
 
 	@Override
 	public String toString() 
 	{
-		return "MetodiPagamentoBean [NumeroCarta=" + NumeroCarta + ", TitolareCarta=" + TitolareCarta + ", Scadenza="
-				+ Scadenza + ", Email=" + Email + "]";
+		return "MetodiPagamentoBean [numeroCarta=" + numeroCarta + ", titolareCarta=" + titolareCarta + ", scadenza="
+				+ scadenza + ", email=" + email + "]";
 	}
-    
-	
-	
-	
-    
-
 }

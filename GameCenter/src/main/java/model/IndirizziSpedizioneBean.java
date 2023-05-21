@@ -7,72 +7,72 @@ public class IndirizziSpedizioneBean implements Serializable
 	
 	private static final long serialVersionUID = 1L;
 	
-	int CodIndirizzo;
-	String Email;
-	String Nome;
-	String Cognome;
+	int codIndirizzo;
+	String email;
+	String nome;
+	String cognome;
 	int CAP;
-	String Via;
-	int Civico;
-	String Citta;
-	String Provincia;
-	String NumeroTelefono;
+	String via;
+	int civico;
+	String citta;
+	String provincia;
+	String numeroTelefono;
 	
 
 	public IndirizziSpedizioneBean() 
 	{
-		this.CodIndirizzo=0;
-		this.Email="";
-		this.Nome="";
-		this.Cognome="";
+		this.codIndirizzo=0;
+		this.email="";
+		this.nome="";
+		this.cognome="";
 		this.CAP=0;
-		this.Via="";
-		this.Civico=0;
-		this.Citta="";
-		this.Provincia="";
-		this.NumeroTelefono="";
+		this.via="";
+		this.civico=0;
+		this.citta="";
+		this.provincia="";
+		this.numeroTelefono="";
 	}
 	
 	
 
 	public int getCodIndirizzo() 
 	{
-		return CodIndirizzo;
+		return codIndirizzo;
 	}
 
 	public void setCodIndirizzo(int codIndirizzo) 
 	{
-		this.CodIndirizzo = codIndirizzo;
+		this.codIndirizzo = codIndirizzo;
 	}
 
 	public String getEmail() 
 	{
-		return Email;
+		return email;
 	}
 
 	public void setEmail(String email) 
 	{
-		this.Email = email;
+		this.email = email;
 	}
 
 	public String getNome() 
 	{
-		return Nome;
+		return nome;
 	}
 
 	public void setNome(String nome) 
 	{
-		this.Nome = nome;
+		this.nome = nome;
 	}
 
 	public String getCognome() 
 	{
-		return Cognome;
+		return cognome;
 	}
 
 	public void setCognome(String cognome) 
 	{
-		this.Cognome = cognome;
+		this.cognome = cognome;
 	}
 
 	public int getCAP() 
@@ -87,64 +87,62 @@ public class IndirizziSpedizioneBean implements Serializable
 
 	public String getVia() 
 	{
-		return Via;
+		return via;
 	}
 
 	public void setVia(String via) 
 	{
-		this.Via = via;
+		this.via = via;
 	}
 
 	public int getCivico() 
 	{
-		return Civico;
+		return civico;
 	}
 
 	public void setCivico(int civico) 
 	{
-		this.Civico = civico;
+		this.civico = civico;
 	}
 
 	public String getCitta() 
 	{
-		return Citta;
+		return citta;
 	}
 
 	public void setCitta(String citta) 
 	{
-		this.Citta = citta;
+		this.citta = citta;
 	}
 
 	public String getProvincia() 
 	{
-		return Provincia;
+		return provincia;
 	}
 
 	public void setProvincia(String provincia) 
 	{
-		this.Provincia = provincia;
+		this.provincia = provincia;
 	}
 
 	public String getNumeroTelefono() 
 	{
-		return NumeroTelefono;
+		return numeroTelefono;
 	}
 
 	public void setNumeroTelefono(String numeroTelefono) 
 	{
-		this.NumeroTelefono = numeroTelefono;
+		this.numeroTelefono = numeroTelefono;
 	}
-
-
 
 	@Override
-	public String toString() {
-		return "IndirizziSpedizioneBean [CodIndirizzi=" + CodIndirizzo + ", Email=" + Email + ", Nome=" + Nome
-				+ ", Cognome=" + Cognome + ", CAP=" + CAP + ", Via=" + Via + ", Civico=" + Civico + ", Citta=" + Citta
-				+ ", Provincia=" + Provincia + ", NumeroTelefono=" + NumeroTelefono + "]";
+	public String toString() 
+	{
+		return "IndirizziSpedizioneBean [codIndirizzo=" + codIndirizzo + ", email=" + email + ", nome=" + nome
+				+ ", cognome=" + cognome + ", CAP=" + CAP + ", via=" + via + ", civico=" + civico + ", citta=" + citta
+				+ ", provincia=" + provincia + ", numeroTelefono=" + numeroTelefono + "]";
 	}
 	
 	
-		
-	
+
 }
