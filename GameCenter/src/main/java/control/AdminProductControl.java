@@ -64,8 +64,8 @@ public class AdminProductControl extends HttpServlet
 				if (action.equalsIgnoreCase("Elimina")) 
 				{
 					request.removeAttribute("Result");
-					String CodSeriale = request.getParameter("CodSeriale");
-					if(model.elimina(CodSeriale))
+					String codSeriale = request.getParameter("CodSeriale");
+					if(model.elimina(codSeriale))
 					{
 						request.setAttribute("Result", "Il prodotto è stato eliminato correttamente.");
 					}
@@ -110,18 +110,18 @@ public class AdminProductControl extends HttpServlet
 						ProductBean product = new ProductBean();
 						product.setCodSeriale(request.getParameter("CodSeriale"));
 						product.setNome(request.getParameter("Nome"));
-						Part ImmaginePart = request.getPart("Immagine");
-						String ImmagineFileName = ImmaginePart.getSubmittedFileName();
-						String Path = "C:/Users/anton/git/ProgettoTSW/GameCenter/src/main/webapp/Immagini/" +ImmagineFileName;
-						FileOutputStream fos = new FileOutputStream(Path);
-						InputStream is = ImmaginePart.getInputStream();
+						Part immaginePart = request.getPart("Immagine");
+						String immagineFileName = immaginePart.getSubmittedFileName();
+						String path = "C:/Users/anton/git/ProgettoTSW/GameCenter/src/main/webapp/Immagini/" +immagineFileName;
+						FileOutputStream fos = new FileOutputStream(path);
+						InputStream is = immaginePart.getInputStream();
 						byte[] data = new byte[is.available()];
 						if(is.read(data) > 0)
 						{
 							fos.write(data);
 						}
 						fos.close();
-						product.setImmagine(ImmagineFileName);
+						product.setImmagine(immagineFileName);
 						product.setPrezzo(Float.parseFloat(request.getParameter("Prezzo")));
 						product.setDataUscita(request.getParameter("DataUscita"));	
 						product.setDescrizioneRidotta(request.getParameter("DescrizioneRidotta"));
@@ -197,18 +197,18 @@ public class AdminProductControl extends HttpServlet
 						
 						if(request.getPart("Immagine") != null && request.getPart("Immagine").getSize() != 0)
 						{
-							Part ImmaginePart = request.getPart("Immagine");
-							String ImmagineFileName = ImmaginePart.getSubmittedFileName();
-							String Path = "C:/Users/anton/git/ProgettoTSW/GameCenter/src/main/webapp/Immagini/" +ImmagineFileName;
-							FileOutputStream fos = new FileOutputStream(Path);
-							InputStream is = ImmaginePart.getInputStream();
+							Part immaginePart = request.getPart("Immagine");
+							String immagineFileName = immaginePart.getSubmittedFileName();
+							String path = "C:/Users/anton/git/ProgettoTSW/GameCenter/src/main/webapp/Immagini/" +immagineFileName;
+							FileOutputStream fos = new FileOutputStream(path);
+							InputStream is = immaginePart.getInputStream();
 							byte[] data = new byte[is.available()];
 							if(is.read(data) > 0)
 							{
 								fos.write(data);
 							}
 							fos.close();
-							RsImmagine = model.modImmagine(codSerialeMod, ImmagineFileName);
+							RsImmagine = model.modImmagine(codSerialeMod, immagineFileName);
 						}
 						else
 						{
