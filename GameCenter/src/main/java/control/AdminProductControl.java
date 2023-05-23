@@ -131,16 +131,16 @@ public class AdminProductControl extends HttpServlet
 						{
 							product.setPEGI(Integer.parseInt(request.getParameter("PEGI")));
 							product.setGenere(request.getParameter("Genere"));
-							product.setDisp_Ps5_Digitale(Integer.parseInt(request.getParameter("PS5Digitale")));
-							product.setDisp_Ps4_Digitale(Integer.parseInt(request.getParameter("PS4Digitale")));
-							product.setDisp_XboxX_Digitale(Integer.parseInt(request.getParameter("XboxXDigitale")));
-							product.setDisp_Pc_Digitale(Integer.parseInt(request.getParameter("PcDigitale")));
-							product.setDisp_XboxS_Digitale(Integer.parseInt(request.getParameter("XboxSDigitale")));
+							product.setDispPs5Digitale(Integer.parseInt(request.getParameter("PS5Digitale")));
+							product.setDispPs4Digitale(Integer.parseInt(request.getParameter("PS4Digitale")));
+							product.setDispXboxXDigitale(Integer.parseInt(request.getParameter("XboxXDigitale")));
+							product.setDispPcDigitale(Integer.parseInt(request.getParameter("PcDigitale")));
+							product.setDispXboxSDigitale(Integer.parseInt(request.getParameter("XboxSDigitale")));
 						}		
-						product.setDisp_Pc_Fisico(Integer.parseInt(request.getParameter("PcFisico")));
-						product.setDisp_Ps5_Fisico(Integer.parseInt(request.getParameter("PS5Fisico")));
-						product.setDisp_Ps4_Fisico(Integer.parseInt(request.getParameter("PS4Fisico")));
-						product.setDisp_XboxX_Fisico(Integer.parseInt(request.getParameter("XboxXFisico")));
+						product.setDispPcFisico(Integer.parseInt(request.getParameter("PcFisico")));
+						product.setDispPs5Fisico(Integer.parseInt(request.getParameter("PS5Fisico")));
+						product.setDispPs4Fisico(Integer.parseInt(request.getParameter("PS4Fisico")));
+						product.setDispXboxXFisico(Integer.parseInt(request.getParameter("XboxXFisico")));
 						if(model.inserisci(product))
 						{
 							request.setAttribute("Result", "Il prodotto è stato inserito correttamente.");
@@ -179,20 +179,20 @@ public class AdminProductControl extends HttpServlet
 					}
 					else if(request.getParameter("ParteMod").contentEquals("Parte2"))
 					{
-						Boolean RsCodSeriale = false, RsNome = false, RsImmagine = false, RsPrezzo = false, 
-								RsDataUscita = false, RsDescrizioneRidotta = false, RsDescrizioneCompleta = false, 
-								RsPEGI = false, RsGenere = false,Disp_XboxX_Fisico = false, 
-								Disp_XboxX_Digitale = false, Disp_XboxS_Digitale = false, 
-								Disp_Ps5_Fisico = false, Disp_Ps5_Digitale = false, Disp_Ps4_Fisico = false,
-								Disp_Ps4_Digitale = false, Disp_Pc_Fisico = false, Disp_Pc_Digitale = false;
+						Boolean rsCodSeriale = false, rsNome = false, rsImmagine = false, rsPrezzo = false, 
+								rsDataUscita = false, rsDescrizioneRidotta = false, rsDescrizioneCompleta = false, 
+								rsPEGI = false, rsGenere = false, dispXboxXFisico = false, 
+								dispXboxXDigitale = false, dispXboxSDigitale = false, 
+								dispPs5Fisico = false, dispPs5Digitale = false, dispPs4Fisico = false,
+								dispPs4Digitale = false, dispPcFisico = false, dispPcDigitale = false;
 						
 						if(!(request.getParameter("Nome").isEmpty()))
 						{
-							RsNome = model.modNome(codSerialeMod, request.getParameter("Nome"));
+							rsNome = model.modNome(codSerialeMod, request.getParameter("Nome"));
 						}
 						else 
 						{
-							RsNome = true;
+							rsNome = true;
 						}
 						
 						if(request.getPart("Immagine") != null && request.getPart("Immagine").getSize() != 0)
@@ -208,162 +208,162 @@ public class AdminProductControl extends HttpServlet
 								fos.write(data);
 							}
 							fos.close();
-							RsImmagine = model.modImmagine(codSerialeMod, immagineFileName);
+							rsImmagine = model.modImmagine(codSerialeMod, immagineFileName);
 						}
 						else
 						{
-							RsImmagine = true;
+							rsImmagine = true;
 						}
 
 
 						if(!(request.getParameter("Prezzo").isEmpty()))
 						{
-							RsPrezzo = model.modPrezzo(codSerialeMod, Float.parseFloat(request.getParameter("Prezzo")));
+							rsPrezzo = model.modPrezzo(codSerialeMod, Float.parseFloat(request.getParameter("Prezzo")));
 						}
 						else 
 						{
-							RsPrezzo = true;
+							rsPrezzo = true;
 						}
 						
 						if(!(request.getParameter("DataUscita").isEmpty()))			
 						{
-							RsDataUscita = model.modDataUscita(codSerialeMod, request.getParameter("DataUscita"));
+							rsDataUscita = model.modDataUscita(codSerialeMod, request.getParameter("DataUscita"));
 						}
 						else 
 						{
-							RsDataUscita = true;
+							rsDataUscita = true;
 						}
 						
 						if(!(request.getParameter("DescrizioneRidotta").isEmpty()))				
 						{
-							RsDescrizioneRidotta = model.modDescrizioneRidotta(codSerialeMod, request.getParameter("DescrizioneRidotta"));
+							rsDescrizioneRidotta = model.modDescrizioneRidotta(codSerialeMod, request.getParameter("DescrizioneRidotta"));
 						}
 						else 
 						{
-							RsDescrizioneRidotta = true;
+							rsDescrizioneRidotta = true;
 						}
 						
 						if(!(request.getParameter("DescrizioneCompleta").isEmpty()))		
 						{
-							RsDescrizioneCompleta = model.modDescrizioneCompleta(codSerialeMod, request.getParameter("DescrizioneCompleta"));
+							rsDescrizioneCompleta = model.modDescrizioneCompleta(codSerialeMod, request.getParameter("DescrizioneCompleta"));
 						}
 						else 
 						{
-							RsDescrizioneCompleta = true;
+							rsDescrizioneCompleta = true;
 						}
 						
 						if(!(request.getParameter("PEGI").isEmpty() || request.getParameter("PEGI").contentEquals("NonModificare")))			
 						{
-							RsPEGI = model.modPEGI(codSerialeMod, Integer.parseInt(request.getParameter("PEGI")));
+							rsPEGI = model.modPEGI(codSerialeMod, Integer.parseInt(request.getParameter("PEGI")));
 						}
 						else 
 						{
-							RsPEGI = true;
+							rsPEGI = true;
 						}
 						
 						if(!(request.getParameter("Genere").isEmpty() || request.getParameter("Genere").contentEquals("NonModificare")))			
 						{
-							RsGenere = model.modGenere(codSerialeMod, request.getParameter("Genere"));
+							rsGenere = model.modGenere(codSerialeMod, request.getParameter("Genere"));
 						}
 						else 
 						{
-							RsGenere = true;
+							rsGenere = true;
 						}
 						
 						if(!(request.getParameter("XboxXDigitale").isEmpty()))				
 						{
-							Disp_XboxX_Digitale = model.modDisponibilita(codSerialeMod, Integer.parseInt(request.getParameter("XboxXDigitale")), PIATTAFORMA_XBOX_SERIE_X, FORMATO_DIGITALE);
+							dispXboxXDigitale = model.modDisponibilita(codSerialeMod, Integer.parseInt(request.getParameter("XboxXDigitale")), PIATTAFORMA_XBOX_SERIE_X, FORMATO_DIGITALE);
 						}
 						else 
 						{
-							Disp_XboxX_Digitale = true;
+							dispXboxXDigitale = true;
 						}
 						
 						if(!(request.getParameter("XboxSDigitale").isEmpty()))			
 						{
-							Disp_XboxS_Digitale = model.modDisponibilita(codSerialeMod, Integer.parseInt(request.getParameter("XboxSDigitale")), PIATTAFORMA_XBOX_SERIE_S, FORMATO_DIGITALE);
+							dispXboxSDigitale = model.modDisponibilita(codSerialeMod, Integer.parseInt(request.getParameter("XboxSDigitale")), PIATTAFORMA_XBOX_SERIE_S, FORMATO_DIGITALE);
 						}
 						else 
 						{
-							Disp_XboxS_Digitale = true;
+							dispXboxSDigitale = true;
 						}
 						
 						if(!(request.getParameter("PS5Digitale").isEmpty()))		
 						{
-							Disp_Ps5_Digitale = model.modDisponibilita(codSerialeMod, Integer.parseInt(request.getParameter("PS5Digitale")), PIATTAFORMA_PS5, FORMATO_DIGITALE);
+							dispPs5Digitale = model.modDisponibilita(codSerialeMod, Integer.parseInt(request.getParameter("PS5Digitale")), PIATTAFORMA_PS5, FORMATO_DIGITALE);
 						}
 						else 
 						{
-							Disp_Ps5_Digitale = true;
+							dispPs5Digitale = true;
 						}
 						
 						if(!(request.getParameter("PS4Digitale").isEmpty()))			
 						{
-							Disp_Ps4_Digitale = model.modDisponibilita(codSerialeMod, Integer.parseInt(request.getParameter("PS4Digitale")), PIATTAFORMA_PS4, FORMATO_DIGITALE);
+							dispPs4Digitale = model.modDisponibilita(codSerialeMod, Integer.parseInt(request.getParameter("PS4Digitale")), PIATTAFORMA_PS4, FORMATO_DIGITALE);
 						}
 						else 
 						{
-							Disp_Ps4_Digitale = true;
+							dispPs4Digitale = true;
 						}
 						
 						if(!(request.getParameter("PcDigitale").isEmpty()))		
 						{
-							Disp_Pc_Digitale = model.modDisponibilita(codSerialeMod, Integer.parseInt(request.getParameter("PcDigitale")), PIATTAFORMA_PC, FORMATO_DIGITALE);
+							dispPcDigitale = model.modDisponibilita(codSerialeMod, Integer.parseInt(request.getParameter("PcDigitale")), PIATTAFORMA_PC, FORMATO_DIGITALE);
 						}
 						else 
 						{
-							Disp_Pc_Digitale = true;
+							dispPcDigitale = true;
 						}
 
 						if(!(request.getParameter("XboxXFisico").isEmpty()))		
 						{
-							Disp_XboxX_Fisico = model.modDisponibilita(codSerialeMod, Integer.parseInt(request.getParameter("XboxXFisico")), PIATTAFORMA_XBOX_SERIE_X, FORMATO_FISICO);
+							dispXboxXFisico = model.modDisponibilita(codSerialeMod, Integer.parseInt(request.getParameter("XboxXFisico")), PIATTAFORMA_XBOX_SERIE_X, FORMATO_FISICO);
 						}
 						else 
 						{
-							Disp_XboxX_Fisico = true;
+							dispXboxXFisico = true;
 						}
 						
 						if(!(request.getParameter("PS5Fisico").isEmpty()))		
 						{
-							Disp_Ps5_Fisico = model.modDisponibilita(codSerialeMod, Integer.parseInt(request.getParameter("PS5Fisico")), PIATTAFORMA_PS5, FORMATO_FISICO);
+							dispPs5Fisico = model.modDisponibilita(codSerialeMod, Integer.parseInt(request.getParameter("PS5Fisico")), PIATTAFORMA_PS5, FORMATO_FISICO);
 						}
 						else 
 						{
-							Disp_Ps5_Fisico = true;
+							dispPs5Fisico = true;
 						}
 						
 						if(!(request.getParameter("PS4Fisico").isEmpty()))	
 						{
-							Disp_Ps4_Fisico = model.modDisponibilita(codSerialeMod, Integer.parseInt(request.getParameter("PS4Fisico")), PIATTAFORMA_PS4, FORMATO_FISICO);
+							dispPs4Fisico = model.modDisponibilita(codSerialeMod, Integer.parseInt(request.getParameter("PS4Fisico")), PIATTAFORMA_PS4, FORMATO_FISICO);
 						}
 						else 
 						{
-							Disp_Ps4_Fisico = true;
+							dispPs4Fisico = true;
 						}
 						
 						if(!(request.getParameter("PcFisico").isEmpty()))		
 						{
-							Disp_Pc_Fisico = model.modDisponibilita(codSerialeMod, Integer.parseInt(request.getParameter("PcFisico")), PIATTAFORMA_PC, FORMATO_FISICO);
+							dispPcFisico = model.modDisponibilita(codSerialeMod, Integer.parseInt(request.getParameter("PcFisico")), PIATTAFORMA_PC, FORMATO_FISICO);
 						}
 						else 
 						{
-							Disp_Pc_Fisico = true;
+							dispPcFisico = true;
 						}
 						
 						if(!(request.getParameter("CodSeriale").isEmpty()))
 						{
-							RsCodSeriale = model.modCodSeriale(codSerialeMod, request.getParameter("CodSeriale"));
+							rsCodSeriale = model.modCodSeriale(codSerialeMod, request.getParameter("CodSeriale"));
 						}
 						else 
 						{
-							RsCodSeriale = true;
+							rsCodSeriale = true;
 						}
 						
 						request.removeAttribute("Result");
-						if(RsCodSeriale && RsNome && RsImmagine && RsPrezzo && RsDataUscita && RsDescrizioneRidotta && RsDescrizioneCompleta && 
-								RsPEGI && RsGenere && Disp_XboxX_Fisico && Disp_XboxX_Digitale && Disp_XboxS_Digitale && 
-								Disp_Ps5_Fisico && Disp_Ps5_Digitale && Disp_Ps4_Fisico && Disp_Ps4_Digitale && Disp_Pc_Fisico && Disp_Pc_Digitale)
+						if(rsCodSeriale && rsNome && rsImmagine && rsPrezzo && rsDataUscita && rsDescrizioneRidotta && rsDescrizioneCompleta && 
+								rsPEGI && rsGenere && dispXboxXFisico && dispXboxXDigitale && dispXboxSDigitale && 
+								dispPs5Fisico && dispPs5Digitale && dispPs4Fisico && dispPs4Digitale && dispPcFisico && dispPcDigitale)
 						{
 							request.setAttribute("Result", "Il prodotto è stato modificato correttamente.");
 						}

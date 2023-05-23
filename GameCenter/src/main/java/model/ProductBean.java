@@ -20,16 +20,16 @@ public class ProductBean implements Serializable
 	int PEGI;
 	String genere;
 	String piattaforma;
-	int disp_Ps5_Fisico;
-	int disp_Ps5_Digitale;
-	int disp_Ps4_Fisico;
-	int disp_Ps4_Digitale;
-	int disp_XboxX_Fisico;
-	int disp_XboxX_Digitale;
-	int disp_XboxS_Fisico;
-	int disp_XboxS_Digitale;
-	int disp_Pc_Fisico;
-	int disp_Pc_Digitale;
+	int dispPs5Fisico;
+	int dispPs5Digitale;
+	int dispPs4Fisico;
+	int dispPs4Digitale;
+	int dispXboxXFisico;
+	int dispXboxXDigitale;
+	int dispXboxSFisico;
+	int dispXboxSDigitale;
+	int dispPcFisico;
+	int dispPcDigitale;
 
 	
 
@@ -47,16 +47,16 @@ public class ProductBean implements Serializable
 		this.PEGI=0;
 		this.genere="";
 		this.piattaforma="";
-		this.disp_Ps5_Fisico=0;
-		this.disp_Ps5_Digitale=0;
-		this.disp_Ps4_Fisico=0;
-		this.disp_Ps4_Digitale=0;
-		this.disp_XboxX_Fisico=0;
-		this.disp_XboxX_Digitale=0;
-		this.disp_XboxS_Fisico=0;
-		this.disp_XboxS_Digitale=0;
-		this.disp_Pc_Fisico=0;
-		this.disp_Pc_Digitale=0;
+		this.dispPs5Fisico=0;
+		this.dispPs5Digitale=0;
+		this.dispPs4Fisico=0;
+		this.dispPs4Digitale=0;
+		this.dispXboxXFisico=0;
+		this.dispXboxXDigitale=0;
+		this.dispXboxSFisico=0;
+		this.dispXboxSDigitale=0;
+		this.dispPcFisico=0;
+		this.dispPcDigitale=0;
 	}
 
 	public String getCodSeriale() 
@@ -191,104 +191,104 @@ public class ProductBean implements Serializable
 		this.piattaforma = piattaforma;
 	}
 
-	public int getDisp_Ps5_Fisico() 
+	public int getDispPs5Fisico() 
 	{
-		return disp_Ps5_Fisico;
+		return dispPs5Fisico;
 	}
 
-	public void setDisp_Ps5_Fisico(int disp_Ps5_Fisico) 
+	public void setDispPs5Fisico(int dispPs5Fisico) 
 	{
-		this.disp_Ps5_Fisico = disp_Ps5_Fisico;
+		this.dispPs5Fisico = dispPs5Fisico;
 	}
 
-	public int getDisp_Ps5_Digitale() 
+	public int getDispPs5Digitale() 
 	{
-		return disp_Ps5_Digitale;
+		return dispPs5Digitale;
 	}
 
-	public void setDisp_Ps5_Digitale(int disp_Ps5_Digitale) 
+	public void setDispPs5Digitale(int dispPs5Digitale) 
 	{
-		this.disp_Ps5_Digitale = disp_Ps5_Digitale;
+		this.dispPs5Digitale = dispPs5Digitale;
 	}
 
-	public int getDisp_Ps4_Fisico() 
+	public int getDispPs4Fisico() 
 	{
-		return disp_Ps4_Fisico;
+		return dispPs4Fisico;
 	}
 
-	public void setDisp_Ps4_Fisico(int disp_Ps4_Fisico) 
+	public void setDispPs4Fisico(int dispPs4Fisico) 
 	{
-		this.disp_Ps4_Fisico = disp_Ps4_Fisico;
+		this.dispPs4Fisico = dispPs4Fisico;
 	}
 
-	public int getDisp_Ps4_Digitale() 
+	public int getDispPs4Digitale() 
 	{
-		return disp_Ps4_Digitale;
+		return dispPs4Digitale;
 	}
 
-	public void setDisp_Ps4_Digitale(int disp_Ps4_Digitale) 
+	public void setDispPs4Digitale(int dispPs4Digitale) 
 	{
-		this.disp_Ps4_Digitale = disp_Ps4_Digitale;
+		this.dispPs4Digitale = dispPs4Digitale;
 	}
 
-	public int getDisp_XboxX_Fisico() 
+	public int getDispXboxXFisico() 
 	{
-		return disp_XboxX_Fisico;
+		return dispXboxXFisico;
 	}
 
-	public void setDisp_XboxX_Fisico(int disp_XboxX_Fisico) 
+	public void setDispXboxXFisico(int dispXboxXFisico) 
 	{
-		this.disp_XboxX_Fisico = disp_XboxX_Fisico;
+		this.dispXboxXFisico = dispXboxXFisico;
 	}
 
-	public int getDisp_XboxX_Digitale() 
+	public int getDispXboxXDigitale() 
 	{
-		return disp_XboxX_Digitale;
+		return dispXboxXDigitale;
 	}
 
-	public void setDisp_XboxX_Digitale(int disp_XboxX_Digitale) 
+	public void setDispXboxXDigitale(int dispXboxXDigitale) 
 	{
-		this.disp_XboxX_Digitale = disp_XboxX_Digitale;
+		this.dispXboxXDigitale = dispXboxXDigitale;
 	}
 
-	public int getDisp_XboxS_Fisico() 
+	public int getDispXboxSFisico() 
 	{
-		return disp_XboxS_Fisico;
+		return dispXboxSFisico;
 	}
 
-	public void setDisp_XboxS_Fisico(int disp_XboxS_Fisico) 
+	public void setDispXboxSFisico(int dispXboxSFisico) 
 	{
-		this.disp_XboxS_Fisico = disp_XboxS_Fisico;
+		this.dispXboxSFisico = dispXboxSFisico;
 	}
 
-	public int getDisp_XboxS_Digitale() 
+	public int getDispXboxSDigitale() 
 	{
-		return disp_XboxS_Digitale;
+		return dispXboxSDigitale;
 	}
 
-	public void setDisp_XboxS_Digitale(int disp_XboxS_Digitale) 
+	public void setDispXboxSDigitale(int dispXboxSDigitale) 
 	{
-		this.disp_XboxS_Digitale = disp_XboxS_Digitale;
+		this.dispXboxSDigitale = dispXboxSDigitale;
 	}
 
-	public int getDisp_Pc_Fisico() 
+	public int getDispPcFisico() 
 	{
-		return disp_Pc_Fisico;
+		return dispPcFisico;
 	}
 
-	public void setDisp_Pc_Fisico(int disp_Pc_Fisico) 
+	public void setDispPcFisico(int dispPcFisico) 
 	{
-		this.disp_Pc_Fisico = disp_Pc_Fisico;
+		this.dispPcFisico = dispPcFisico;
 	}
 
-	public int getDisp_Pc_Digitale()
+	public int getDispPcDigitale()
 	{
-		return disp_Pc_Digitale;
+		return dispPcDigitale;
 	}
 
-	public void setDisp_Pc_Digitale(int disp_Pc_Digitale) 
+	public void setDispPcDigitale(int dispPcDigitale) 
 	{
-		this.disp_Pc_Digitale = disp_Pc_Digitale;
+		this.dispPcDigitale = dispPcDigitale;
 	}
 
 	@Override
@@ -297,12 +297,12 @@ public class ProductBean implements Serializable
 		return "ProductBean [codSeriale=" + codSeriale + ", nome=" + nome + ", prezzo=" + prezzo + ", dataUscita="
 				+ dataUscita + ", descrizioneRidotta=" + descrizioneRidotta + ", descrizioneCompleta="
 				+ descrizioneCompleta + ", immagine=" + immagine + ", tipologia=" + tipologia + ", quantita=" + quantita
-				+ ", PEGI=" + PEGI + ", genere=" + genere + ", piattaforma=" + piattaforma + ", disp_Ps5_Fisico="
-				+ disp_Ps5_Fisico + ", disp_Ps5_Digitale=" + disp_Ps5_Digitale + ", disp_Ps4_Fisico=" + disp_Ps4_Fisico
-				+ ", disp_Ps4_Digitale=" + disp_Ps4_Digitale + ", disp_XboxX_Fisico=" + disp_XboxX_Fisico
-				+ ", disp_XboxX_Digitale=" + disp_XboxX_Digitale + ", disp_XboxS_Fisico=" + disp_XboxS_Fisico
-				+ ", disp_XboxS_Digitale=" + disp_XboxS_Digitale + ", disp_Pc_Fisico=" + disp_Pc_Fisico
-				+ ", disp_Pc_Digitale=" + disp_Pc_Digitale + "]";
+				+ ", PEGI=" + PEGI + ", genere=" + genere + ", piattaforma=" + piattaforma + ", dispPs5Fisico="
+				+ dispPs5Fisico + ", dispPs5Digitale=" + dispPs5Digitale + ", dispPs4Fisico=" + dispPs4Fisico
+				+ ", dispPs4Digitale=" + dispPs4Digitale + ", dispXboxXFisico=" + dispXboxXFisico
+				+ ", dispXboxXDigitale=" + dispXboxXDigitale + ", dispXboxSFisico=" + dispXboxSFisico
+				+ ", dispXboxSDigitale=" + dispXboxSDigitale + ", dispPcFisico=" + dispPcFisico
+				+ ", dispPcDigitale=" + dispPcDigitale + "]";
 	}
 
 }
