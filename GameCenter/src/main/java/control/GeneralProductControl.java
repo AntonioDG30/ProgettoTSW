@@ -24,7 +24,7 @@ public class GeneralProductControl extends HttpServlet
 	private static final long serialVersionUID = 1L;
 
 	
-	static ProductModel model = new ProductModel();
+	static ProductModel productModel = new ProductModel();
 	
 	Logger logger = Logger.getLogger(GeneralProductControl.class.getName());
        
@@ -38,11 +38,11 @@ public class GeneralProductControl extends HttpServlet
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
 		
-		CarrelloBean Carrello = (CarrelloBean)request.getSession().getAttribute("Carrello");
-		if(Carrello == null)
+		CarrelloBean carrello = (CarrelloBean)request.getSession().getAttribute("Carrello");
+		if(carrello == null)
 		{
-			Carrello = new CarrelloBean();
-			request.getSession().setAttribute("Carrello", Carrello);
+			carrello = new CarrelloBean();
+			request.getSession().setAttribute("Carrello", carrello);
 		}
 		
 		String action = request.getParameter("action");
@@ -55,9 +55,9 @@ public class GeneralProductControl extends HttpServlet
 				
 				if (action.equalsIgnoreCase("Dettagli")) 
 				{
-					String CodSeriale = request.getParameter("CodSeriale");
+					String codSeriale = request.getParameter("CodSeriale");
 					request.removeAttribute("product");
-					request.setAttribute("product", model.dettagli(CodSeriale));
+					request.setAttribute("product", productModel.dettagli(codSeriale));
 					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/DettagliProdotto.jsp");
 					dispatcher.forward(request, response);	
 				}
@@ -66,10 +66,10 @@ public class GeneralProductControl extends HttpServlet
 				
 				if (action.equalsIgnoreCase("AggiungiCarrello")) 
 				{
-					String CodSeriale = request.getParameter("CodSeriale");
+					String codSeriale = request.getParameter("CodSeriale");
 					String Piattaforma = request.getParameter("Piattaforma");
-					Carrello.aggiungiProdotto(model.dettagli(CodSeriale), Piattaforma);
-					request.getSession().setAttribute("Carrello", Carrello);
+					carrello.aggiungiProdotto(productModel.dettagli(codSeriale), Piattaforma);
+					request.getSession().setAttribute("Carrello", carrello);
 					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
 					dispatcher.forward(request, response);
 				}
@@ -79,9 +79,9 @@ public class GeneralProductControl extends HttpServlet
 				
 				if (action.equalsIgnoreCase("RimuoviCarrello")) 
 				{
-					String CodSeriale = request.getParameter("CodSeriale");
-					Carrello.rimuoviProdotto(model.dettagli(CodSeriale));
-					request.getSession().setAttribute("Carrello", Carrello);
+					String codSeriale = request.getParameter("CodSeriale");
+					carrello.rimuoviProdotto(productModel.dettagli(codSeriale));
+					request.getSession().setAttribute("Carrello", carrello);
 					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Carrello.jsp");
 					dispatcher.forward(request, response);
 				}
@@ -90,7 +90,7 @@ public class GeneralProductControl extends HttpServlet
 			else
 			{
 				request.removeAttribute("products");
-				request.setAttribute("products", model.doAll());
+				request.setAttribute("products", productModel.doAll());
 				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
 				dispatcher.forward(request, response);
 			}

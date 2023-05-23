@@ -35,9 +35,8 @@ public class OrdiniControl extends HttpServlet
 	private static final long serialVersionUID = 1L;
 	
 	
-	static OrdineModel Omodel = new OrdineModel();
-	static ProductModel Pmodel = new ProductModel();
-	static UserModel Umodel = new UserModel();   
+	static OrdineModel ordineModel = new OrdineModel();
+	static UserModel userModel = new UserModel();   
 	
 	
 	Logger logger = Logger.getLogger(OrdiniControl.class.getName());
@@ -58,14 +57,14 @@ public class OrdiniControl extends HttpServlet
 			{	
 				if (action.equalsIgnoreCase("Dettagli")) 
 				{
-					int CodOrdine = Integer.parseInt(request.getParameter("CodOrdine"));
-					float PrezzoEffettivo = Float.parseFloat(request.getParameter("PrezzoEffettivo"));
+					int codOrdine = Integer.parseInt(request.getParameter("CodOrdine"));
+					float prezzoEffettivo = Float.parseFloat(request.getParameter("PrezzoEffettivo"));
 					request.removeAttribute("Ordini");
-					request.setAttribute("Ordini", Omodel.dettagliOrdine(CodOrdine));
+					request.setAttribute("Ordini", ordineModel.dettagliOrdine(codOrdine));
 					request.removeAttribute("PrezzoEffettivo");
-					request.setAttribute("PrezzoEffettivo", PrezzoEffettivo);
+					request.setAttribute("PrezzoEffettivo", prezzoEffettivo);
 					request.removeAttribute("Fattura");
-					request.setAttribute("Fattura", Omodel.ricercaFattura(CodOrdine));
+					request.setAttribute("Fattura", ordineModel.ricercaFattura(codOrdine));
 
 					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/DettagliOrdine.jsp");
 					dispatcher.forward(request, response);	
@@ -74,19 +73,19 @@ public class OrdiniControl extends HttpServlet
 				
 				if (action.equalsIgnoreCase("Recensione")) 
 				{
-					String Email=(String) request.getSession().getAttribute("Email");
-					String CodProdotto = request.getParameter("CodProdotto");
-					int Valutazione = Integer.parseInt(request.getParameter("Valutazione"));
-					String Descrizione = request.getParameter("Descrizione");
+					String email=(String) request.getSession().getAttribute("Email");
+					String codProdotto = request.getParameter("CodProdotto");
+					int valutazione = Integer.parseInt(request.getParameter("Valutazione"));
+					String descrizione = request.getParameter("Descrizione");
 					
 					request.removeAttribute("Result");
-					if(Omodel.recensione(Valutazione, Descrizione, CodProdotto, Email))
+					if(ordineModel.recensione(valutazione, descrizione, codProdotto, email))
 					{
 						request.setAttribute("Result", "Recensione inserita Correttamente");
 					    request.removeAttribute("PuntiFedelta");
-						request.setAttribute("PuntiFedelta", Umodel.getPuntiFedelta(Email));
+						request.setAttribute("PuntiFedelta", userModel.getPuntiFedelta(email));
 						request.removeAttribute("Ordini");
-						request.setAttribute("Ordini", Omodel.elencoOrdiniByCliente(Email));
+						request.setAttribute("Ordini", ordineModel.elencoOrdiniByCliente(email));
 						RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Account.jsp");
 						dispatcher.forward(request, response);						
 					}
@@ -94,7 +93,7 @@ public class OrdiniControl extends HttpServlet
 					{
 						request.setAttribute("Result", "Recensione non inserita. Riprova!");
 						request.removeAttribute("CodProdotto");
-						request.setAttribute("CodProdotto", CodProdotto);
+						request.setAttribute("CodProdotto", codProdotto);
 						RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Recensione.jsp");
 						dispatcher.forward(request, response);
 					}
@@ -105,16 +104,16 @@ public class OrdiniControl extends HttpServlet
 				{
 					if (request.getSession().getAttribute("Email") != null)
 					{
-						String Email=(String) request.getSession().getAttribute("Email");
-						CarrelloBean Carrello=(CarrelloBean) request.getSession().getAttribute("Carrello");
+						String email=(String) request.getSession().getAttribute("Email");
+						CarrelloBean carrello=(CarrelloBean) request.getSession().getAttribute("Carrello");
 						request.removeAttribute("PuntiFedelta");
-						request.setAttribute("PuntiFedelta", Umodel.getPuntiFedelta(Email));
+						request.setAttribute("PuntiFedelta", userModel.getPuntiFedelta(email));
 						request.removeAttribute("Indirizzi");
-						request.setAttribute("Indirizzi", Umodel.getIndirizziSpedizione(Email));
+						request.setAttribute("Indirizzi", userModel.getIndirizziSpedizione(email));
 						request.removeAttribute("MetodiPagamento");
-						request.setAttribute("MetodiPagamento", Umodel.getMetodiPagamento(Email));
+						request.setAttribute("MetodiPagamento", userModel.getMetodiPagamento(email));
 						request.removeAttribute("Prodotti");
-						request.setAttribute("Prodotti", Carrello);
+						request.setAttribute("Prodotti", carrello);
 						RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Checkout.jsp");
 						dispatcher.forward(request, response);
 					}
@@ -128,25 +127,25 @@ public class OrdiniControl extends HttpServlet
 				{
 					if (request.getSession().getAttribute("Email") != null)
 					{
-						String Email=(String) request.getSession().getAttribute("Email");
-						CarrelloBean Carrello=(CarrelloBean) request.getSession().getAttribute("Carrello");
-						float PrezzoTotale =  Float.parseFloat(request.getParameter("PrezzoTotale"));
-						float PuntiFedeltaUsati = Float.parseFloat(request.getParameter("Sconto"));						
+						String email=(String) request.getSession().getAttribute("Email");
+						CarrelloBean carrello=(CarrelloBean) request.getSession().getAttribute("Carrello");
+						float prezzoTotale =  Float.parseFloat(request.getParameter("PrezzoTotale"));
+						float puntiFedeltaUsati = Float.parseFloat(request.getParameter("Sconto"));						
 						
 						request.removeAttribute("Result");
-						int CodOrdine = Omodel.acquisto(Carrello, PrezzoTotale, PuntiFedeltaUsati, Email);
-						if(CodOrdine != 0)
+						int codOrdine = ordineModel.acquisto(carrello, prezzoTotale, puntiFedeltaUsati, email);
+						if(codOrdine != 0)
 						{
 							int codIndirizzo = Integer.parseInt(request.getParameter("IndirizzoScelto"));
 							String NumeroCarta = request.getParameter("MetodoScelto");
-							Omodel.updateComprende(CodOrdine, codIndirizzo, NumeroCarta);
+							ordineModel.updateComprende(codOrdine, codIndirizzo, NumeroCarta);
 							request.removeAttribute("PuntiFedelta");
-							request.setAttribute("PuntiFedelta", Umodel.getPuntiFedelta(Email));
+							request.setAttribute("PuntiFedelta", userModel.getPuntiFedelta(email));
 							request.removeAttribute("Ordini");
-							request.setAttribute("Ordini", Omodel.elencoOrdiniByCliente(Email));
+							request.setAttribute("Ordini", ordineModel.elencoOrdiniByCliente(email));
 							request.setAttribute("Result", "Grazie per aver acquistato sul nostro sito");
-							generaFattura(CodOrdine, PrezzoTotale, PuntiFedeltaUsati, Email);
-							Omodel.updateFattura(CodOrdine);
+							generaFattura(codOrdine, prezzoTotale, puntiFedeltaUsati, email);
+							ordineModel.updateFattura(codOrdine);
 							request.getSession().setAttribute("Carrello", null);
 						}
 						else
@@ -168,21 +167,21 @@ public class OrdiniControl extends HttpServlet
 				{
 					if(request.getParameter("ParteMod").contentEquals("Parte1"))
 					{
-						String Visualizzazione = request.getParameter("VisualizzazioneOrdini");
-						if(Visualizzazione.contentEquals("Tutti"))
+						String visualizzazione = request.getParameter("VisualizzazioneOrdini");
+						if(visualizzazione.contentEquals("Tutti"))
 						{
 							request.removeAttribute("Ordini");
-							request.setAttribute("Ordini", Omodel.elencoOrdini());
+							request.setAttribute("Ordini", ordineModel.elencoOrdini());
 						}
-						else if (Visualizzazione.contentEquals("Cliente"))
+						else if (visualizzazione.contentEquals("Cliente"))
 						{
 							request.removeAttribute("Visual");
-							request.setAttribute("Visual", Visualizzazione);
+							request.setAttribute("Visual", visualizzazione);
 						}
-						else if (Visualizzazione.contentEquals("Periodo"))
+						else if (visualizzazione.contentEquals("Periodo"))
 						{
 							request.removeAttribute("Visual");
-							request.setAttribute("Visual", Visualizzazione);
+							request.setAttribute("Visual", visualizzazione);
 						}
 					}
 					else if(request.getParameter("ParteMod").contentEquals("Parte2"))
@@ -190,17 +189,17 @@ public class OrdiniControl extends HttpServlet
 
 						if (request.getParameter("email") != null )
 						{
-							String Email = request.getParameter("email");
+							String email = request.getParameter("email");
 							request.removeAttribute("Ordini");
-							request.setAttribute("Ordini", Omodel.elencoOrdiniByCliente(Email));
+							request.setAttribute("Ordini", ordineModel.elencoOrdiniByCliente(email));
 						}
 						else if (request.getParameter("DataInizio") != null &&
 								request.getParameter("DataFine") != null)
 						{
-							String DataInizio = request.getParameter("DataInizio");
-							String DataFine = request.getParameter("DataFine");
+							String dataInizio = request.getParameter("DataInizio");
+							String dataFine = request.getParameter("DataFine");
 							request.removeAttribute("Ordini");
-							request.setAttribute("Ordini", Omodel.elencoOrdiniByPeriodo(DataInizio, DataFine));
+							request.setAttribute("Ordini", ordineModel.elencoOrdiniByPeriodo(dataInizio, dataFine));
 						}
 					}
 					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Admin.jsp");
@@ -209,11 +208,11 @@ public class OrdiniControl extends HttpServlet
 			}
 			else
 			{
-			    String Email=(String) request.getSession().getAttribute("Email");
+			    String email=(String) request.getSession().getAttribute("Email");
 			    request.removeAttribute("PuntiFedelta");
-				request.setAttribute("PuntiFedelta", Umodel.getPuntiFedelta(Email));
+				request.setAttribute("PuntiFedelta", userModel.getPuntiFedelta(email));
 				request.removeAttribute("Ordini");
-				request.setAttribute("Ordini", Omodel.elencoOrdiniByCliente(Email));
+				request.setAttribute("Ordini", ordineModel.elencoOrdiniByCliente(email));
 				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Account.jsp");
 				dispatcher.forward(request, response);
 			}
@@ -225,7 +224,7 @@ public class OrdiniControl extends HttpServlet
 		
 	}
 
-	private void generaFattura(int CodOrdine, float PrezzoTotale, float PuntiFedeltaUsati, String Email) throws IOException 
+	private void generaFattura(int codOrdine, float prezzoTotale, float puntiFedeltaUsati, String email) throws IOException 
 	{
 		
 		float x=0, y=0;
@@ -235,10 +234,10 @@ public class OrdiniControl extends HttpServlet
 		{
 			
 			String servletPath = "C:/Users/anton/git/ProgettoTSW/GameCenter/src/main/webapp";
-			String TotalPath = servletPath + "/Fatture/Fattura" + CodOrdine + ".pdf";
-			Float SubTotale = 0.0f;
+			String totalPath = servletPath + "/Fatture/Fattura" + codOrdine + ".pdf";
+			Float subTotale = 0.0f;
 		
-			String PDF = Omodel.ricercaFattura(CodOrdine);
+			String PDF = ordineModel.ricercaFattura(codOrdine);
 		
 		
 		
@@ -258,12 +257,12 @@ public class OrdiniControl extends HttpServlet
 		 	    contentStream.beginText();
 			    contentStream.setFont(font, 11);
 			    contentStream.newLineAtOffset(x, y); 
-			    contentStream.showText(Integer.toString(CodOrdine)); 
+			    contentStream.showText(Integer.toString(codOrdine)); 
 			    contentStream.endText();
 	
 			    
 			    //inserimento data fattura
-			    OrdineBean Ordine = Omodel.ordineByCodOrdine(CodOrdine);
+			    OrdineBean Ordine = ordineModel.ordineByCodOrdine(codOrdine);
 			    y = 754;
 			    contentStream.beginText();
 			    contentStream.setFont(font, 11);
@@ -273,7 +272,7 @@ public class OrdiniControl extends HttpServlet
 			    
 			    
 			    //inserimento Dati Utente
-			    UserBean Utente = Umodel.ricercaDatiSensibili(Email); 
+			    UserBean Utente = userModel.ricercaDatiSensibili(email); 
 			    
 			    x = 395;
 			    y = 710;
@@ -303,12 +302,12 @@ public class OrdiniControl extends HttpServlet
 			    contentStream.beginText();
 			    contentStream.setFont(font, 11);
 			    contentStream.newLineAtOffset(x, y); 
-			    contentStream.showText(Email); 
+			    contentStream.showText(email); 
 			    contentStream.endText();
 			    
 			    //inserimento prodotti
 			    y = 604;
-			    Collection<?> Ordini = (Collection<?>) Omodel.dettagliOrdine(CodOrdine);
+			    Collection<?> Ordini = (Collection<?>) ordineModel.dettagliOrdine(codOrdine);
 			    if (Ordini != null && Ordini.size() != 0) 
 				{
 			    	
@@ -362,7 +361,7 @@ public class OrdiniControl extends HttpServlet
 						contentStream.newLineAtOffset(x, y);
 						contentStream.showText(Float.toString(PrezzoTotRiga)); 
 			    	    contentStream.endText();
-			    	    SubTotale = SubTotale + PrezzoTotRiga;
+			    	    subTotale = subTotale + PrezzoTotRiga;
 			    	    y = y - 16.42f;  	   			    	    
 					}
 					
@@ -379,7 +378,7 @@ public class OrdiniControl extends HttpServlet
 			    contentStream.beginText();
 			    contentStream.setFont(font, 11);
 			    contentStream.newLineAtOffset(x, y); 
-			    contentStream.showText("SubTotale: " + SubTotale); 
+			    contentStream.showText("subTotale: " + subTotale); 
 			    contentStream.endText();
 			    
 			    
@@ -392,11 +391,11 @@ public class OrdiniControl extends HttpServlet
 			    contentStream.beginText();
 			    contentStream.setFont(font, 11);
 			    contentStream.newLineAtOffset(x, y); 
-			    contentStream.showText("Sconto: -" + (PuntiFedeltaUsati/100)); 
+			    contentStream.showText("Sconto: -" + (puntiFedeltaUsati/100)); 
 			    contentStream.endText();
 			    
 			    Locale.setDefault(Locale.US);
-				float Totale = SubTotale -  (PuntiFedeltaUsati/100);
+				float Totale = subTotale -  (puntiFedeltaUsati/100);
 			    String TotaleS = String.format("%.2f", Totale);
 			    
 			    contentStream.addRect(448.7f, 56, 93, 17);
@@ -426,7 +425,7 @@ public class OrdiniControl extends HttpServlet
 			    
 			    
 			    contentStream.close();
-			    fattura.save(TotalPath);
+			    fattura.save(totalPath);
 			    fattura.close();
 
 			}

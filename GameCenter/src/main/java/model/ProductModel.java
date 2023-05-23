@@ -151,7 +151,7 @@ public class ProductModel
 						rs2 = ps2.executeQuery();
 						while(rs2.next()) 
 						{
-							bean.setDisp_Ps5_Digitale(rs2.getInt("QuantitaDisponibile"));
+							bean.setDispPs5Digitale(rs2.getInt("QuantitaDisponibile"));
 						}
 					}
 					catch(SQLException e)
@@ -177,7 +177,7 @@ public class ProductModel
 						rs2 = ps2.executeQuery();
 						while(rs2.next()) 
 						{
-							bean.setDisp_Ps4_Digitale(rs2.getInt("QuantitaDisponibile"));
+							bean.setDispPs4Digitale(rs2.getInt("QuantitaDisponibile"));
 						}
 					}
 					catch(SQLException e)
@@ -203,7 +203,7 @@ public class ProductModel
 						rs2 = ps2.executeQuery();
 						while(rs2.next()) 
 						{
-							bean.setDisp_XboxX_Digitale(rs2.getInt("QuantitaDisponibile"));
+							bean.setDispXboxXDigitale(rs2.getInt("QuantitaDisponibile"));
 						}
 					}
 					catch(SQLException e)
@@ -228,7 +228,7 @@ public class ProductModel
 						rs2 = ps2.executeQuery();
 						while(rs2.next()) 
 						{
-							bean.setDisp_XboxS_Digitale(rs2.getInt("QuantitaDisponibile"));
+							bean.setDispXboxSDigitale(rs2.getInt("QuantitaDisponibile"));
 						}
 					}
 					catch(SQLException e)
@@ -253,7 +253,7 @@ public class ProductModel
 						rs2 = ps2.executeQuery();
 						while(rs2.next()) 
 						{
-							bean.setDisp_Pc_Digitale(rs2.getInt("QuantitaDisponibile"));
+							bean.setDispPcDigitale(rs2.getInt("QuantitaDisponibile"));
 						}
 					}
 					catch(SQLException e)
@@ -281,7 +281,7 @@ public class ProductModel
 					rs2 = ps2.executeQuery();
 					while(rs2.next()) 
 					{
-						bean.setDisp_Ps5_Fisico(rs2.getInt("QuantitaDisponibile"));
+						bean.setDispPs5Fisico(rs2.getInt("QuantitaDisponibile"));
 					}
 				}
 				catch(SQLException e)
@@ -306,7 +306,7 @@ public class ProductModel
 					rs2 = ps2.executeQuery();
 					while(rs2.next()) 
 					{
-						bean.setDisp_Ps4_Fisico(rs2.getInt("QuantitaDisponibile"));
+						bean.setDispPs4Fisico(rs2.getInt("QuantitaDisponibile"));
 					}
 				}
 				catch(SQLException e)
@@ -331,7 +331,7 @@ public class ProductModel
 					rs2 = ps2.executeQuery();
 					while(rs2.next()) 
 					{
-						bean.setDisp_XboxX_Fisico(rs2.getInt("QuantitaDisponibile"));
+						bean.setDispXboxXFisico(rs2.getInt("QuantitaDisponibile"));
 					}
 				}
 				catch(SQLException e)
@@ -356,7 +356,7 @@ public class ProductModel
 					rs2 = ps2.executeQuery();
 					while(rs2.next()) 
 					{
-						bean.setDisp_XboxS_Fisico(rs2.getInt("QuantitaDisponibile"));
+						bean.setDispXboxSFisico(rs2.getInt("QuantitaDisponibile"));
 					}
 				}
 				catch(SQLException e)
@@ -381,7 +381,7 @@ public class ProductModel
 					rs2 = ps2.executeQuery();
 					while(rs2.next()) 
 					{
-						bean.setDisp_Pc_Fisico(rs2.getInt("QuantitaDisponibile"));
+						bean.setDispPcFisico(rs2.getInt("QuantitaDisponibile"));
 					}
 				}
 				catch(SQLException e)
@@ -602,7 +602,7 @@ public class ProductModel
 				try
 				{
 					ps2 = con.prepareStatement(SQL3);
-					ps2.setInt(1, product.getDisp_Ps5_Digitale());
+					ps2.setInt(1, product.getDispPs5Digitale());
 					ps2.setString(2, product.getCodSeriale());
 					ps2.setString(3, PIATTAFORMA_PS5);
 					ps2.setString(4, FORMATO_DIGITALE);
@@ -624,7 +624,7 @@ public class ProductModel
 				try
 				{
 					ps2 = con.prepareStatement(SQL3);
-					ps2.setInt(1, product.getDisp_Ps4_Digitale());
+					ps2.setInt(1, product.getDispPs4Digitale());
 					ps2.setString(2, product.getCodSeriale());
 					ps2.setString(3, PIATTAFORMA_PS4);
 					ps2.setString(4, FORMATO_DIGITALE);
@@ -646,7 +646,7 @@ public class ProductModel
 				try
 				{
 					ps2 = con.prepareStatement(SQL3);
-					ps2.setInt(1, product.getDisp_XboxX_Digitale());
+					ps2.setInt(1, product.getDispXboxXDigitale());
 					ps2.setString(2, product.getCodSeriale());
 					ps2.setString(3, PIATTAFORMA_XboxSerieX);
 					ps2.setString(4, FORMATO_DIGITALE);
@@ -668,7 +668,7 @@ public class ProductModel
 				try
 				{
 					ps2 = con.prepareStatement(SQL3);
-					ps2.setInt(1, product.getDisp_XboxS_Digitale());
+					ps2.setInt(1, product.getDispXboxSDigitale());
 					ps2.setString(2, product.getCodSeriale());
 					ps2.setString(3, PIATTAFORMA_XboxSerieS);
 					ps2.setString(4, FORMATO_DIGITALE);
@@ -691,7 +691,7 @@ public class ProductModel
 				try
 				{
 					ps2 = con.prepareStatement(SQL3);
-					ps2.setInt(1, product.getDisp_Pc_Digitale());
+					ps2.setInt(1, product.getDispPcDigitale());
 					ps2.setString(2, product.getCodSeriale());
 					ps2.setString(3, PIATTAFORMA_PC);
 					ps2.setString(4, FORMATO_DIGITALE);
@@ -713,7 +713,7 @@ public class ProductModel
 			try
 			{
 				ps2 = con.prepareStatement(SQL3);
-				ps2.setInt(1, product.getDisp_Ps5_Fisico());
+				ps2.setInt(1, product.getDispPs5Fisico());
 				ps2.setString(2, product.getCodSeriale());
 				ps2.setString(3, PIATTAFORMA_PS5);
 				ps2.setString(4, FORMATO_FISICO);
@@ -735,7 +735,7 @@ public class ProductModel
 			try
 			{
 				ps2 = con.prepareStatement(SQL3);
-				ps2.setInt(1, product.getDisp_Ps4_Fisico());
+				ps2.setInt(1, product.getDispPs4Fisico());
 				ps2.setString(2, product.getCodSeriale());
 				ps2.setString(3, PIATTAFORMA_PS4);
 				ps2.setString(4, FORMATO_FISICO);
@@ -757,7 +757,7 @@ public class ProductModel
 			try
 			{
 				ps2 = con.prepareStatement(SQL3);
-				ps2.setInt(1, product.getDisp_XboxX_Fisico());
+				ps2.setInt(1, product.getDispXboxXFisico());
 				ps2.setString(2, product.getCodSeriale());
 				ps2.setString(3, PIATTAFORMA_XboxSerieX);
 				ps2.setString(4, FORMATO_FISICO);
@@ -780,7 +780,7 @@ public class ProductModel
 			try
 			{
 				ps2 = con.prepareStatement(SQL3);
-				ps2.setInt(1, product.getDisp_Pc_Fisico());
+				ps2.setInt(1, product.getDispPcFisico());
 				ps2.setString(2, product.getCodSeriale());
 				ps2.setString(3, PIATTAFORMA_PC);
 				ps2.setString(4, FORMATO_FISICO);

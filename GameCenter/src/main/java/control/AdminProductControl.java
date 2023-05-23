@@ -27,7 +27,7 @@ public class AdminProductControl extends HttpServlet
 	private static final long serialVersionUID = 1L;
 
 	
-	static ProductModel model = new ProductModel();
+	static ProductModel productModel = new ProductModel();
 	String codSerialeMod ="";
 	boolean tipologia;
 	
@@ -65,7 +65,7 @@ public class AdminProductControl extends HttpServlet
 				{
 					request.removeAttribute("Result");
 					String codSeriale = request.getParameter("CodSeriale");
-					if(model.elimina(codSeriale))
+					if(productModel.elimina(codSeriale))
 					{
 						request.setAttribute("Result", "Il prodotto è stato eliminato correttamente.");
 					}
@@ -97,9 +97,9 @@ public class AdminProductControl extends HttpServlet
 							request.setAttribute("TipologiaInserimento", "Videogioco");
 						}
 						request.removeAttribute("PEGI");
-						request.setAttribute("PEGI", model.getPegiElements());
+						request.setAttribute("PEGI", productModel.getPegiElements());
 						request.removeAttribute("Genere");
-						request.setAttribute("Genere", model.getGenereElements());
+						request.setAttribute("Genere", productModel.getGenereElements());
 						RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Admin.jsp");
 						dispatcher.forward(request, response);
 					}
@@ -141,7 +141,7 @@ public class AdminProductControl extends HttpServlet
 						product.setDispPs5Fisico(Integer.parseInt(request.getParameter("PS5Fisico")));
 						product.setDispPs4Fisico(Integer.parseInt(request.getParameter("PS4Fisico")));
 						product.setDispXboxXFisico(Integer.parseInt(request.getParameter("XboxXFisico")));
-						if(model.inserisci(product))
+						if(productModel.inserisci(product))
 						{
 							request.setAttribute("Result", "Il prodotto è stato inserito correttamente.");
 						}
@@ -164,31 +164,43 @@ public class AdminProductControl extends HttpServlet
 					{
 						codSerialeMod = request.getParameter("CodSeriale");
 						request.removeAttribute("product");
-						request.setAttribute("product", model.dettagli(codSerialeMod));
+						request.setAttribute("product", productModel.dettagli(codSerialeMod));
 						request.removeAttribute("Result");
 						if (request.getAttribute("product") == null)
 						{
 							request.setAttribute("Result", "il CodSeriale inserito non esiste, riprova.");
 						}
 						request.removeAttribute("PEGI");
-						request.setAttribute("PEGI", model.getPegiElements());
+						request.setAttribute("PEGI", productModel.getPegiElements());
 						request.removeAttribute("Genere");
-						request.setAttribute("Genere", model.getGenereElements());
+						request.setAttribute("Genere", productModel.getGenereElements());
 						RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Admin.jsp");
 						dispatcher.forward(request, response);
 					}
 					else if(request.getParameter("ParteMod").contentEquals("Parte2"))
 					{
-						Boolean rsCodSeriale = false, rsNome = false, rsImmagine = false, rsPrezzo = false, 
-								rsDataUscita = false, rsDescrizioneRidotta = false, rsDescrizioneCompleta = false, 
-								rsPEGI = false, rsGenere = false, dispXboxXFisico = false, 
-								dispXboxXDigitale = false, dispXboxSDigitale = false, 
-								dispPs5Fisico = false, dispPs5Digitale = false, dispPs4Fisico = false,
-								dispPs4Digitale = false, dispPcFisico = false, dispPcDigitale = false;
+						Boolean rsCodSeriale = false;
+						Boolean rsNome = false;
+						Boolean rsImmagine = false; 
+						Boolean rsPrezzo = false; 
+						Boolean rsDataUscita = false;
+						Boolean rsDescrizioneRidotta = false;
+						Boolean rsDescrizioneCompleta = false; 
+						Boolean rsPEGI = false;
+						Boolean rsGenere = false;
+						Boolean dispXboxXFisico = false;
+						Boolean dispXboxXDigitale = false;
+						Boolean dispXboxSDigitale = false; 
+						Boolean dispPs5Fisico = false;
+						Boolean dispPs5Digitale = false;
+						Boolean dispPs4Fisico = false;
+						Boolean dispPs4Digitale = false;
+						Boolean dispPcFisico = false;
+						Boolean dispPcDigitale = false;
 						
 						if(!(request.getParameter("Nome").isEmpty()))
 						{
-							rsNome = model.modNome(codSerialeMod, request.getParameter("Nome"));
+							rsNome = productModel.modNome(codSerialeMod, request.getParameter("Nome"));
 						}
 						else 
 						{
@@ -208,7 +220,7 @@ public class AdminProductControl extends HttpServlet
 								fos.write(data);
 							}
 							fos.close();
-							rsImmagine = model.modImmagine(codSerialeMod, immagineFileName);
+							rsImmagine = productModel.modImmagine(codSerialeMod, immagineFileName);
 						}
 						else
 						{
@@ -218,7 +230,7 @@ public class AdminProductControl extends HttpServlet
 
 						if(!(request.getParameter("Prezzo").isEmpty()))
 						{
-							rsPrezzo = model.modPrezzo(codSerialeMod, Float.parseFloat(request.getParameter("Prezzo")));
+							rsPrezzo = productModel.modPrezzo(codSerialeMod, Float.parseFloat(request.getParameter("Prezzo")));
 						}
 						else 
 						{
@@ -227,7 +239,7 @@ public class AdminProductControl extends HttpServlet
 						
 						if(!(request.getParameter("DataUscita").isEmpty()))			
 						{
-							rsDataUscita = model.modDataUscita(codSerialeMod, request.getParameter("DataUscita"));
+							rsDataUscita = productModel.modDataUscita(codSerialeMod, request.getParameter("DataUscita"));
 						}
 						else 
 						{
@@ -236,7 +248,7 @@ public class AdminProductControl extends HttpServlet
 						
 						if(!(request.getParameter("DescrizioneRidotta").isEmpty()))				
 						{
-							rsDescrizioneRidotta = model.modDescrizioneRidotta(codSerialeMod, request.getParameter("DescrizioneRidotta"));
+							rsDescrizioneRidotta = productModel.modDescrizioneRidotta(codSerialeMod, request.getParameter("DescrizioneRidotta"));
 						}
 						else 
 						{
@@ -245,7 +257,7 @@ public class AdminProductControl extends HttpServlet
 						
 						if(!(request.getParameter("DescrizioneCompleta").isEmpty()))		
 						{
-							rsDescrizioneCompleta = model.modDescrizioneCompleta(codSerialeMod, request.getParameter("DescrizioneCompleta"));
+							rsDescrizioneCompleta = productModel.modDescrizioneCompleta(codSerialeMod, request.getParameter("DescrizioneCompleta"));
 						}
 						else 
 						{
@@ -254,7 +266,7 @@ public class AdminProductControl extends HttpServlet
 						
 						if(!(request.getParameter("PEGI").isEmpty() || request.getParameter("PEGI").contentEquals("NonModificare")))			
 						{
-							rsPEGI = model.modPEGI(codSerialeMod, Integer.parseInt(request.getParameter("PEGI")));
+							rsPEGI = productModel.modPEGI(codSerialeMod, Integer.parseInt(request.getParameter("PEGI")));
 						}
 						else 
 						{
@@ -263,7 +275,7 @@ public class AdminProductControl extends HttpServlet
 						
 						if(!(request.getParameter("Genere").isEmpty() || request.getParameter("Genere").contentEquals("NonModificare")))			
 						{
-							rsGenere = model.modGenere(codSerialeMod, request.getParameter("Genere"));
+							rsGenere = productModel.modGenere(codSerialeMod, request.getParameter("Genere"));
 						}
 						else 
 						{
@@ -272,7 +284,7 @@ public class AdminProductControl extends HttpServlet
 						
 						if(!(request.getParameter("XboxXDigitale").isEmpty()))				
 						{
-							dispXboxXDigitale = model.modDisponibilita(codSerialeMod, Integer.parseInt(request.getParameter("XboxXDigitale")), PIATTAFORMA_XBOX_SERIE_X, FORMATO_DIGITALE);
+							dispXboxXDigitale = productModel.modDisponibilita(codSerialeMod, Integer.parseInt(request.getParameter("XboxXDigitale")), PIATTAFORMA_XBOX_SERIE_X, FORMATO_DIGITALE);
 						}
 						else 
 						{
@@ -281,7 +293,7 @@ public class AdminProductControl extends HttpServlet
 						
 						if(!(request.getParameter("XboxSDigitale").isEmpty()))			
 						{
-							dispXboxSDigitale = model.modDisponibilita(codSerialeMod, Integer.parseInt(request.getParameter("XboxSDigitale")), PIATTAFORMA_XBOX_SERIE_S, FORMATO_DIGITALE);
+							dispXboxSDigitale = productModel.modDisponibilita(codSerialeMod, Integer.parseInt(request.getParameter("XboxSDigitale")), PIATTAFORMA_XBOX_SERIE_S, FORMATO_DIGITALE);
 						}
 						else 
 						{
@@ -290,7 +302,7 @@ public class AdminProductControl extends HttpServlet
 						
 						if(!(request.getParameter("PS5Digitale").isEmpty()))		
 						{
-							dispPs5Digitale = model.modDisponibilita(codSerialeMod, Integer.parseInt(request.getParameter("PS5Digitale")), PIATTAFORMA_PS5, FORMATO_DIGITALE);
+							dispPs5Digitale = productModel.modDisponibilita(codSerialeMod, Integer.parseInt(request.getParameter("PS5Digitale")), PIATTAFORMA_PS5, FORMATO_DIGITALE);
 						}
 						else 
 						{
@@ -299,7 +311,7 @@ public class AdminProductControl extends HttpServlet
 						
 						if(!(request.getParameter("PS4Digitale").isEmpty()))			
 						{
-							dispPs4Digitale = model.modDisponibilita(codSerialeMod, Integer.parseInt(request.getParameter("PS4Digitale")), PIATTAFORMA_PS4, FORMATO_DIGITALE);
+							dispPs4Digitale = productModel.modDisponibilita(codSerialeMod, Integer.parseInt(request.getParameter("PS4Digitale")), PIATTAFORMA_PS4, FORMATO_DIGITALE);
 						}
 						else 
 						{
@@ -308,7 +320,7 @@ public class AdminProductControl extends HttpServlet
 						
 						if(!(request.getParameter("PcDigitale").isEmpty()))		
 						{
-							dispPcDigitale = model.modDisponibilita(codSerialeMod, Integer.parseInt(request.getParameter("PcDigitale")), PIATTAFORMA_PC, FORMATO_DIGITALE);
+							dispPcDigitale = productModel.modDisponibilita(codSerialeMod, Integer.parseInt(request.getParameter("PcDigitale")), PIATTAFORMA_PC, FORMATO_DIGITALE);
 						}
 						else 
 						{
@@ -317,7 +329,7 @@ public class AdminProductControl extends HttpServlet
 
 						if(!(request.getParameter("XboxXFisico").isEmpty()))		
 						{
-							dispXboxXFisico = model.modDisponibilita(codSerialeMod, Integer.parseInt(request.getParameter("XboxXFisico")), PIATTAFORMA_XBOX_SERIE_X, FORMATO_FISICO);
+							dispXboxXFisico = productModel.modDisponibilita(codSerialeMod, Integer.parseInt(request.getParameter("XboxXFisico")), PIATTAFORMA_XBOX_SERIE_X, FORMATO_FISICO);
 						}
 						else 
 						{
@@ -326,7 +338,7 @@ public class AdminProductControl extends HttpServlet
 						
 						if(!(request.getParameter("PS5Fisico").isEmpty()))		
 						{
-							dispPs5Fisico = model.modDisponibilita(codSerialeMod, Integer.parseInt(request.getParameter("PS5Fisico")), PIATTAFORMA_PS5, FORMATO_FISICO);
+							dispPs5Fisico = productModel.modDisponibilita(codSerialeMod, Integer.parseInt(request.getParameter("PS5Fisico")), PIATTAFORMA_PS5, FORMATO_FISICO);
 						}
 						else 
 						{
@@ -335,7 +347,7 @@ public class AdminProductControl extends HttpServlet
 						
 						if(!(request.getParameter("PS4Fisico").isEmpty()))	
 						{
-							dispPs4Fisico = model.modDisponibilita(codSerialeMod, Integer.parseInt(request.getParameter("PS4Fisico")), PIATTAFORMA_PS4, FORMATO_FISICO);
+							dispPs4Fisico = productModel.modDisponibilita(codSerialeMod, Integer.parseInt(request.getParameter("PS4Fisico")), PIATTAFORMA_PS4, FORMATO_FISICO);
 						}
 						else 
 						{
@@ -344,7 +356,7 @@ public class AdminProductControl extends HttpServlet
 						
 						if(!(request.getParameter("PcFisico").isEmpty()))		
 						{
-							dispPcFisico = model.modDisponibilita(codSerialeMod, Integer.parseInt(request.getParameter("PcFisico")), PIATTAFORMA_PC, FORMATO_FISICO);
+							dispPcFisico = productModel.modDisponibilita(codSerialeMod, Integer.parseInt(request.getParameter("PcFisico")), PIATTAFORMA_PC, FORMATO_FISICO);
 						}
 						else 
 						{
@@ -353,7 +365,7 @@ public class AdminProductControl extends HttpServlet
 						
 						if(!(request.getParameter("CodSeriale").isEmpty()))
 						{
-							rsCodSeriale = model.modCodSeriale(codSerialeMod, request.getParameter("CodSeriale"));
+							rsCodSeriale = productModel.modCodSeriale(codSerialeMod, request.getParameter("CodSeriale"));
 						}
 						else 
 						{
@@ -391,11 +403,6 @@ public class AdminProductControl extends HttpServlet
 		{
 			logger.log(Level.WARNING, e.getMessage());
 		}
-		
-		
-		
-		
-		
 	}
 
 	
