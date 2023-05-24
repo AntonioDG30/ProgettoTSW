@@ -17,7 +17,7 @@ public class ProductBean implements Serializable
 	String immagine;
 	boolean tipologia;
 	int quantita;
-	int PEGI;
+	int pegi;
 	String genere;
 	String piattaforma;
 	int dispPs5Fisico;
@@ -44,7 +44,7 @@ public class ProductBean implements Serializable
 		this.immagine="";
 		this.tipologia=false;
 		this.quantita=0;
-		this.PEGI=0;
+		this.pegi=0;
 		this.genere="";
 		this.piattaforma="";
 		this.dispPs5Fisico=0;
@@ -159,14 +159,14 @@ public class ProductBean implements Serializable
 		this.quantita = this.quantita - 1;
 	}
 
-	public int getPEGI() 
+	public int getPegi() 
 	{
-		return PEGI;
+		return pegi;
 	}
 
-	public void setPEGI(int PEGI) 
+	public void setPegi(int pegi) 
 	{
-		this.PEGI = PEGI;
+		this.pegi = pegi;
 	}
 
 	public String getGenere() 
@@ -297,7 +297,7 @@ public class ProductBean implements Serializable
 		return "ProductBean [codSeriale=" + codSeriale + ", nome=" + nome + ", prezzo=" + prezzo + ", dataUscita="
 				+ dataUscita + ", descrizioneRidotta=" + descrizioneRidotta + ", descrizioneCompleta="
 				+ descrizioneCompleta + ", immagine=" + immagine + ", tipologia=" + tipologia + ", quantita=" + quantita
-				+ ", PEGI=" + PEGI + ", genere=" + genere + ", piattaforma=" + piattaforma + ", dispPs5Fisico="
+				+ ", pegi=" + pegi + ", genere=" + genere + ", piattaforma=" + piattaforma + ", dispPs5Fisico="
 				+ dispPs5Fisico + ", dispPs5Digitale=" + dispPs5Digitale + ", dispPs4Fisico=" + dispPs4Fisico
 				+ ", dispPs4Digitale=" + dispPs4Digitale + ", dispXboxXFisico=" + dispXboxXFisico
 				+ ", dispXboxXDigitale=" + dispXboxXDigitale + ", dispXboxSFisico=" + dispXboxSFisico

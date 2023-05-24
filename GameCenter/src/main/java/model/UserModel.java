@@ -158,7 +158,7 @@ public class UserModel
 			
 	}
 	
-	public synchronized boolean registraDatiSensibili(String email, String CF, String Nome, String Cognome, int CAP, String Citta, String Provincia, String Via, int Civico, String Telefono) throws SQLException 
+	public synchronized boolean registraDatiSensibili(String email, String codiceFiscale, String nome, String cognome, int cap, String citta, String provincia, String via, int civico, String telefono) throws SQLException 
 	{
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -171,15 +171,15 @@ public class UserModel
 		{
 			con = DBConnectionPool.getConnection();
 			ps = con.prepareStatement(sql);
-			ps.setString(1, CF);
-			ps.setString(2, Nome);
-			ps.setString(3, Cognome);
-			ps.setInt(4, CAP);
-			ps.setString(5, Via);
-			ps.setInt(6, Civico);
-			ps.setString(7, Citta);
-			ps.setString(8, Provincia);
-			ps.setString(9, Telefono);
+			ps.setString(1, codiceFiscale);
+			ps.setString(2, nome);
+			ps.setString(3, cognome);
+			ps.setInt(4, cap);
+			ps.setString(5, via);
+			ps.setInt(6, civico);
+			ps.setString(7, citta);
+			ps.setString(8, provincia);
+			ps.setString(9, telefono);
 			ps.setString(10, email);
 
 			rs = ps.executeUpdate();
@@ -486,7 +486,7 @@ public class UserModel
 	
 	
 	
-	public synchronized UserBean ricercaCliente(String Email) throws SQLException 
+	public synchronized UserBean ricercaCliente(String email) throws SQLException 
 	{
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -501,7 +501,7 @@ public class UserModel
 		{
 			con = DBConnectionPool.getConnection();
 			ps = con.prepareStatement(sql);
-			ps.setString(1, Email);
+			ps.setString(1, email);
 
 			ResultSet rs = ps.executeQuery();
 
@@ -514,7 +514,7 @@ public class UserModel
 				try
 				{
 					ps2 = con.prepareStatement(sql2);
-					ps2.setString(1, Email);
+					ps2.setString(1, email);
 					ResultSet rs2 = ps2.executeQuery();
 					if(rs2.next())
 					{
@@ -563,7 +563,7 @@ public class UserModel
 	}
 
 			
-	public synchronized boolean registraNuovoIndirizzo(String Nome, String Cognome, int CAP, String Citta, String Provincia, String Via, int Civico, String Telefono, String email) throws SQLException 
+	public synchronized boolean registraNuovoIndirizzo(String nome, String cognome, int cap, String citta, String provincia, String via, int civico, String telefono, String email) throws SQLException 
 	{
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -576,14 +576,14 @@ public class UserModel
 		{
 			con = DBConnectionPool.getConnection();
 			ps = con.prepareStatement(sql);
-			ps.setString(1, Nome);
-			ps.setString(2, Cognome);
-			ps.setInt(3, CAP);
-			ps.setString(4, Via);
-			ps.setInt(5, Civico);
-			ps.setString(6, Citta);
-			ps.setString(7, Provincia);
-			ps.setString(8, Telefono);
+			ps.setString(1, nome);
+			ps.setString(2, cognome);
+			ps.setInt(3, cap);
+			ps.setString(4, via);
+			ps.setInt(5, civico);
+			ps.setString(6, citta);
+			ps.setString(7, provincia);
+			ps.setString(8, telefono);
 			ps.setString(9, email);
 
 			rs = ps.executeUpdate();
@@ -614,7 +614,7 @@ public class UserModel
 	
 	
 	
-	public synchronized boolean registraNuovoMetodoPagamento(String NumeroCarta, String Intestatario, String DataScadenza, String Email) throws SQLException 
+	public synchronized boolean registraNuovoMetodoPagamento(String numeroCarta, String intestatario, String dataScadenza, String email) throws SQLException 
 	{
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -626,10 +626,10 @@ public class UserModel
 		{
 			con = DBConnectionPool.getConnection();
 			ps = con.prepareStatement(sql);
-			ps.setString(1, NumeroCarta);
-			ps.setString(2, Intestatario);
-			ps.setString(3, DataScadenza);
-			ps.setString(4, Email);
+			ps.setString(1, numeroCarta);
+			ps.setString(2, intestatario);
+			ps.setString(3, dataScadenza);
+			ps.setString(4, email);
 			rs = ps.executeUpdate();
 			con.commit();
 		} 
@@ -655,7 +655,7 @@ public class UserModel
 	}
 	
 	
-	public synchronized boolean modCodiceFiscale(String email,String CF) throws SQLException 
+	public synchronized boolean modCodiceFiscale(String email,String codiceFiscale) throws SQLException 
 	{
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -668,7 +668,7 @@ public class UserModel
 			String updateQuery = "UPDATE " + UserModel.TABLE_NAME_DATI + " SET CodiceFiscale = ? " + " WHERE email = ?";
 
             pstmt = con.prepareStatement(updateQuery);
-            pstmt.setString(1, CF);
+            pstmt.setString(1, codiceFiscale);
             pstmt.setString(2, email);
             result = pstmt.executeUpdate();
             con.commit();               
@@ -692,7 +692,7 @@ public class UserModel
 		
 	}
 	
-	public synchronized boolean modNome(String email,String Nome) throws SQLException 
+	public synchronized boolean modNome(String email,String nome) throws SQLException 
 	{
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -705,7 +705,7 @@ public class UserModel
 			String updateQuery = "UPDATE " + UserModel.TABLE_NAME_DATI + " SET Nome = ? " + " WHERE email = ?";
 
             pstmt = con.prepareStatement(updateQuery);
-            pstmt.setString(1, Nome);
+            pstmt.setString(1, nome);
             pstmt.setString(2, email);
             result = pstmt.executeUpdate();
             con.commit();   
@@ -728,7 +728,7 @@ public class UserModel
 		return (result != 0);
 	}
 	
-	public synchronized boolean modCognome(String email,String Cognome) throws SQLException 
+	public synchronized boolean modCognome(String email,String cognome) throws SQLException 
 	{
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -741,7 +741,7 @@ public class UserModel
 			String updateQuery = "UPDATE " + UserModel.TABLE_NAME_DATI + " SET Cognome = ? " + " WHERE email = ?";
 
             pstmt = con.prepareStatement(updateQuery);
-            pstmt.setString(1, Cognome);
+            pstmt.setString(1, cognome);
             pstmt.setString(2, email);
             result = pstmt.executeUpdate();
             con.commit();     
@@ -764,7 +764,7 @@ public class UserModel
 		return (result != 0);
 	}
 	
-	public synchronized boolean modCAP(String email,int CAP) throws SQLException 
+	public synchronized boolean modCap(String email,int cap) throws SQLException 
 	{
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -777,7 +777,7 @@ public class UserModel
 			String updateQuery = "UPDATE " + UserModel.TABLE_NAME_DATI + " SET CAP = ? " + " WHERE email = ?";
 
             pstmt = con.prepareStatement(updateQuery);
-            pstmt.setInt(1, CAP);
+            pstmt.setInt(1, cap);
             pstmt.setString(2, email);
             result = pstmt.executeUpdate();
             con.commit();        
@@ -800,7 +800,7 @@ public class UserModel
 		return (result != 0);
 	}
 	
-	public synchronized boolean modCitta(String email,String Citta) throws SQLException 
+	public synchronized boolean modCitta(String email,String citta) throws SQLException 
 	{
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -813,7 +813,7 @@ public class UserModel
 			String updateQuery = "UPDATE " + UserModel.TABLE_NAME_DATI + " SET Citta = ? " + "WHERE email = ?";
 
             pstmt = con.prepareStatement(updateQuery);
-            pstmt.setString(1, Citta);
+            pstmt.setString(1, citta);
             pstmt.setString(2, email);
             result = pstmt.executeUpdate();
             con.commit();        
@@ -836,7 +836,7 @@ public class UserModel
 		return (result != 0);
 	}
 	
-	public synchronized boolean modProvincia(String email,String Provincia) throws SQLException 
+	public synchronized boolean modProvincia(String email,String provincia) throws SQLException 
 	{
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -849,7 +849,7 @@ public class UserModel
 			String updateQuery = "UPDATE " + UserModel.TABLE_NAME_DATI + " SET Provincia = ? " + "WHERE email = ?";
 
             pstmt = con.prepareStatement(updateQuery);
-            pstmt.setString(1, Provincia);
+            pstmt.setString(1, provincia);
             pstmt.setString(2, email);
             result = pstmt.executeUpdate();
             con.commit();      
@@ -872,7 +872,7 @@ public class UserModel
 		return (result != 0);
 	}
 	
-	public synchronized boolean modVia(String email,String Via) throws SQLException 
+	public synchronized boolean modVia(String email,String via) throws SQLException 
 	{
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -885,7 +885,7 @@ public class UserModel
 			String updateQuery = " UPDATE " + UserModel.TABLE_NAME_DATI + " SET Via = ? " + " WHERE email = ?";
 
             pstmt = con.prepareStatement(updateQuery);
-            pstmt.setString(1, Via);
+            pstmt.setString(1, via);
             pstmt.setString(2, email);
             result = pstmt.executeUpdate();
             con.commit();        
@@ -908,7 +908,7 @@ public class UserModel
 		return (result != 0);
 	}
 	
-	public synchronized boolean modCivico(String email,int Civico) throws SQLException 
+	public synchronized boolean modCivico(String email,int civico) throws SQLException 
 	{
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -921,7 +921,7 @@ public class UserModel
 			String updateQuery = "UPDATE " + UserModel.TABLE_NAME_DATI + " SET Civico = ? " + " WHERE email = ?";
 
             pstmt = con.prepareStatement(updateQuery);
-            pstmt.setInt(1, Civico);
+            pstmt.setInt(1, civico);
             pstmt.setString(2, email);  
             result = pstmt.executeUpdate();
             con.commit(); 
@@ -944,7 +944,7 @@ public class UserModel
 		return (result != 0);
 	}
 	
-	public synchronized boolean modTelefono(String email,String Telefono) throws SQLException 
+	public synchronized boolean modTelefono(String email,String telefono) throws SQLException 
 	{
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -957,7 +957,7 @@ public class UserModel
 			String updateQuery = "UPDATE " + UserModel.TABLE_NAME_DATI + " SET NumeroTelefono = ? " + " WHERE email = ?";
 
             pstmt = con.prepareStatement(updateQuery);
-            pstmt.setString(1, Telefono);
+            pstmt.setString(1, telefono);
             pstmt.setString(2, email);
             result = pstmt.executeUpdate();
             con.commit();        

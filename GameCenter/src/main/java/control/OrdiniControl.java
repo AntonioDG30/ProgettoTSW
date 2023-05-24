@@ -264,12 +264,12 @@ public class OrdiniControl extends HttpServlet
 	
 			    
 			    //inserimento data fattura
-			    OrdineBean Ordine = ordineModel.ordineByCodOrdine(codOrdine);
+			    OrdineBean ordine = ordineModel.ordineByCodOrdine(codOrdine);
 			    y = 754;
 			    contentStream.beginText();
 			    contentStream.setFont(font, 11);
 			    contentStream.newLineAtOffset(x, y); 
-			    contentStream.showText(Ordine.getDataAcquisto()); 
+			    contentStream.showText(ordine.getDataAcquisto()); 
 			    contentStream.endText();
 			    
 			    

@@ -23,8 +23,8 @@ public class ProductModel
 	
 	private static final String PIATTAFORMA_PS5 = "PlayStation 5";
 	private static final String PIATTAFORMA_PS4 = "PlayStation 4";
-	private static final String PIATTAFORMA_XboxSerieX = "XBOX Series X";
-	private static final String PIATTAFORMA_XboxSerieS = "XBOX Series S";
+	private static final String PIATTAFORMA_XBOX_SERIE_X = "XBOX Series X";
+	private static final String PIATTAFORMA_XBOX_SERIE_S = "XBOX Series S";
 	private static final String PIATTAFORMA_PC = "PC";
 	
 	
@@ -83,7 +83,7 @@ public class ProductModel
 	}
 	
 	
-	public synchronized ProductBean dettagli(String CodSeriale) throws SQLException 
+	public synchronized ProductBean dettagli(String codSeriale) throws SQLException 
 	{
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -101,7 +101,7 @@ public class ProductModel
 		{
 			con = DBConnectionPool.getConnection();
 			ps = con.prepareStatement(sql);
-			ps.setString(1, CodSeriale);
+			ps.setString(1, codSeriale);
 
 			ResultSet rs = ps.executeQuery();
 
@@ -124,7 +124,7 @@ public class ProductModel
 						rs2 = ps2.executeQuery();
 						while(rs2.next()) 
 						{
-							bean.setPEGI(rs2.getInt("CodPEGI"));
+							bean.setPegi(rs2.getInt("CodPEGI"));
 							bean.setGenere(rs2.getString("NomeGenere"));
 						}
 					}
@@ -198,7 +198,7 @@ public class ProductModel
 					{
 						ps2 = con.prepareStatement(sql3);
 						ps2.setString(1, rs.getString("CodSeriale"));
-						ps2.setString(2, PIATTAFORMA_XboxSerieX);
+						ps2.setString(2, PIATTAFORMA_XBOX_SERIE_X);
 						ps2.setString(3, FORMATO_DIGITALE);
 						rs2 = ps2.executeQuery();
 						while(rs2.next()) 
@@ -223,7 +223,7 @@ public class ProductModel
 					{
 						ps2 = con.prepareStatement(sql3);
 						ps2.setString(1, rs.getString("CodSeriale"));
-						ps2.setString(2, PIATTAFORMA_XboxSerieS);
+						ps2.setString(2, PIATTAFORMA_XBOX_SERIE_S);
 						ps2.setString(3, FORMATO_DIGITALE);
 						rs2 = ps2.executeQuery();
 						while(rs2.next()) 
@@ -326,7 +326,7 @@ public class ProductModel
 				{
 					ps2 = con.prepareStatement(sql3);
 					ps2.setString(1, rs.getString("CodSeriale"));
-					ps2.setString(2, PIATTAFORMA_XboxSerieX);
+					ps2.setString(2, PIATTAFORMA_XBOX_SERIE_X);
 					ps2.setString(3, FORMATO_FISICO);
 					rs2 = ps2.executeQuery();
 					while(rs2.next()) 
@@ -351,7 +351,7 @@ public class ProductModel
 				{
 					ps2 = con.prepareStatement(sql3);
 					ps2.setString(1, rs.getString("CodSeriale"));
-					ps2.setString(2, PIATTAFORMA_XboxSerieS);
+					ps2.setString(2, PIATTAFORMA_XBOX_SERIE_S);
 					ps2.setString(3, FORMATO_FISICO);
 					rs2 = ps2.executeQuery();
 					while(rs2.next()) 
@@ -426,7 +426,7 @@ public class ProductModel
 	}
 	
 	
-	public synchronized boolean elimina(String CodSeriale) throws SQLException 
+	public synchronized boolean elimina(String codSeriale) throws SQLException 
 	{
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -439,7 +439,7 @@ public class ProductModel
 		{
 			con = DBConnectionPool.getConnection();
 			ps = con.prepareStatement(sql);
-			ps.setString(1, CodSeriale);
+			ps.setString(1, codSeriale);
 			result = ps.executeUpdate();
 			con.commit();
 		} 
@@ -583,7 +583,7 @@ public class ProductModel
 					ps2 = con.prepareStatement(sql2);
 					ps2.setString(1, product.getCodSeriale());
 					ps2.setString(2, product.getGenere());
-					ps2.setInt(3, product.getPEGI());
+					ps2.setInt(3, product.getPegi());
 					result2 = ps2.executeUpdate();
 				}
 				catch(SQLException e)
@@ -648,7 +648,7 @@ public class ProductModel
 					ps2 = con.prepareStatement(sql3);
 					ps2.setInt(1, product.getDispXboxXDigitale());
 					ps2.setString(2, product.getCodSeriale());
-					ps2.setString(3, PIATTAFORMA_XboxSerieX);
+					ps2.setString(3, PIATTAFORMA_XBOX_SERIE_X);
 					ps2.setString(4, FORMATO_DIGITALE);
 					result5 = ps2.executeUpdate();
 				}
@@ -670,7 +670,7 @@ public class ProductModel
 					ps2 = con.prepareStatement(sql3);
 					ps2.setInt(1, product.getDispXboxSDigitale());
 					ps2.setString(2, product.getCodSeriale());
-					ps2.setString(3, PIATTAFORMA_XboxSerieS);
+					ps2.setString(3, PIATTAFORMA_XBOX_SERIE_S);
 					ps2.setString(4, FORMATO_DIGITALE);
 					result6 = ps2.executeUpdate();
 				}
@@ -759,7 +759,7 @@ public class ProductModel
 				ps2 = con.prepareStatement(sql3);
 				ps2.setInt(1, product.getDispXboxXFisico());
 				ps2.setString(2, product.getCodSeriale());
-				ps2.setString(3, PIATTAFORMA_XboxSerieX);
+				ps2.setString(3, PIATTAFORMA_XBOX_SERIE_X);
 				ps2.setString(4, FORMATO_FISICO);
 				result10 = ps2.executeUpdate();
 			}
@@ -830,7 +830,7 @@ public class ProductModel
 	}
 	
 	
-	public synchronized boolean modNome(String CodSerialeMod, String Nome) throws SQLException 
+	public synchronized boolean modNome(String codSerialeMod, String nome) throws SQLException 
 	{
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -843,8 +843,8 @@ public class ProductModel
 		{
 			con = DBConnectionPool.getConnection();
 			ps = con.prepareStatement(sql);
-			ps.setString(1, Nome);
-			ps.setString(2, CodSerialeMod);
+			ps.setString(1, nome);
+			ps.setString(2, codSerialeMod);
 			result = ps.executeUpdate();
 			con.commit();
 		} 
@@ -867,7 +867,7 @@ public class ProductModel
 	}
 	
 	
-	public synchronized boolean modPrezzo(String CodSerialeMod, Float Prezzo) throws SQLException 
+	public synchronized boolean modPrezzo(String codSerialeMod, Float prezzo) throws SQLException 
 	{
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -880,8 +880,8 @@ public class ProductModel
 		{
 			con = DBConnectionPool.getConnection();
 			ps = con.prepareStatement(sql);
-			ps.setFloat(1, Prezzo);
-			ps.setString(2, CodSerialeMod);
+			ps.setFloat(1, prezzo);
+			ps.setString(2, codSerialeMod);
 			result = ps.executeUpdate();
 			con.commit();
 		} 
@@ -904,7 +904,7 @@ public class ProductModel
 	}
 	
 	
-	public synchronized boolean modDataUscita(String CodSerialeMod, String DataUscita) throws SQLException 
+	public synchronized boolean modDataUscita(String codSerialeMod, String dataUscita) throws SQLException 
 	{
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -917,8 +917,8 @@ public class ProductModel
 		{
 			con = DBConnectionPool.getConnection();
 			ps = con.prepareStatement(sql);
-			ps.setString(1, DataUscita);
-			ps.setString(2, CodSerialeMod);
+			ps.setString(1, dataUscita);
+			ps.setString(2, codSerialeMod);
 			result = ps.executeUpdate();
 			con.commit();
 		} 
@@ -941,7 +941,7 @@ public class ProductModel
 	}
 	
 	
-	public synchronized boolean modDescrizioneRidotta(String CodSerialeMod, String DescrizioneRidotta) throws SQLException 
+	public synchronized boolean modDescrizioneRidotta(String codSerialeMod, String descrizioneRidotta) throws SQLException 
 	{
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -954,8 +954,8 @@ public class ProductModel
 		{
 			con = DBConnectionPool.getConnection();
 			ps = con.prepareStatement(sql);
-			ps.setString(1, DescrizioneRidotta);
-			ps.setString(2, CodSerialeMod);
+			ps.setString(1, descrizioneRidotta);
+			ps.setString(2, codSerialeMod);
 			result = ps.executeUpdate();
 			con.commit();
 		} 
@@ -979,7 +979,7 @@ public class ProductModel
 	
 	
 	
-	public synchronized boolean modDescrizioneCompleta(String CodSerialeMod, String DescrizioneCompleta) throws SQLException 
+	public synchronized boolean modDescrizioneCompleta(String codSerialeMod, String descrizioneCompleta) throws SQLException 
 	{
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -992,8 +992,8 @@ public class ProductModel
 		{
 			con = DBConnectionPool.getConnection();
 			ps = con.prepareStatement(sql);
-			ps.setString(1, DescrizioneCompleta);
-			ps.setString(2, CodSerialeMod);
+			ps.setString(1, descrizioneCompleta);
+			ps.setString(2, codSerialeMod);
 			result = ps.executeUpdate();
 			con.commit();
 		} 
@@ -1016,7 +1016,7 @@ public class ProductModel
 	}
 	
 	
-	/*public synchronized boolean modTipologia(String CodSerialeMod, Boolean Tipologia) throws SQLException 
+	/*public synchronized boolean modTipologia(String codSerialeMod, Boolean tipologia) throws SQLException 
 	{
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -1029,8 +1029,8 @@ public class ProductModel
 		{
 			con = DBConnectionPool.getConnection();
 			ps = con.prepareStatement(sql);
-			ps.setBoolean(1, Tipologia);
-			ps.setString(2, CodSerialeMod);
+			ps.setBoolean(1, tipologia);
+			ps.setString(2, codSerialeMod);
 			result = ps.executeUpdate();
 			con.commit();
 		} 
@@ -1052,7 +1052,7 @@ public class ProductModel
 		return (result != 0);
 	}*/
 	
-	public synchronized boolean modPEGI(String CodSerialeMod, int PEGI) throws SQLException 
+	public synchronized boolean modPEGI(String codSerialeMod, int pegi) throws SQLException 
 	{
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -1065,8 +1065,8 @@ public class ProductModel
 		{
 			con = DBConnectionPool.getConnection();
 			ps = con.prepareStatement(sql);
-			ps.setInt(1, PEGI);
-			ps.setString(2, CodSerialeMod);
+			ps.setInt(1, pegi);
+			ps.setString(2, codSerialeMod);
 			result = ps.executeUpdate();
 			con.commit();
 		} 
@@ -1088,7 +1088,7 @@ public class ProductModel
 		return (result != 0);
 	}
 	
-	public synchronized boolean modGenere(String CodSerialeMod, String Genere) throws SQLException 
+	public synchronized boolean modGenere(String codSerialeMod, String genere) throws SQLException 
 	{
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -1101,8 +1101,8 @@ public class ProductModel
 		{
 			con = DBConnectionPool.getConnection();
 			ps = con.prepareStatement(sql);
-			ps.setString(1, Genere);
-			ps.setString(2, CodSerialeMod);
+			ps.setString(1, genere);
+			ps.setString(2, codSerialeMod);
 			result = ps.executeUpdate();
 			con.commit();
 		} 
@@ -1124,21 +1124,21 @@ public class ProductModel
 		return (result != 0);
 	}
 	
-	public synchronized boolean modImmagine(String CodSerialeMod, String Immagine) throws SQLException 
+	public synchronized boolean modImmagine(String codSerialeMod, String immagine) throws SQLException 
 	{
 		Connection con = null;
 		PreparedStatement ps = null;
 
 		int result = 0;
 
-		String sql = "UPDATE " + ProductModel.TABLE_NAME_PRODOTTO + " SET Immagine = ? " + " WHERE CodSeriale = ?";
+		String sql = "UPDATE " + ProductModel.TABLE_NAME_PRODOTTO + " SET Immagine = ? " + " WHERE codSeriale = ?";
 
 		try 
 		{
 			con = DBConnectionPool.getConnection();
 			ps = con.prepareStatement(sql);
-			ps.setString(1, Immagine);
-			ps.setString(2, CodSerialeMod);
+			ps.setString(1, immagine);
+			ps.setString(2, codSerialeMod);
 			result = ps.executeUpdate();
 			con.commit();
 		} 
@@ -1160,7 +1160,7 @@ public class ProductModel
 		return (result != 0);
 	}
 	
-	public synchronized boolean modDisponibilita(String CodSerialeMod, int  Disp, String Piattaforma, String Formato) throws SQLException 
+	public synchronized boolean modDisponibilita(String codSerialeMod, int  disponibilita, String piattaforma, String formato) throws SQLException 
 	{
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -1173,10 +1173,10 @@ public class ProductModel
 		{
 			con = DBConnectionPool.getConnection();
 			ps = con.prepareStatement(sql);
-			ps.setInt(1, Disp);
-			ps.setString(2, CodSerialeMod);
-			ps.setString(3, Piattaforma);
-			ps.setString(4, Formato);
+			ps.setInt(1, disponibilita);
+			ps.setString(2, codSerialeMod);
+			ps.setString(3, piattaforma);
+			ps.setString(4, formato);
 			result = ps.executeUpdate();
 			con.commit();
 		} 
@@ -1199,7 +1199,7 @@ public class ProductModel
 	}
 	
 	
-	public synchronized boolean modCodSeriale(String CodSerialeMod, String CodSeriale) throws SQLException 
+	public synchronized boolean modCodSeriale(String codSerialeMod, String codSeriale) throws SQLException 
 	{
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -1212,8 +1212,8 @@ public class ProductModel
 		{
 			con = DBConnectionPool.getConnection();
 			ps = con.prepareStatement(sql);
-			ps.setString(1, CodSeriale);
-			ps.setString(2, CodSerialeMod);
+			ps.setString(1, codSeriale);
+			ps.setString(2, codSerialeMod);
 			result = ps.executeUpdate();
 			con.commit();
 		} 

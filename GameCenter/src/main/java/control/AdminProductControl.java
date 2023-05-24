@@ -129,7 +129,7 @@ public class AdminProductControl extends HttpServlet
 						product.setTipologia(tipologia);
 						if(!(product.getTipologia()))
 						{
-							product.setPEGI(Integer.parseInt(request.getParameter("PEGI")));
+							product.setPegi(Integer.parseInt(request.getParameter("PEGI")));
 							product.setGenere(request.getParameter("Genere"));
 							product.setDispPs5Digitale(Integer.parseInt(request.getParameter("PS5Digitale")));
 							product.setDispPs4Digitale(Integer.parseInt(request.getParameter("PS4Digitale")));

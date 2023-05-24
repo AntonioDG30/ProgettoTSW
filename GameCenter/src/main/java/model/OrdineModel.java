@@ -84,7 +84,7 @@ public class OrdineModel
 	}
 	
 	
-	public synchronized Collection<OrdineBean> elencoOrdiniByCliente(String Email) throws SQLException
+	public synchronized Collection<OrdineBean> elencoOrdiniByCliente(String email) throws SQLException
 	{
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -96,7 +96,7 @@ public class OrdineModel
 		{
 			con = DBConnectionPool.getConnection();
 			ps = con.prepareStatement(sql);
-			ps.setString(1, Email);
+			ps.setString(1, email);
 
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) 
@@ -132,7 +132,7 @@ public class OrdineModel
 	}
 	
 	
-	public synchronized Collection<OrdineBean> elencoOrdiniByPeriodo(String DataInizio, String DataFine) throws SQLException
+	public synchronized Collection<OrdineBean> elencoOrdiniByPeriodo(String dataInizio, String dataFine) throws SQLException
 	{
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -144,8 +144,8 @@ public class OrdineModel
 		{
 			con = DBConnectionPool.getConnection();
 			ps = con.prepareStatement(sql);
-			ps.setString(1, DataInizio);
-			ps.setString(2, DataFine);
+			ps.setString(1, dataInizio);
+			ps.setString(2, dataFine);
 
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) 
@@ -229,7 +229,7 @@ public class OrdineModel
 								ResultSet rs3 = ps3.executeQuery();
 								while(rs3.next()) 
 								{
-									bean.setPEGI(rs3.getInt("CodPEGI"));
+									bean.setPegi(rs3.getInt("CodPEGI"));
 									bean.setGenere(rs3.getString("NomeGenere"));
 								}
 							}
@@ -284,7 +284,7 @@ public class OrdineModel
 	
 	
 	
-	public synchronized int acquisto(CarrelloBean Carrello, float PrezzoTotale, float PuntiFedeltàUsati, String Email) throws SQLException
+	public synchronized int acquisto(CarrelloBean carrello, float prezzoTotale, float puntiFedeltàUsati, String email) throws SQLException
 	{
 		Connection con = null;
 		PreparedStatement ps1 = null;
@@ -304,10 +304,10 @@ public class OrdineModel
 		{
 			con = DBConnectionPool.getConnection();
 			ps1 = con.prepareStatement(sql);
-			ps1.setFloat(1, -(PuntiFedeltàUsati/100));
+			ps1.setFloat(1, -(puntiFedeltàUsati/100));
 			ps1.setString(2, LocalDate.now().toString());
-			ps1.setFloat(3, (PrezzoTotale - (PuntiFedeltàUsati/100)));
-			ps1.setString(4, Email);
+			ps1.setFloat(3, (prezzoTotale - (puntiFedeltàUsati/100)));
+			ps1.setString(4, email);
 			result1 = ps1.executeUpdate();
 	   		
 	   		
@@ -331,7 +331,7 @@ public class OrdineModel
 			}
 			
 			
-			List<ProductBean> prodottoCarrello = Carrello.getListaCarrello(); 	
+			List<ProductBean> prodottoCarrello = carrello.getListaCarrello(); 	
 		   	for(ProductBean prod: prodottoCarrello) 
 		   	{
 		   		try
@@ -413,7 +413,7 @@ public class OrdineModel
 			try
 			{
 				ps2 = con.prepareStatement(sql4);
-			   	ps2.setString(1, Email);
+			   	ps2.setString(1, email);
 			   	ResultSet rs2 = ps2.executeQuery();
 				rs2.next();
 				puntiFedelta = rs2.getInt("PuntiFedelta");
@@ -434,10 +434,10 @@ public class OrdineModel
 			
 			try
 			{
-				puntiFedelta = (int) (puntiFedelta + (PrezzoTotale - PuntiFedeltàUsati));
+				puntiFedelta = (int) (puntiFedelta + (prezzoTotale - puntiFedeltàUsati));
 			   	ps2 = con.prepareStatement(sql5);
 		   		ps2.setInt(1, puntiFedelta);
-		   		ps2.setString(2, Email);
+		   		ps2.setString(2, email);
 		   		result4 = ps2.executeUpdate();
 			}
 			catch(SQLException e)
@@ -485,7 +485,7 @@ public class OrdineModel
 	}
 	
 	
-	public synchronized boolean modDisponibilita(String CodSerialeMod, int quantita, String piattaforma, String formato) throws SQLException 
+	public synchronized boolean modDisponibilita(String codSerialeMod, int quantita, String piattaforma, String formato) throws SQLException 
 	{
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -499,7 +499,7 @@ public class OrdineModel
 			con = DBConnectionPool.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setInt(1, quantita);
-			ps.setString(2, CodSerialeMod);
+			ps.setString(2, codSerialeMod);
 			ps.setString(3, piattaforma);
 			ps.setString(4, formato);
 			result = ps.executeUpdate();
@@ -523,7 +523,7 @@ public class OrdineModel
 		return (result != 0);
 	}
 	
-	public synchronized void updateComprende(int codOrdine,  int CodIndirizzo, String NumeroCarta) throws SQLException
+	public synchronized void updateComprende(int codOrdine,  int codIndirizzo, String numeroCarta) throws SQLException
 	{
 		Connection con = null;
 		PreparedStatement ps = null;		
@@ -534,8 +534,8 @@ public class OrdineModel
 			con = DBConnectionPool.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setInt(1, codOrdine);
-			ps.setInt(2, CodIndirizzo);
-			ps.setString(3, NumeroCarta);
+			ps.setInt(2, codIndirizzo);
+			ps.setString(3, numeroCarta);
 			ps.executeUpdate();
 		   	con.commit();
 			
@@ -685,7 +685,7 @@ public class OrdineModel
 	}
 	
 	
-	public synchronized boolean recensione(int Valutazione, String Descrizione, String CodProdotto, String Email) throws SQLException
+	public synchronized boolean recensione(int valutazione, String descrizione, String codProdotto, String email) throws SQLException
 	{
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -697,10 +697,10 @@ public class OrdineModel
 		{
 			con = DBConnectionPool.getConnection();
 			ps = con.prepareStatement(sql);
-			ps.setString(1, Descrizione);
-			ps.setInt(2, Valutazione);
-			ps.setString(3, CodProdotto);
-			ps.setString(4, Email);
+			ps.setString(1, descrizione);
+			ps.setInt(2, valutazione);
+			ps.setString(3, codProdotto);
+			ps.setString(4, email);
 			result = ps.executeUpdate();
 		   	con.commit();
 			

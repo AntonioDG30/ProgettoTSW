@@ -153,16 +153,16 @@ public class UserControl extends HttpServlet
 				{
 					if(request.getParameter("ParteMod").contentEquals("Parte1"))
 					{
-						String Visualizzazione = request.getParameter("VisualizzazioneUtente");				
-						if(Visualizzazione.contentEquals("Tutti"))
+						String visualizzazione = request.getParameter("VisualizzazioneUtente");				
+						if(visualizzazione.contentEquals("Tutti"))
 						{
 							request.removeAttribute("Clienti");
 							request.setAttribute("Clienti", userModel.elencoClienti());
 						}
-						else if (Visualizzazione.contentEquals("ClienteSpecifico"))
+						else if (visualizzazione.contentEquals("ClienteSpecifico"))
 						{
 							request.removeAttribute("Clienti");
-							request.setAttribute("Visual", Visualizzazione);
+							request.setAttribute("Visual", visualizzazione);
 						}
 					}
 					else if(request.getParameter("ParteMod").contentEquals("Parte2"))
@@ -198,7 +198,7 @@ public class UserControl extends HttpServlet
 						Boolean rsCodiceFiscale = false;
 						Boolean rsNome = false;
 						Boolean rsCognome = false; 
-						Boolean rsCAP = false; 
+						Boolean rsCap = false; 
 						Boolean rsCitta = false;
 						Boolean rsProvincia = false;
 						Boolean rsVia = false;
@@ -234,12 +234,12 @@ public class UserControl extends HttpServlet
 						
 						if(!(request.getParameter("CAP").isEmpty()))
 						{	
-							int CAP = Integer.parseInt(request.getParameter("CAP"));
-							rsCAP = userModel.modCAP(email, CAP);
+							int cap = Integer.parseInt(request.getParameter("CAP"));
+							rsCap = userModel.modCap(email, cap);
 						}
 						else
 						{
-							rsCAP = true;
+							rsCap = true;
 						}
 						
 						if(!(request.getParameter("Citta").isEmpty()))
@@ -290,7 +290,7 @@ public class UserControl extends HttpServlet
 						
 						
 						
-						if(rsCodiceFiscale && rsNome && rsCognome && rsCAP && rsCitta && rsProvincia && rsVia && rsCivico && rsNumeroTelefono)
+						if(rsCodiceFiscale && rsNome && rsCognome && rsCap && rsCitta && rsProvincia && rsVia && rsCivico && rsNumeroTelefono)
 						{
 							request.setAttribute("Result", "I tuoi dati sono stati modificati correttamente.");
 						}
