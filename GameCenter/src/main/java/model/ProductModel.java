@@ -44,12 +44,12 @@ public class ProductModel
 		
 		Collection<ProductBean> products = new LinkedList<ProductBean>();
 		
-		String SQL = "SELECT * FROM " + ProductModel.TABLE_NAME_PRODOTTO + " WHERE FlagVisibita = 1";
+		String sql = "SELECT * FROM " + ProductModel.TABLE_NAME_PRODOTTO + " WHERE FlagVisibita = 1";
 		
 		try
 		{
 			con = DBConnectionPool.getConnection();
-			ps = con.prepareStatement(SQL);
+			ps = con.prepareStatement(sql);
 
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) 
@@ -93,14 +93,14 @@ public class ProductModel
 
 		ProductBean bean = new ProductBean();
 
-		String SQL = "SELECT * FROM " + ProductModel.TABLE_NAME_PRODOTTO + " WHERE CodSeriale = ?";
-		String SQL2 = "SELECT * FROM " + TABLE_NAME_CARATTERISTICHE + " WHERE CodSeriale = ?";
-		String SQL3 = "SELECT * FROM " + TABLE_NAME_DISPONIBILITA + " WHERE CodSeriale = ? AND NomePiattaforma = ? AND TipoFormato = ?";
+		String sql = "SELECT * FROM " + ProductModel.TABLE_NAME_PRODOTTO + " WHERE CodSeriale = ?";
+		String sql2 = "SELECT * FROM " + TABLE_NAME_CARATTERISTICHE + " WHERE CodSeriale = ?";
+		String sql3 = "SELECT * FROM " + TABLE_NAME_DISPONIBILITA + " WHERE CodSeriale = ? AND NomePiattaforma = ? AND TipoFormato = ?";
 
 		try 
 		{
 			con = DBConnectionPool.getConnection();
-			ps = con.prepareStatement(SQL);
+			ps = con.prepareStatement(sql);
 			ps.setString(1, CodSeriale);
 
 			ResultSet rs = ps.executeQuery();
@@ -119,7 +119,7 @@ public class ProductModel
 				{
 					try
 					{
-						ps2 = con.prepareStatement(SQL2);
+						ps2 = con.prepareStatement(sql2);
 						ps2.setString(1, rs.getString("CodSeriale"));
 						rs2 = ps2.executeQuery();
 						while(rs2.next()) 
@@ -144,7 +144,7 @@ public class ProductModel
 					
 					try
 					{
-						ps2 = con.prepareStatement(SQL3);
+						ps2 = con.prepareStatement(sql3);
 						ps2.setString(1, rs.getString("CodSeriale"));
 						ps2.setString(2, PIATTAFORMA_PS5);
 						ps2.setString(3, FORMATO_DIGITALE);
@@ -170,7 +170,7 @@ public class ProductModel
 					
 					try
 					{
-						ps2 = con.prepareStatement(SQL3);
+						ps2 = con.prepareStatement(sql3);
 						ps2.setString(1, rs.getString("CodSeriale"));
 						ps2.setString(2, PIATTAFORMA_PS4);
 						ps2.setString(3, FORMATO_DIGITALE);
@@ -196,7 +196,7 @@ public class ProductModel
 					
 					try
 					{
-						ps2 = con.prepareStatement(SQL3);
+						ps2 = con.prepareStatement(sql3);
 						ps2.setString(1, rs.getString("CodSeriale"));
 						ps2.setString(2, PIATTAFORMA_XboxSerieX);
 						ps2.setString(3, FORMATO_DIGITALE);
@@ -221,7 +221,7 @@ public class ProductModel
 					
 					try
 					{
-						ps2 = con.prepareStatement(SQL3);
+						ps2 = con.prepareStatement(sql3);
 						ps2.setString(1, rs.getString("CodSeriale"));
 						ps2.setString(2, PIATTAFORMA_XboxSerieS);
 						ps2.setString(3, FORMATO_DIGITALE);
@@ -246,7 +246,7 @@ public class ProductModel
 					
 					try
 					{
-						ps2 = con.prepareStatement(SQL3);
+						ps2 = con.prepareStatement(sql3);
 						ps2.setString(1, rs.getString("CodSeriale"));
 						ps2.setString(2, PIATTAFORMA_PC);
 						ps2.setString(3, FORMATO_DIGITALE);
@@ -274,7 +274,7 @@ public class ProductModel
 				
 				try
 				{
-					ps2 = con.prepareStatement(SQL3);
+					ps2 = con.prepareStatement(sql3);
 					ps2.setString(1, rs.getString("CodSeriale"));
 					ps2.setString(2, PIATTAFORMA_PS5);
 					ps2.setString(3, FORMATO_FISICO);
@@ -299,7 +299,7 @@ public class ProductModel
 				
 				try
 				{
-					ps2 = con.prepareStatement(SQL3);
+					ps2 = con.prepareStatement(sql3);
 					ps2.setString(1, rs.getString("CodSeriale"));
 					ps2.setString(2, PIATTAFORMA_PS4);
 					ps2.setString(3, FORMATO_FISICO);
@@ -324,7 +324,7 @@ public class ProductModel
 				
 				try
 				{
-					ps2 = con.prepareStatement(SQL3);
+					ps2 = con.prepareStatement(sql3);
 					ps2.setString(1, rs.getString("CodSeriale"));
 					ps2.setString(2, PIATTAFORMA_XboxSerieX);
 					ps2.setString(3, FORMATO_FISICO);
@@ -349,7 +349,7 @@ public class ProductModel
 				
 				try
 				{
-					ps2 = con.prepareStatement(SQL3);
+					ps2 = con.prepareStatement(sql3);
 					ps2.setString(1, rs.getString("CodSeriale"));
 					ps2.setString(2, PIATTAFORMA_XboxSerieS);
 					ps2.setString(3, FORMATO_FISICO);
@@ -374,7 +374,7 @@ public class ProductModel
 				
 				try
 				{
-					ps2 = con.prepareStatement(SQL3);
+					ps2 = con.prepareStatement(sql3);
 					ps2.setString(1, rs.getString("CodSeriale"));
 					ps2.setString(2, PIATTAFORMA_PC);
 					ps2.setString(3, FORMATO_FISICO);
@@ -433,12 +433,12 @@ public class ProductModel
 
 		int result = 0;
 
-		String SQL = "UPDATE " + ProductModel.TABLE_NAME_PRODOTTO + " SET FlagVisibita = 0 " + " WHERE CodSeriale = ?";
+		String sql = "UPDATE " + ProductModel.TABLE_NAME_PRODOTTO + " SET FlagVisibita = 0 " + " WHERE CodSeriale = ?";
 
 		try 
 		{
 			con = DBConnectionPool.getConnection();
-			ps = con.prepareStatement(SQL);
+			ps = con.prepareStatement(sql);
 			ps.setString(1, CodSeriale);
 			result = ps.executeUpdate();
 			con.commit();
@@ -469,12 +469,12 @@ public class ProductModel
 		
 		Collection<GenereBean> Genere = new LinkedList<GenereBean>();
 		
-		String SQL = "SELECT * FROM " + ProductModel.TABLE_NAME_GENERE;
+		String sql = "SELECT * FROM " + ProductModel.TABLE_NAME_GENERE;
 		
 		try
 		{
 			con = DBConnectionPool.getConnection();
-			ps = con.prepareStatement(SQL);
+			ps = con.prepareStatement(sql);
 
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) 
@@ -511,12 +511,12 @@ public class ProductModel
 		
 		Collection<PegiBean> PEGI = new LinkedList<PegiBean>();
 		
-		String SQL = "SELECT * FROM " + ProductModel.TABLE_NAME_PEGI;
+		String sql = "SELECT * FROM " + ProductModel.TABLE_NAME_PEGI;
 		
 		try
 		{
 			con = DBConnectionPool.getConnection();
-			ps = con.prepareStatement(SQL);
+			ps = con.prepareStatement(sql);
 
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) 
@@ -556,14 +556,14 @@ public class ProductModel
 		
 		int result1 = 0, result2 = 0, result3 = 0, result4 = 0, result5 = 0, result6 = 0, result7 = 0, result8 = 0, result9 = 0, result10 = 0, result11 = 0;
 
-		String SQL = "INSERT INTO " + ProductModel.TABLE_NAME_PRODOTTO + " (CodSeriale, Nome, Prezzo, DataUscita, DescrizioneRidotta, DescrizioneCompleta, Immagine, FlagTipologia, FlagVisibita) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1)";
-		String SQL2 = "INSERT INTO " + ProductModel.TABLE_NAME_CARATTERISTICHE + " (CodSeriale, NomeGenere, CodPEGI) VALUES (?, ?, ?)";
-		String SQL3 = "INSERT INTO " + ProductModel.TABLE_NAME_DISPONIBILITA + " (QuantitaDisponibile, CodSeriale, NomePiattaforma, TipoFormato) VALUES (?, ?, ?, ?)";
+		String sql = "INSERT INTO " + ProductModel.TABLE_NAME_PRODOTTO + " (CodSeriale, Nome, Prezzo, DataUscita, DescrizioneRidotta, DescrizioneCompleta, Immagine, FlagTipologia, FlagVisibita) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1)";
+		String sql2 = "INSERT INTO " + ProductModel.TABLE_NAME_CARATTERISTICHE + " (CodSeriale, NomeGenere, CodPEGI) VALUES (?, ?, ?)";
+		String sql3 = "INSERT INTO " + ProductModel.TABLE_NAME_DISPONIBILITA + " (QuantitaDisponibile, CodSeriale, NomePiattaforma, TipoFormato) VALUES (?, ?, ?, ?)";
 
 		try 
 		{
 			con = DBConnectionPool.getConnection();
-			ps1 = con.prepareStatement(SQL);
+			ps1 = con.prepareStatement(sql);
 			ps1.setString(1, product.getCodSeriale());
 			ps1.setString(2, product.getNome());
 			ps1.setFloat(3, product.getPrezzo());
@@ -580,7 +580,7 @@ public class ProductModel
 			{
 				try
 				{
-					ps2 = con.prepareStatement(SQL2);
+					ps2 = con.prepareStatement(sql2);
 					ps2.setString(1, product.getCodSeriale());
 					ps2.setString(2, product.getGenere());
 					ps2.setInt(3, product.getPEGI());
@@ -601,7 +601,7 @@ public class ProductModel
 				
 				try
 				{
-					ps2 = con.prepareStatement(SQL3);
+					ps2 = con.prepareStatement(sql3);
 					ps2.setInt(1, product.getDispPs5Digitale());
 					ps2.setString(2, product.getCodSeriale());
 					ps2.setString(3, PIATTAFORMA_PS5);
@@ -623,7 +623,7 @@ public class ProductModel
 				
 				try
 				{
-					ps2 = con.prepareStatement(SQL3);
+					ps2 = con.prepareStatement(sql3);
 					ps2.setInt(1, product.getDispPs4Digitale());
 					ps2.setString(2, product.getCodSeriale());
 					ps2.setString(3, PIATTAFORMA_PS4);
@@ -645,7 +645,7 @@ public class ProductModel
 				
 				try
 				{
-					ps2 = con.prepareStatement(SQL3);
+					ps2 = con.prepareStatement(sql3);
 					ps2.setInt(1, product.getDispXboxXDigitale());
 					ps2.setString(2, product.getCodSeriale());
 					ps2.setString(3, PIATTAFORMA_XboxSerieX);
@@ -667,7 +667,7 @@ public class ProductModel
 				
 				try
 				{
-					ps2 = con.prepareStatement(SQL3);
+					ps2 = con.prepareStatement(sql3);
 					ps2.setInt(1, product.getDispXboxSDigitale());
 					ps2.setString(2, product.getCodSeriale());
 					ps2.setString(3, PIATTAFORMA_XboxSerieS);
@@ -690,7 +690,7 @@ public class ProductModel
 				
 				try
 				{
-					ps2 = con.prepareStatement(SQL3);
+					ps2 = con.prepareStatement(sql3);
 					ps2.setInt(1, product.getDispPcDigitale());
 					ps2.setString(2, product.getCodSeriale());
 					ps2.setString(3, PIATTAFORMA_PC);
@@ -712,7 +712,7 @@ public class ProductModel
 			
 			try
 			{
-				ps2 = con.prepareStatement(SQL3);
+				ps2 = con.prepareStatement(sql3);
 				ps2.setInt(1, product.getDispPs5Fisico());
 				ps2.setString(2, product.getCodSeriale());
 				ps2.setString(3, PIATTAFORMA_PS5);
@@ -734,7 +734,7 @@ public class ProductModel
 			
 			try
 			{
-				ps2 = con.prepareStatement(SQL3);
+				ps2 = con.prepareStatement(sql3);
 				ps2.setInt(1, product.getDispPs4Fisico());
 				ps2.setString(2, product.getCodSeriale());
 				ps2.setString(3, PIATTAFORMA_PS4);
@@ -756,7 +756,7 @@ public class ProductModel
 			
 			try
 			{
-				ps2 = con.prepareStatement(SQL3);
+				ps2 = con.prepareStatement(sql3);
 				ps2.setInt(1, product.getDispXboxXFisico());
 				ps2.setString(2, product.getCodSeriale());
 				ps2.setString(3, PIATTAFORMA_XboxSerieX);
@@ -779,7 +779,7 @@ public class ProductModel
 			
 			try
 			{
-				ps2 = con.prepareStatement(SQL3);
+				ps2 = con.prepareStatement(sql3);
 				ps2.setInt(1, product.getDispPcFisico());
 				ps2.setString(2, product.getCodSeriale());
 				ps2.setString(3, PIATTAFORMA_PC);
@@ -837,12 +837,12 @@ public class ProductModel
 
 		int result = 0;
 
-		String SQL = "UPDATE " + ProductModel.TABLE_NAME_PRODOTTO + " SET Nome = ? " + " WHERE CodSeriale = ?";
+		String sql = "UPDATE " + ProductModel.TABLE_NAME_PRODOTTO + " SET Nome = ? " + " WHERE CodSeriale = ?";
 
 		try 
 		{
 			con = DBConnectionPool.getConnection();
-			ps = con.prepareStatement(SQL);
+			ps = con.prepareStatement(sql);
 			ps.setString(1, Nome);
 			ps.setString(2, CodSerialeMod);
 			result = ps.executeUpdate();
@@ -874,12 +874,12 @@ public class ProductModel
 
 		int result = 0;
 
-		String SQL = "UPDATE " + ProductModel.TABLE_NAME_PRODOTTO + " SET Prezzo = ? " + " WHERE CodSeriale = ?";
+		String sql = "UPDATE " + ProductModel.TABLE_NAME_PRODOTTO + " SET Prezzo = ? " + " WHERE CodSeriale = ?";
 
 		try 
 		{
 			con = DBConnectionPool.getConnection();
-			ps = con.prepareStatement(SQL);
+			ps = con.prepareStatement(sql);
 			ps.setFloat(1, Prezzo);
 			ps.setString(2, CodSerialeMod);
 			result = ps.executeUpdate();
@@ -911,12 +911,12 @@ public class ProductModel
 
 		int result = 0;
 
-		String SQL = "UPDATE " + ProductModel.TABLE_NAME_PRODOTTO + " SET DataUscita = ? " + " WHERE CodSeriale = ?";
+		String sql = "UPDATE " + ProductModel.TABLE_NAME_PRODOTTO + " SET DataUscita = ? " + " WHERE CodSeriale = ?";
 
 		try 
 		{
 			con = DBConnectionPool.getConnection();
-			ps = con.prepareStatement(SQL);
+			ps = con.prepareStatement(sql);
 			ps.setString(1, DataUscita);
 			ps.setString(2, CodSerialeMod);
 			result = ps.executeUpdate();
@@ -948,12 +948,12 @@ public class ProductModel
 
 		int result = 0;
 
-		String SQL = "UPDATE " + ProductModel.TABLE_NAME_PRODOTTO + " SET DescrizioneRidotta = ? " + " WHERE CodSeriale = ?";
+		String sql = "UPDATE " + ProductModel.TABLE_NAME_PRODOTTO + " SET DescrizioneRidotta = ? " + " WHERE CodSeriale = ?";
 
 		try 
 		{
 			con = DBConnectionPool.getConnection();
-			ps = con.prepareStatement(SQL);
+			ps = con.prepareStatement(sql);
 			ps.setString(1, DescrizioneRidotta);
 			ps.setString(2, CodSerialeMod);
 			result = ps.executeUpdate();
@@ -986,12 +986,12 @@ public class ProductModel
 
 		int result = 0;
 
-		String SQL = "UPDATE " + ProductModel.TABLE_NAME_PRODOTTO + " SET DescrizioneCompleta = ? " + " WHERE CodSeriale = ?";
+		String sql = "UPDATE " + ProductModel.TABLE_NAME_PRODOTTO + " SET DescrizioneCompleta = ? " + " WHERE CodSeriale = ?";
 
 		try 
 		{
 			con = DBConnectionPool.getConnection();
-			ps = con.prepareStatement(SQL);
+			ps = con.prepareStatement(sql);
 			ps.setString(1, DescrizioneCompleta);
 			ps.setString(2, CodSerialeMod);
 			result = ps.executeUpdate();
@@ -1023,12 +1023,12 @@ public class ProductModel
 
 		int result = 0;
 
-		String SQL = "UPDATE " + ProductModel.TABLE_NAME_PRODOTTO + " SET FlagTipologia = ? " + " WHERE CodSeriale = ?";
+		String sql = "UPDATE " + ProductModel.TABLE_NAME_PRODOTTO + " SET FlagTipologia = ? " + " WHERE CodSeriale = ?";
 
 		try 
 		{
 			con = DBConnectionPool.getConnection();
-			ps = con.prepareStatement(SQL);
+			ps = con.prepareStatement(sql);
 			ps.setBoolean(1, Tipologia);
 			ps.setString(2, CodSerialeMod);
 			result = ps.executeUpdate();
@@ -1059,12 +1059,12 @@ public class ProductModel
 
 		int result = 0;
 
-		String SQL = "UPDATE " + ProductModel.TABLE_NAME_CARATTERISTICHE + " SET CodPEGI = ? " + " WHERE CodSeriale = ?";
+		String sql = "UPDATE " + ProductModel.TABLE_NAME_CARATTERISTICHE + " SET CodPEGI = ? " + " WHERE CodSeriale = ?";
 
 		try 
 		{
 			con = DBConnectionPool.getConnection();
-			ps = con.prepareStatement(SQL);
+			ps = con.prepareStatement(sql);
 			ps.setInt(1, PEGI);
 			ps.setString(2, CodSerialeMod);
 			result = ps.executeUpdate();
@@ -1095,12 +1095,12 @@ public class ProductModel
 
 		int result = 0;
 
-		String SQL = "UPDATE " + ProductModel.TABLE_NAME_CARATTERISTICHE + " SET NomeGenere = ? " + " WHERE CodSeriale = ?";
+		String sql = "UPDATE " + ProductModel.TABLE_NAME_CARATTERISTICHE + " SET NomeGenere = ? " + " WHERE CodSeriale = ?";
 
 		try 
 		{
 			con = DBConnectionPool.getConnection();
-			ps = con.prepareStatement(SQL);
+			ps = con.prepareStatement(sql);
 			ps.setString(1, Genere);
 			ps.setString(2, CodSerialeMod);
 			result = ps.executeUpdate();
@@ -1131,12 +1131,12 @@ public class ProductModel
 
 		int result = 0;
 
-		String SQL = "UPDATE " + ProductModel.TABLE_NAME_PRODOTTO + " SET Immagine = ? " + " WHERE CodSeriale = ?";
+		String sql = "UPDATE " + ProductModel.TABLE_NAME_PRODOTTO + " SET Immagine = ? " + " WHERE CodSeriale = ?";
 
 		try 
 		{
 			con = DBConnectionPool.getConnection();
-			ps = con.prepareStatement(SQL);
+			ps = con.prepareStatement(sql);
 			ps.setString(1, Immagine);
 			ps.setString(2, CodSerialeMod);
 			result = ps.executeUpdate();
@@ -1167,12 +1167,12 @@ public class ProductModel
 
 		int result = 0;
 
-		String SQL = "UPDATE " + ProductModel.TABLE_NAME_DISPONIBILITA + " SET QuantitaDisponibile = ? " + " WHERE CodSeriale = ? AND NomePiattaforma = ? AND TipoFormato = ?";
+		String sql = "UPDATE " + ProductModel.TABLE_NAME_DISPONIBILITA + " SET QuantitaDisponibile = ? " + " WHERE CodSeriale = ? AND NomePiattaforma = ? AND TipoFormato = ?";
 
 		try 
 		{
 			con = DBConnectionPool.getConnection();
-			ps = con.prepareStatement(SQL);
+			ps = con.prepareStatement(sql);
 			ps.setInt(1, Disp);
 			ps.setString(2, CodSerialeMod);
 			ps.setString(3, Piattaforma);
@@ -1206,12 +1206,12 @@ public class ProductModel
 
 		int result = 0;
 
-		String SQL = "UPDATE " + ProductModel.TABLE_NAME_PRODOTTO + " SET CodSeriale = ? " + " WHERE CodSeriale = ?";
+		String sql = "UPDATE " + ProductModel.TABLE_NAME_PRODOTTO + " SET CodSeriale = ? " + " WHERE CodSeriale = ?";
 
 		try 
 		{
 			con = DBConnectionPool.getConnection();
-			ps = con.prepareStatement(SQL);
+			ps = con.prepareStatement(sql);
 			ps.setString(1, CodSeriale);
 			ps.setString(2, CodSerialeMod);
 			result = ps.executeUpdate();

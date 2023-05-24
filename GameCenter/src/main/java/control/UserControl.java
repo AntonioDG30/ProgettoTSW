@@ -21,9 +21,8 @@ public class UserControl extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
 	
-	static UserModel model = new UserModel();
-	static OrdineModel Omodel = new OrdineModel();
-	static ProductModel Pmodel = new ProductModel();
+	static UserModel userModel = new UserModel();
+	static OrdineModel ordineModel = new OrdineModel();
 	
 	Logger logger = Logger.getLogger(UserControl.class.getName());
        
@@ -52,7 +51,7 @@ public class UserControl extends HttpServlet
 						
 					else 
 					{
-						utente = model.ricercaUtente(email, pass);
+						utente = userModel.ricercaUtente(email, pass);
 						if(utente == null)
 						{
 							request.removeAttribute("Result");
@@ -89,8 +88,8 @@ public class UserControl extends HttpServlet
 					String email = request.getParameter("email");
 					String pass = request.getParameter("password");
 					UserBean utente = null;
-					boolean Trovato = model.ricercaEmail(email);
-					if(Trovato)
+					boolean trovato = userModel.ricercaEmail(email);
+					if(trovato)
 					{
 						request.removeAttribute("Result");
 						request.setAttribute("Result", "L'email risulta già registarata. Riprova");
@@ -99,9 +98,9 @@ public class UserControl extends HttpServlet
 					}
 					else
 					{
-						if(model.registraUtente(email, pass))
+						if(userModel.registraUtente(email, pass))
 						{
-							utente = model.ricercaUtente(email, pass);
+							utente = userModel.ricercaUtente(email, pass);
 							request.getSession().setAttribute("Email", utente.getEmail());
 							request.getSession().setAttribute("Tipo", utente.getTipo());
 							request.getSession().setAttribute("PuntiFedelta", utente.getPuntiFedelta());
@@ -123,17 +122,17 @@ public class UserControl extends HttpServlet
 				if (action.equalsIgnoreCase("RegistraDatiSensibili")) 
 				{
 					String email = (String) request.getSession().getAttribute("Email");
-					String CF = request.getParameter("CF");
-					String Nome = request.getParameter("Nome");
-					String Cognome = request.getParameter("Cognome");
-					int CAP = Integer.parseInt(request.getParameter("CAP"));
-					String Citta = request.getParameter("Citta");
-					String Provincia = request.getParameter("Provincia");
-					String Via = request.getParameter("Via");
-					int Civico = Integer.parseInt(request.getParameter("Civico"));
-					String Telefono = request.getParameter("Telefono");
+					String codiceFiscale = request.getParameter("CF");
+					String nome = request.getParameter("Nome");
+					String cognome = request.getParameter("Cognome");
+					int cap = Integer.parseInt(request.getParameter("CAP"));
+					String citta = request.getParameter("Citta");
+					String provincia = request.getParameter("Provincia");
+					String via = request.getParameter("Via");
+					int civico = Integer.parseInt(request.getParameter("Civico"));
+					String telefono = request.getParameter("Telefono");
 
-					if(model.registraDatiSensibili(email, CF, Nome, Cognome, CAP, Citta, Provincia, Via, Civico, Telefono))
+					if(userModel.registraDatiSensibili(email, codiceFiscale, nome, cognome, cap, citta, provincia, via, civico, telefono))
 					{
 						response.sendRedirect("./index.jsp");
 					}
@@ -158,7 +157,7 @@ public class UserControl extends HttpServlet
 						if(Visualizzazione.contentEquals("Tutti"))
 						{
 							request.removeAttribute("Clienti");
-							request.setAttribute("Clienti", model.elencoClienti());
+							request.setAttribute("Clienti", userModel.elencoClienti());
 						}
 						else if (Visualizzazione.contentEquals("ClienteSpecifico"))
 						{
@@ -168,9 +167,9 @@ public class UserControl extends HttpServlet
 					}
 					else if(request.getParameter("ParteMod").contentEquals("Parte2"))
 					{
-						String Email = request.getParameter("email");
+						String email = request.getParameter("email");
 						request.removeAttribute("Cliente");
-						request.setAttribute("Cliente", model.ricercaCliente(Email));
+						request.setAttribute("Cliente", userModel.ricercaCliente(email));
 					}
 					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Admin.jsp");
 					dispatcher.forward(request, response);	
@@ -180,13 +179,13 @@ public class UserControl extends HttpServlet
 				
 				if (action.equalsIgnoreCase("VisualizzaDati"))
 				{
-					String Email = (String) request.getSession().getAttribute("Email");
+					String email = (String) request.getSession().getAttribute("Email");
 					request.removeAttribute("Cliente");	
-					request.setAttribute("Cliente", model.ricercaCliente(Email));
+					request.setAttribute("Cliente", userModel.ricercaCliente(email));
 					request.removeAttribute("PuntiFedelta");
-					request.setAttribute("PuntiFedelta", model.getPuntiFedelta(Email));
+					request.setAttribute("PuntiFedelta", userModel.getPuntiFedelta(email));
 					request.removeAttribute("Ordini");
-					request.setAttribute("Ordini", Omodel.elencoOrdiniByCliente(Email));
+					request.setAttribute("Ordini", ordineModel.elencoOrdiniByCliente(email));
 					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Account.jsp");
 					dispatcher.forward(request, response);	
 				}
@@ -196,96 +195,102 @@ public class UserControl extends HttpServlet
 				if (action.equalsIgnoreCase("ModificaDati"))
 				{
 						String email = (String) request.getSession().getAttribute("Email");
-						Boolean RsCF = false, RsNome = false, RsCognome = false, 
-								RsCAP = false, RsCitta = false, RsProvincia = false, 
-								RsVia = false, RsCivico = false, RsNumeroTelefono = false;
+						Boolean rsCodiceFiscale = false;
+						Boolean rsNome = false;
+						Boolean rsCognome = false; 
+						Boolean rsCAP = false; 
+						Boolean rsCitta = false;
+						Boolean rsProvincia = false;
+						Boolean rsVia = false;
+						Boolean rsCivico = false;
+						Boolean rsNumeroTelefono = false;
 
 						if(!(request.getParameter("CodiceFiscale").isEmpty()))
 						{	
-							RsCF = model.modCodiceFiscale(email, request.getParameter("CodiceFiscale"));
+							rsCodiceFiscale = userModel.modCodiceFiscale(email, request.getParameter("CodiceFiscale"));
 						}
 						else
 						{
-							RsCF = true;
+							rsCodiceFiscale = true;
 						}
 						
 						if(!(request.getParameter("Nome").isEmpty()))
 						{	
-							RsNome = model.modNome(email, request.getParameter("Nome"));
+							rsNome = userModel.modNome(email, request.getParameter("Nome"));
 						}
 						else
 						{
-							RsNome = true;
+							rsNome = true;
 						}
 						
 						if(!(request.getParameter("Cognome").isEmpty()))
 						{	
-							RsCognome = model.modCognome(email, request.getParameter("Cognome"));
+							rsCognome = userModel.modCognome(email, request.getParameter("Cognome"));
 						}
 						else
 						{
-							RsCognome = true;
+							rsCognome = true;
 						}
 						
 						if(!(request.getParameter("CAP").isEmpty()))
 						{	
 							int CAP = Integer.parseInt(request.getParameter("CAP"));
-							RsCAP = model.modCAP(email, CAP);
+							rsCAP = userModel.modCAP(email, CAP);
 						}
 						else
 						{
-							RsCAP = true;
+							rsCAP = true;
 						}
 						
 						if(!(request.getParameter("Citta").isEmpty()))
 						{	
-							RsCitta = model.modCitta(email, request.getParameter("Citta"));
+							rsCitta = userModel.modCitta(email, request.getParameter("Citta"));
 						}
 						else
 						{
-							RsCitta = true;
+							rsCitta = true;
 						}
 						
 						if(!(request.getParameter("Provincia").isEmpty()))
 						{	
-							RsProvincia = model.modProvincia(email, request.getParameter("Provincia"));
+							rsProvincia = userModel.modProvincia(email, request.getParameter("Provincia"));
 						}
 						else
 						{
-							RsProvincia = true;
+							rsProvincia = true;
 						}
 						
 						if(!(request.getParameter("Via").isEmpty()))
 						{	
-							RsVia = model.modVia(email, request.getParameter("Via"));
+							rsVia = userModel.modVia(email, request.getParameter("Via"));
 						}
 						else
 						{
-							RsVia = true;
+							rsVia = true;
 						}
 						
 						if(!(request.getParameter("Civico").isEmpty()))
 						{	
-							int Civico = Integer.parseInt(request.getParameter("Civico"));
-							RsCivico = model.modCivico(email, Civico);
+							int civico = Integer.parseInt(request.getParameter("Civico"));
+							rsCivico = userModel.modCivico(email, civico);
 						}
 						else
 						{
-							RsCivico = true;
+							rsCivico = true;
 						}
 						
 						if(!(request.getParameter("NumeroTelefono").isEmpty()))
 						{	
-							RsNumeroTelefono = model.modTelefono(email, request.getParameter("NumeroTelefono"));
+							rsNumeroTelefono = userModel.modTelefono(email, request.getParameter("NumeroTelefono"));
 						}
 						else
 						{
-							RsNumeroTelefono = true;
+							rsNumeroTelefono = true;
 						}
 						
 						
 						
-						if(RsCF && RsNome && RsCognome && RsCAP && RsCitta && RsProvincia && RsVia && RsCivico && RsNumeroTelefono)
+						if(rsCodiceFiscale && rsNome && rsCognome && rsCAP && rsCitta && rsProvincia && rsVia && rsCivico && rsNumeroTelefono)
 						{
 							request.setAttribute("Result", "I tuoi dati sono stati modificati correttamente.");
 						}
@@ -295,11 +300,11 @@ public class UserControl extends HttpServlet
 						}			
 						
 						request.removeAttribute("Cliente");	
-						request.setAttribute("Cliente", model.ricercaCliente(email));
+						request.setAttribute("Cliente", userModel.ricercaCliente(email));
 						request.removeAttribute("PuntiFedelta");
-						request.setAttribute("PuntiFedelta", model.getPuntiFedelta(email));
+						request.setAttribute("PuntiFedelta", userModel.getPuntiFedelta(email));
 						request.removeAttribute("Ordini");
-						request.setAttribute("Ordini", Omodel.elencoOrdiniByCliente(email));
+						request.setAttribute("Ordini", ordineModel.elencoOrdiniByCliente(email));
 						RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Account.jsp");
 						dispatcher.forward(request, response);
 				}
@@ -309,16 +314,16 @@ public class UserControl extends HttpServlet
 				if (action.equalsIgnoreCase("NuovoIndirizzo")) 
 				{
 					String email = (String) request.getSession().getAttribute("Email");
-					String Nome = request.getParameter("Nome");
-					String Cognome = request.getParameter("Cognome");
-					int CAP = Integer.parseInt(request.getParameter("CAP"));
-					String Citta = request.getParameter("Citta");
-					String Provincia = request.getParameter("Provincia");
-					String Via = request.getParameter("Via");
-					int Civico = Integer.parseInt(request.getParameter("Civico"));
-					String Telefono = request.getParameter("Telefono");
+					String nome = request.getParameter("Nome");
+					String cognome = request.getParameter("Cognome");
+					int cap = Integer.parseInt(request.getParameter("CAP"));
+					String citta = request.getParameter("Citta");
+					String provincia = request.getParameter("Provincia");
+					String via = request.getParameter("Via");
+					int civico = Integer.parseInt(request.getParameter("Civico"));
+					String telefono = request.getParameter("Telefono");
 
-					if(model.registraNuovoIndirizzo(Nome, Cognome, CAP, Citta, Provincia, Via, Civico, Telefono, email))
+					if(userModel.registraNuovoIndirizzo(nome, cognome, cap, citta, provincia, via, civico, telefono, email))
 					{
 						response.sendRedirect("./OrdiniControl?action=Checkout");
 					}
@@ -336,11 +341,11 @@ public class UserControl extends HttpServlet
 				if (action.equalsIgnoreCase("NuovoMetodoPagamento")) 
 				{
 					String email = (String) request.getSession().getAttribute("Email");
-					String NumeroCarta = request.getParameter("NumeroCarta");
-					String Titolare = request.getParameter("Titolare");
-					String DataScadenza = request.getParameter("DataScadenza");
+					String numeroCarta = request.getParameter("NumeroCarta");
+					String titolare = request.getParameter("Titolare");
+					String dataScadenza = request.getParameter("DataScadenza");
 
-					if(model.registraNuovoMetodoPagamento(NumeroCarta, Titolare, DataScadenza, email))
+					if(userModel.registraNuovoMetodoPagamento(numeroCarta, titolare, dataScadenza, email))
 					{
 						response.sendRedirect("./OrdiniControl?action=Checkout");
 					}

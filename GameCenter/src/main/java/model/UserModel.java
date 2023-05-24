@@ -25,12 +25,12 @@ public class UserModel
 
 		UserBean bean = new UserBean();
 
-		String SQL = "SELECT * FROM " + UserModel.TABLE_NAME_UTENTE + " WHERE Email = ? AND PasswordUtente = ?";
+		String sql = "SELECT * FROM " + UserModel.TABLE_NAME_UTENTE + " WHERE Email = ? AND PasswordUtente = ?";
 
 		try 
 		{
 			con = DBConnectionPool.getConnection();
-			ps = con.prepareStatement(SQL);
+			ps = con.prepareStatement(sql);
 			ps.setString(1, email);
 			ps.setString(2, password);
 
@@ -81,12 +81,12 @@ public class UserModel
 		Connection con = null;
 		PreparedStatement ps = null;
 		boolean trovato = false;
-		String SQL = "SELECT * FROM " + UserModel.TABLE_NAME_UTENTE + " WHERE Email = ?";
+		String sql = "SELECT * FROM " + UserModel.TABLE_NAME_UTENTE + " WHERE Email = ?";
 
 		try 
 		{
 			con = DBConnectionPool.getConnection();
-			ps = con.prepareStatement(SQL);
+			ps = con.prepareStatement(sql);
 			ps.setString(1, email);
 
 			ResultSet rs = ps.executeQuery();
@@ -123,12 +123,12 @@ public class UserModel
 
 		int rs = 0;
 
-		String SQL = "INSERT INTO " + UserModel.TABLE_NAME_UTENTE + " (Email, PasswordUtente, PuntiFedelta, Tipo) VALUES (?,?,0,1) ";
+		String sql = "INSERT INTO " + UserModel.TABLE_NAME_UTENTE + " (Email, PasswordUtente, PuntiFedelta, Tipo) VALUES (?,?,0,1) ";
 
 		try 
 		{
 			con = DBConnectionPool.getConnection();
-			ps = con.prepareStatement(SQL);
+			ps = con.prepareStatement(sql);
 			ps.setString(1, email);
 			ps.setString(2, password);
 
@@ -165,12 +165,12 @@ public class UserModel
 
 		int rs = 0;
 
-		String SQL = "INSERT INTO " + UserModel.TABLE_NAME_DATI + " (CodiceFiscale, Nome, Cognome, CAP, Via, Civico, Citta, Provincia, NumeroTelefono, Email) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ";
+		String sql = "INSERT INTO " + UserModel.TABLE_NAME_DATI + " (CodiceFiscale, Nome, Cognome, CAP, Via, Civico, Citta, Provincia, NumeroTelefono, Email) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ";
 
 		try 
 		{
 			con = DBConnectionPool.getConnection();
-			ps = con.prepareStatement(SQL);
+			ps = con.prepareStatement(sql);
 			ps.setString(1, CF);
 			ps.setString(2, Nome);
 			ps.setString(3, Cognome);
@@ -214,18 +214,18 @@ public class UserModel
 		Connection con = null;
 		PreparedStatement ps = null;
 		
-		int PuntiFedelta = 0;
+		int puntiFedelta = 0;
 		
-		String SQL = "SELECT PuntiFedelta FROM " + UserModel.TABLE_NAME_UTENTE + " WHERE Email = ?";
+		String sql = "SELECT PuntiFedelta FROM " + UserModel.TABLE_NAME_UTENTE + " WHERE Email = ?";
 
 		try 
 		{
 			con = DBConnectionPool.getConnection();
-			ps = con.prepareStatement(SQL);
+			ps = con.prepareStatement(sql);
 			ps.setString(1, email);
 		   	ResultSet rs = ps.executeQuery();
 			rs.next();
-			PuntiFedelta = rs.getInt("PuntiFedelta");
+			puntiFedelta = rs.getInt("PuntiFedelta");
 
 
 		} 
@@ -246,7 +246,7 @@ public class UserModel
 		}
 		
 
-		return PuntiFedelta;
+		return puntiFedelta;
 			
 	}
 	
@@ -256,14 +256,14 @@ public class UserModel
 		Connection con = null;
 		PreparedStatement ps = null;
 		
-		String SQL = "SELECT * FROM " + UserModel.TABLE_NAME_INDIRIZZI + " WHERE Email = ?";
+		String sql = "SELECT * FROM " + UserModel.TABLE_NAME_INDIRIZZI + " WHERE Email = ?";
 
 		Collection<IndirizziSpedizioneBean> Indirizzi = new LinkedList<IndirizziSpedizioneBean>();
 		
 		try 
 		{
 			con = DBConnectionPool.getConnection();
-			ps = con.prepareStatement(SQL);
+			ps = con.prepareStatement(sql);
 			ps.setString(1, email);
 			ResultSet rs = ps.executeQuery();
 
@@ -311,14 +311,14 @@ public class UserModel
 		Connection con = null;
 		PreparedStatement ps = null;
 		
-		String SQL = "SELECT * FROM " + UserModel.TABLE_NAME_METODIPAGAMENTO + " WHERE Email = ?";
+		String sql = "SELECT * FROM " + UserModel.TABLE_NAME_METODIPAGAMENTO + " WHERE Email = ?";
 
-		Collection<MetodiPagamentoBean> MetodoPagamento = new LinkedList<MetodiPagamentoBean>();
+		Collection<MetodiPagamentoBean> metodoPagamento = new LinkedList<MetodiPagamentoBean>();
 		
 		try 
 		{
 			con = DBConnectionPool.getConnection();
-			ps = con.prepareStatement(SQL);
+			ps = con.prepareStatement(sql);
 			ps.setString(1, email);
 			ResultSet rs = ps.executeQuery();
 
@@ -329,7 +329,7 @@ public class UserModel
 				bean.setTitolareCarta(rs.getString("TitolareCarta"));
 				bean.setScadenza(rs.getString("Scadenza"));
 				bean.setEmail(rs.getString("Email"));
-				MetodoPagamento.add(bean);
+				metodoPagamento.add(bean);
 			}
 
 		} 
@@ -349,7 +349,7 @@ public class UserModel
 			}
 		}
 
-		return MetodoPagamento;
+		return metodoPagamento;
 			
 	}
 	
@@ -360,12 +360,12 @@ public class UserModel
 		Connection con = null;
 		PreparedStatement ps = null;
 		UserBean bean = new UserBean();
-		String SQL = "SELECT * FROM " + UserModel.TABLE_NAME_DATI + " WHERE Email = ?";
+		String sql = "SELECT * FROM " + UserModel.TABLE_NAME_DATI + " WHERE Email = ?";
 
 		try 
 		{
 			con = DBConnectionPool.getConnection();
-			ps = con.prepareStatement(SQL);
+			ps = con.prepareStatement(sql);
 			ps.setString(1, email);
 
 			ResultSet rs = ps.executeQuery();
@@ -410,15 +410,15 @@ public class UserModel
 		PreparedStatement ps = null;
 		PreparedStatement ps2 = null;
 
-		String SQL = "SELECT * FROM " + UserModel.TABLE_NAME_UTENTE + " WHERE Tipo = 1";
-		String SQL2 = "SELECT * FROM " + UserModel.TABLE_NAME_DATI + " WHERE Email = ?";
+		String sql = "SELECT * FROM " + UserModel.TABLE_NAME_UTENTE + " WHERE Tipo = 1";
+		String sql2 = "SELECT * FROM " + UserModel.TABLE_NAME_DATI + " WHERE Email = ?";
 		
 		Collection<UserBean> Clienti = new LinkedList<UserBean>();
 		
 		try 
 		{
 			con = DBConnectionPool.getConnection();
-			ps = con.prepareStatement(SQL);
+			ps = con.prepareStatement(sql);
 
 			ResultSet rs = ps.executeQuery();
 
@@ -432,7 +432,7 @@ public class UserModel
 			    
 			    try
 			    {
-			    	ps2 = con.prepareStatement(SQL2);
+			    	ps2 = con.prepareStatement(sql2);
 					ps2.setString(1, rs.getString("Email"));
 					
 					ResultSet rs2 = ps2.executeQuery();
@@ -492,15 +492,15 @@ public class UserModel
 		PreparedStatement ps = null;
 		PreparedStatement ps2 = null;
 
-		String SQL = "SELECT * FROM " + UserModel.TABLE_NAME_UTENTE + " WHERE Email = ?";
-		String SQL2 = "SELECT * FROM " + UserModel.TABLE_NAME_DATI + " WHERE Email = ?";
+		String sql = "SELECT * FROM " + UserModel.TABLE_NAME_UTENTE + " WHERE Email = ?";
+		String sql2 = "SELECT * FROM " + UserModel.TABLE_NAME_DATI + " WHERE Email = ?";
 		
 		UserBean Cliente = new UserBean();
 		
 		try 
 		{
 			con = DBConnectionPool.getConnection();
-			ps = con.prepareStatement(SQL);
+			ps = con.prepareStatement(sql);
 			ps.setString(1, Email);
 
 			ResultSet rs = ps.executeQuery();
@@ -513,7 +513,7 @@ public class UserModel
 			    
 				try
 				{
-					ps2 = con.prepareStatement(SQL2);
+					ps2 = con.prepareStatement(sql2);
 					ps2.setString(1, Email);
 					ResultSet rs2 = ps2.executeQuery();
 					if(rs2.next())
@@ -570,12 +570,12 @@ public class UserModel
 
 		int rs = 0;
 
-		String SQL = "INSERT INTO " + UserModel.TABLE_NAME_INDIRIZZI + " (Nome, Cognome, CAP, Via, Civico, Citta, Provincia, NumeroTelefono, Email) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) ";
+		String sql = "INSERT INTO " + UserModel.TABLE_NAME_INDIRIZZI + " (Nome, Cognome, CAP, Via, Civico, Citta, Provincia, NumeroTelefono, Email) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) ";
 
 		try 
 		{
 			con = DBConnectionPool.getConnection();
-			ps = con.prepareStatement(SQL);
+			ps = con.prepareStatement(sql);
 			ps.setString(1, Nome);
 			ps.setString(2, Cognome);
 			ps.setInt(3, CAP);
@@ -620,12 +620,12 @@ public class UserModel
 		PreparedStatement ps = null;
 
 		int rs = 0;
-		String SQL = "INSERT INTO " + UserModel.TABLE_NAME_METODIPAGAMENTO + " (NumeroCarta, TitolareCarta, Scadenza, Email) VALUES (?, ?, ?, ?) ";
+		String sql = "INSERT INTO " + UserModel.TABLE_NAME_METODIPAGAMENTO + " (NumeroCarta, TitolareCarta, Scadenza, Email) VALUES (?, ?, ?, ?) ";
 
 		try 
 		{
 			con = DBConnectionPool.getConnection();
-			ps = con.prepareStatement(SQL);
+			ps = con.prepareStatement(sql);
 			ps.setString(1, NumeroCarta);
 			ps.setString(2, Intestatario);
 			ps.setString(3, DataScadenza);

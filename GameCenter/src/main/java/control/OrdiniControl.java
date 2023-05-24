@@ -137,14 +137,14 @@ public class OrdiniControl extends HttpServlet
 						if(codOrdine != 0)
 						{
 							int codIndirizzo = Integer.parseInt(request.getParameter("IndirizzoScelto"));
-							String NumeroCarta = request.getParameter("MetodoScelto");
-							ordineModel.updateComprende(codOrdine, codIndirizzo, NumeroCarta);
+							String numeroCarta = request.getParameter("MetodoScelto");
+							ordineModel.updateComprende(codOrdine, codIndirizzo, numeroCarta);
 							request.removeAttribute("PuntiFedelta");
 							request.setAttribute("PuntiFedelta", userModel.getPuntiFedelta(email));
 							request.removeAttribute("Ordini");
 							request.setAttribute("Ordini", ordineModel.elencoOrdiniByCliente(email));
 							request.setAttribute("Result", "Grazie per aver acquistato sul nostro sito");
-							generaFattura(codOrdine, prezzoTotale, puntiFedeltaUsati, email);
+							generaFattura(codOrdine, puntiFedeltaUsati, email);
 							ordineModel.updateFattura(codOrdine);
 							request.getSession().setAttribute("Carrello", null);
 						}
@@ -224,11 +224,13 @@ public class OrdiniControl extends HttpServlet
 		
 	}
 
-	private void generaFattura(int codOrdine, float prezzoTotale, float puntiFedeltaUsati, String email) throws IOException 
+	private void generaFattura(int codOrdine, float puntiFedeltaUsati, String email) throws IOException 
 	{
 		
-		float x=0, y=0;
-		int limit = 31, numProd = 0;
+		float x=0;
+		float y=0;
+		int limit = 31;
+		int numProd = 0;
 		
 		try 
 		{
@@ -237,11 +239,11 @@ public class OrdiniControl extends HttpServlet
 			String totalPath = servletPath + "/Fatture/Fattura" + codOrdine + ".pdf";
 			Float subTotale = 0.0f;
 		
-			String PDF = ordineModel.ricercaFattura(codOrdine);
+			String pdf = ordineModel.ricercaFattura(codOrdine);
 		
 		
 		
-			if(!(PDF != null))
+			if(pdf == null)
 			{
 			    File file = new File(servletPath + "/TemplateFattura.pdf");
 			    PDDocument fattura = PDDocument.load(file);    
@@ -272,14 +274,14 @@ public class OrdiniControl extends HttpServlet
 			    
 			    
 			    //inserimento Dati Utente
-			    UserBean Utente = userModel.ricercaDatiSensibili(email); 
+			    UserBean utente = userModel.ricercaDatiSensibili(email); 
 			    
 			    x = 395;
 			    y = 710;
 			    contentStream.beginText();
 			    contentStream.setFont(font, 11);
 			    contentStream.newLineAtOffset(x, y); 
-			    contentStream.showText(Utente.getNome() + " " + Utente.getCognome()); 
+			    contentStream.showText(utente.getNome() + " " + utente.getCognome()); 
 			    contentStream.endText();
 			    
 			    
@@ -287,14 +289,14 @@ public class OrdiniControl extends HttpServlet
 			    contentStream.beginText();
 			    contentStream.setFont(font, 11);
 			    contentStream.newLineAtOffset(x, y); 
-			    contentStream.showText(Utente.getVia() + ", " + Utente.getCivico()); 
+			    contentStream.showText(utente.getVia() + ", " + utente.getCivico()); 
 			    contentStream.endText();
 			    
 			    y = y - 14.5f;
 			    contentStream.beginText();
 			    contentStream.setFont(font, 11);
 			    contentStream.newLineAtOffset(x, y); 
-			    contentStream.showText(Utente.getCitta() + ", " + Utente.getProvincia() + ", " + Utente.getCAP()); 
+			    contentStream.showText(utente.getCitta() + ", " + utente.getProvincia() + ", " + utente.getCAP()); 
 			    contentStream.endText();
 			    
 			    
@@ -307,11 +309,11 @@ public class OrdiniControl extends HttpServlet
 			    
 			    //inserimento prodotti
 			    y = 604;
-			    Collection<?> Ordini = (Collection<?>) ordineModel.dettagliOrdine(codOrdine);
-			    if (Ordini != null && Ordini.size() != 0) 
+			    Collection<?> ordini =ordineModel.dettagliOrdine(codOrdine);
+			    if (ordini != null && ordini.isEmpty()) 
 				{
 			    	
-					Iterator<?> it = Ordini.iterator();
+					Iterator<?> it = ordini.iterator();
 					while (it.hasNext()) 
 					{
 						numProd++;
@@ -354,14 +356,14 @@ public class OrdiniControl extends HttpServlet
 			    	    contentStream.endText();
 			    	    
 			    	    
-			    	    float PrezzoTotRiga = (float) bean.getPrezzo() * bean.getQuantita();
+			    	    float prezzoTotRiga = bean.getPrezzo() * bean.getQuantita();
 			    	    x = 485;
 			    	    contentStream.beginText();
 						contentStream.setFont(font, 11);
 						contentStream.newLineAtOffset(x, y);
-						contentStream.showText(Float.toString(PrezzoTotRiga)); 
+						contentStream.showText(Float.toString(prezzoTotRiga)); 
 			    	    contentStream.endText();
-			    	    subTotale = subTotale + PrezzoTotRiga;
+			    	    subTotale = subTotale + prezzoTotRiga;
 			    	    y = y - 16.42f;  	   			    	    
 					}
 					
@@ -395,8 +397,8 @@ public class OrdiniControl extends HttpServlet
 			    contentStream.endText();
 			    
 			    Locale.setDefault(Locale.US);
-				float Totale = subTotale -  (puntiFedeltaUsati/100);
-			    String TotaleS = String.format("%.2f", Totale);
+				float totale = subTotale -  (puntiFedeltaUsati/100);
+			    String totaleS = String.format("%.2f", totale);
 			    
 			    contentStream.addRect(448.7f, 56, 93, 17);
 			    contentStream.stroke();
@@ -406,10 +408,10 @@ public class OrdiniControl extends HttpServlet
 			    contentStream.beginText();
 			    contentStream.setFont(font, 11);
 			    contentStream.newLineAtOffset(x, y); 
-			    contentStream.showText("Totale: " + TotaleS); 
+			    contentStream.showText("Totale: " + totaleS); 
 			    contentStream.endText();
 			    
-			    String IVA = String.format("%.2f", (Totale * 0.22f));
+			    String iva = String.format("%.2f", (totale * 0.22f));
 			    Locale.setDefault(Locale.ITALY);
 			    
 			    contentStream.addRect(448.7f, 39.5f, 93, 17);
@@ -420,7 +422,7 @@ public class OrdiniControl extends HttpServlet
 			    contentStream.beginText();
 			    contentStream.setFont(font, 11);
 			    contentStream.newLineAtOffset(x, y); 
-			    contentStream.showText("Di cui IVA: " + IVA); 
+			    contentStream.showText("Di cui IVA: " + iva); 
 			    contentStream.endText();
 			    
 			    

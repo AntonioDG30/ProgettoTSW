@@ -10,18 +10,24 @@ import java.util.logging.Logger;
 
 public class DBConnectionPool 
 {
+	
+	private DBConnectionPool() 
+	{
+	    throw new IllegalStateException("Utility class");
+	}
+	
 	static Logger logger = Logger.getLogger(DBConnectionPool.class.getName());
 	private static List<Connection> freeDbConnections;
 	static 
     {
-		freeDbConnections = new LinkedList<Connection>();
+		freeDbConnections = new LinkedList<>();
 		try 
         {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 		} 
         catch (ClassNotFoundException e) 
         {
-        	logger.log(Level.WARNING, "DB driver non trovato! Errore: " + e.getMessage());
+        	logger.log(Level.WARNING, e.getMessage());
 		} 
         
 	}
@@ -59,7 +65,7 @@ public class DBConnectionPool
 
 		if (!freeDbConnections.isEmpty()) 
         {
-			connection = (Connection) freeDbConnections.get(0);
+			connection = freeDbConnections.get(0);
 			freeDbConnections.remove(0);
 			try 
             {
@@ -81,7 +87,7 @@ public class DBConnectionPool
 		return connection;
 	}
 
-	public static synchronized void releaseConnection(Connection connection) throws SQLException
+	public static synchronized void releaseConnection(Connection connection)
     {
 		if(connection != null)
 		{

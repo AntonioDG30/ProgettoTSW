@@ -26,8 +26,8 @@ public class OrdineModel
 	
 	private static final String PIATTAFORMA_PS5 = "PlayStation 5";
 	private static final String PIATTAFORMA_PS4 = "PlayStation 4";
-	private static final String PIATTAFORMA_XboxSerieX = "XBOX Series X";
-	private static final String PIATTAFORMA_XboxSerieS = "XBOX Series S";
+	private static final String PIATTAFORMA_XBOX_SERIE_X = "XBOX Series X";
+	private static final String PIATTAFORMA_XBOX_SERIE_S = "XBOX Series S";
 	private static final String PIATTAFORMA_PC = "PC";
 	
 	
@@ -42,13 +42,13 @@ public class OrdineModel
 		Connection con = null;
 		PreparedStatement ps = null;
 		
-		Collection<OrdineBean> Ordini = new LinkedList<OrdineBean>();
+		Collection<OrdineBean> ordini = new LinkedList<OrdineBean>();
 		
-		String SQL = "SELECT * FROM " + OrdineModel.TABLE_NAME_ORDINE;
+		String sql = "SELECT * FROM " + OrdineModel.TABLE_NAME_ORDINE;
 		try
 		{
 			con = DBConnectionPool.getConnection();
-			ps = con.prepareStatement(SQL);
+			ps = con.prepareStatement(sql);
 
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) 
@@ -61,7 +61,7 @@ public class OrdineModel
 				bean.setPrezzoTotale(rs.getFloat("PrezzoTotale"));
 				bean.setStatoOrdine(rs.getString("StatoOrdine"));
 				bean.setEmail(rs.getString("Email"));
-				Ordini.add(bean);
+				ordini.add(bean);
 			}
 			
 		}
@@ -80,7 +80,7 @@ public class OrdineModel
 				DBConnectionPool.releaseConnection(con);
 			}
 		}
-		return Ordini;
+		return ordini;
 	}
 	
 	
@@ -89,13 +89,13 @@ public class OrdineModel
 		Connection con = null;
 		PreparedStatement ps = null;
 		
-		Collection<OrdineBean> Ordini = new LinkedList<OrdineBean>();
+		Collection<OrdineBean> ordini = new LinkedList<OrdineBean>();
 		
-		String SQL = "SELECT * FROM " + OrdineModel.TABLE_NAME_ORDINE + " WHERE Email = ?";
+		String sql = "SELECT * FROM " + OrdineModel.TABLE_NAME_ORDINE + " WHERE Email = ?";
 		try
 		{
 			con = DBConnectionPool.getConnection();
-			ps = con.prepareStatement(SQL);
+			ps = con.prepareStatement(sql);
 			ps.setString(1, Email);
 
 			ResultSet rs = ps.executeQuery();
@@ -109,7 +109,7 @@ public class OrdineModel
 				bean.setPrezzoTotale(rs.getFloat("PrezzoTotale"));
 				bean.setStatoOrdine(rs.getString("StatoOrdine"));
 				bean.setEmail(rs.getString("Email"));
-				Ordini.add(bean);
+				ordini.add(bean);
 			}
 			
 		}
@@ -128,7 +128,7 @@ public class OrdineModel
 				DBConnectionPool.releaseConnection(con);
 			}
 		}
-		return Ordini;
+		return ordini;
 	}
 	
 	
@@ -137,13 +137,13 @@ public class OrdineModel
 		Connection con = null;
 		PreparedStatement ps = null;
 		
-		Collection<OrdineBean> Ordini = new LinkedList<OrdineBean>();
+		Collection<OrdineBean> ordini = new LinkedList<OrdineBean>();
 		
-		String SQL = "SELECT * FROM " + OrdineModel.TABLE_NAME_ORDINE + " WHERE (DataAcquisto BETWEEN ? AND ?)";
+		String sql = "SELECT * FROM " + OrdineModel.TABLE_NAME_ORDINE + " WHERE (DataAcquisto BETWEEN ? AND ?)";
 		try
 		{
 			con = DBConnectionPool.getConnection();
-			ps = con.prepareStatement(SQL);
+			ps = con.prepareStatement(sql);
 			ps.setString(1, DataInizio);
 			ps.setString(2, DataFine);
 
@@ -158,7 +158,7 @@ public class OrdineModel
 				bean.setPrezzoTotale(rs.getFloat("PrezzoTotale"));
 				bean.setStatoOrdine(rs.getString("StatoOrdine"));
 				bean.setEmail(rs.getString("Email"));
-				Ordini.add(bean);
+				ordini.add(bean);
 			}
 			
 		}
@@ -177,13 +177,13 @@ public class OrdineModel
 				DBConnectionPool.releaseConnection(con);
 			}
 		}
-		return Ordini;
+		return ordini;
 	}
 	
 	
 	
 	
-	public synchronized Collection<ProductBean> dettagliOrdine(int CodOrdine) throws SQLException
+	public synchronized Collection<ProductBean> dettagliOrdine(int codOrdine) throws SQLException
 	{
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -192,15 +192,15 @@ public class OrdineModel
 		
 		Collection<ProductBean> products = new LinkedList<ProductBean>();
 		
-		String SQL = "SELECT * FROM " + OrdineModel.TABLE_NAME_PRODOTTI_INCLUSI_ORDINE+ " WHERE CodOrdine = ?";		
-		String SQL2 = "SELECT * FROM " + OrdineModel.TABLE_NAME_PRODOTTO + " WHERE CodSeriale = ?";
-		String SQL3 = "SELECT * FROM " + OrdineModel.TABLE_NAME_CARATTERISTICHE + " WHERE CodSeriale = ?";
+		String sql = "SELECT * FROM " + OrdineModel.TABLE_NAME_PRODOTTI_INCLUSI_ORDINE+ " WHERE CodOrdine = ?";		
+		String sql2 = "SELECT * FROM " + OrdineModel.TABLE_NAME_PRODOTTO + " WHERE CodSeriale = ?";
+		String sql3 = "SELECT * FROM " + OrdineModel.TABLE_NAME_CARATTERISTICHE + " WHERE CodSeriale = ?";
 		
 		try
 		{
 			con = DBConnectionPool.getConnection();
-			ps = con.prepareStatement(SQL);
-			ps.setInt(1, CodOrdine);
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, codOrdine);
 
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) 
@@ -210,7 +210,7 @@ public class OrdineModel
 				bean.setCodSeriale(rs.getString("CodSeriale"));
 				try
 				{
-					ps2 = con.prepareStatement(SQL2);
+					ps2 = con.prepareStatement(sql2);
 					ps2.setString(1, rs.getString("CodSeriale"));
 					ResultSet rs2 = ps2.executeQuery();
 					while(rs2.next()) 
@@ -224,7 +224,7 @@ public class OrdineModel
 						{
 							try
 							{
-								ps3 = con.prepareStatement(SQL3);
+								ps3 = con.prepareStatement(sql3);
 								ps3.setString(1, rs.getString("CodSeriale"));
 								ResultSet rs3 = ps3.executeQuery();
 								while(rs3.next()) 
@@ -292,18 +292,18 @@ public class OrdineModel
 		
 		
 		int result1 = 0, result2 = 0, result3 = 0, result4 = 0;
-		int CodOrdine = 0;
-		int PuntiFedelta =0;
+		int codOrdine = 0;
+		int puntiFedelta =0;
 
-		String SQL = "INSERT INTO " + OrdineModel.TABLE_NAME_ORDINE + " (Sconto, DataAcquisto, PrezzoTotale, StatoOrdine, Email) VALUES (?, ?, ?, 'In Lavorazione', ?)";
-		String SQL2 = "SELECT LAST_INSERT_ID() AS CodOrdine";
-		String SQL3 = "INSERT INTO " + OrdineModel.TABLE_NAME_PRODOTTI_INCLUSI_ORDINE + " (Quantita, CodSeriale, CodOrdine) VALUES (?, ?, ?)";
-		String SQL4 = "SELECT PuntiFedelta FROM " + OrdineModel.TABLE_NAME_UTENTE + " WHERE Email = ?";
-		String SQL5 = "UPDATE " + OrdineModel.TABLE_NAME_UTENTE + " SET PuntiFedelta = ? WHERE Email = ?";
+		String sql = "INSERT INTO " + OrdineModel.TABLE_NAME_ORDINE + " (Sconto, DataAcquisto, PrezzoTotale, StatoOrdine, Email) VALUES (?, ?, ?, 'In Lavorazione', ?)";
+		String sql2 = "SELECT LAST_INSERT_ID() AS CodOrdine";
+		String sql3 = "INSERT INTO " + OrdineModel.TABLE_NAME_PRODOTTI_INCLUSI_ORDINE + " (Quantita, CodSeriale, CodOrdine) VALUES (?, ?, ?)";
+		String sql4 = "SELECT PuntiFedelta FROM " + OrdineModel.TABLE_NAME_UTENTE + " WHERE Email = ?";
+		String sql5 = "UPDATE " + OrdineModel.TABLE_NAME_UTENTE + " SET PuntiFedelta = ? WHERE Email = ?";
 		try 
 		{
 			con = DBConnectionPool.getConnection();
-			ps1 = con.prepareStatement(SQL);
+			ps1 = con.prepareStatement(sql);
 			ps1.setFloat(1, -(PuntiFedeltàUsati/100));
 			ps1.setString(2, LocalDate.now().toString());
 			ps1.setFloat(3, (PrezzoTotale - (PuntiFedeltàUsati/100)));
@@ -313,10 +313,10 @@ public class OrdineModel
 	   		
 	   		try
 	   		{
-	   			ps2 = con.prepareStatement(SQL2);
+	   			ps2 = con.prepareStatement(sql2);
 		   		ResultSet rs2 = ps2.executeQuery();
 				rs2.next();
-				CodOrdine = rs2.getInt("CodOrdine");
+				codOrdine = rs2.getInt("CodOrdine");
 	   		}
 	   		catch(SQLException e)
 			{
@@ -331,15 +331,15 @@ public class OrdineModel
 			}
 			
 			
-			List<ProductBean> ProdottoCarrello = Carrello.getListaCarrello(); 	
-		   	for(ProductBean Prod: ProdottoCarrello) 
+			List<ProductBean> prodottoCarrello = Carrello.getListaCarrello(); 	
+		   	for(ProductBean prod: prodottoCarrello) 
 		   	{
 		   		try
 		   		{
-		   			ps2 = con.prepareStatement(SQL3);
-			   		ps2.setInt(1, Prod.getQuantita());
-			   		ps2.setString(2, Prod.getCodSeriale());
-			   		ps2.setInt(3, CodOrdine);
+		   			ps2 = con.prepareStatement(sql3);
+			   		ps2.setInt(1, prod.getQuantita());
+			   		ps2.setString(2, prod.getCodSeriale());
+			   		ps2.setInt(3, codOrdine);
 			   		result2 = ps2.executeUpdate();
 		   		}
 		   		catch(SQLException e)
@@ -354,56 +354,56 @@ public class OrdineModel
 					}
 				}
 
-		   		String Piattaforma="";
-		   		String Formato="";
+		   		String piattaforma="";
+		   		String formato="";
 
-		   		if (Prod.getPiattaforma().contentEquals("Ps5 Digitale"))
+		   		if (prod.getPiattaforma().contentEquals("Ps5 Digitale"))
 		   		{
-		   			Piattaforma = OrdineModel.PIATTAFORMA_PS5;
-		   			Formato = OrdineModel.FORMATO_DIGITALE;
+		   			piattaforma = OrdineModel.PIATTAFORMA_PS5;
+		   			formato = OrdineModel.FORMATO_DIGITALE;
 		   		}
-		   		if (Prod.getPiattaforma().contentEquals("Ps5 Fisico"))
+		   		if (prod.getPiattaforma().contentEquals("Ps5 Fisico"))
 		   		{
-		   			Piattaforma = OrdineModel.PIATTAFORMA_PS5;
-		   			Formato = OrdineModel.FORMATO_FISICO;
+		   			piattaforma = OrdineModel.PIATTAFORMA_PS5;
+		   			formato = OrdineModel.FORMATO_FISICO;
 		   		}
-		   		if (Prod.getPiattaforma().contentEquals("Ps4 Digitale"))
+		   		if (prod.getPiattaforma().contentEquals("Ps4 Digitale"))
 		   		{
-		   			Piattaforma = OrdineModel.PIATTAFORMA_PS4;
-		   			Formato = OrdineModel.FORMATO_DIGITALE;
+		   			piattaforma = OrdineModel.PIATTAFORMA_PS4;
+		   			formato = OrdineModel.FORMATO_DIGITALE;
 		   		}
-		   		if (Prod.getPiattaforma().contentEquals("Ps4 Fisico"))
+		   		if (prod.getPiattaforma().contentEquals("Ps4 Fisico"))
 		   		{
-		   			Piattaforma = OrdineModel.PIATTAFORMA_PS4;
-		   			Formato = OrdineModel.FORMATO_FISICO;
+		   			piattaforma = OrdineModel.PIATTAFORMA_PS4;
+		   			formato = OrdineModel.FORMATO_FISICO;
 		   		}
-		   		if (Prod.getPiattaforma().contentEquals("XboxX Digitale"))
+		   		if (prod.getPiattaforma().contentEquals("XboxX Digitale"))
 		   		{
-		   			Piattaforma = OrdineModel.PIATTAFORMA_XboxSerieX ;
-		   			Formato = OrdineModel.FORMATO_DIGITALE;
+		   			piattaforma = OrdineModel.PIATTAFORMA_XBOX_SERIE_X ;
+		   			formato = OrdineModel.FORMATO_DIGITALE;
 		   		}
-		   		if (Prod.getPiattaforma().contentEquals("XboxX Fisico"))
+		   		if (prod.getPiattaforma().contentEquals("XboxX Fisico"))
 		   		{
-		   			Piattaforma = OrdineModel.PIATTAFORMA_XboxSerieX;
-		   			Formato = OrdineModel.FORMATO_FISICO;
+		   			piattaforma = OrdineModel.PIATTAFORMA_XBOX_SERIE_X;
+		   			formato = OrdineModel.FORMATO_FISICO;
 		   		}
-		   		if (Prod.getPiattaforma().contentEquals("XboxS Digitale"))
+		   		if (prod.getPiattaforma().contentEquals("XboxS Digitale"))
 		   		{
-		   			Piattaforma = OrdineModel.PIATTAFORMA_XboxSerieS ;
-		   			Formato = OrdineModel.FORMATO_DIGITALE;
+		   			piattaforma = OrdineModel.PIATTAFORMA_XBOX_SERIE_S ;
+		   			formato = OrdineModel.FORMATO_DIGITALE;
 		   		}
-		   		if (Prod.getPiattaforma().contentEquals("Pc Digitale"))
+		   		if (prod.getPiattaforma().contentEquals("Pc Digitale"))
 		   		{
-		   			Piattaforma = OrdineModel.PIATTAFORMA_PC ;
-		   			Formato = OrdineModel.FORMATO_DIGITALE;
+		   			piattaforma = OrdineModel.PIATTAFORMA_PC ;
+		   			formato = OrdineModel.FORMATO_DIGITALE;
 		   		}
-		   		if (Prod.getPiattaforma().contentEquals("Pc Fisico"))
+		   		if (prod.getPiattaforma().contentEquals("Pc Fisico"))
 		   		{
-		   			Piattaforma = OrdineModel.PIATTAFORMA_PC;
-		   			Formato = OrdineModel.FORMATO_FISICO;
+		   			piattaforma = OrdineModel.PIATTAFORMA_PC;
+		   			formato = OrdineModel.FORMATO_FISICO;
 		   		}
 		   		
-		   		if(modDisponibilita(Prod.getCodSeriale(), Prod.getQuantita(), Piattaforma, Formato))
+		   		if(modDisponibilita(prod.getCodSeriale(), prod.getQuantita(), piattaforma, formato))
 		   		{
 		   			result3 = 1;
 		   		}
@@ -412,11 +412,11 @@ public class OrdineModel
 		   	
 			try
 			{
-				ps2 = con.prepareStatement(SQL4);
+				ps2 = con.prepareStatement(sql4);
 			   	ps2.setString(1, Email);
 			   	ResultSet rs2 = ps2.executeQuery();
 				rs2.next();
-				PuntiFedelta = rs2.getInt("PuntiFedelta");
+				puntiFedelta = rs2.getInt("PuntiFedelta");
 			}
 			catch(SQLException e)
 			{
@@ -434,9 +434,9 @@ public class OrdineModel
 			
 			try
 			{
-				PuntiFedelta = (int) (PuntiFedelta + (PrezzoTotale - PuntiFedeltàUsati));
-			   	ps2 = con.prepareStatement(SQL5);
-		   		ps2.setInt(1, PuntiFedelta);
+				puntiFedelta = (int) (puntiFedelta + (PrezzoTotale - PuntiFedeltàUsati));
+			   	ps2 = con.prepareStatement(sql5);
+		   		ps2.setInt(1, puntiFedelta);
 		   		ps2.setString(2, Email);
 		   		result4 = ps2.executeUpdate();
 			}
@@ -475,7 +475,7 @@ public class OrdineModel
 		
         if (result1 != 0 && result2 != 0 && result3 != 0 && result4 != 0)
         {
-        	return CodOrdine;
+        	return codOrdine;
         }
         else
         {
@@ -485,23 +485,23 @@ public class OrdineModel
 	}
 	
 	
-	public synchronized boolean modDisponibilita(String CodSerialeMod, int quantita, String Piattaforma, String Formato) throws SQLException 
+	public synchronized boolean modDisponibilita(String CodSerialeMod, int quantita, String piattaforma, String formato) throws SQLException 
 	{
 		Connection con = null;
 		PreparedStatement ps = null;
 
 		int result = 0;
 
-		String SQL = "UPDATE " + OrdineModel.TABLE_NAME_DISPONIBILITA + " SET QuantitaDisponibile = QuantitaDisponibile - ? " + " WHERE CodSeriale = ? AND NomePiattaforma = ? AND TipoFormato = ?";
+		String sql = "UPDATE " + OrdineModel.TABLE_NAME_DISPONIBILITA + " SET QuantitaDisponibile = QuantitaDisponibile - ? " + " WHERE CodSeriale = ? AND NomePiattaforma = ? AND TipoFormato = ?";
 
 		try 
 		{
 			con = DBConnectionPool.getConnection();
-			ps = con.prepareStatement(SQL);
+			ps = con.prepareStatement(sql);
 			ps.setInt(1, quantita);
 			ps.setString(2, CodSerialeMod);
-			ps.setString(3, Piattaforma);
-			ps.setString(4, Formato);
+			ps.setString(3, piattaforma);
+			ps.setString(4, formato);
 			result = ps.executeUpdate();
 			con.commit();
 		} 
@@ -523,17 +523,17 @@ public class OrdineModel
 		return (result != 0);
 	}
 	
-	public synchronized void updateComprende(int CodOrdine,  int CodIndirizzo, String NumeroCarta) throws SQLException
+	public synchronized void updateComprende(int codOrdine,  int CodIndirizzo, String NumeroCarta) throws SQLException
 	{
 		Connection con = null;
 		PreparedStatement ps = null;		
 
-		String SQL = "INSERT INTO " + OrdineModel.TABLE_NAME_METODI_INDIRIZZI_ORDINE + " (CodOrdine, CodIndirizzo, NumeroCarta) VALUES (?, ?, ?)";
+		String sql = "INSERT INTO " + OrdineModel.TABLE_NAME_METODI_INDIRIZZI_ORDINE + " (CodOrdine, CodIndirizzo, NumeroCarta) VALUES (?, ?, ?)";
 		try 
 		{
 			con = DBConnectionPool.getConnection();
-			ps = con.prepareStatement(SQL);
-			ps.setInt(1, CodOrdine);
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, codOrdine);
 			ps.setInt(2, CodIndirizzo);
 			ps.setString(3, NumeroCarta);
 			ps.executeUpdate();
@@ -560,21 +560,21 @@ public class OrdineModel
 	
 	
 	
-	public synchronized void updateFattura(int CodOrdine) throws SQLException
+	public synchronized void updateFattura(int codOrdine) throws SQLException
 	{
 		Connection con = null;
 		PreparedStatement ps = null;
 		
-		String Path = "Fattura" + CodOrdine + ".pdf";
+		String path = "Fattura" + codOrdine + ".pdf";
 		
 
-		String SQL = "UPDATE " + OrdineModel.TABLE_NAME_ORDINE + " SET Fattura = ? WHERE CodOrdine = ?";
+		String sql = "UPDATE " + OrdineModel.TABLE_NAME_ORDINE + " SET Fattura = ? WHERE CodOrdine = ?";
 		try 
 		{
 			con = DBConnectionPool.getConnection();
-			ps = con.prepareStatement(SQL);
-			ps.setString(1, Path);
-			ps.setInt(2, CodOrdine);
+			ps = con.prepareStatement(sql);
+			ps.setString(1, path);
+			ps.setInt(2, codOrdine);
 			ps.executeUpdate();
 		   	con.commit();
 			
@@ -600,22 +600,22 @@ public class OrdineModel
 	
 	
 	
-	public synchronized String ricercaFattura(int CodOrdine) throws SQLException
+	public synchronized String ricercaFattura(int codOrdine) throws SQLException
 	{
 		Connection con = null;
 		PreparedStatement ps = null;
 		
-		String PDF = "";
+		String pdf = "";
 		
-		String SQL = "SELECT Fattura FROM " + OrdineModel.TABLE_NAME_ORDINE + " WHERE CodOrdine = ?";
+		String sql = "SELECT Fattura FROM " + OrdineModel.TABLE_NAME_ORDINE + " WHERE CodOrdine = ?";
 		try
 		{
 			con = DBConnectionPool.getConnection();
-			ps = con.prepareStatement(SQL);
-			ps.setInt(1, CodOrdine);
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, codOrdine);
 			ResultSet rs = ps.executeQuery();
 			rs.next();
-			PDF = rs.getString("Fattura");
+			pdf = rs.getString("Fattura");
 			
 		}
 		catch(SQLException e)
@@ -633,24 +633,24 @@ public class OrdineModel
 				DBConnectionPool.releaseConnection(con);
 			}
 		}
-		return PDF;
+		return pdf;
 	}
 	
 	
 	
-	public synchronized OrdineBean ordineByCodOrdine(int CodOrdine) throws SQLException
+	public synchronized OrdineBean ordineByCodOrdine(int codOrdine) throws SQLException
 	{
 		Connection con = null;
 		PreparedStatement ps = null;
 		
 		OrdineBean bean = new OrdineBean();
 		
-		String SQL = "SELECT * FROM " + OrdineModel.TABLE_NAME_ORDINE + " WHERE CodOrdine = ?";
+		String sql = "SELECT * FROM " + OrdineModel.TABLE_NAME_ORDINE + " WHERE CodOrdine = ?";
 		try
 		{
 			con = DBConnectionPool.getConnection();
-			ps = con.prepareStatement(SQL);
-			ps.setInt(1, CodOrdine);
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, codOrdine);
 
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) 
@@ -692,11 +692,11 @@ public class OrdineModel
 		
 		int result = 0;
 
-		String SQL = "INSERT INTO " + OrdineModel.TABLE_NAME_RECENSIONE + " (Descrizione, Valutazione, CodSeriale, Email) VALUES (?, ?, ?, ?)";
+		String sql = "INSERT INTO " + OrdineModel.TABLE_NAME_RECENSIONE + " (Descrizione, Valutazione, CodSeriale, Email) VALUES (?, ?, ?, ?)";
 		try 
 		{
 			con = DBConnectionPool.getConnection();
-			ps = con.prepareStatement(SQL);
+			ps = con.prepareStatement(sql);
 			ps.setString(1, Descrizione);
 			ps.setInt(2, Valutazione);
 			ps.setString(3, CodProdotto);
