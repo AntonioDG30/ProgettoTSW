@@ -9,8 +9,32 @@ import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
 public class UserModel 
 {
+	private static DataSource ds;
+
+	static 
+	{
+		try 
+		{
+			Context initCtx = new InitialContext();
+			Context envCtx = (Context) initCtx.lookup("java:comp/env");
+
+			ds = (DataSource) envCtx.lookup("jdbc/GameCenter");
+
+		} 
+		catch (NamingException e) 
+		{
+			System.out.println("Error:" + e.getMessage());
+		}
+	}
+	
+	
 	private static final String TABLE_NAME_UTENTE = "Utente";
 	private static final String TABLE_NAME_DATI = "DatiSensibileUtente";
 	private static final String TABLE_NAME_INDIRIZZI = "IndirizziSpedizione";
@@ -29,7 +53,7 @@ public class UserModel
 
 		try 
 		{
-			con = DBConnectionPool.getConnection();
+			con = ds.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setString(1, email);
 			ps.setString(2, password);
@@ -57,7 +81,7 @@ public class UserModel
 			}
 			if(con != null)
 			{
-				DBConnectionPool.releaseConnection(con);
+				con.close();
 			}
 		}
 		
@@ -85,7 +109,7 @@ public class UserModel
 
 		try 
 		{
-			con = DBConnectionPool.getConnection();
+			con = ds.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setString(1, email);
 
@@ -109,7 +133,7 @@ public class UserModel
 			}
 			if(con != null)
 			{
-				DBConnectionPool.releaseConnection(con);
+				con.close();
 			}
 		}
 		return trovato;			
@@ -127,7 +151,7 @@ public class UserModel
 
 		try 
 		{
-			con = DBConnectionPool.getConnection();
+			con = ds.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setString(1, email);
 			ps.setString(2, password);
@@ -149,7 +173,7 @@ public class UserModel
 			}
 			if(con != null)
 			{
-				DBConnectionPool.releaseConnection(con);
+				con.close();
 			}
 		}
 		
@@ -169,7 +193,7 @@ public class UserModel
 
 		try 
 		{
-			con = DBConnectionPool.getConnection();
+			con = ds.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setString(1, codiceFiscale);
 			ps.setString(2, nome);
@@ -199,7 +223,7 @@ public class UserModel
 			}
 			if(con != null)
 			{
-				DBConnectionPool.releaseConnection(con);
+				con.close();
 			}
 		}
 		
@@ -220,7 +244,7 @@ public class UserModel
 
 		try 
 		{
-			con = DBConnectionPool.getConnection();
+			con = ds.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setString(1, email);
 		   	ResultSet rs = ps.executeQuery();
@@ -241,7 +265,7 @@ public class UserModel
 			}
 			if(con != null)
 			{
-				DBConnectionPool.releaseConnection(con);
+				con.close();
 			}
 		}
 		
@@ -262,7 +286,7 @@ public class UserModel
 		
 		try 
 		{
-			con = DBConnectionPool.getConnection();
+			con = ds.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setString(1, email);
 			ResultSet rs = ps.executeQuery();
@@ -296,7 +320,7 @@ public class UserModel
 			}
 			if(con != null)
 			{
-				DBConnectionPool.releaseConnection(con);
+				con.close();
 			}
 		}
 
@@ -317,7 +341,7 @@ public class UserModel
 		
 		try 
 		{
-			con = DBConnectionPool.getConnection();
+			con = ds.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setString(1, email);
 			ResultSet rs = ps.executeQuery();
@@ -345,7 +369,7 @@ public class UserModel
 			}
 			if(con != null)
 			{
-				DBConnectionPool.releaseConnection(con);
+				con.close();
 			}
 		}
 
@@ -364,7 +388,7 @@ public class UserModel
 
 		try 
 		{
-			con = DBConnectionPool.getConnection();
+			con = ds.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setString(1, email);
 
@@ -397,7 +421,7 @@ public class UserModel
 			}
 			if(con != null)
 			{
-				DBConnectionPool.releaseConnection(con);
+				con.close();
 			}
 		}
 		return bean;			
@@ -417,7 +441,7 @@ public class UserModel
 		
 		try 
 		{
-			con = DBConnectionPool.getConnection();
+			con = ds.getConnection();
 			ps = con.prepareStatement(sql);
 
 			ResultSet rs = ps.executeQuery();
@@ -476,7 +500,7 @@ public class UserModel
 			}
 			if(con != null)
 			{
-				DBConnectionPool.releaseConnection(con);
+				con.close();
 			}
 		}
 
@@ -499,7 +523,7 @@ public class UserModel
 		
 		try 
 		{
-			con = DBConnectionPool.getConnection();
+			con = ds.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setString(1, email);
 
@@ -554,7 +578,7 @@ public class UserModel
 			}
 			if(con != null)
 			{
-				DBConnectionPool.releaseConnection(con);
+				con.close();
 			}
 		}
 
@@ -574,7 +598,7 @@ public class UserModel
 
 		try 
 		{
-			con = DBConnectionPool.getConnection();
+			con = ds.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setString(1, nome);
 			ps.setString(2, cognome);
@@ -603,7 +627,7 @@ public class UserModel
 			}
 			if(con != null)
 			{
-				DBConnectionPool.releaseConnection(con);
+				con.close();
 			}
 		}
 		
@@ -624,7 +648,7 @@ public class UserModel
 
 		try 
 		{
-			con = DBConnectionPool.getConnection();
+			con = ds.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setString(1, numeroCarta);
 			ps.setString(2, intestatario);
@@ -645,7 +669,7 @@ public class UserModel
 			}
 			if(con != null)
 			{
-				DBConnectionPool.releaseConnection(con);
+				con.close();
 			}
 		}
 		
@@ -663,7 +687,7 @@ public class UserModel
 		
 		try 
 		{
-			con = DBConnectionPool.getConnection();
+			con = ds.getConnection();
 			
 			String updateQuery = "UPDATE " + UserModel.TABLE_NAME_DATI + " SET CodiceFiscale = ? " + " WHERE email = ?";
 
@@ -685,7 +709,7 @@ public class UserModel
 			}
 			if(con != null)
 			{
-				DBConnectionPool.releaseConnection(con);
+				con.close();
 			}
 		}
 		return (result != 0);
@@ -700,7 +724,7 @@ public class UserModel
 		
 		try 
 		{
-			con = DBConnectionPool.getConnection();
+			con = ds.getConnection();
 			
 			String updateQuery = "UPDATE " + UserModel.TABLE_NAME_DATI + " SET Nome = ? " + " WHERE email = ?";
 
@@ -722,7 +746,7 @@ public class UserModel
 			}
 			if(con != null)
 			{
-				DBConnectionPool.releaseConnection(con);
+				con.close();
 			}
 		}
 		return (result != 0);
@@ -736,7 +760,7 @@ public class UserModel
 		
 		try 
 		{
-			con = DBConnectionPool.getConnection();
+			con = ds.getConnection();
 			
 			String updateQuery = "UPDATE " + UserModel.TABLE_NAME_DATI + " SET Cognome = ? " + " WHERE email = ?";
 
@@ -758,7 +782,7 @@ public class UserModel
 			}
 			if(con != null)
 			{
-				DBConnectionPool.releaseConnection(con);
+				con.close();
 			}
 		}
 		return (result != 0);
@@ -772,7 +796,7 @@ public class UserModel
 		
 		try 
 		{
-			con = DBConnectionPool.getConnection();
+			con = ds.getConnection();
 			
 			String updateQuery = "UPDATE " + UserModel.TABLE_NAME_DATI + " SET CAP = ? " + " WHERE email = ?";
 
@@ -794,7 +818,7 @@ public class UserModel
 			}
 			if(con != null)
 			{
-				DBConnectionPool.releaseConnection(con);
+				con.close();
 			}
 		}
 		return (result != 0);
@@ -808,7 +832,7 @@ public class UserModel
 		
 		try 
 		{
-			con = DBConnectionPool.getConnection();
+			con = ds.getConnection();
 			
 			String updateQuery = "UPDATE " + UserModel.TABLE_NAME_DATI + " SET Citta = ? " + "WHERE email = ?";
 
@@ -830,7 +854,7 @@ public class UserModel
 			}
 			if(con != null)
 			{
-				DBConnectionPool.releaseConnection(con);
+				con.close();
 			}
 		}
 		return (result != 0);
@@ -844,7 +868,7 @@ public class UserModel
 		
 		try 
 		{
-			con = DBConnectionPool.getConnection();
+			con = ds.getConnection();
 			
 			String updateQuery = "UPDATE " + UserModel.TABLE_NAME_DATI + " SET Provincia = ? " + "WHERE email = ?";
 
@@ -866,7 +890,7 @@ public class UserModel
 			}
 			if(con != null)
 			{
-				DBConnectionPool.releaseConnection(con);
+				con.close();
 			}
 		}
 		return (result != 0);
@@ -880,7 +904,7 @@ public class UserModel
 		
 		try 
 		{
-			con = DBConnectionPool.getConnection();
+			con = ds.getConnection();
 			
 			String updateQuery = " UPDATE " + UserModel.TABLE_NAME_DATI + " SET Via = ? " + " WHERE email = ?";
 
@@ -902,7 +926,7 @@ public class UserModel
 			}
 			if(con != null)
 			{
-				DBConnectionPool.releaseConnection(con);
+				con.close();
 			}
 		}
 		return (result != 0);
@@ -916,7 +940,7 @@ public class UserModel
 		
 		try 
 		{
-			con = DBConnectionPool.getConnection();
+			con = ds.getConnection();
 			
 			String updateQuery = "UPDATE " + UserModel.TABLE_NAME_DATI + " SET Civico = ? " + " WHERE email = ?";
 
@@ -938,7 +962,7 @@ public class UserModel
 			}
 			if(con != null)
 			{
-				DBConnectionPool.releaseConnection(con);
+				con.close();
 			}
 		}
 		return (result != 0);
@@ -952,7 +976,7 @@ public class UserModel
 		
 		try 
 		{
-			con = DBConnectionPool.getConnection();
+			con = ds.getConnection();
 			
 			String updateQuery = "UPDATE " + UserModel.TABLE_NAME_DATI + " SET NumeroTelefono = ? " + " WHERE email = ?";
 
@@ -974,7 +998,7 @@ public class UserModel
 			}
 			if(con != null)
 			{
-				DBConnectionPool.releaseConnection(con);
+				con.close();
 			}
 		}
 		return (result != 0);

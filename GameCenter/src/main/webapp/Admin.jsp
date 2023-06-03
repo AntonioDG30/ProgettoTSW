@@ -248,7 +248,7 @@
 								if (!(product.getTipologia())) 
 								{
 							%>
-								<td><%=product.getPEGI()%></td>
+								<td><%=product.getPegi()%></td>
 								<td><%=product.getGenere()%></td>
 							<%
 								}
@@ -273,60 +273,60 @@
 						</tr>
 						<tr>
 							<td>PlayStation 5</td>
-							<td><%=product.getDisp_Ps5_Fisico()%></td>
+							<td><%=product.getDispPs5Fisico()%></td>
 							<%
 								if (!(product.getTipologia())) 
 								{
 							%>
-								<td><%=product.getDisp_Ps5_Digitale()%></td>
+								<td><%=product.getDispPs5Digitale()%></td>
 							<%
 								}
 							%>
 						</tr>
 						<tr>
 							<td>PlayStation 4</td>
-							<td><%=product.getDisp_Ps4_Fisico()%></td>
+							<td><%=product.getDispPs4Fisico()%></td>
 							<%
 								if (!(product.getTipologia())) 
 								{
 							%>
-								<td><%=product.getDisp_Ps4_Digitale()%></td>
+								<td><%=product.getDispPs4Digitale()%></td>
 							<%
 								}
 							%>
 						</tr>
 						<tr>
 							<td>Xbox Series X</td>
-							<td><%=product.getDisp_XboxX_Fisico()%></td>
+							<td><%=product.getDispXboxXFisico()%></td>
 							<%
 								if (!(product.getTipologia())) 
 								{
 							%>
-								<td><%=product.getDisp_XboxX_Digitale()%></td>
+								<td><%=product.getDispXboxXDigitale()%></td>
 							<%
 								}
 							%>
 						</tr>
 						<tr>
 							<td>Xbox Series S</td>
-							<td><%=product.getDisp_XboxS_Fisico()%></td>
+							<td><%=product.getDispXboxSFisico()%></td>
 							<%
 								if (!(product.getTipologia())) 
 								{
 							%>
-								<td><%=product.getDisp_XboxS_Digitale()%></td>
+								<td><%=product.getDispXboxSDigitale()%></td>
 							<%
 								}
 							%>
 						</tr>
 						<tr>
 							<td>PC</td>
-							<td><%=product.getDisp_Pc_Fisico()%></td>
+							<td><%=product.getDispPcFisico()%></td>
 							<%
 								if (!(product.getTipologia())) 
 								{
 							%>
-								<td><%=product.getDisp_Pc_Digitale()%></td>
+								<td><%=product.getDispPcDigitale()%></td>
 							<%
 								}
 							%>

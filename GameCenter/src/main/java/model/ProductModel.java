@@ -10,8 +10,36 @@ import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
+
+
+
 public class ProductModel 
 {
+	
+	private static DataSource ds;
+
+	static 
+	{
+		try 
+		{
+			Context initCtx = new InitialContext();
+			Context envCtx = (Context) initCtx.lookup("java:comp/env");
+
+			ds = (DataSource) envCtx.lookup("jdbc/GameCenter");
+
+		} 
+		catch (NamingException e) 
+		{
+			System.out.println("Error:" + e.getMessage());
+		}
+	}
+	
+	
 	private static final String TABLE_NAME_PRODOTTO = "Prodotto";
 	private static final String TABLE_NAME_CARATTERISTICHE = "Caratteristiche";
 	private static final String TABLE_NAME_DISPONIBILITA = "Disponibilita";
@@ -48,7 +76,7 @@ public class ProductModel
 		
 		try
 		{
-			con = DBConnectionPool.getConnection();
+			con = ds.getConnection();
 			ps = con.prepareStatement(sql);
 
 			ResultSet rs = ps.executeQuery();
@@ -76,7 +104,7 @@ public class ProductModel
 			}
 			if(con != null)
 			{
-				DBConnectionPool.releaseConnection(con);
+				con.close();
 			}
 		}
 		return products;
@@ -99,7 +127,7 @@ public class ProductModel
 
 		try 
 		{
-			con = DBConnectionPool.getConnection();
+			con = ds.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setString(1, codSeriale);
 
@@ -410,7 +438,7 @@ public class ProductModel
 			}
 			if(con != null)
 			{
-				DBConnectionPool.releaseConnection(con);
+				con.close();
 			}
 		}
 		
@@ -437,7 +465,7 @@ public class ProductModel
 
 		try 
 		{
-			con = DBConnectionPool.getConnection();
+			con = ds.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setString(1, codSeriale);
 			result = ps.executeUpdate();
@@ -455,7 +483,7 @@ public class ProductModel
 			}
 			if(con != null)
 			{
-				DBConnectionPool.releaseConnection(con);
+				con.close();
 			}
 		}
 		return (result != 0);
@@ -473,7 +501,7 @@ public class ProductModel
 		
 		try
 		{
-			con = DBConnectionPool.getConnection();
+			con = ds.getConnection();
 			ps = con.prepareStatement(sql);
 
 			ResultSet rs = ps.executeQuery();
@@ -497,7 +525,7 @@ public class ProductModel
 			}
 			if(con != null)
 			{
-				DBConnectionPool.releaseConnection(con);
+				con.close();
 			}
 		}
 		return Genere;
@@ -515,7 +543,7 @@ public class ProductModel
 		
 		try
 		{
-			con = DBConnectionPool.getConnection();
+			con = ds.getConnection();
 			ps = con.prepareStatement(sql);
 
 			ResultSet rs = ps.executeQuery();
@@ -539,7 +567,7 @@ public class ProductModel
 			}
 			if(con != null)
 			{
-				DBConnectionPool.releaseConnection(con);
+				con.close();
 			}
 		}
 		return PEGI;
@@ -562,7 +590,7 @@ public class ProductModel
 
 		try 
 		{
-			con = DBConnectionPool.getConnection();
+			con = ds.getConnection();
 			ps1 = con.prepareStatement(sql);
 			ps1.setString(1, product.getCodSeriale());
 			ps1.setString(2, product.getNome());
@@ -812,7 +840,7 @@ public class ProductModel
 			}
 			if(con != null)
 			{
-				DBConnectionPool.releaseConnection(con);
+				con.close();
 			}
 		}
 		
@@ -841,7 +869,7 @@ public class ProductModel
 
 		try 
 		{
-			con = DBConnectionPool.getConnection();
+			con = ds.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setString(1, nome);
 			ps.setString(2, codSerialeMod);
@@ -860,7 +888,7 @@ public class ProductModel
 			}
 			if(con != null)
 			{
-				DBConnectionPool.releaseConnection(con);
+				con.close();
 			}
 		}
 		return (result != 0);
@@ -878,7 +906,7 @@ public class ProductModel
 
 		try 
 		{
-			con = DBConnectionPool.getConnection();
+			con = ds.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setFloat(1, prezzo);
 			ps.setString(2, codSerialeMod);
@@ -897,7 +925,7 @@ public class ProductModel
 			}
 			if(con != null)
 			{
-				DBConnectionPool.releaseConnection(con);
+				con.close();
 			}
 		}
 		return (result != 0);
@@ -915,7 +943,7 @@ public class ProductModel
 
 		try 
 		{
-			con = DBConnectionPool.getConnection();
+			con = ds.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setString(1, dataUscita);
 			ps.setString(2, codSerialeMod);
@@ -934,7 +962,7 @@ public class ProductModel
 			}
 			if(con != null)
 			{
-				DBConnectionPool.releaseConnection(con);
+				con.close();
 			}
 		}
 		return (result != 0);
@@ -952,7 +980,7 @@ public class ProductModel
 
 		try 
 		{
-			con = DBConnectionPool.getConnection();
+			con = ds.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setString(1, descrizioneRidotta);
 			ps.setString(2, codSerialeMod);
@@ -971,7 +999,7 @@ public class ProductModel
 			}
 			if(con != null)
 			{
-				DBConnectionPool.releaseConnection(con);
+				con.close();
 			}
 		}
 		return (result != 0);
@@ -990,7 +1018,7 @@ public class ProductModel
 
 		try 
 		{
-			con = DBConnectionPool.getConnection();
+			con = ds.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setString(1, descrizioneCompleta);
 			ps.setString(2, codSerialeMod);
@@ -1009,7 +1037,7 @@ public class ProductModel
 			}
 			if(con != null)
 			{
-				DBConnectionPool.releaseConnection(con);
+				con.close();
 			}
 		}
 		return (result != 0);
@@ -1027,7 +1055,7 @@ public class ProductModel
 
 		try 
 		{
-			con = DBConnectionPool.getConnection();
+			con = ds.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setBoolean(1, tipologia);
 			ps.setString(2, codSerialeMod);
@@ -1046,7 +1074,7 @@ public class ProductModel
 			}
 			if(con != null)
 			{
-				DBConnectionPool.releaseConnection(con);
+				con.close();
 			}
 		}
 		return (result != 0);
@@ -1063,7 +1091,7 @@ public class ProductModel
 
 		try 
 		{
-			con = DBConnectionPool.getConnection();
+			con = ds.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setInt(1, pegi);
 			ps.setString(2, codSerialeMod);
@@ -1082,7 +1110,7 @@ public class ProductModel
 			}
 			if(con != null)
 			{
-				DBConnectionPool.releaseConnection(con);
+				con.close();
 			}
 		}
 		return (result != 0);
@@ -1099,7 +1127,7 @@ public class ProductModel
 
 		try 
 		{
-			con = DBConnectionPool.getConnection();
+			con = ds.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setString(1, genere);
 			ps.setString(2, codSerialeMod);
@@ -1118,7 +1146,7 @@ public class ProductModel
 			}
 			if(con != null)
 			{
-				DBConnectionPool.releaseConnection(con);
+				con.close();
 			}
 		}
 		return (result != 0);
@@ -1135,7 +1163,7 @@ public class ProductModel
 
 		try 
 		{
-			con = DBConnectionPool.getConnection();
+			con = ds.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setString(1, immagine);
 			ps.setString(2, codSerialeMod);
@@ -1154,7 +1182,7 @@ public class ProductModel
 			}
 			if(con != null)
 			{
-				DBConnectionPool.releaseConnection(con);
+				con.close();
 			}
 		}
 		return (result != 0);
@@ -1171,7 +1199,7 @@ public class ProductModel
 
 		try 
 		{
-			con = DBConnectionPool.getConnection();
+			con = ds.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setInt(1, disponibilita);
 			ps.setString(2, codSerialeMod);
@@ -1192,7 +1220,7 @@ public class ProductModel
 			}
 			if(con != null)
 			{
-				DBConnectionPool.releaseConnection(con);
+				con.close();
 			}
 		}
 		return (result != 0);
@@ -1210,7 +1238,7 @@ public class ProductModel
 
 		try 
 		{
-			con = DBConnectionPool.getConnection();
+			con = ds.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setString(1, codSeriale);
 			ps.setString(2, codSerialeMod);
@@ -1229,7 +1257,7 @@ public class ProductModel
 			}
 			if(con != null)
 			{
-				DBConnectionPool.releaseConnection(con);
+				con.close();
 			}
 		}
 		return (result != 0);

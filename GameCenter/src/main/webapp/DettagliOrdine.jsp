@@ -76,7 +76,7 @@
 						if (!(bean.getTipologia())) 
 						{
 					%>
-				<td><%=bean.getPEGI()%></td>
+				<td><%=bean.getPegi()%></td>
 				<td><%=bean.getGenere()%></td>
 					<%
 						}

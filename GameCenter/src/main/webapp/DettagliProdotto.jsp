@@ -55,7 +55,7 @@
 							if (!(product.getTipologia())) 
 							{
 						%>
-							<td><%=product.getPEGI()%></td>
+							<td><%=product.getPegi()%></td>
 							<td><%=product.getGenere()%></td>
 						<%
 							}
@@ -79,60 +79,60 @@
 					</tr>
 					<tr>
 						<td>PlayStation 5</td>
-						<td><%=product.getDisp_Ps5_Fisico()%></td>
+						<td><%=product.getDispPs5Fisico()%></td>
 						<%
 							if (!(product.getTipologia())) 
 							{
 						%>
-							<td><%=product.getDisp_Ps5_Digitale()%></td>
+							<td><%=product.getDispPs5Digitale()%></td>
 						<%
 							}
 						%>
 					</tr>
 					<tr>
 						<td>PlayStation 4</td>
-						<td><%=product.getDisp_Ps4_Fisico()%></td>
+						<td><%=product.getDispPs4Fisico()%></td>
 						<%
 							if (!(product.getTipologia())) 
 							{
 						%>
-							<td><%=product.getDisp_Ps4_Digitale()%></td>
+							<td><%=product.getDispPs4Digitale()%></td>
 						<%
 							}
 						%>
 					</tr>
 					<tr>
 						<td>Xbox Series X</td>
-						<td><%=product.getDisp_XboxX_Fisico()%></td>
+						<td><%=product.getDispXboxXFisico()%></td>
 						<%
 							if (!(product.getTipologia())) 
 							{
 						%>
-							<td><%=product.getDisp_XboxX_Digitale()%></td>
+							<td><%=product.getDispXboxXDigitale()%></td>
 						<%
 							}
 						%>
 					</tr>
 					<tr>
 						<td>Xbox Series S</td>
-						<td><%=product.getDisp_XboxS_Fisico()%></td>
+						<td><%=product.getDispXboxSFisico()%></td>
 						<%
 							if (!(product.getTipologia())) 
 							{
 						%>
-							<td><%=product.getDisp_XboxS_Digitale()%></td>
+							<td><%=product.getDispXboxSDigitale()%></td>
 						<%
 							}
 						%>
 					</tr>
 					<tr>
 						<td>PC</td>
-						<td><%=product.getDisp_Pc_Fisico()%></td>
+						<td><%=product.getDispPcFisico()%></td>
 						<%
 							if (!(product.getTipologia())) 
 							{
 						%>
-							<td><%=product.getDisp_Pc_Digitale()%></td>
+							<td><%=product.getDispPcDigitale()%></td>
 						<%
 							}
 						%>
@@ -143,7 +143,7 @@
 					Seleziona la piattaforma desiderata:<br>
 					<select name="Piattaforma" required>
 						<%
-							if (product.getDisp_Ps5_Fisico() > 0) 
+							if (product.getDispPs5Fisico() > 0) 
 							{
 						%>
 				   		<option value="Ps5 Fisico">PS5 Fisico</option>
@@ -151,7 +151,7 @@
 							}
 						%>
 						<%
-							if (product.getDisp_Ps4_Fisico() > 0) 
+							if (product.getDispPs4Fisico() > 0) 
 							{
 						%>
 				   		<option value="Ps4 Fisico">PS4 Fisico</option>
@@ -159,7 +159,7 @@
 							}
 						%>
 						<%
-							if (product.getDisp_XboxX_Fisico() > 0) 
+							if (product.getDispXboxXFisico() > 0) 
 							{
 						%>
 				   		<option value="XboxX Fisico">Xbox Series X Fisico</option>
@@ -167,7 +167,7 @@
 							}
 						%>
 						<%
-							if (product.getDisp_Pc_Fisico() > 0) 
+							if (product.getDispPcFisico() > 0) 
 							{
 						%>
 				   		<option value="Pc Fisico">Pc Fisico</option>
@@ -180,7 +180,7 @@
 							{
 						%>
 							<%
-								if (product.getDisp_Ps5_Digitale() > 0) 
+								if (product.getDispPs5Digitale() > 0) 
 								{
 							%>
 					   		<option value="Ps5 Digitale">Ps5 Digitale</option>
@@ -188,7 +188,7 @@
 								}
 							%>
 							<%
-								if (product.getDisp_Ps4_Digitale() > 0) 
+								if (product.getDispPs4Digitale() > 0) 
 								{
 							%>
 					   		<option value="Ps4 Digitale">Ps4 Digitale</option>
@@ -196,7 +196,7 @@
 								}
 							%>
 							<%
-								if (product.getDisp_XboxX_Digitale() > 0) 
+								if (product.getDispXboxXDigitale() > 0) 
 								{
 							%>
 					   		<option value="XboxX Digitale">Xbox Series X Digitale</option>
@@ -204,7 +204,7 @@
 								}
 							%>
 							<%
-								if (product.getDisp_XboxS_Digitale() > 0) 
+								if (product.getDispXboxSDigitale() > 0) 
 								{
 							%>
 					   		<option value="XboxS Digitale">Xbox Series S Digitale</option>
@@ -212,7 +212,7 @@
 								}
 							%>
 							<%
-								if (product.getDisp_Pc_Digitale() > 0) 
+								if (product.getDispPcDigitale() > 0) 
 								{
 							%>
 					   		<option value="Pc Digitale">PcDigitale</option>

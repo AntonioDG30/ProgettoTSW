@@ -13,8 +13,35 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
+
 public class OrdineModel 
 {
+	
+	private static DataSource ds;
+
+	static 
+	{
+		try 
+		{
+			Context initCtx = new InitialContext();
+			Context envCtx = (Context) initCtx.lookup("java:comp/env");
+
+			ds = (DataSource) envCtx.lookup("jdbc/GameCenter");
+
+		} 
+		catch (NamingException e) 
+		{
+			System.out.println("Error:" + e.getMessage());
+		}
+	}
+	
+	
+	
 	private static final String TABLE_NAME_ORDINE = "Ordine";
 	private static final String TABLE_NAME_PRODOTTI_INCLUSI_ORDINE = "Include";
 	private static final String TABLE_NAME_PRODOTTO = "Prodotto";
@@ -37,6 +64,7 @@ public class OrdineModel
 	Logger logger = Logger.getLogger(OrdineModel.class.getName());
 	
 	
+	
 	public synchronized Collection<OrdineBean> elencoOrdini() throws SQLException
 	{
 		Connection con = null;
@@ -47,7 +75,7 @@ public class OrdineModel
 		String sql = "SELECT * FROM " + OrdineModel.TABLE_NAME_ORDINE;
 		try
 		{
-			con = DBConnectionPool.getConnection();
+			con = ds.getConnection();
 			ps = con.prepareStatement(sql);
 
 			ResultSet rs = ps.executeQuery();
@@ -77,7 +105,7 @@ public class OrdineModel
 			}
 			if(con != null)
 			{
-				DBConnectionPool.releaseConnection(con);
+				con.close();
 			}
 		}
 		return ordini;
@@ -94,7 +122,7 @@ public class OrdineModel
 		String sql = "SELECT * FROM " + OrdineModel.TABLE_NAME_ORDINE + " WHERE Email = ?";
 		try
 		{
-			con = DBConnectionPool.getConnection();
+			con = ds.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setString(1, email);
 
@@ -125,7 +153,7 @@ public class OrdineModel
 			}
 			if(con != null)
 			{
-				DBConnectionPool.releaseConnection(con);
+				con.close();
 			}
 		}
 		return ordini;
@@ -142,7 +170,7 @@ public class OrdineModel
 		String sql = "SELECT * FROM " + OrdineModel.TABLE_NAME_ORDINE + " WHERE (DataAcquisto BETWEEN ? AND ?)";
 		try
 		{
-			con = DBConnectionPool.getConnection();
+			con = ds.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setString(1, dataInizio);
 			ps.setString(2, dataFine);
@@ -174,7 +202,7 @@ public class OrdineModel
 			}
 			if(con != null)
 			{
-				DBConnectionPool.releaseConnection(con);
+				con.close();
 			}
 		}
 		return ordini;
@@ -198,7 +226,7 @@ public class OrdineModel
 		
 		try
 		{
-			con = DBConnectionPool.getConnection();
+			con = ds.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setInt(1, codOrdine);
 
@@ -274,7 +302,7 @@ public class OrdineModel
 			}
 			if(con != null)
 			{
-				DBConnectionPool.releaseConnection(con);
+				con.close();
 			}
 		}
 		return products;
@@ -302,7 +330,7 @@ public class OrdineModel
 		String sql5 = "UPDATE " + OrdineModel.TABLE_NAME_UTENTE + " SET PuntiFedelta = ? WHERE Email = ?";
 		try 
 		{
-			con = DBConnectionPool.getConnection();
+			con = ds.getConnection();
 			ps1 = con.prepareStatement(sql);
 			ps1.setFloat(1, -(puntiFedeltàUsati/100));
 			ps1.setString(2, LocalDate.now().toString());
@@ -469,7 +497,7 @@ public class OrdineModel
 			}
 			if(con != null)
 			{
-				DBConnectionPool.releaseConnection(con);
+				con.close();
 			}
 		}
 		
@@ -496,7 +524,7 @@ public class OrdineModel
 
 		try 
 		{
-			con = DBConnectionPool.getConnection();
+			con = ds.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setInt(1, quantita);
 			ps.setString(2, codSerialeMod);
@@ -517,7 +545,7 @@ public class OrdineModel
 			}
 			if(con != null)
 			{
-				DBConnectionPool.releaseConnection(con);
+				con.close();
 			}
 		}
 		return (result != 0);
@@ -531,7 +559,7 @@ public class OrdineModel
 		String sql = "INSERT INTO " + OrdineModel.TABLE_NAME_METODI_INDIRIZZI_ORDINE + " (CodOrdine, CodIndirizzo, NumeroCarta) VALUES (?, ?, ?)";
 		try 
 		{
-			con = DBConnectionPool.getConnection();
+			con = ds.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setInt(1, codOrdine);
 			ps.setInt(2, codIndirizzo);
@@ -552,7 +580,7 @@ public class OrdineModel
 			}
 			if(con != null)
 			{
-				DBConnectionPool.releaseConnection(con);
+				con.close();
 			}
 		}
 		
@@ -571,7 +599,7 @@ public class OrdineModel
 		String sql = "UPDATE " + OrdineModel.TABLE_NAME_ORDINE + " SET Fattura = ? WHERE CodOrdine = ?";
 		try 
 		{
-			con = DBConnectionPool.getConnection();
+			con = ds.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setString(1, path);
 			ps.setInt(2, codOrdine);
@@ -591,7 +619,7 @@ public class OrdineModel
 			}
 			if(con != null)
 			{
-				DBConnectionPool.releaseConnection(con);
+				con.close();
 			}
 		}
 		
@@ -610,7 +638,7 @@ public class OrdineModel
 		String sql = "SELECT Fattura FROM " + OrdineModel.TABLE_NAME_ORDINE + " WHERE CodOrdine = ?";
 		try
 		{
-			con = DBConnectionPool.getConnection();
+			con = ds.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setInt(1, codOrdine);
 			ResultSet rs = ps.executeQuery();
@@ -630,7 +658,7 @@ public class OrdineModel
 			}
 			if(con != null)
 			{
-				DBConnectionPool.releaseConnection(con);
+				con.close();
 			}
 		}
 		return pdf;
@@ -648,7 +676,7 @@ public class OrdineModel
 		String sql = "SELECT * FROM " + OrdineModel.TABLE_NAME_ORDINE + " WHERE CodOrdine = ?";
 		try
 		{
-			con = DBConnectionPool.getConnection();
+			con = ds.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setInt(1, codOrdine);
 
@@ -678,7 +706,7 @@ public class OrdineModel
 			}
 			if(con != null)
 			{
-				DBConnectionPool.releaseConnection(con);
+				con.close();
 			}
 		}
 		return bean;
@@ -695,7 +723,7 @@ public class OrdineModel
 		String sql = "INSERT INTO " + OrdineModel.TABLE_NAME_RECENSIONE + " (Descrizione, Valutazione, CodSeriale, Email) VALUES (?, ?, ?, ?)";
 		try 
 		{
-			con = DBConnectionPool.getConnection();
+			con = ds.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setString(1, descrizione);
 			ps.setInt(2, valutazione);
@@ -717,7 +745,7 @@ public class OrdineModel
 			}
 			if(con != null)
 			{
-				DBConnectionPool.releaseConnection(con);
+				con.close();
 			}
 		}
 		
