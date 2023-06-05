@@ -16,7 +16,7 @@
 
 <%
 	synchronized(session) 
-	{
+	{ 
 		session = request.getSession();
 	    Email=(String)session.getAttribute("Email");
 	    Tipo=(Boolean)session.getAttribute("Tipo");
