@@ -53,7 +53,14 @@ public class UserModel
 
 		try 
 		{
-			con = ds.getConnection();
+			try
+			{
+				con = ds.getConnection();
+			}
+			catch(SQLException e)
+			{
+				logger.log(Level.WARNING, e.getMessage());
+			}
 			ps = con.prepareStatement(sql);
 			ps.setString(1, email);
 			ps.setString(2, password);
@@ -75,8 +82,9 @@ public class UserModel
 		}
 		finally
 		{
-			ps.close();
-			con.close();
+
+				ps.close();
+				con.close();
 		}
 		
 
