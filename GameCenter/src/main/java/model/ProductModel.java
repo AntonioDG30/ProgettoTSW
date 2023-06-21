@@ -595,13 +595,13 @@ public class ProductModel
 			ps1.setString(1, product.getCodSeriale());
 			ps1.setString(2, product.getNome());
 			ps1.setFloat(3, product.getPrezzo());
-			ps1.setString(4, product.getDataUscita());
+			ps1.setString(4, product.getDataUscita()); 
 			ps1.setString(5, product.getDescrizioneRidotta());
 			ps1.setString(6, product.getDescrizioneCompleta());
 			ps1.setString(7, product.getImmagine());
 			ps1.setBoolean(8, product.getTipologia());
 			result1 = ps1.executeUpdate();
-			con.commit();
+			
 			
 			
 			if(!(product.getTipologia()))
@@ -826,7 +826,7 @@ public class ProductModel
 				}
 			}
 			
-			con.commit();
+
 		} 
 		catch(SQLException e)
 		{
@@ -874,7 +874,6 @@ public class ProductModel
 			ps.setString(1, nome);
 			ps.setString(2, codSerialeMod);
 			result = ps.executeUpdate();
-			con.commit();
 		} 
 		catch(SQLException e)
 		{
@@ -910,8 +909,7 @@ public class ProductModel
 			ps = con.prepareStatement(sql);
 			ps.setFloat(1, prezzo);
 			ps.setString(2, codSerialeMod);
-			result = ps.executeUpdate();
-			con.commit();
+			result = ps.executeUpdate();	
 		} 
 		catch(SQLException e)
 		{
@@ -948,7 +946,6 @@ public class ProductModel
 			ps.setString(1, dataUscita);
 			ps.setString(2, codSerialeMod);
 			result = ps.executeUpdate();
-			con.commit();
 		} 
 		catch(SQLException e)
 		{
@@ -985,7 +982,6 @@ public class ProductModel
 			ps.setString(1, descrizioneRidotta);
 			ps.setString(2, codSerialeMod);
 			result = ps.executeUpdate();
-			con.commit();
 		} 
 		catch(SQLException e)
 		{
@@ -1023,7 +1019,6 @@ public class ProductModel
 			ps.setString(1, descrizioneCompleta);
 			ps.setString(2, codSerialeMod);
 			result = ps.executeUpdate();
-			con.commit();
 		} 
 		catch(SQLException e)
 		{
@@ -1060,7 +1055,6 @@ public class ProductModel
 			ps.setBoolean(1, tipologia);
 			ps.setString(2, codSerialeMod);
 			result = ps.executeUpdate();
-			con.commit();
 		} 
 		catch(SQLException e)
 		{
@@ -1096,7 +1090,6 @@ public class ProductModel
 			ps.setInt(1, pegi);
 			ps.setString(2, codSerialeMod);
 			result = ps.executeUpdate();
-			con.commit();
 		} 
 		catch(SQLException e)
 		{
@@ -1132,7 +1125,6 @@ public class ProductModel
 			ps.setString(1, genere);
 			ps.setString(2, codSerialeMod);
 			result = ps.executeUpdate();
-			con.commit();
 		} 
 		catch(SQLException e)
 		{
@@ -1168,7 +1160,6 @@ public class ProductModel
 			ps.setString(1, immagine);
 			ps.setString(2, codSerialeMod);
 			result = ps.executeUpdate();
-			con.commit();
 		} 
 		catch(SQLException e)
 		{
@@ -1206,7 +1197,7 @@ public class ProductModel
 			ps.setString(3, piattaforma);
 			ps.setString(4, formato);
 			result = ps.executeUpdate();
-			con.commit();
+			
 		} 
 		catch(SQLException e)
 		{
@@ -1242,8 +1233,7 @@ public class ProductModel
 			ps = con.prepareStatement(sql);
 			ps.setString(1, codSeriale);
 			ps.setString(2, codSerialeMod);
-			result = ps.executeUpdate();
-			con.commit();
+			result = ps.executeUpdate();			
 		} 
 		catch(SQLException e)
 		{

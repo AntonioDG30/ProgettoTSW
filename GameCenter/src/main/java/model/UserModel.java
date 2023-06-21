@@ -157,7 +157,7 @@ public class UserModel
 			ps.setString(2, password);
 
 			rs = ps.executeUpdate();
-			con.commit();
+			
 
 
 		} 
@@ -207,7 +207,7 @@ public class UserModel
 			ps.setString(10, email);
 
 			rs = ps.executeUpdate();
-			con.commit();
+			
 
 
 		} 
@@ -611,7 +611,7 @@ public class UserModel
 			ps.setString(9, email);
 
 			rs = ps.executeUpdate();
-			con.commit();
+			
 
 
 		} 
@@ -655,7 +655,7 @@ public class UserModel
 			ps.setString(3, dataScadenza);
 			ps.setString(4, email);
 			rs = ps.executeUpdate();
-			con.commit();
+			
 		} 
 		catch(SQLException e)
 		{
@@ -695,7 +695,7 @@ public class UserModel
             pstmt.setString(1, codiceFiscale);
             pstmt.setString(2, email);
             result = pstmt.executeUpdate();
-            con.commit();               
+                           
         } 
 		catch (SQLException e) 
 		{
@@ -732,7 +732,7 @@ public class UserModel
             pstmt.setString(1, nome);
             pstmt.setString(2, email);
             result = pstmt.executeUpdate();
-            con.commit();   
+               
         } 
 		catch (SQLException e) 
 		{
@@ -768,7 +768,7 @@ public class UserModel
             pstmt.setString(1, cognome);
             pstmt.setString(2, email);
             result = pstmt.executeUpdate();
-            con.commit();     
+                 
         } 
 		catch (SQLException e) 
 		{
@@ -804,7 +804,7 @@ public class UserModel
             pstmt.setInt(1, cap);
             pstmt.setString(2, email);
             result = pstmt.executeUpdate();
-            con.commit();        
+                    
         } 
 		catch (SQLException e) 
 		{
@@ -840,7 +840,7 @@ public class UserModel
             pstmt.setString(1, citta);
             pstmt.setString(2, email);
             result = pstmt.executeUpdate();
-            con.commit();        
+                    
         } 
 		catch (SQLException e) 
 		{
@@ -876,7 +876,7 @@ public class UserModel
             pstmt.setString(1, provincia);
             pstmt.setString(2, email);
             result = pstmt.executeUpdate();
-            con.commit();      
+                  
         } 
 		catch (SQLException e) 
 		{
@@ -912,7 +912,7 @@ public class UserModel
             pstmt.setString(1, via);
             pstmt.setString(2, email);
             result = pstmt.executeUpdate();
-            con.commit();        
+                    
         } 
 		catch (SQLException e) 
 		{
@@ -948,7 +948,7 @@ public class UserModel
             pstmt.setInt(1, civico);
             pstmt.setString(2, email);  
             result = pstmt.executeUpdate();
-            con.commit(); 
+             
         } 
 		catch (SQLException e) 
 		{
@@ -984,7 +984,7 @@ public class UserModel
             pstmt.setString(1, telefono);
             pstmt.setString(2, email);
             result = pstmt.executeUpdate();
-            con.commit();        
+                    
         } 
 		catch (SQLException e) 
 		{

@@ -482,7 +482,7 @@ public class OrdineModel
 			
 
 	   		
-		   	con.commit();
+		   	
 			
 		} 
 		catch(SQLException e)
@@ -531,7 +531,7 @@ public class OrdineModel
 			ps.setString(3, piattaforma);
 			ps.setString(4, formato);
 			result = ps.executeUpdate();
-			con.commit();
+			
 		} 
 		catch(SQLException e)
 		{
@@ -565,7 +565,7 @@ public class OrdineModel
 			ps.setInt(2, codIndirizzo);
 			ps.setString(3, numeroCarta);
 			ps.executeUpdate();
-		   	con.commit();
+		   	
 			
 		} 
 		catch(SQLException e)
@@ -604,7 +604,7 @@ public class OrdineModel
 			ps.setString(1, path);
 			ps.setInt(2, codOrdine);
 			ps.executeUpdate();
-		   	con.commit();
+		   	
 			
 		} 
 		catch(SQLException e)
@@ -730,7 +730,7 @@ public class OrdineModel
 			ps.setString(3, codProdotto);
 			ps.setString(4, email);
 			result = ps.executeUpdate();
-		   	con.commit();
+		   	
 			
 		} 
 		catch(SQLException e)
