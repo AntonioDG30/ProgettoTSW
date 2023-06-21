@@ -73,20 +73,10 @@ public class UserModel
 		{
 			logger.log(Level.WARNING, e.getMessage());
 		}
-		catch (Exception e) 
-		{
-			logger.log(Level.WARNING, e.getMessage());
-		}
 		finally
 		{
-			if(ps != null)
-			{
-				ps.close();
-			}
-			if(con != null)
-			{
-				con.close();
-			}
+			ps.close();
+			con.close();
 		}
 		
 
