@@ -69,15 +69,12 @@ public class OrdineModel
 	{
 		Connection con = null;
 		PreparedStatement ps = null;
-		
 		Collection<OrdineBean> ordini = new LinkedList<OrdineBean>();
-		
 		String sql = "SELECT * FROM " + OrdineModel.TABLE_NAME_ORDINE;
 		try
 		{
 			con = ds.getConnection();
 			ps = con.prepareStatement(sql);
-
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) 
 			{
@@ -91,7 +88,6 @@ public class OrdineModel
 				bean.setEmail(rs.getString("Email"));
 				ordini.add(bean);
 			}
-			
 		}
 		catch(SQLException e)
 		{
@@ -116,16 +112,13 @@ public class OrdineModel
 	{
 		Connection con = null;
 		PreparedStatement ps = null;
-		
 		Collection<OrdineBean> ordini = new LinkedList<OrdineBean>();
-		
 		String sql = "SELECT * FROM " + OrdineModel.TABLE_NAME_ORDINE + " WHERE Email = ?";
 		try
 		{
 			con = ds.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setString(1, email);
-
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) 
 			{
@@ -139,7 +132,6 @@ public class OrdineModel
 				bean.setEmail(rs.getString("Email"));
 				ordini.add(bean);
 			}
-			
 		}
 		catch(SQLException e)
 		{
@@ -164,9 +156,7 @@ public class OrdineModel
 	{
 		Connection con = null;
 		PreparedStatement ps = null;
-		
 		Collection<OrdineBean> ordini = new LinkedList<OrdineBean>();
-		
 		String sql = "SELECT * FROM " + OrdineModel.TABLE_NAME_ORDINE + " WHERE (DataAcquisto BETWEEN ? AND ?)";
 		try
 		{
@@ -174,7 +164,6 @@ public class OrdineModel
 			ps = con.prepareStatement(sql);
 			ps.setString(1, dataInizio);
 			ps.setString(2, dataFine);
-
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) 
 			{
@@ -188,7 +177,6 @@ public class OrdineModel
 				bean.setEmail(rs.getString("Email"));
 				ordini.add(bean);
 			}
-			
 		}
 		catch(SQLException e)
 		{
@@ -215,80 +203,22 @@ public class OrdineModel
 	{
 		Connection con = null;
 		PreparedStatement ps = null;
-		PreparedStatement ps2 = null;
-		PreparedStatement ps3 = null;
-		
 		Collection<ProductBean> products = new LinkedList<ProductBean>();
-		
 		String sql = "SELECT * FROM " + OrdineModel.TABLE_NAME_PRODOTTI_INCLUSI_ORDINE+ " WHERE CodOrdine = ?";		
-		String sql2 = "SELECT * FROM " + OrdineModel.TABLE_NAME_PRODOTTO + " WHERE CodSeriale = ?";
-		String sql3 = "SELECT * FROM " + OrdineModel.TABLE_NAME_CARATTERISTICHE + " WHERE CodSeriale = ?";
-		
 		try
 		{
 			con = ds.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setInt(1, codOrdine);
-
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) 
 			{
 				ProductBean bean = new ProductBean();
 				bean.setQuantita(rs.getInt("Quantita"));
 				bean.setCodSeriale(rs.getString("CodSeriale"));
-				try
-				{
-					ps2 = con.prepareStatement(sql2);
-					ps2.setString(1, rs.getString("CodSeriale"));
-					ResultSet rs2 = ps2.executeQuery();
-					while(rs2.next()) 
-					{
-						bean.setNome(rs2.getString("Nome"));
-						bean.setPrezzo(rs2.getFloat("Prezzo"));
-						bean.setDescrizioneCompleta(rs2.getString("DescrizioneCompleta"));
-						bean.setImmagine(rs2.getString("Immagine"));
-						bean.setTipologia(rs2.getBoolean("FlagTipologia"));
-						if(!(bean.getTipologia()))
-						{
-							try
-							{
-								ps3 = con.prepareStatement(sql3);
-								ps3.setString(1, rs.getString("CodSeriale"));
-								ResultSet rs3 = ps3.executeQuery();
-								while(rs3.next()) 
-								{
-									bean.setPegi(rs3.getInt("CodPEGI"));
-									bean.setGenere(rs3.getString("NomeGenere"));
-								}
-							}
-							catch(SQLException e)
-							{
-								logger.log(Level.WARNING, e.getMessage());
-							}
-							finally
-							{
-								if(ps3 != null)
-								{
-									ps3.close();
-								}
-							}
-						}
-					}
-				}
-				catch(SQLException e)
-				{
-					logger.log(Level.WARNING, e.getMessage());
-				}
-				finally
-				{
-					if(ps2 != null)
-					{
-						ps2.close();
-					}
-				}
+				bean = dettagliOrdineProdotto(bean);
 				products.add(bean);
 			}
-			
 		}
 		catch(SQLException e)
 		{
@@ -309,6 +239,84 @@ public class OrdineModel
 	}
 	
 	
+	public synchronized ProductBean dettagliOrdineProdotto(ProductBean bean) throws SQLException
+	{
+		Connection con = null;
+		PreparedStatement ps = null;
+		String sql = "SELECT * FROM " + OrdineModel.TABLE_NAME_PRODOTTO + " WHERE CodSeriale = ?";
+		try
+		{
+			con = ds.getConnection();
+			ps = con.prepareStatement(sql);
+			ps.setString(1, bean.getCodSeriale());
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) 
+			{
+				bean.setNome(rs.getString("Nome"));
+				bean.setPrezzo(rs.getFloat("Prezzo"));
+				bean.setDescrizioneCompleta(rs.getString("DescrizioneCompleta"));
+				bean.setImmagine(rs.getString("Immagine"));
+				bean.setTipologia(rs.getBoolean("FlagTipologia"));
+				if(!(bean.getTipologia()))
+				{
+					bean = dettagliOrdineInclude(bean);
+				}
+			}
+		}
+		catch(SQLException e)
+		{
+			logger.log(Level.WARNING, e.getMessage());
+		}
+		finally
+		{
+			if(ps != null)
+			{
+				ps.close();
+			}
+			if(con != null)
+			{
+				con.close();
+			}
+		}
+		
+		return bean;
+	}
+	
+	
+	public synchronized ProductBean dettagliOrdineInclude(ProductBean bean) throws SQLException
+	{
+		Connection con = null;
+		PreparedStatement ps = null;
+		try
+		{
+			String sql = "SELECT * FROM " + OrdineModel.TABLE_NAME_CARATTERISTICHE + " WHERE CodSeriale = ?";
+			con = ds.getConnection();
+			ps = con.prepareStatement(sql);
+			ps.setString(1, bean.getCodSeriale());
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) 
+			{
+				bean.setPegi(rs.getInt("CodPEGI"));
+				bean.setGenere(rs.getString("NomeGenere"));
+			}
+		}
+		catch(SQLException e)
+		{
+			logger.log(Level.WARNING, e.getMessage());
+		}
+		finally
+		{
+			if(ps != null)
+			{
+				ps.close();
+			}
+			if(con != null)
+			{
+				con.close();
+			}
+		}
+		return bean;
+	}
 	
 	
 	
