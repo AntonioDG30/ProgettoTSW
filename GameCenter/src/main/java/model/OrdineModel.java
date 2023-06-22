@@ -323,175 +323,87 @@ public class OrdineModel
 	public synchronized int acquisto(CarrelloBean carrello, float prezzoTotale, float puntiFedeltàUsati, String email) throws SQLException
 	{
 		Connection con = null;
-		PreparedStatement ps1 = null;
-		PreparedStatement ps2 = null;
-		
-		
-		int result1 = 0, result2 = 0, result3 = 0, result4 = 0;
-		int codOrdine = 0;
-		int puntiFedelta =0;
+		PreparedStatement ps = null;
 
+		int result1 = 0, result2 = 0, result3 = 0, result4 = 0;
+		int puntiFedelta =0;
+		int codOrdine = 0;
+		String piattaforma="";
+   		String formato="";
 		String sql = "INSERT INTO " + OrdineModel.TABLE_NAME_ORDINE + " (Sconto, DataAcquisto, PrezzoTotale, StatoOrdine, Email) VALUES (?, ?, ?, 'In Lavorazione', ?)";
-		String sql2 = "SELECT LAST_INSERT_ID() AS CodOrdine";
-		String sql3 = "INSERT INTO " + OrdineModel.TABLE_NAME_PRODOTTI_INCLUSI_ORDINE + " (Quantita, CodSeriale, CodOrdine) VALUES (?, ?, ?)";
-		String sql4 = "SELECT PuntiFedelta FROM " + OrdineModel.TABLE_NAME_UTENTE + " WHERE Email = ?";
-		String sql5 = "UPDATE " + OrdineModel.TABLE_NAME_UTENTE + " SET PuntiFedelta = ? WHERE Email = ?";
+
 		try 
 		{
 			con = ds.getConnection();
-			ps1 = con.prepareStatement(sql);
-			ps1.setFloat(1, -(puntiFedeltàUsati/100));
-			ps1.setString(2, LocalDate.now().toString());
-			ps1.setFloat(3, (prezzoTotale - (puntiFedeltàUsati/100)));
-			ps1.setString(4, email);
-			result1 = ps1.executeUpdate();
-	   		
-	   		
-	   		try
-	   		{
-	   			ps2 = con.prepareStatement(sql2);
-		   		ResultSet rs2 = ps2.executeQuery();
-				rs2.next();
-				codOrdine = rs2.getInt("CodOrdine");
-	   		}
-	   		catch(SQLException e)
-			{
-				logger.log(Level.WARNING, e.getMessage());
-			}
-			finally
-			{
-				if(ps2 != null)
-				{
-					ps2.close();
-				}
-			}
-			
+			ps = con.prepareStatement(sql);
+			ps.setFloat(1, -(puntiFedeltàUsati/100));
+			ps.setString(2, LocalDate.now().toString());
+			ps.setFloat(3, (prezzoTotale - (puntiFedeltàUsati/100)));
+			ps.setString(4, email);
+			result1 = ps.executeUpdate();
+			codOrdine = ottieniUltimoCodOrdine();	
+			System.out.println(codOrdine);
 			
 			List<ProductBean> prodottoCarrello = carrello.getListaCarrello(); 	
 		   	for(ProductBean prod: prodottoCarrello) 
 		   	{
-		   		try
-		   		{
-		   			ps2 = con.prepareStatement(sql3);
-			   		ps2.setInt(1, prod.getQuantita());
-			   		ps2.setString(2, prod.getCodSeriale());
-			   		ps2.setInt(3, codOrdine);
-			   		result2 = ps2.executeUpdate();
-		   		}
-		   		catch(SQLException e)
-				{
-					logger.log(Level.WARNING, e.getMessage());
-				}
-				finally
-				{
-					if(ps2 != null)
-					{
-						ps2.close();
-					}
-				}
-
-		   		String piattaforma="";
-		   		String formato="";
-
-		   		if (prod.getPiattaforma().contentEquals("Ps5 Digitale"))
-		   		{
-		   			piattaforma = OrdineModel.PIATTAFORMA_PS5;
-		   			formato = OrdineModel.FORMATO_DIGITALE;
-		   		}
-		   		if (prod.getPiattaforma().contentEquals("Ps5 Fisico"))
-		   		{
-		   			piattaforma = OrdineModel.PIATTAFORMA_PS5;
-		   			formato = OrdineModel.FORMATO_FISICO;
-		   		}
-		   		if (prod.getPiattaforma().contentEquals("Ps4 Digitale"))
-		   		{
-		   			piattaforma = OrdineModel.PIATTAFORMA_PS4;
-		   			formato = OrdineModel.FORMATO_DIGITALE;
-		   		}
-		   		if (prod.getPiattaforma().contentEquals("Ps4 Fisico"))
-		   		{
-		   			piattaforma = OrdineModel.PIATTAFORMA_PS4;
-		   			formato = OrdineModel.FORMATO_FISICO;
-		   		}
-		   		if (prod.getPiattaforma().contentEquals("XboxX Digitale"))
-		   		{
-		   			piattaforma = OrdineModel.PIATTAFORMA_XBOX_SERIE_X ;
-		   			formato = OrdineModel.FORMATO_DIGITALE;
-		   		}
-		   		if (prod.getPiattaforma().contentEquals("XboxX Fisico"))
-		   		{
-		   			piattaforma = OrdineModel.PIATTAFORMA_XBOX_SERIE_X;
-		   			formato = OrdineModel.FORMATO_FISICO;
-		   		}
-		   		if (prod.getPiattaforma().contentEquals("XboxS Digitale"))
-		   		{
-		   			piattaforma = OrdineModel.PIATTAFORMA_XBOX_SERIE_S ;
-		   			formato = OrdineModel.FORMATO_DIGITALE;
-		   		}
-		   		if (prod.getPiattaforma().contentEquals("Pc Digitale"))
-		   		{
-		   			piattaforma = OrdineModel.PIATTAFORMA_PC ;
-		   			formato = OrdineModel.FORMATO_DIGITALE;
-		   		}
-		   		if (prod.getPiattaforma().contentEquals("Pc Fisico"))
-		   		{
-		   			piattaforma = OrdineModel.PIATTAFORMA_PC;
-		   			formato = OrdineModel.FORMATO_FISICO;
-		   		}
+		   			result2 = acquistaInInclude(prod, codOrdine);
+			   		if (prod.getPiattaforma().contentEquals("Ps5 Digitale"))
+			   		{
+			   			piattaforma = OrdineModel.PIATTAFORMA_PS5;
+			   			formato = OrdineModel.FORMATO_DIGITALE;
+			   		}
+			   		if (prod.getPiattaforma().contentEquals("Ps5 Fisico"))
+			   		{
+			   			piattaforma = OrdineModel.PIATTAFORMA_PS5;
+			   			formato = OrdineModel.FORMATO_FISICO;
+			   		}
+			   		if (prod.getPiattaforma().contentEquals("Ps4 Digitale"))
+			   		{
+			   			piattaforma = OrdineModel.PIATTAFORMA_PS4;
+			   			formato = OrdineModel.FORMATO_DIGITALE;
+			   		}
+			   		if (prod.getPiattaforma().contentEquals("Ps4 Fisico"))
+			   		{
+			   			piattaforma = OrdineModel.PIATTAFORMA_PS4;
+			   			formato = OrdineModel.FORMATO_FISICO;
+			   		}
+			   		if (prod.getPiattaforma().contentEquals("XboxX Digitale"))
+			   		{
+			   			piattaforma = OrdineModel.PIATTAFORMA_XBOX_SERIE_X ;
+			   			formato = OrdineModel.FORMATO_DIGITALE;
+			   		}
+			   		if (prod.getPiattaforma().contentEquals("XboxX Fisico"))
+			   		{
+			   			piattaforma = OrdineModel.PIATTAFORMA_XBOX_SERIE_X;
+			   			formato = OrdineModel.FORMATO_FISICO;
+			   		}
+			   		if (prod.getPiattaforma().contentEquals("XboxS Digitale"))
+			   		{
+			   			piattaforma = OrdineModel.PIATTAFORMA_XBOX_SERIE_S ;
+			   			formato = OrdineModel.FORMATO_DIGITALE;
+			   		}
+			   		if (prod.getPiattaforma().contentEquals("Pc Digitale"))
+			   		{
+			   			piattaforma = OrdineModel.PIATTAFORMA_PC ;
+			   			formato = OrdineModel.FORMATO_DIGITALE;
+			   		}
+			   		if (prod.getPiattaforma().contentEquals("Pc Fisico"))
+			   		{
+			   			piattaforma = OrdineModel.PIATTAFORMA_PC;
+			   			formato = OrdineModel.FORMATO_FISICO;
+			   		}
 		   		
-		   		if(modDisponibilita(prod.getCodSeriale(), prod.getQuantita(), piattaforma, formato))
-		   		{
-		   			result3 = 1;
-		   		}
+			   		if(modDisponibilita(prod.getCodSeriale(), prod.getQuantita(), piattaforma, formato))
+			   		{
+			   			result3 = 1;
+			   		}
 		   	}
-			
 		   	
-			try
-			{
-				ps2 = con.prepareStatement(sql4);
-			   	ps2.setString(1, email);
-			   	ResultSet rs2 = ps2.executeQuery();
-				rs2.next();
-				puntiFedelta = rs2.getInt("PuntiFedelta");
-			}
-			catch(SQLException e)
-			{
-				logger.log(Level.WARNING, e.getMessage());
-			}
-			finally
-			{
-				if(ps2 != null)
-				{
-					ps2.close();
-				}
-			}
-		   	
-			
-			
-			try
-			{
-				puntiFedelta = (int) (puntiFedelta + (prezzoTotale - puntiFedeltàUsati));
-			   	ps2 = con.prepareStatement(sql5);
-		   		ps2.setInt(1, puntiFedelta);
-		   		ps2.setString(2, email);
-		   		result4 = ps2.executeUpdate();
-			}
-			catch(SQLException e)
-			{
-				logger.log(Level.WARNING, e.getMessage());
-			}
-			finally
-			{
-				if(ps2 != null)
-				{
-					ps2.close();
-				}
-			}
-			
+		   	puntiFedelta = ottieniPuntiFedelta(email);
+		   	puntiFedelta = (int) (puntiFedelta + (prezzoTotale - puntiFedeltàUsati));
+		   	result4 = modPuntiFedelta(puntiFedelta, email);
 
-	   		
-		   	
-			
 		} 
 		catch(SQLException e)
 		{
@@ -499,9 +411,9 @@ public class OrdineModel
 		}
 		finally
 		{
-			if(ps1 != null)
+			if(ps != null)
 			{
-				ps1.close();
+				ps.close();
 			}
 			if(con != null)
 			{
@@ -519,6 +431,143 @@ public class OrdineModel
         }
 		
 	}
+
+
+	
+	public synchronized int ottieniUltimoCodOrdine() throws SQLException
+	{
+		Connection con = null;
+		PreparedStatement ps = null;
+		int codOrdine = 5;
+		String sql = "SELECT MAX(codOrdine) as codOrdine FROM ordine";
+		try
+		{
+			con = ds.getConnection();
+			ps = con.prepareStatement(sql);
+	   		ResultSet rs = ps.executeQuery();
+			rs.next();
+			codOrdine = rs.getInt("CodOrdine");
+		}
+		catch(SQLException e)
+		{
+			logger.log(Level.WARNING, e.getMessage());
+		}
+		finally
+		{
+			if(ps != null)
+			{
+				ps.close();
+			}
+			if(con != null)
+			{
+				con.close();
+			}
+		}
+		return codOrdine;
+	}
+	
+	
+	public synchronized int acquistaInInclude(ProductBean prod, int codOrdine) throws SQLException
+	{
+		Connection con = null;
+		PreparedStatement ps = null;
+		int result = 0;
+		String sql = "INSERT INTO " + OrdineModel.TABLE_NAME_PRODOTTI_INCLUSI_ORDINE + " (Quantita, CodSeriale, CodOrdine) VALUES (?, ?, ?)";
+		try
+		{
+			con = ds.getConnection();
+			ps = con.prepareStatement(sql);
+	   		ps.setInt(1, prod.getQuantita());
+	   		ps.setString(2, prod.getCodSeriale());
+	   		ps.setInt(3, codOrdine);
+	   		result = ps.executeUpdate();
+		}
+		catch(SQLException e)
+		{
+			logger.log(Level.WARNING, e.getMessage());
+		}
+		finally
+		{
+			if(ps != null)
+			{
+				ps.close();
+			}
+			if(con != null)
+			{
+				con.close();
+			}
+		}
+		return result;
+	}
+	
+	
+	
+	public synchronized int ottieniPuntiFedelta(String email) throws SQLException
+	{
+		Connection con = null;
+		PreparedStatement ps = null;
+		int puntiFedelta = 0;
+		String sql = "SELECT PuntiFedelta FROM " + OrdineModel.TABLE_NAME_UTENTE + " WHERE Email = ?";
+		try
+		{
+			con = ds.getConnection();
+			ps = con.prepareStatement(sql);
+		   	ps.setString(1, email);
+		   	ResultSet rs = ps.executeQuery();
+			rs.next();
+			puntiFedelta = rs.getInt("PuntiFedelta");
+		}
+		catch(SQLException e)
+		{
+			logger.log(Level.WARNING, e.getMessage());
+		}
+		finally
+		{
+			if(ps != null)
+			{
+				ps.close();
+			}
+			if(con != null)
+			{
+				con.close();
+			}
+		}
+		return puntiFedelta;
+	}
+	
+	
+	public synchronized int modPuntiFedelta(int puntiFedelta, String email) throws SQLException
+	{
+		Connection con = null;
+		PreparedStatement ps = null;
+		int result = 0;
+		String sql = "UPDATE " + OrdineModel.TABLE_NAME_UTENTE + " SET PuntiFedelta = ? WHERE Email = ?";
+		try
+		{
+			con = ds.getConnection();
+			ps = con.prepareStatement(sql);
+	   		ps.setInt(1, puntiFedelta);
+	   		ps.setString(2, email);
+	   		result = ps.executeUpdate();
+		}
+		catch(SQLException e)
+		{
+			logger.log(Level.WARNING, e.getMessage());
+		}
+		finally
+		{
+			if(ps != null)
+			{
+				ps.close();
+			}
+			if(con != null)
+			{
+				con.close();
+			}
+		}
+		return result;
+	}
+	
 	
 	
 	public synchronized boolean modDisponibilita(String codSerialeMod, int quantita, String piattaforma, String formato) throws SQLException 
@@ -539,7 +588,6 @@ public class OrdineModel
 			ps.setString(3, piattaforma);
 			ps.setString(4, formato);
 			result = ps.executeUpdate();
-			
 		} 
 		catch(SQLException e)
 		{
@@ -573,8 +621,6 @@ public class OrdineModel
 			ps.setInt(2, codIndirizzo);
 			ps.setString(3, numeroCarta);
 			ps.executeUpdate();
-		   	
-			
 		} 
 		catch(SQLException e)
 		{
@@ -612,8 +658,6 @@ public class OrdineModel
 			ps.setString(1, path);
 			ps.setInt(2, codOrdine);
 			ps.executeUpdate();
-		   	
-			
 		} 
 		catch(SQLException e)
 		{
@@ -651,8 +695,7 @@ public class OrdineModel
 			ps.setInt(1, codOrdine);
 			ResultSet rs = ps.executeQuery();
 			rs.next();
-			pdf = rs.getString("Fattura");
-			
+			pdf = rs.getString("Fattura");		
 		}
 		catch(SQLException e)
 		{
@@ -674,6 +717,10 @@ public class OrdineModel
 	
 	
 	
+	
+	
+	
+	
 	public synchronized OrdineBean ordineByCodOrdine(int codOrdine) throws SQLException
 	{
 		Connection con = null;
@@ -691,7 +738,6 @@ public class OrdineModel
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) 
 			{
-				
 				bean.setCodOrdine(rs.getInt("CodOrdine"));
 				bean.setSconto(rs.getInt("Sconto"));
 				bean.setDataAcquisto(rs.getString("DataAcquisto"));
@@ -737,9 +783,7 @@ public class OrdineModel
 			ps.setInt(2, valutazione);
 			ps.setString(3, codProdotto);
 			ps.setString(4, email);
-			result = ps.executeUpdate();
-		   	
-			
+			result = ps.executeUpdate();	
 		} 
 		catch(SQLException e)
 		{

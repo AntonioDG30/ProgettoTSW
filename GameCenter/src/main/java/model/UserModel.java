@@ -46,20 +46,15 @@ public class UserModel
 	{
 		Connection con = null;
 		PreparedStatement ps = null;
-
 		UserBean bean = new UserBean();
-
 		String sql = "SELECT * FROM " + UserModel.TABLE_NAME_UTENTE + " WHERE Email = ? AND PasswordUtente = ?";
-
 		try 
 		{
 			con = ds.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setString(1, email);
 			ps.setString(2, password);
-
 			ResultSet rs = ps.executeQuery();
-
 			while (rs.next()) 
 			{
 				bean.setEmail(rs.getString("Email"));
@@ -67,7 +62,6 @@ public class UserModel
 				bean.setPuntiFedelta(rs.getInt("PuntiFedelta"));
 			    bean.setTipo(rs.getBoolean("Tipo"));
 			}
-
 		} 
 		catch(SQLException e)
 		{
@@ -84,7 +78,6 @@ public class UserModel
 				con.close();
 			}
 		}
-		
 
 		if(bean.getEmail().trim().equalsIgnoreCase("") || bean==null)
 		{
@@ -106,20 +99,16 @@ public class UserModel
 		PreparedStatement ps = null;
 		boolean trovato = false;
 		String sql = "SELECT * FROM " + UserModel.TABLE_NAME_UTENTE + " WHERE Email = ?";
-
 		try 
 		{
 			con = ds.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setString(1, email);
-
 			ResultSet rs = ps.executeQuery();
-
 			if (rs.next()) 
 			{
 				trovato = true;
 			}
-
 		} 
 		catch(SQLException e)
 		{
@@ -144,22 +133,15 @@ public class UserModel
 	{
 		Connection con = null;
 		PreparedStatement ps = null;
-
 		int rs = 0;
-
 		String sql = "INSERT INTO " + UserModel.TABLE_NAME_UTENTE + " (Email, PasswordUtente, PuntiFedelta, Tipo) VALUES (?,?,0,1) ";
-
 		try 
 		{
 			con = ds.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setString(1, email);
 			ps.setString(2, password);
-
 			rs = ps.executeUpdate();
-			
-
-
 		} 
 		catch(SQLException e)
 		{
@@ -182,15 +164,14 @@ public class UserModel
 			
 	}
 	
+	
 	public synchronized boolean registraDatiSensibili(String email, String codiceFiscale, String nome, String cognome, int cap, String citta, String provincia, String via, int civico, String telefono) throws SQLException 
 	{
 		Connection con = null;
 		PreparedStatement ps = null;
 
 		int rs = 0;
-
 		String sql = "INSERT INTO " + UserModel.TABLE_NAME_DATI + " (CodiceFiscale, Nome, Cognome, CAP, Via, Civico, Citta, Provincia, NumeroTelefono, Email) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ";
-
 		try 
 		{
 			con = ds.getConnection();
@@ -205,11 +186,7 @@ public class UserModel
 			ps.setString(8, provincia);
 			ps.setString(9, telefono);
 			ps.setString(10, email);
-
 			rs = ps.executeUpdate();
-			
-
-
 		} 
 		catch(SQLException e)
 		{
@@ -226,7 +203,6 @@ public class UserModel
 				con.close();
 			}
 		}
-		
 
 		return (rs != 0);
 			
@@ -241,7 +217,6 @@ public class UserModel
 		int puntiFedelta = 0;
 		
 		String sql = "SELECT PuntiFedelta FROM " + UserModel.TABLE_NAME_UTENTE + " WHERE Email = ?";
-
 		try 
 		{
 			con = ds.getConnection();
@@ -250,8 +225,6 @@ public class UserModel
 		   	ResultSet rs = ps.executeQuery();
 			rs.next();
 			puntiFedelta = rs.getInt("PuntiFedelta");
-
-
 		} 
 		catch(SQLException e)
 		{
@@ -279,18 +252,14 @@ public class UserModel
 	{
 		Connection con = null;
 		PreparedStatement ps = null;
-		
 		String sql = "SELECT * FROM " + UserModel.TABLE_NAME_INDIRIZZI + " WHERE Email = ?";
-
 		Collection<IndirizziSpedizioneBean> Indirizzi = new LinkedList<IndirizziSpedizioneBean>();
-		
 		try 
 		{
 			con = ds.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setString(1, email);
 			ResultSet rs = ps.executeQuery();
-
 			while (rs.next()) 
 			{
 				IndirizziSpedizioneBean bean = new IndirizziSpedizioneBean();
@@ -432,11 +401,7 @@ public class UserModel
 	{
 		Connection con = null;
 		PreparedStatement ps = null;
-		PreparedStatement ps2 = null;
-
 		String sql = "SELECT * FROM " + UserModel.TABLE_NAME_UTENTE + " WHERE Tipo = 1";
-		String sql2 = "SELECT * FROM " + UserModel.TABLE_NAME_DATI + " WHERE Email = ?";
-		
 		Collection<UserBean> Clienti = new LinkedList<UserBean>();
 		
 		try 
@@ -453,37 +418,7 @@ public class UserModel
 				bean.setPassword(rs.getString("PasswordUtente"));
 				bean.setPuntiFedelta(rs.getInt("PuntiFedelta"));
 			    bean.setTipo(rs.getBoolean("Tipo"));
-			    
-			    try
-			    {
-			    	ps2 = con.prepareStatement(sql2);
-					ps2.setString(1, rs.getString("Email"));
-					
-					ResultSet rs2 = ps2.executeQuery();
-					while (rs2.next()) 
-					{
-						bean.setCodiceFiscale(rs2.getString("CodiceFiscale"));
-						bean.setNome(rs2.getString("Nome"));
-						bean.setCognome(rs2.getString("Cognome"));
-						bean.setCAP(rs2.getInt("CAP"));
-						bean.setVia(rs2.getString("Via"));
-						bean.setCivico(rs2.getInt("Civico"));
-						bean.setCitta(rs2.getString("Citta"));
-						bean.setProvincia(rs2.getString("Provincia"));
-						bean.setNumeroTelefono(rs2.getString("NumeroTelefono"));
-					}
-			    }
-			    catch(SQLException e)
-				{
-					logger.log(Level.WARNING, e.getMessage());
-				}
-				finally
-				{
-					if(ps2 != null)
-					{
-						ps2.close();
-					}
-				}
+			    bean = ottieniDatiUtente(bean, bean.getEmail());
 				Clienti.add(bean);
 			}
 
@@ -508,17 +443,57 @@ public class UserModel
 			
 	}
 	
+	public synchronized UserBean ottieniDatiUtente(UserBean bean,String email) throws SQLException 
+	{
+		Connection con = null;
+		PreparedStatement ps = null;
+		String sql = "SELECT * FROM " + UserModel.TABLE_NAME_DATI + " WHERE Email = ?";
+		try
+		{
+			con = ds.getConnection();
+			ps = con.prepareStatement(sql);
+			ps.setString(1, email);
+			
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) 
+			{
+				bean.setCodiceFiscale(rs.getString("CodiceFiscale"));
+				bean.setNome(rs.getString("Nome"));
+				bean.setCognome(rs.getString("Cognome"));
+				bean.setCAP(rs.getInt("CAP"));
+				bean.setVia(rs.getString("Via"));
+				bean.setCivico(rs.getInt("Civico"));
+				bean.setCitta(rs.getString("Citta"));
+				bean.setProvincia(rs.getString("Provincia"));
+				bean.setNumeroTelefono(rs.getString("NumeroTelefono"));
+			}
+		}
+		catch(SQLException e)
+		{
+			logger.log(Level.WARNING, e.getMessage());
+		}
+		finally
+		{
+			if(ps != null)
+			{
+				ps.close();
+			}
+			if(con != null)
+			{
+				con.close();
+			}
+		}
+		
+		return bean;
+		
+	}
 	
 	
 	public synchronized UserBean ricercaCliente(String email) throws SQLException 
 	{
 		Connection con = null;
 		PreparedStatement ps = null;
-		PreparedStatement ps2 = null;
-
 		String sql = "SELECT * FROM " + UserModel.TABLE_NAME_UTENTE + " WHERE Email = ?";
-		String sql2 = "SELECT * FROM " + UserModel.TABLE_NAME_DATI + " WHERE Email = ?";
-		
 		UserBean Cliente = new UserBean();
 		
 		try 
@@ -534,36 +509,7 @@ public class UserModel
 				Cliente.setEmail(rs.getString("Email"));
 				Cliente.setPuntiFedelta(rs.getInt("PuntiFedelta"));
 				Cliente.setTipo(rs.getBoolean("Tipo"));
-			    
-				try
-				{
-					ps2 = con.prepareStatement(sql2);
-					ps2.setString(1, email);
-					ResultSet rs2 = ps2.executeQuery();
-					if(rs2.next())
-					{
-						Cliente.setCodiceFiscale(rs2.getString("CodiceFiscale"));
-						Cliente.setNome(rs2.getString("Nome"));
-						Cliente.setCognome(rs2.getString("Cognome"));
-						Cliente.setCAP(rs2.getInt("CAP"));
-						Cliente.setVia(rs2.getString("Via"));
-						Cliente.setCivico(rs2.getInt("Civico"));
-						Cliente.setCitta(rs2.getString("Citta"));
-						Cliente.setProvincia(rs2.getString("Provincia"));
-						Cliente.setNumeroTelefono(rs2.getString("NumeroTelefono"));
-					}			
-				}
-				catch(SQLException e)
-				{
-					logger.log(Level.WARNING, e.getMessage());
-				}
-				finally
-				{
-					if(ps2 != null)
-					{
-						ps2.close();
-					}
-				} 
+				Cliente = ottieniDatiUtente(Cliente, Cliente.getEmail());
 			}	  
 		} 
 		catch(SQLException e)
