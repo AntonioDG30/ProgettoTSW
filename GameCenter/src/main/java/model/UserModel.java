@@ -16,6 +16,7 @@ import javax.sql.DataSource;
 
 public class UserModel 
 {
+	static Logger logger = Logger.getLogger(OrdineModel.class.getName());
 	private static DataSource ds;
 
 	static 
@@ -30,7 +31,7 @@ public class UserModel
 		} 
 		catch (NamingException e) 
 		{
-			System.out.println("Error:" + e.getMessage());
+			logger.log(Level.WARNING, e.getMessage());
 		}
 	}
 	
@@ -40,7 +41,7 @@ public class UserModel
 	private static final String TABLE_NAME_INDIRIZZI = "IndirizziSpedizione";
 	private static final String TABLE_NAME_METODIPAGAMENTO = "MetodoPagamento";
 	
-	Logger logger = Logger.getLogger(UserModel.class.getName());
+
 	
 	public synchronized UserBean ricercaUtente(String email,String password) throws SQLException 
 	{

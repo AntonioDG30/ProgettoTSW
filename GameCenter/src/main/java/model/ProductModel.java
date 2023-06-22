@@ -70,7 +70,7 @@ public class ProductModel
 		Connection con = null;
 		PreparedStatement ps = null;
 		
-		Collection<ProductBean> products = new LinkedList<ProductBean>();
+		Collection<ProductBean> products = new LinkedList<>();
 		
 		String sql = "SELECT * FROM " + ProductModel.TABLE_NAME_PRODOTTO + " WHERE FlagVisibita = 1";
 		

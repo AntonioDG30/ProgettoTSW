@@ -21,6 +21,7 @@ import javax.sql.DataSource;
 
 public class OrdineModel 
 {
+	static Logger logger = Logger.getLogger(OrdineModel.class.getName());
 	
 	private static DataSource ds;
 
@@ -36,7 +37,7 @@ public class OrdineModel
 		} 
 		catch (NamingException e) 
 		{
-			System.out.println("Error:" + e.getMessage());
+			logger.log(Level.WARNING, e.getMessage());
 		}
 	}
 	
@@ -61,7 +62,7 @@ public class OrdineModel
 	private static final String FORMATO_DIGITALE = "Digitale";
 	private static final String FORMATO_FISICO = "Fisico";
 	
-	Logger logger = Logger.getLogger(OrdineModel.class.getName());
+	
 	
 	
 	
@@ -342,7 +343,6 @@ public class OrdineModel
 			ps.setString(4, email);
 			result1 = ps.executeUpdate();
 			codOrdine = ottieniUltimoCodOrdine();	
-			System.out.println(codOrdine);
 			
 			List<ProductBean> prodottoCarrello = carrello.getListaCarrello(); 	
 		   	for(ProductBean prod: prodottoCarrello) 
