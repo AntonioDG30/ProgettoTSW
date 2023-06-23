@@ -44,6 +44,13 @@
 			  background-color: #ddd;
 			  color: black;
 			}
+			
+			.topnav .icon 
+			{
+			  float: right;
+			}
+			
+			
 		
 		
 		</style>
@@ -52,24 +59,19 @@
 	<body>
 
 		<div class="topnav">
-		  <a href="index.jsp"><img src="Immagini/Logo1_Scontornato.png" alt="Home" width="150" height="20"></a>
-		  <a href="Carrello.jsp">Carrello</a>
-		  <%
-		  		if(EmailUtente != null)
-		  		{
-		  %>
-		  <a href="./OrdiniControl">Account</a>
-		  <a href="./UserControl?action=Logout">Logout</a>
-		  <%
-		  		}
-		  		else
-		  		{
-		  %>
-		  <a href="Login.jsp">Login</a>
-		  <%
-		  		}
-		  %>
-		  
+			<a href="index.jsp"><img src="LayoutSito/img/Logo1_Scontornato.png" alt="Home" width="150" height="20"></a>
+			<div class="icon">
+				<a href="Carrello.jsp"><img src="LayoutSito/img/carrello.png" alt="Account" width="25" height="20"></a>
+				<a href="./OrdiniControl"><img src="LayoutSito/img/profilo.png" alt="Account" width="25" height="20"></a>
+				<%
+					if(EmailUtente != null)
+				  	{
+				%>
+						<a href="./UserControl?action=Logout"><img src="LayoutSito/img/logout.png" alt="Account" width="25" height="20"></a>
+				<%
+				  	}
+				%>
+			</div>
 		</div>
 
 	</body>

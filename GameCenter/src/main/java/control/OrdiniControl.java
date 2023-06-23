@@ -209,12 +209,20 @@ public class OrdiniControl extends HttpServlet
 			else
 			{
 			    String email=(String) request.getSession().getAttribute("Email");
-			    request.removeAttribute("PuntiFedelta");
-				request.setAttribute("PuntiFedelta", userModel.getPuntiFedelta(email));
-				request.removeAttribute("Ordini");
-				request.setAttribute("Ordini", ordineModel.elencoOrdiniByCliente(email));
-				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Account.jsp");
-				dispatcher.forward(request, response);
+			    if(email == null)
+			    {
+			    	RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Login.jsp");
+					dispatcher.forward(request, response);
+			    }
+			    else
+			    {
+			    	request.removeAttribute("PuntiFedelta");
+					request.setAttribute("PuntiFedelta", userModel.getPuntiFedelta(email));
+					request.removeAttribute("Ordini");
+					request.setAttribute("Ordini", ordineModel.elencoOrdiniByCliente(email));
+					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Account.jsp");
+					dispatcher.forward(request, response);
+			    }    
 			}
 		}
 		catch (SQLException e) 
