@@ -32,7 +32,7 @@ ul
 
 .footer
 {
-  	background-color: #292929;
+  	background-color: #013a63;
     padding: 40px 0;
 }
 
@@ -105,7 +105,7 @@ ul
   	background-color: #ffffff;
 }
 
-/*responsive*/
+
 @media(max-width: 767px)
 {
 	.footer-col
