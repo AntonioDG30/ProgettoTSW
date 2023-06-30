@@ -1,57 +1,49 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Untitled</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
-    <link href="LayoutSito/css/footer.css" rel="stylesheet" type="text/css">
+  <title>Footer</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="LayoutSito/css/footer.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 </head>
-
 <body>
-    <div class="footer-clean">
-        <footer>
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-sm-4 col-md-3 item">
-                        <h3>Services</h3>
-                        <ul>
-                            <li><a href="#">Web design</a></li>
-                            <li><a href="#">Development</a></li>
-                            <li><a href="#">Hosting</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-sm-4 col-md-3 item">
-                        <h3>About</h3>
-                        <ul>
-                            <li><a href="#">Company</a></li>
-                            <li><a href="#">Team</a></li>
-                            <li><a href="#">Legacy</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-sm-4 col-md-3 item">
-                        <h3>Careers</h3>
-                        <ul>
-                            <li><a href="#">Job openings</a></li>
-                            <li><a href="#">Employee success</a></li>
-                            <li><a href="#">Benefits</a></li>
-                        </ul>
-                    </div>
-                    <br>
-                    <div class="col-lg-3 item social">
-	                    <a href="#"><i class="icon ion-social-facebook"></i></a>
-	                    <a href="#"><i class="icon ion-social-twitter"></i></a>
-	                    <a href="#"><i class="icon ion-social-snapchat"></i></a>
-	                    <a href="#"><i class="icon ion-social-instagram"></i></a>
-                    </div>
-                </div>
-            </div>
-        </footer>
-    </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
-</body>
 
+  <footer class="footer">
+     <div class="container">
+      <div class="row">
+        <div class="footer-col">
+          <h4>Servizi</h4>
+          <ul>
+            <li><a href="#">Punti Fedelta'</a></li>
+            <li><a href="#">Termini e Condizioni</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Creatori</h4>
+          <ul>
+            <li><a href="https://www.instagram.com/antoniodg30/">Antonio Di Giorgio</a></li>
+            <li><a href="https://www.instagram.com/denis.cineya/">Denys Hrynevych</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contatti</h4>
+          <ul>
+            <li><a href="#">+39|3333333333</a></li>
+            <li><a href="#">gamecenter@gmail.com</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Seguici sui social</h4>
+          <div class="social-links">
+            <a href="https://www.facebook.com/dinfunisa/?locale=it_IT"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://twitter.com/DInfUniSa?s=20"><i class="fab fa-twitter"></i></a>
+            <a href="https://www.instagram.com/dinfunisa/"><i class="fab fa-instagram"></i></a>
+          </div>
+        </div>
+      </div>
+     </div>
+  </footer>
+
+</body>
 </html>

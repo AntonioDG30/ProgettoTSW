@@ -43,6 +43,7 @@ public class ProductModel
 	private static final String TABLE_NAME_PRODOTTO = "Prodotto";
 	private static final String TABLE_NAME_CARATTERISTICHE = "Caratteristiche";
 	private static final String TABLE_NAME_DISPONIBILITA = "Disponibilita";
+	private static final String TABLE_NAME_INCLUDE = "Include";
 	private static final String TABLE_NAME_GENERE = "Genere";
 	private static final String TABLE_NAME_PEGI = "PEGI";
 	
@@ -73,6 +74,52 @@ public class ProductModel
 		Collection<ProductBean> products = new LinkedList<>();
 		
 		String sql = "SELECT * FROM " + ProductModel.TABLE_NAME_PRODOTTO + " WHERE FlagVisibita = 1";
+		
+		try
+		{
+			con = ds.getConnection();
+			ps = con.prepareStatement(sql);
+
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) 
+			{
+				ProductBean bean = new ProductBean();
+				bean.setCodSeriale(rs.getString("CodSeriale"));
+				bean.setNome(rs.getString("Nome"));
+				bean.setPrezzo(rs.getFloat("Prezzo"));
+				bean.setDescrizioneRidotta(rs.getString("DescrizioneRidotta"));
+				bean.setImmagine(rs.getString("Immagine"));
+				products.add(bean);
+			}
+			
+		}
+		catch(SQLException e)
+		{
+			logger.log(Level.WARNING, e.getMessage());
+		}
+		finally
+		{
+			if(ps != null)
+			{
+				ps.close();
+			}
+			if(con != null)
+			{
+				con.close();
+			}
+		}
+		return products;
+	}
+	
+	
+	public synchronized Collection<ProductBean> doTop5() throws SQLException
+	{
+		Connection con = null;
+		PreparedStatement ps = null;
+		
+		Collection<ProductBean> products = new LinkedList<>();
+		String sql = "SELECT * FROM " + ProductModel.TABLE_NAME_PRODOTTO + " AS p, " + ProductModel.TABLE_NAME_INCLUDE +" AS i " 
+						+ "WHERE p.CodSeriale = i.CodSeriale AND FlagVisibita = 1 GROUP BY i.CodSeriale ORDER BY sum(i.quantita) DESC LIMIT 5";
 		
 		try
 		{

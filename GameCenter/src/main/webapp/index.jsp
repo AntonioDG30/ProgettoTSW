@@ -28,8 +28,13 @@
 	
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+		<link href="LayoutSito/css/index.css" rel="stylesheet" type="text/css">
 		<link rel="shortcut icon" href="Immagini/favicon.ico" />
 		<title>GameCenter</title>
+		<style>
+			.mySlides {display:none;}
+		</style>
 	</head>
 	<body>
 		<%@include file="NavBar.jsp" %>
@@ -41,20 +46,13 @@
 					response.sendRedirect("./Admin.jsp");
 				}
 			}
-			if(Email != null) 
-			{
-		%>
-		<h2><%=Email%>, benvenuto su Gamecenter</h2>
-		<% 
-			}
-			else
-			{
-		%>
-		<h2>Benvenuto su Gamecenter</h2>
-		<%		
-			}
 		%>
 		
+		<div class="w3-content w3-section" style="max-width:500px">
+		  <a href="Login.jsp"><img class="mySlides" src="Immagini/FIFA23.jpg" style="width:100%"></a>
+		  <a href="Registrati.jsp"><img class="mySlides" src="Immagini/GTA5.jpg" style="width:100%"></a>
+		  <a href="Login.jsp"><img class="mySlides" src="Immagini/TLOU2.jpg" style="width:100%"></a>
+		</div>
 
 		<table border="1">
 			<tr>
@@ -107,7 +105,22 @@
 		</table>
 		
 		
-		
+		<script>
+			var myIndex = 0;
+			carousel();
+			
+			function carousel() {
+			  var i;
+			  var x = document.getElementsByClassName("mySlides");
+			  for (i = 0; i < x.length; i++) {
+			    x[i].style.display = "none";  
+			  }
+			  myIndex++;
+			  if (myIndex > x.length) {myIndex = 1}    
+			  x[myIndex-1].style.display = "block";  
+			  setTimeout(carousel, 6000); // Change image every 2 seconds
+			}
+		</script>
 		
 			
 		<%@include file="Footer.jsp" %>

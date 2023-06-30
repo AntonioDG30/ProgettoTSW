@@ -19,7 +19,6 @@
 		<link href="LayoutSito/css/navBar.css" rel="stylesheet" type="text/css">
 	</head>
 	<body>
-
 		<div class="navbar">
 			<div class="logo">
 				<a href="index.jsp">
@@ -58,6 +57,5 @@
 			</div>
 			
 		</div>
-
 	</body>
 </html>

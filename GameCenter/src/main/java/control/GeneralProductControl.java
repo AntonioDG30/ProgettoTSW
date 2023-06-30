@@ -90,7 +90,7 @@ public class GeneralProductControl extends HttpServlet
 			else
 			{
 				request.removeAttribute("products");
-				request.setAttribute("products", productModel.doAll());
+				request.setAttribute("products", productModel.doTop5());
 				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
 				dispatcher.forward(request, response);
 			}
