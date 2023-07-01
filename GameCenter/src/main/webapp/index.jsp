@@ -49,9 +49,10 @@
 		  <a href="Registrati.jsp"><img class="mySlides" src="LayoutSito/img/NVIDIA4090_Slide.jpg"></a>
 		  <a href="Login.jsp"><img class="mySlides" src="LayoutSito/img/TLOU2_Slide.jpg"></a>
 		</div>
+		<h2>I prodotti più ricercati:</h2><br>
 		
 		
-		<h2 align="center">I prodotti più ricercati:</h2>
+		<div class="prodotti">
 		<%
 			if (products != null && products.size() != 0) 
 			{
@@ -60,31 +61,37 @@
 				{
 					ProductBean bean = (ProductBean) it.next();
 		%>
-		<div class="prodotti">
-			<%
-				if (bean.getImmagine() != null && bean.getImmagine() != "") 
-				{						
-			%>
-				<img src="Immagini/<%=bean.getImmagine()%>">
-			<%
-				}						
-			%>
-			<div class="descrizione">
-				<h3><%=bean.getNome()%></h3>
-				<%=bean.getDescrizioneRidotta()%>
-				<div class="prezzo">
-					<%=bean.getPrezzo()%>
-				</div>				
+		
+			<div class="prodotti2">
+				<%
+					if (bean.getImmagine() != null && bean.getImmagine() != "") 
+					{						
+				%>
+					<img src="Immagini/<%=bean.getImmagine()%>">
+				<%
+					}						
+				%>
+					<h3><%=bean.getNome()%></h3>
+					<h3>€<%=bean.getPrezzo()%></h3>
 			</div>
-		</div>
+		
 		<br>
 		<%
 				}
 			}
 		%>
-		<br>
-		
+		</div>
 
+		
+		<br>
+		<h2>Cerca tramite la tua piattaforma preferita:</h2><br>
+		<div class="categorie">
+			<a href="#"><img src="LayoutSito/img/PS5.jpg"></a>
+			<a href="#"><img src="LayoutSito/img/PS4.jpg"></a>
+			<a href="#"><img src="LayoutSito/img/xboxsx.jpg"></a>
+			<a href="#"><img src="LayoutSito/img/xboxss.jpg"></a>
+			<a href="#"><img src="LayoutSito/img/pc.jpg"></a>
+		</div>
 		
 		
 		
