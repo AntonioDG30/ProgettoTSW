@@ -30,6 +30,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">	
 		<link href="LayoutSito/css/index.css" rel="stylesheet" type="text/css">
 		<link rel="shortcut icon" href="Immagini/favicon.ico" />
+		<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 		<title>GameCenter</title>
 	</head>
 	<body>
@@ -77,6 +78,7 @@
 				</div>				
 			</div>
 		</div>
+		<br>
 		<%
 				}
 			}
