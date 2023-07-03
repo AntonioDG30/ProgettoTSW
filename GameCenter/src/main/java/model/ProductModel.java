@@ -112,14 +112,14 @@ public class ProductModel
 	}
 	
 	
-	public synchronized Collection<ProductBean> doTop5() throws SQLException
+	public synchronized Collection<ProductBean> doTop8() throws SQLException
 	{
 		Connection con = null;
 		PreparedStatement ps = null;
 		
 		Collection<ProductBean> products = new LinkedList<>();
 		String sql = "SELECT * FROM " + ProductModel.TABLE_NAME_PRODOTTO + " AS p, " + ProductModel.TABLE_NAME_INCLUDE +" AS i " 
-						+ "WHERE p.CodSeriale = i.CodSeriale AND FlagVisibita = 1 GROUP BY i.CodSeriale ORDER BY sum(i.quantita) DESC LIMIT 6";
+						+ "WHERE p.CodSeriale = i.CodSeriale AND FlagVisibita = 1 GROUP BY i.CodSeriale ORDER BY sum(i.quantita) DESC LIMIT 8";
 		
 		try
 		{

@@ -4,7 +4,7 @@
 	Collection<?> products = (Collection<?>) request.getAttribute("products");
 	if(products == null) 
 	{
-		response.sendRedirect("./GeneralProductControl");	
+		response.sendRedirect("./GeneralProductControl?action=Catalogo");	
 		return;
 	}
 %>
@@ -19,7 +19,6 @@
 	{ 
 		session = request.getSession();
 	    Email=(String)session.getAttribute("Email");
-	    Tipo=(Boolean)session.getAttribute("Tipo");
 	}
 %>
 <!DOCTYPE html>
@@ -28,30 +27,15 @@
 	
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">	
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<link href="LayoutSito/css/prodotti.css" rel="stylesheet" type="text/css">
 		<link rel="shortcut icon" href="Immagini/favicon.ico" />
+		<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
 		<title>GameCenter</title>
 	</head>
 	<body>
-		<% 
-			if(Tipo != null)
-			{
-				if(!(Tipo))
-				{
-					response.sendRedirect("./Admin.jsp");
-				}
-			}
-		%>
 		<%@include file="NavBar.jsp" %>	
-		<%@include file="catalogoBar.jsp" %>		
-		<div class="slideShow">
-		  <a href="Login.jsp"><img class="mySlides" src="LayoutSito/img/PS5_Slide.jpg"></a>
-		  <a href="Registrati.jsp"><img class="mySlides" src="LayoutSito/img/NVIDIA4090_Slide.jpg"></a>
-		  <a href="Login.jsp"><img class="mySlides" src="LayoutSito/img/TLOU2_Slide.jpg"></a>
-		</div>
-		<h2>I prodotti più ricercati:</h2><br>
-		
-		
+		<%@include file="catalogoBar.jsp" %>
 		<div class="prodotti">
 		<%
 			if (products != null && products.size() != 0) 
@@ -71,6 +55,7 @@
 				<%
 					}						
 				%>
+					<br>
 					<a href="./GeneralProductControl?action=Dettagli&CodSeriale=<%=bean.getCodSeriale()%>"><h3><%=bean.getNome()%></h3></a>
 					<p> <%=bean.getDescrizioneRidotta()%> </p>
 					<h3>€<%=bean.getPrezzo()%></h3>
@@ -82,43 +67,6 @@
 			}
 		%>
 		</div>
-
-		
-		<br>
-		<h2>Cerca tramite la tua piattaforma preferita:</h2><br>
-		<div class="categorie">
-			<a href="Catalogo.jsp"><img src="LayoutSito/img/PS5.jpg"></a>
-			<a href="#"><img src="LayoutSito/img/PS4.jpg"></a>
-			<a href="#"><img src="LayoutSito/img/xboxsx.jpg"></a>
-			<a href="#"><img src="LayoutSito/img/xboxss.jpg"></a>
-			<a href="#"><img src="LayoutSito/img/pc.jpg"></a>
-		</div>
-		
-		
-		
-		<script>
-			var myIndex = 0;
-			carousel();
-			
-			function carousel() 
-			{
-			  	var i;
-			  	var x = document.getElementsByClassName("mySlides");
-			  	for (i = 0; i < x.length; i++) 
-			  	{
-			    	x[i].style.display = "none";  
-			  	}
-			  	myIndex++;
-			  	if (myIndex > x.length) 
-			  	{
-			  		myIndex = 1
-			  	}    
-			  	x[myIndex-1].style.display = "block";  
-			  	setTimeout(carousel, 6000); // Change image every 6 seconds
-			}
-		</script>
-		
-			
 		<%@include file="Footer.jsp" %>
 	</body>
 </html>

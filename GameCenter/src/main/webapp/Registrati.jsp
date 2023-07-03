@@ -51,7 +51,6 @@
 	    		<div class="right">
 	      			<svg viewBox="0 0 320 300">
 	       				<defs>
-	       					
 				          	<linearGradient
 					                         inkscape:collect="always"
 					                         id="linearGradient"

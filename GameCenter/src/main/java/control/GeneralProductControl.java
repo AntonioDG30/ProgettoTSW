@@ -52,6 +52,14 @@ public class GeneralProductControl extends HttpServlet
 			if(action != null) 
 			{
 				
+				if (action.equalsIgnoreCase("Catalogo")) 
+				{
+					request.removeAttribute("products");
+					request.setAttribute("products", productModel.doAll());
+					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Catalogo.jsp");
+					dispatcher.forward(request, response);
+				}
+				
 				
 				if (action.equalsIgnoreCase("Dettagli")) 
 				{
@@ -90,7 +98,7 @@ public class GeneralProductControl extends HttpServlet
 			else
 			{
 				request.removeAttribute("products");
-				request.setAttribute("products", productModel.doTop5());
+				request.setAttribute("products", productModel.doTop8());
 				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
 				dispatcher.forward(request, response);
 			}
