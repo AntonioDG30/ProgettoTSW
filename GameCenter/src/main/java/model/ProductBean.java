@@ -177,9 +177,7 @@ public class ProductBean implements Serializable
 	public void setGenere(String genere) 
 	{
 		this.genere = genere;
-	}
-	
-	
+	}	
 
 	public String getPiattaforma()
 	{
