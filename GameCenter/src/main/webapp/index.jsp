@@ -97,25 +97,30 @@
 		
 		
 		<script>
-			var myIndex = 0;
-			carousel();
+			var slides = document.querySelectorAll('.mySlides');
+			var currentSlide = 0;
 			
-			function carousel() 
+			function showSlide() 
 			{
-			  	var i;
-			  	var x = document.getElementsByClassName("mySlides");
-			  	for (i = 0; i < x.length; i++) 
-			  	{
-			    	x[i].style.display = "none";  
+				for (var i = 0; i < slides.length; i++) 
+				{
+					slides[i].classList.remove('active');
 			  	}
-			  	myIndex++;
-			  	if (myIndex > x.length) 
-			  	{
-			  		myIndex = 1
-			  	}    
-			  	x[myIndex-1].style.display = "block";  
-			  	setTimeout(carousel, 6000); // Change image every 6 seconds
+			  	slides[currentSlide].classList.add('active');
 			}
+	
+			function nextSlide() 
+			{
+				currentSlide++;
+				if (currentSlide >= slides.length) 
+				{
+					currentSlide = 0;
+				}
+				showSlide();
+			}
+	
+			var slideInterval = setInterval(nextSlide, 3000);			
+			showSlide();
 		</script>
 		
 			

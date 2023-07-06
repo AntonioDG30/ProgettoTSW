@@ -94,14 +94,14 @@
 				</div>
 				<div class="carrello">					
 				    <h1>Aggiungi al carrello</h1>
-				    <form class="form cf">
+				    <form class="form cf" method="post" name="piattaformaModulo">
 				    	<section class="plan cf">
 				        	<h2>Seleziona la piattaforma che desideri acquistare:</h2>
 				        	<%
 								if ((product.getDispPs5Fisico() + product.getDispPs5Digitale())>0) 
 								{
 							%>
-								<input type="radio" name="radio1" id="free" value="free"><label class="free-label four col" for="free">PlayStation 5</label>
+								<input type="radio" name="piattaforma" id="PS5" value="PS5"><label class="PS5-label four col" for="PS5">PlayStation 5</label>
 							<%
 								}
 							%>
@@ -109,7 +109,7 @@
 								if ((product.getDispPs4Fisico() + product.getDispPs4Digitale())>0) 
 								{
 							%>
-								<input type="radio" name="radio1" id="basic" value="free"><label class="basic-label four col" for="basic">PlayStation 4</label>
+								<input type="radio" name="piattaforma" id="PS4" value="PS4"><label class="PS4-label four col" for="PS4">PlayStation 4</label>
 							<%
 								}
 							%>
@@ -117,7 +117,7 @@
 								if ((product.getDispXboxXFisico() + product.getDispXboxXDigitale())>0) 
 								{
 							%>
-								<input type="radio" name="radio1" id="premium" value="free"><label class="premium-label four col" for="premium">Xbox Series X</label>
+								<input type="radio" name="piattaforma" id="XboxX" value="XboxX"><label class="XboxX-label four col" for="XboxX">Xbox Series X</label>
 							<%
 								}
 							%>
@@ -125,7 +125,7 @@
 								if ((product.getDispXboxSFisico() + product.getDispXboxSDigitale())>0) 
 								{
 							%>
-								<input type="radio" name="radio1" id="pippo" value="free"><label class="pippo-label four col" for="pippo">Xbox Series S</label>
+								<input type="radio" name="piattaforma" id="XboxS" value="XboxS"><label class="XboxS-label four col" for="XboxS">Xbox Series S</label>
 							<%
 								}
 							%>
@@ -133,7 +133,7 @@
 								if ((product.getDispPcFisico() + product.getDispPcDigitale())>0) 
 								{
 							%>
-								<input type="radio" name="radio1" id="cavolo" value="free"><label class="cavolo-label four col" for="cavolo">PC</label>
+								<input type="radio" name="piattaforma" id="PC" value="PC"><label class="PC-label four col" for="PC">PC</label>
 							<%
 								}
 							%>
@@ -150,6 +150,22 @@
 		<%
 			}
 		%>
+		
+		<script>
+			var piattaforma = document.piattaformaModulo.piattaforma.value;
+			
+			
+			if (piattaforma.equals("PS5")) 
+			{
+				alert("PS5");
+			}
+			else
+				{
+				alert("nada");
+				}
+			//document.modulo.action = "./UserControl?action=Login";
+			//document.modulo.submit();
+		</script>
 		<%@include file="Footer.jsp" %>
 	</body>
 </html>
