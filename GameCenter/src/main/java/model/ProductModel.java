@@ -46,6 +46,7 @@ public class ProductModel
 	private static final String TABLE_NAME_INCLUDE = "Include";
 	private static final String TABLE_NAME_GENERE = "Genere";
 	private static final String TABLE_NAME_PEGI = "PEGI";
+	private static final String TABLE_NAME_RECENSIONE = "Recensione";
 	
 	
 	
@@ -946,6 +947,50 @@ public class ProductModel
 			}
 		}
 		return (result != 0);
+	}
+	
+	
+	public synchronized Collection<RecensioneBean> getRecensione(String codSeriale) throws SQLException
+	{
+		Connection con = null;
+		PreparedStatement ps = null;
+		
+		Collection<RecensioneBean> recensioni = new LinkedList<>();
+
+		String sql = "SELECT * FROM " + ProductModel.TABLE_NAME_RECENSIONE + " WHERE CodSeriale = ?";
+		try
+		{
+			con = ds.getConnection();
+			ps = con.prepareStatement(sql);
+			ps.setString(1, codSeriale);
+			
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) 
+			{
+				RecensioneBean bean = new RecensioneBean();
+				bean.setValutazione(rs.getInt("Valutazione"));
+				bean.setDescrizione(rs.getString("Descrizione"));
+				recensioni.add(bean);
+			}
+		
+		}
+		catch(SQLException e)
+		{
+			logger.log(Level.WARNING, e.getMessage());
+		}
+		finally
+		{
+			if(ps != null)
+			{
+				ps.close();
+			}
+			if(con != null)
+			{
+				con.close();
+			}
+		}
+		
+		return recensioni;
 	}
 	
 	

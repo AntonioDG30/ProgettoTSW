@@ -66,6 +66,7 @@ public class GeneralProductControl extends HttpServlet
 					String codSeriale = request.getParameter("CodSeriale");
 					request.removeAttribute("product");
 					request.setAttribute("product", productModel.dettagli(codSeriale));
+					request.setAttribute("recensioni", productModel.getRecensione(codSeriale));
 					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/DettagliProdotto.jsp");
 					dispatcher.forward(request, response);	
 				}
@@ -75,10 +76,11 @@ public class GeneralProductControl extends HttpServlet
 				if (action.equalsIgnoreCase("AggiungiCarrello")) 
 				{
 					String codSeriale = request.getParameter("CodSeriale");
-					String Piattaforma = request.getParameter("Piattaforma");
+					String Piattaforma = request.getParameter("piattaforma");
 					carrello.aggiungiProdotto(productModel.dettagli(codSeriale), Piattaforma);
 					request.getSession().setAttribute("Carrello", carrello);
-					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
+					request.setAttribute("product", productModel.dettagli(codSeriale));
+					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/DettagliProdotto.jsp");
 					dispatcher.forward(request, response);
 				}
 				

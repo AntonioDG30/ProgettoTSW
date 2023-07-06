@@ -139,6 +139,7 @@ CREATE TABLE Include
     Quantita int,
     CodSeriale varchar(20) NOT NULL,
     CodOrdine int,
+    PrezzoMomento float,
     FOREIGN KEY(CodSeriale) REFERENCES Prodotto(CodSeriale) ON UPDATE cascade ON DELETE cascade,
     FOREIGN KEY(CodOrdine) REFERENCES Ordine(CodOrdine) ON UPDATE cascade ON DELETE cascade
 );
@@ -349,7 +350,7 @@ SET @LUCAemail := 'Luca.Rossi@gmail.com';
 
 
 INSERT INTO Utente(Email, PasswordUtente, PuntiFedelta, Tipo)
-VALUES (@CARLOemail, 'cliente', '2834', 1);
+VALUES (@CARLOemail, 'cliente', '2', 1);
 INSERT INTO Utente(Email, PasswordUtente, PuntiFedelta, Tipo)
 VALUES (@PASQUALEemail, 'cliente', '114', 1);
 INSERT INTO Utente(Email, PasswordUtente, PuntiFedelta, Tipo)
@@ -395,19 +396,35 @@ INSERT INTO Ordine(Sconto, DataAcquisto, PrezzoTotale, StatoOrdine, Email)
 VALUES ('-0','2023-02-05','114.95','In Lavorazione',@PASQUALEemail);
 INSERT INTO Ordine(Sconto, DataAcquisto, PrezzoTotale, StatoOrdine, Email)
 VALUES ('-0','2023-04-06','2174.99','In Lavorazione',@CARLOemail);
+INSERT INTO Ordine(Sconto, DataAcquisto, PrezzoTotale, StatoOrdine, Email)
+VALUES ('-0','2023-05-16','84.97','In Lavorazione',@CARLOemail);
 
-INSERT INTO Include(Quantita, CodSeriale, CodOrdine)
-VALUES ('2',@DUALSENSEcode,'01');
-INSERT INTO Include(Quantita, CodSeriale, CodOrdine)
-VALUES ('1',@PS5code,'01');
-INSERT INTO Include(Quantita, CodSeriale, CodOrdine)
-VALUES ('3',@MAFIA3code,'02');
-INSERT INTO Include(Quantita, CodSeriale, CodOrdine)
-VALUES ('2',@CYBERPUNK77code,'02');
-INSERT INTO Include(Quantita, CodSeriale, CodOrdine)
-VALUES ('1',@RTX4090code,'03');
-INSERT INTO Include(Quantita, CodSeriale, CodOrdine)
-VALUES ('1',@TLOU2code,'03');
+INSERT INTO Include(Quantita, CodSeriale, CodOrdine, PrezzoMomento)
+VALUES ('2',@DUALSENSEcode,'01', '55.00');
+INSERT INTO Include(Quantita, CodSeriale, CodOrdine, PrezzoMomento)
+VALUES ('1',@PS5code,'01', '550.00');
+INSERT INTO Include(Quantita, CodSeriale, CodOrdine, PrezzoMomento)
+VALUES ('3',@MAFIA3code,'02', '14.99');
+INSERT INTO Include(Quantita, CodSeriale, CodOrdine, PrezzoMomento)
+VALUES ('2',@CYBERPUNK77code,'02', '34.99');
+INSERT INTO Include(Quantita, CodSeriale, CodOrdine, PrezzoMomento)
+VALUES ('1',@RTX4090code,'03', '2155.00');
+INSERT INTO Include(Quantita, CodSeriale, CodOrdine, PrezzoMomento)
+VALUES ('1',@TLOU2code,'03', '19.99');
+INSERT INTO Include(Quantita, CodSeriale, CodOrdine, PrezzoMomento)
+VALUES ('1',@MAFIA3code,'04', '14.99');
+INSERT INTO Include(Quantita, CodSeriale, CodOrdine, PrezzoMomento)
+VALUES ('2',@CYBERPUNK77code,'04', '34.99');
+
+SET @FIFA23code := 'CD9D8G352NC5JA';
+SET @TLOU2code := 'CUR3N43VS23YA';
+
+SET @CYBERPUNK77code := '45HY33DD2SE24';
+SET @MAFIA3code := 'BYD32A5KYNC4E3';
+SET @PS5code := 'ACX5Z6DGXMUJR454';
+SET @DUALSENSEcode := 'DVCH5342SDR';
+SET @RTX4090code := 'AMREDHZOCDS';
+SET @PS4code := 'GHYFVRSTEV';
 
 INSERT INTO Comprende(CodOrdine, CodIndirizzo, NumeroCarta)
 VALUES('01', '01', '5879485763284798');
@@ -418,5 +435,9 @@ VALUES('03', '01', '5896475896542158');
 
 INSERT INTO Recensione(Descrizione, Valutazione, CodSeriale, Email)
 VALUES ('La console è perfetta ed è molto divertente da usare', '5', @PS5code, @CARLOemail);
+INSERT INTO Recensione(Descrizione, Valutazione, CodSeriale, Email)
+VALUES ('La console è bella ma risulta essere troppo ingrombrante', '3', @PS5code, @PASQUALEemail);
+INSERT INTO Recensione(Descrizione, Valutazione, CodSeriale, Email)
+VALUES ('La console è bellissima ma leggermente rumorosa', '4', @PS5code, @CARLOemail);
 INSERT INTO Recensione(Descrizione, Valutazione, CodSeriale, Email)
 VALUES ('Bel gioco', '4', @CYBERPUNK77code, @PASQUALEemail);

@@ -2,6 +2,7 @@
 
 <%	
 	ProductBean product = (ProductBean) request.getAttribute("product");
+	Collection<?> recensioni = (Collection<?>) request.getAttribute("recensioni");
 %>
 
 <%!	
@@ -94,78 +95,138 @@
 				</div>
 				<div class="carrello">					
 				    <h1>Aggiungi al carrello</h1>
-				    <form class="form cf" method="post" name="piattaformaModulo">
+				    <form class="form cf" method="post" action="GeneralProductControl?action=AggiungiCarrello&CodSeriale=<%=product.getCodSeriale()%>">
 				    	<section class="plan cf">
-				        	<h2>Seleziona la piattaforma che desideri acquistare:</h2>
+				        	<h2>Seleziona la piattaforma e il formato che desideri acquistare:</h2>
 				        	<%
-								if ((product.getDispPs5Fisico() + product.getDispPs5Digitale())>0) 
+								if (product.getDispPs5Fisico() >0) 
 								{
 							%>
-								<input type="radio" name="piattaforma" id="PS5" value="PS5"><label class="PS5-label four col" for="PS5">PlayStation 5</label>
+								<input type="radio" name="piattaforma" id="PS5 Fisico" value="PS5 Fisico"><label class="PS5-label four col" for="PS5 Fisico">PS5 Fisico</label>
+							<%
+								}
+							%>
+							<%
+								if (product.getDispPs5Digitale() >0) 
+								{
+							%>
+								<input type="radio" name="piattaforma" id="PS5 Digitale" value="PS5 Digitale"><label class="PS5-label four col" for="PS5 Digitale">PS5 Digitale</label>
 							<%
 								}
 							%>
 					        <%
-								if ((product.getDispPs4Fisico() + product.getDispPs4Digitale())>0) 
+								if (product.getDispPs4Fisico()>0) 
 								{
 							%>
-								<input type="radio" name="piattaforma" id="PS4" value="PS4"><label class="PS4-label four col" for="PS4">PlayStation 4</label>
+								<input type="radio" name="piattaforma" id="Ps4 Fisico" value="Ps4 Fisico"><label class="PS4-label four col" for="Ps4 Fisico">Ps4 Fisico</label>
+							<%
+								}
+							%>
+							 <%
+								if (product.getDispPs4Digitale()>0) 
+								{
+							%>
+								<input type="radio" name="piattaforma" id="Ps4 Digitale" value="Ps4 Digitale"><label class="PS4-label four col" for="Ps4 Digitale">Ps4 Digitale</label>
 							<%
 								}
 							%>
 							<%
-								if ((product.getDispXboxXFisico() + product.getDispXboxXDigitale())>0) 
+								if (product.getDispXboxXFisico() >0) 
 								{
 							%>
-								<input type="radio" name="piattaforma" id="XboxX" value="XboxX"><label class="XboxX-label four col" for="XboxX">Xbox Series X</label>
+								<input type="radio" name="piattaforma" id="XboxX Fisico" value="XboxX Fisico"><label class="XboxX-label four col" for="XboxX Fisico">Xbox X Fisico</label>
 							<%
 								}
 							%>
 							<%
-								if ((product.getDispXboxSFisico() + product.getDispXboxSDigitale())>0) 
+								if (product.getDispXboxXDigitale()>0) 
 								{
 							%>
-								<input type="radio" name="piattaforma" id="XboxS" value="XboxS"><label class="XboxS-label four col" for="XboxS">Xbox Series S</label>
+								<input type="radio" name="piattaforma" id="XboxX Digitale" value="XboxX Digitale"><label class="XboxX-label four col" for="XboxX Digitale">Xbox X Digitale</label>
 							<%
 								}
 							%>
 							<%
-								if ((product.getDispPcFisico() + product.getDispPcDigitale())>0) 
+								if (product.getDispXboxSDigitale()>0) 
 								{
 							%>
-								<input type="radio" name="piattaforma" id="PC" value="PC"><label class="PC-label four col" for="PC">PC</label>
+								<input type="radio" name="piattaforma" id="XboxS Digitale" value="XboxS Digitale"><label class="XboxS-label four col" for="XboxS Digitale">Xbox S</label>
 							<%
 								}
 							%>
-				      	</section>  
+							<%
+								if (product.getDispPcFisico()>0) 
+								{
+							%>
+								<input type="radio" name="piattaforma" id="Pc Fisico" value="Pc Fisico"><label class="four col" for="Pc Fisico">Pc Fisico</label>
+							<%
+								}
+							%>
+							<%
+								if (product.getDispPcDigitale()>0) 
+								{
+							%>
+								<input type="radio" name="piattaforma" id="Pc Digitale" value="Pc Digitale"><label class="four col" for="Pc Digitale">Pc Digitale</label>
+							<%
+								}
+							%>
+				      	</section>
 				      	<input class="submit" type="submit" value="Submit">   
 				    </form>
 				</div>
 			</div>
+			
 			<div class = "descrizione">
 				<h1>Descrizione</h1>
 				<p><%=product.getDescrizioneCompleta()%></p>
+			</div>
+			
+			<div class = "recensione">
+				<h1>Recensioni</h1>
+				
+				<%
+					if (recensioni != null && recensioni.size() != 0) 
+					{
+						Iterator<?> it = recensioni.iterator();
+						while (it.hasNext()) 
+						{
+				%>
+							<div class = "recensione2">
+								<%
+									RecensioneBean bean = (RecensioneBean) it.next();
+									for(int i=1; i<6; i++)
+									{
+										if(bean.getValutazione()<i)
+										{
+								%>
+											<img src="LayoutSito/img/StellaGrigia.png">
+								<%
+										}
+										else
+										{
+								%>
+											<img src="LayoutSito/img/StellaRossa.png">
+								<%		
+										}
+									}
+								%>
+									<p><%=bean.getDescrizione()%></p>
+							</div>
+				<%
+						}
+					}
+					else
+					{
+				%>
+						<h2>Non ci sono recensioni per questo prodotto.</h2>
+				<%
+					}
+				%>
 			</div>
 		</div>
 		<%
 			}
 		%>
-		
-		<script>
-			var piattaforma = document.piattaformaModulo.piattaforma.value;
-			
-			
-			if (piattaforma.equals("PS5")) 
-			{
-				alert("PS5");
-			}
-			else
-				{
-				alert("nada");
-				}
-			//document.modulo.action = "./UserControl?action=Login";
-			//document.modulo.submit();
-		</script>
 		<%@include file="Footer.jsp" %>
 	</body>
 </html>

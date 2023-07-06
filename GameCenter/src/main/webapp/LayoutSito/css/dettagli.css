@@ -29,7 +29,7 @@
 	margin-left: 20px;   	
 }
 
-.descrizione
+.descrizione, .recensione
 {
 	width: 100%;
 	display: flex; 
@@ -37,6 +37,27 @@
 	margin-left: 0px;   	
 }
 
+.recensione2
+{
+	display: flex; 
+	flex-direction: row; 
+	justify-content: center;
+	align-items: center;
+	align-content: center; 
+	margin-top:10px!important;
+	margin-bottom:16px!important;
+}
+
+.recensione img
+{
+	width: 60px; 
+	height: 60px;
+}
+
+.recensione p
+{
+	margin-top: 0px;
+}
 
 .elementi
 {
