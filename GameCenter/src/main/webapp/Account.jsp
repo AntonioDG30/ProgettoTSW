@@ -25,130 +25,88 @@
 %>
 
 <!DOCTYPE html>
-<html lang="it">
+<html>
 	<head>
 		<%@ page contentType="text/html; charset=UTF-8" import="java.util.*,model.*"%>
-		<title>Account page</title>
+		<title>W3.CSS Template</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+		<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	</head>
-	<body>
-		<%@include file="NavBar.jsp" %>
-		<% 
-			if(Email != null) 
-			{
-		%>
-		<h2><%=Email%>, benvenuto nella tua pagina personale</h2>
-		<% 
-			}
-			else
-			{
-				response.sendRedirect("./Login.jsp");
-			}
-		%>
-		<h2>Salto punti fedeltà: <%=PuntiFedelta%></h2>
-		<% 
-			if(Result != null) 
-			{
-		%>
-		<%=Result%>
-		<% 
-			}
-		%>
+	<body class="w3-light-grey">
+		<%@include file="NavBar.jsp" %>	
 		
-		<table border="1">
-			<caption>Ordini Effettuati</caption>
-			<tr>
-				<th>DataAcquisto</th>
-				<th>PrezzoTotale</th>
-				<th>StatoOrdine</th>
-				<th>Azioni</th>
-			</tr>
-			<%
-				if (Ordini != null && Ordini.size() != 0) 
-				{
-					Iterator<?> it = Ordini.iterator();
-					while (it.hasNext()) 
+		<!-- Page Container -->
+		<div class="w3-content w3-margin-top" style="max-width:1400px;">
+		
+		  <!-- The Grid -->
+		  <div class="w3-row-padding">
+		  
+		    <!-- Left Column -->
+		    <div class="w3-third">
+		    
+		      <div class="w3-white w3-text-grey w3-card-4">
+		        <div class="w3-display-container">
+		          <img src="LayoutSito/img/Avatar.png" style="width:100%" alt="Avatar">
+		          <div class="w3-display-bottomleft w3-container w3-text-black">
+		          </div>
+		        </div>
+		        <div class="w3-container">
+		        <br>
+		          <p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i><%=Utente.getNome()%> <%=Utente.getCognome()%></p>
+		          <p><i class="fa fa-home fa-fw w3-margin-right w3-large w3-text-teal"></i><%=Utente.getVia()%> <%=Utente.getCivico()%>, <%=Utente.getCitta()%>, <%=Utente.getCAP()%></p>
+		          <p><i class="fa fa-envelope fa-fw w3-margin-right w3-large w3-text-teal"></i><%=Utente.getEmail()%></p>
+		          <p><i class="fa fa-phone fa-fw w3-margin-right w3-large w3-text-teal"></i><%=Utente.getNumeroTelefono() %></p>
+		          <hr>
+		        </div>
+		      </div><br>
+		
+		    <!-- End Left Column -->
+		    </div>
+		
+		    <!-- Right Column -->
+		    <div class="w3-twothird">
+		    
+		      <div class="w3-container w3-card w3-white w3-margin-bottom">
+		        <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Ordini Effettuati</h2>
+		        <%
+					if (Ordini != null && Ordini.size() != 0) 
 					{
-						OrdineBean bean = (OrdineBean) it.next();
-			%>
-			
-			<tr>
-				<td><%=bean.getDataAcquisto()%></td>
-				<% Locale.setDefault(Locale.US);
-				String PrezzoTotaleString = String.format("%.2f", bean.getPrezzoTotale());
-				Locale.setDefault(Locale.ITALY);%>
-				<td><%=PrezzoTotaleString%></td>
-				<td><%=bean.getStatoOrdine()%></td>
-				<td>
-					<a href="OrdiniControl?action=Dettagli&CodOrdine=<%=bean.getCodOrdine()%>&PrezzoEffettivo=<%=PrezzoTotaleString%>">Dettagli</a>
-				</td>
-				
-			</tr>
-			<%
+						Iterator<?> it = Ordini.iterator();
+						while (it.hasNext()) 
+						{
+							OrdineBean bean = (OrdineBean) it.next();
+							Locale.setDefault(Locale.US);
+							String PrezzoTotaleString = String.format("%.2f", bean.getPrezzoTotale());
+							Locale.setDefault(Locale.ITALY);
+				%>
+		        <div class="w3-container">
+		          <h5 class="w3-opacity"><b>Ordine del: <%=bean.getDataAcquisto()%></b></h5>
+		          <h6 class="w3-opacity">Prezzo Totale: <%=PrezzoTotaleString%></h6>
+		          <h6 class="w3-opacity">Stato Ordine: <%=bean.getStatoOrdine()%></h6>
+		          <a href="OrdiniControl?action=Dettagli&CodOrdine=<%=bean.getCodOrdine()%>&PrezzoEffettivo=<%=PrezzoTotaleString%>">Dettagli</a>
+		          <hr>
+		        </div>
+		      
+		      <%
+						}
 					}
-				}
-				else
-				{
-			%>
-					<tr>
-						<td colspan="4">Nessun ordine effettuato</td>
-					</tr>
-			<%
-				}
-			%>
-		</table>
-
-		</br>
-		<form method="post" action="./UserControl?action=VisualizzaDati">	
-			<input type="submit" name="Visual1" value="VisualizzaDati">
-		</form>
-    
-    <%
-			if (Utente != null)
-	{
-	%>
-	
-	<table border="1">
-		<caption>Cliente</caption>
-		<tr>
-			<th>Cliente</th>
-			<th>Punti Fedeltà</th>
-			<th>Codice Fiscale</th>
-			<th>Nome</th>
-			<th>Cognome</th>
-			<th>Indirizzo</th>
-			<th>Telefono</th>
-		</tr>
+				%>
+		</div>
 		
-		<tr>
-			<td><%=Utente.getEmail()%></td>
-			<td><%=Utente.getPuntiFedelta()%></td>
-			<td><%=Utente.getCodiceFiscale()%></td>
-			<td><%=Utente.getNome()%></td>
-			<td><%=Utente.getCognome()%></td>
-			<td><%=Utente.getVia()%>,<%=Utente.getCivico()%>,<%=Utente.getCitta()%>, <%=Utente.getCAP()%> </td>
-			<td><%=Utente.getNumeroTelefono() %></td>
-		</tr>
-	</table>
- 	
- 	
- 	<form action="./UserControl?action=ModificaDati" method="post">
- 		<h2>Dati sensibili</h2>
-		<h5>(inserisci solo i dati che desideri modificare)</h5>
- 		<pre> 	
-		    CodiceFiscale: <input type="text" id="CodiceFiscale" name="CodiceFiscale">
-		    Nome: <input type="text" id="Nome" name="Nome">
-		    Cognome: <input type="text" id="Cognome" name="Cognome">
-		    CAP: <input type="number" id="CAP" name="CAP">
-		    Via: <input type="text" id="Via" name="Via">
-		    Civico: <input type="number" id="Civico" name="Civico">
-		    Citta:  <input type="text" id="Citta" name="Citta">
-		    Provincia: <input type="text" id="Provincia" name="Provincia">
-		    Telefono: <input type="text" id="NumeroTelefono" name="NumeroTelefono">
-		   	<input type="submit" name="Visual2" value="Aggiorna dati">  
-		</pre>
-    </form>
- 	<% 
- 		} 
- 	%>	
+		
+		    <!-- End Right Column -->
+		    </div>
+		    
+		  <!-- End Grid -->
+		  </div>
+		  
+		  <!-- End Page Container -->
+		</div>
+		
+		<%@include file="Footer.jsp" %>	
+	
 	</body>
 </html>

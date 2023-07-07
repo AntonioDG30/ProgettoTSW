@@ -19,7 +19,7 @@
 		<link href="LayoutSito/css/navBar.css" rel="stylesheet" type="text/css">
 	</head>
 	<body>
-		<div class="navbar">
+		<div class="navbar2">
 			<div class="logo">
 				<a href="index.jsp">
 					<img src="LayoutSito/img/Logo1_Scontornato.png">
@@ -38,7 +38,7 @@
 			</div>
 			
 			<div class="icone">
-				<a href="./OrdiniControl">
+				<a href="./UserControl?action=VisualizzaDati">
 					<img src="LayoutSito/img/profilo.png" alt="Account">
 				</a>
 				<a href="Carrello.jsp">

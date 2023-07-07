@@ -80,7 +80,7 @@ public class GeneralProductControl extends HttpServlet
 					carrello.aggiungiProdotto(productModel.dettagli(codSeriale), Piattaforma);
 					request.getSession().setAttribute("Carrello", carrello);
 					request.setAttribute("product", productModel.dettagli(codSeriale));
-					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/DettagliProdotto.jsp");
+					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Carrello.jsp");
 					dispatcher.forward(request, response);
 				}
 				

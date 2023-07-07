@@ -5,7 +5,7 @@ body
 	min-height: 100%; 
 }
 
-.navbar 
+.navbar2
 {
 	position: sticky;
 	top: 0;
@@ -97,7 +97,7 @@ body
 
 @media all and (max-width: 900px) 
 {
-	.navbar 
+	.navbar2 
 	{
 		position: sticky;
 		top: 0;
@@ -173,7 +173,7 @@ body
 
 @media all and (max-width: 700px) 
 {
-	.navbar 
+	.navbar2 
 	{
 		position: sticky;
 		top: 0;
@@ -248,7 +248,7 @@ body
 
 @media all and (max-width: 400px) 
 {
-	.navbar 
+	.navbar2 
 	{
 		position: sticky;
 		top: 0;
@@ -323,7 +323,7 @@ body
 
 @media all and (max-width: 300px) 
 {
-	.navbar 
+	.navbar2 
 	{
 		position: sticky;
 		top: 0;
