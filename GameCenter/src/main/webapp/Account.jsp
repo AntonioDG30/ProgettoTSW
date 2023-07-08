@@ -7,6 +7,7 @@
 	String Result="";
 	String FormMod="";
 	int PuntiFedelta=0;
+	Boolean Tipo;
 %>
 <%	
 	Collection<?> Ordini = (Collection<?>) request.getAttribute("Ordini");
@@ -19,6 +20,7 @@
 	{
 		session = request.getSession();
 	    Email=(String)session.getAttribute("Email");
+	    Tipo=(Boolean)session.getAttribute("Tipo");
 	}
 	
 	
@@ -28,16 +30,29 @@
 <html>
 	<head>
 		<%@ page contentType="text/html; charset=UTF-8" import="java.util.*,model.*"%>
-		<title>W3.CSS Template</title>
+		<title>Pagina Utente</title>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 		<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="LayoutSito/css/Account.css">
+		<link rel="shortcut icon" href="Immagini/favicon.ico" />
+
 	</head>
 	<body class="w3-light-grey">
 		<%@include file="NavBar.jsp" %>	
-		
+		<% 
+			if(Email == null) 
+			{
+				response.sendRedirect("./Login.jsp");
+			}
+			else if(!(Tipo))
+			{
+				response.sendRedirect("./Admin.jsp");
+			}
+			
+		%>
 		<!-- Page Container -->
 		<div class="w3-content w3-margin-top" style="max-width:1400px;">
 		
@@ -49,16 +64,24 @@
 		    
 		      <div class="w3-white w3-text-grey w3-card-4">
 		        <div class="w3-display-container">
-		          <img src="LayoutSito/img/Avatar.png" style="width:100%" alt="Avatar">
+		          <img src="LayoutSito/img/Avatar.png" style="width:100%" alt="Foto assente">
 		          <div class="w3-display-bottomleft w3-container w3-text-black">
 		          </div>
 		        </div>
 		        <div class="w3-container">
 		        <br>
-		          <p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i><%=Utente.getNome()%> <%=Utente.getCognome()%></p>
-		          <p><i class="fa fa-home fa-fw w3-margin-right w3-large w3-text-teal"></i><%=Utente.getVia()%> <%=Utente.getCivico()%>, <%=Utente.getCitta()%>, <%=Utente.getCAP()%></p>
-		          <p><i class="fa fa-envelope fa-fw w3-margin-right w3-large w3-text-teal"></i><%=Utente.getEmail()%></p>
-		          <p><i class="fa fa-phone fa-fw w3-margin-right w3-large w3-text-teal"></i><%=Utente.getNumeroTelefono() %></p>
+		          <p><img src="LayoutSito/img/Utente.png">&nbsp;&nbsp;<%=Utente.getNome()%> <%=Utente.getCognome()%></p>
+		          <p><img src="LayoutSito/img/Casa.png">&nbsp;&nbsp;<%=Utente.getVia()%> <%=Utente.getCivico()%>, <%=Utente.getCitta()%> (<%=Utente.getProvincia()%>) <%=Utente.getCAP()%></p>
+		          <p><img src="LayoutSito/img/email.png">&nbsp;&nbsp;<%=Utente.getEmail()%></p>
+		          <p><img src="LayoutSito/img/telefono.png">&nbsp;&nbsp;<%=Utente.getNumeroTelefono() %></p>
+		          <hr>
+		          <a href="UserControl?action=RicercaIndirizzi">
+		          	<button type="button" class="button">Indirizzi di spedizione registrati</button>
+		          </a>
+		          <hr>
+		          <a href="UserControl?action=RicercaMetodi">
+		         	<button type="button" class="button">Metodi di pagamento registrati</button>
+		          </a>
 		          <hr>
 		        </div>
 		      </div><br>
@@ -70,7 +93,7 @@
 		    <div class="w3-twothird">
 		    
 		      <div class="w3-container w3-card w3-white w3-margin-bottom">
-		        <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Ordini Effettuati</h2>
+		        <h2 class="w3-text-grey w3-padding-16"><img src="LayoutSito/img/ordini.png">&nbsp;&nbsp;Ordini Effettuati</h2>
 		        <%
 					if (Ordini != null && Ordini.size() != 0) 
 					{
@@ -86,7 +109,9 @@
 		          <h5 class="w3-opacity"><b>Ordine del: <%=bean.getDataAcquisto()%></b></h5>
 		          <h6 class="w3-opacity">Prezzo Totale: <%=PrezzoTotaleString%></h6>
 		          <h6 class="w3-opacity">Stato Ordine: <%=bean.getStatoOrdine()%></h6>
-		          <a href="OrdiniControl?action=Dettagli&CodOrdine=<%=bean.getCodOrdine()%>&PrezzoEffettivo=<%=PrezzoTotaleString%>">Dettagli</a>
+		          <a href="OrdiniControl?action=Dettagli&CodOrdine=<%=bean.getCodOrdine()%>&PrezzoEffettivo=<%=PrezzoTotaleString%>">
+		          	<button type="button" class="button">Visualizza dettagli</button>
+		          </a>
 		          <hr>
 		        </div>
 		      

@@ -336,6 +336,24 @@ public class UserControl extends HttpServlet
 					}
 				}
 				
+				if (action.equalsIgnoreCase("RicercaIndirizzi")) 
+				{
+					String email = (String) request.getSession().getAttribute("Email");
+					request.removeAttribute("Indirizzi");
+					request.setAttribute("Indirizzi", userModel.getIndirizziSpedizione(email));					
+					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/IndirizziSpedizione.jsp");
+					dispatcher.forward(request, response);
+				}
+				
+				if (action.equalsIgnoreCase("RicercaMetodi")) 
+				{
+					String email = (String) request.getSession().getAttribute("Email");
+					request.removeAttribute("MetodiPagamento");
+					request.setAttribute("MetodiPagamento", userModel.getMetodiPagamento(email));
+					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/MetodiPagamento.jsp");
+					dispatcher.forward(request, response);
+				}
+				
 				
 				
 				if (action.equalsIgnoreCase("NuovoMetodoPagamento")) 
