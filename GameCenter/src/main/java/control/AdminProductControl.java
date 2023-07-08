@@ -60,6 +60,14 @@ public class AdminProductControl extends HttpServlet
 			if(action != null) 
 			{
 				
+				if (action.equalsIgnoreCase("Catalogo")) 
+				{
+					request.removeAttribute("products");
+					request.setAttribute("products", productModel.doAll());
+					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Admin.jsp");
+					dispatcher.forward(request, response);
+				}
+				
 				
 				if (action.equalsIgnoreCase("Elimina")) 
 				{

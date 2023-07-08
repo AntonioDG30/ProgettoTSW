@@ -137,6 +137,22 @@ body
   transition: opacity 0.3s ease;
 }
 
+.operazioniAdmin 
+{
+	display: flex; 
+	flex-direction: row; 
+	justify-content: right;
+	align-items: right;
+}
+
+.operazioniAdmin img
+{
+	width: 40px; 
+	height: 40px
+}
+
+
+
 
 
 
@@ -178,6 +194,12 @@ body
 		padding-right: 20px;
 		width: 100%; 
 		height: 250px; 
+	}
+	
+	.operazioniAdmin img
+	{
+		width: 40px; 
+		height: 40px
 	}
 }
 
