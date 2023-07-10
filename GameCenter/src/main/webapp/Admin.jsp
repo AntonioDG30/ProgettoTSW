@@ -3,10 +3,6 @@
 <%!	
 	String Email="";
 	Boolean Tipo;
-	String Result="";
-	String FormMod="";
-	String TipologiaInserimento="";
-	String Visual="";
 %>
 <%	
 	Collection<?> products = (Collection<?>) request.getAttribute("products");
@@ -15,16 +11,6 @@
 		response.sendRedirect("./AdminProductControl?action=Catalogo");	
 		return;
 	}
-	ProductBean product = (ProductBean) request.getAttribute("product");
-	Result = (String) request.getAttribute("Result");
-	FormMod = (String) request.getAttribute("FormMod");
-	TipologiaInserimento = (String) request.getAttribute("TipologiaInserimento");
-	Collection<?> Genere = (Collection<?>) request.getAttribute("Genere");
-	Collection<?> PEGI = (Collection<?>) request.getAttribute("PEGI");
-	Collection<?> Ordini = (Collection<?>) request.getAttribute("Ordini");
-	Collection<?> Clienti = (Collection<?>) request.getAttribute("Clienti");
-	UserBean Cliente = (UserBean) request.getAttribute("Cliente");
-	Visual = (String) request.getAttribute("Visual");
 	
 	synchronized(session) 
 	{
@@ -45,6 +31,7 @@
 	</head>
 	<body>
 		<%@include file="NavBar.jsp" %>
+		<%@include file="AdminBar.jsp" %>
 		<div class="prodotti">
 		<%
 			if (products != null && products.size() != 0) 

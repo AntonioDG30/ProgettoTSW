@@ -47,7 +47,7 @@
 		<div class="slideShow">
 		  <a href="Login.jsp"><img class="mySlides" src="LayoutSito/img/PS5_Slide.jpg"></a>
 		  <a href="Registrati.jsp"><img class="mySlides" src="LayoutSito/img/NVIDIA4090_Slide.jpg"></a>
-		  <a href="Login.jsp"><img class="mySlides" src="LayoutSito/img/TLOU2_Slide.jpg"></a>
+		  <a href="prova.jsp"><img class="mySlides" src="LayoutSito/img/TLOU2_Slide.jpg"></a>
 		</div>
 		<h2>I prodotti più ricercati:</h2><br>
 		

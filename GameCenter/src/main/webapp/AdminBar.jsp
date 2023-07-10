@@ -10,13 +10,20 @@
 		<nav role="navigation" class="sottoNav">
 		    <ul class="sottoNav-items">
 		        <li class="sottoNav-item">
-		            <a href="index.jsp" class="sottoNav-link"><span>Home</span></a>
+		            <a href="Carrello.jsp" class="sottoNav-link"><span>Aggiungi prodotto</span></a>
 		        </li>
-		        <li class="sottoNav-item">
-		            <a href="Catalogo.jsp" class="sottoNav-link"><span>Catalogo</span></a>
+		         <li class="sottoNav-item dropdown">
+		            <a href="#" class="sottoNav-link"><span>Visualizza Elenco Ordini</span></a>
+		            <nav class="sottoMenu">
+		                <ul class="sottoMenu-items">
+		                    <li class="sottoMenu-item"><a href="./OrdiniControl?action=VisualizzaTuttiOrdini" class="sottoMenu-link">Visualizza tutti gli ordini</a></li>
+		                    <li class="sottoMenu-item"><a href="./OrdiniControl?action=VisualizzaOrdini?Visual=cliente" class="sottoMenu-link">Visualizza ordini di un determinato cliente</a></li>
+		                    <li class="sottoMenu-item"><a href="./OrdiniControl?action=VisualizzaOrdini?Visual=periodo" class="sottoMenu-link">Visualizza gli ordini di un determinato periodo</a></li>
+		                </ul>
+		            </nav>
 		        </li> 
 		        <li class="sottoNav-item dropdown">
-		            <a href="#" class="sottoNav-link"><span>Categorie</span></a>
+		            <a href="#" class="sottoNav-link"><span>Visualizza Elenco Clienti</span></a>
 		            <nav class="sottoMenu">
 		                <ul class="sottoMenu-items">
 		                    <li class="sottoMenu-item"><a href="#" class="sottoMenu-link">Visualizza tutti i clienti</a></li>

@@ -161,46 +161,48 @@ public class OrdiniControl extends HttpServlet
 						response.sendRedirect("./Login.jsp");
 					}
 				}
+				if (action.equalsIgnoreCase("VisualizzaTuttiOrdini")) 
+				{
+						request.removeAttribute("Ordini");
+						request.setAttribute("Ordini", ordineModel.elencoOrdini());
+						RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/VisualizzazioneOrdini.jsp");
+						dispatcher.forward(request, response);	
+				}
+				
+
 				
 				
 				if (action.equalsIgnoreCase("VisualizzaOrdini")) 
 				{
-					if(request.getParameter("ParteMod").contentEquals("Parte1"))
+					String visualizzazione = request.getParameter("Visual");
+					if(visualizzazione.contentEquals("tutti"))
 					{
-						String visualizzazione = request.getParameter("VisualizzazioneOrdini");
-						if(visualizzazione.contentEquals("Tutti"))
-						{
-							request.removeAttribute("Ordini");
-							request.setAttribute("Ordini", ordineModel.elencoOrdini());
-						}
-						else if (visualizzazione.contentEquals("Cliente"))
-						{
-							request.removeAttribute("Visual");
-							request.setAttribute("Visual", visualizzazione);
-						}
-						else if (visualizzazione.contentEquals("Periodo"))
-						{
-							request.removeAttribute("Visual");
-							request.setAttribute("Visual", visualizzazione);
-						}
+						request.removeAttribute("Ordini");
+						request.setAttribute("Ordini", ordineModel.elencoOrdini());
+						RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/VisualizzazioneOrdini.jsp");
+						dispatcher.forward(request, response);	
 					}
-					else if(request.getParameter("ParteMod").contentEquals("Parte2"))
+					else if (visualizzazione.contentEquals("cliente") || visualizzazione.contentEquals("periodo"))
 					{
+						request.removeAttribute("Visual");
+						request.setAttribute("Visual", visualizzazione);
+					}
 
-						if (request.getParameter("email") != null )
-						{
-							String email = request.getParameter("email");
-							request.removeAttribute("Ordini");
-							request.setAttribute("Ordini", ordineModel.elencoOrdiniByCliente(email));
-						}
-						else if (request.getParameter("DataInizio") != null &&
-								request.getParameter("DataFine") != null)
-						{
-							String dataInizio = request.getParameter("DataInizio");
-							String dataFine = request.getParameter("DataFine");
-							request.removeAttribute("Ordini");
-							request.setAttribute("Ordini", ordineModel.elencoOrdiniByPeriodo(dataInizio, dataFine));
-						}
+
+
+					if (request.getParameter("email") != null )
+					{
+						String email = request.getParameter("email");
+						request.removeAttribute("Ordini");
+						request.setAttribute("Ordini", ordineModel.elencoOrdiniByCliente(email));
+					}
+					else if (request.getParameter("DataInizio") != null &&
+							request.getParameter("DataFine") != null)
+					{
+						String dataInizio = request.getParameter("DataInizio");
+						String dataFine = request.getParameter("DataFine");
+						request.removeAttribute("Ordini");
+						request.setAttribute("Ordini", ordineModel.elencoOrdiniByPeriodo(dataInizio, dataFine));
 					}
 					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Admin.jsp");
 					dispatcher.forward(request, response);	
