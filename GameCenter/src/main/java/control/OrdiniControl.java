@@ -174,21 +174,37 @@ public class OrdiniControl extends HttpServlet
 				
 				if (action.equalsIgnoreCase("VisualizzaOrdini")) 
 				{
-					String visualizzazione = request.getParameter("Visual");
-					if(visualizzazione.contentEquals("tutti"))
+					if(request.getParameter("Visual") != null && request.getParameter("Visual").contentEquals("tutti"))
 					{
 						request.removeAttribute("Ordini");
 						request.setAttribute("Ordini", ordineModel.elencoOrdini());
-						RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/VisualizzazioneOrdini.jsp");
-						dispatcher.forward(request, response);	
 					}
-					else if (visualizzazione.contentEquals("cliente") || visualizzazione.contentEquals("periodo"))
+					else if (request.getParameter("Visual") != null && (request.getParameter("Visual").contentEquals("cliente") || request.getParameter("Visual").contentEquals("periodo")))
 					{
 						request.removeAttribute("Visual");
-						request.setAttribute("Visual", visualizzazione);
+						request.setAttribute("Visual", request.getParameter("Visual"));
 					}
-
-
+					if (request.getParameter("email") != null )
+					{
+						String email = request.getParameter("email");
+						request.removeAttribute("Ordini");
+						request.setAttribute("Ordini", ordineModel.elencoOrdiniByCliente(email));
+					}
+					else if (request.getParameter("DataInizio") != null &&
+							request.getParameter("DataFine") != null)
+					{
+						String dataInizio = request.getParameter("DataInizio");
+						String dataFine = request.getParameter("DataFine");
+						request.removeAttribute("Ordini");
+						request.setAttribute("Ordini", ordineModel.elencoOrdiniByPeriodo(dataInizio, dataFine));
+					}
+					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/VisualizzazioneOrdini.jsp");
+					dispatcher.forward(request, response);	
+				}
+				
+				
+				if (action.equalsIgnoreCase("VisualizzaOrdini2")) 
+				{
 
 					if (request.getParameter("email") != null )
 					{
@@ -204,7 +220,7 @@ public class OrdiniControl extends HttpServlet
 						request.removeAttribute("Ordini");
 						request.setAttribute("Ordini", ordineModel.elencoOrdiniByPeriodo(dataInizio, dataFine));
 					}
-					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Admin.jsp");
+					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/VisualizzazioneOrdini.jsp");
 					dispatcher.forward(request, response);	
 				}
 			}

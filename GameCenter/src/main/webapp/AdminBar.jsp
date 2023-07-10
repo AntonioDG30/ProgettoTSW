@@ -16,9 +16,9 @@
 		            <a href="#" class="sottoNav-link"><span>Visualizza Elenco Ordini</span></a>
 		            <nav class="sottoMenu">
 		                <ul class="sottoMenu-items">
-		                    <li class="sottoMenu-item"><a href="./OrdiniControl?action=VisualizzaTuttiOrdini" class="sottoMenu-link">Visualizza tutti gli ordini</a></li>
-		                    <li class="sottoMenu-item"><a href="./OrdiniControl?action=VisualizzaOrdini?Visual=cliente" class="sottoMenu-link">Visualizza ordini di un determinato cliente</a></li>
-		                    <li class="sottoMenu-item"><a href="./OrdiniControl?action=VisualizzaOrdini?Visual=periodo" class="sottoMenu-link">Visualizza gli ordini di un determinato periodo</a></li>
+		                    <li class="sottoMenu-item"><a href="./OrdiniControl?action=VisualizzaOrdini&Visual=tutti" class="sottoMenu-link">Visualizza tutti gli ordini</a></li>
+		                    <li class="sottoMenu-item"><a href="./OrdiniControl?action=VisualizzaOrdini&Visual=cliente" class="sottoMenu-link">Visualizza ordini di un determinato cliente</a></li>
+		                    <li class="sottoMenu-item"><a href="./OrdiniControl?action=VisualizzaOrdini&Visual=periodo" class="sottoMenu-link">Visualizza gli ordini di un determinato periodo</a></li>
 		                </ul>
 		            </nav>
 		        </li> 
