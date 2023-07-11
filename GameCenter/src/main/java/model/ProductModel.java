@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.ArrayList;
+import java.util.List;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -113,19 +115,21 @@ public class ProductModel
 	}
 	
 	
-	public synchronized Collection<ProductBean> doTop8() throws SQLException
+	public synchronized static Collection<ProductBean> getProdottiRicerca(String ricerca) throws SQLException
 	{
 		Connection con = null;
 		PreparedStatement ps = null;
+		ricerca = "%" + ricerca + "%";
 		
 		Collection<ProductBean> products = new LinkedList<>();
-		String sql = "SELECT * FROM " + ProductModel.TABLE_NAME_PRODOTTO + " AS p, " + ProductModel.TABLE_NAME_INCLUDE +" AS i " 
-						+ "WHERE p.CodSeriale = i.CodSeriale AND FlagVisibita = 1 GROUP BY i.CodSeriale ORDER BY sum(i.quantita) DESC LIMIT 8";
+		
+		String sql = "SELECT * FROM " + ProductModel.TABLE_NAME_PRODOTTO + " WHERE Nome LIKE ? AND FlagVisibita = 1";
 		
 		try
 		{
 			con = ds.getConnection();
 			ps = con.prepareStatement(sql);
+			ps.setString(1, ricerca);
 
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) 
@@ -156,6 +160,93 @@ public class ProductModel
 			}
 		}
 		return products;
+	}
+	
+	
+	public synchronized Collection<ProductBean> doTop8() throws SQLException
+	{
+		Connection con = null;
+		PreparedStatement ps = null;
+		
+		Collection<ProductBean> products = new LinkedList<>();
+		String sql = "SELECT * FROM " + ProductModel.TABLE_NAME_PRODOTTO + " AS p, " + ProductModel.TABLE_NAME_INCLUDE +" AS i " 
+						+ "WHERE p.CodSeriale = i.CodSeriale AND FlagVisibita = 1 GROUP BY i.CodSeriale ORDER BY sum(i.quantita) DESC LIMIT 8";
+		
+		try
+		{
+			con = ds.getConnection();
+			ps = con.prepareStatement(sql);
+			
+
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) 
+			{
+				ProductBean bean = new ProductBean();
+				bean.setCodSeriale(rs.getString("CodSeriale"));
+				bean.setNome(rs.getString("Nome"));
+				bean.setPrezzo(rs.getFloat("Prezzo"));
+				bean.setDescrizioneRidotta(rs.getString("DescrizioneRidotta"));
+				bean.setImmagine(rs.getString("Immagine"));
+				products.add(bean);
+			}
+			
+		}
+		catch(SQLException e)
+		{
+			logger.log(Level.WARNING, e.getMessage());
+		}
+		finally
+		{
+			if(ps != null)
+			{
+				ps.close();
+			}
+			if(con != null)
+			{
+				con.close();
+			}
+		}
+		return products;
+	}
+	
+	public synchronized static List<String> getSuggerimentiProdotti(String ricerca) throws SQLException
+	{
+		Connection con = null;
+		PreparedStatement ps = null;
+		ricerca = "%" + ricerca + "%";
+		
+		List<String> suggerimenti = new ArrayList<>();
+		String sql = "SELECT Nome FROM " + ProductModel.TABLE_NAME_PRODOTTO + " WHERE Nome LIKE ? AND FlagVisibita = 1";
+		
+		try
+		{
+			con = ds.getConnection();
+			ps = con.prepareStatement(sql);
+			ps.setString(1, ricerca);
+
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) 
+			{
+				suggerimenti.add(rs.getString("Nome"));
+			}
+			
+		}
+		catch(SQLException e)
+		{
+			logger.log(Level.WARNING, e.getMessage());
+		}
+		finally
+		{
+			if(ps != null)
+			{
+				ps.close();
+			}
+			if(con != null)
+			{
+				con.close();
+			}
+		}
+		return suggerimenti;
 	}
 	
 	

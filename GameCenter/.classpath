@@ -14,5 +14,6 @@
 	<classpathentry exported="true" kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry exported="true" kind="lib" path="src/main/webapp/WEB-INF/lib/pdfbox-app-2.0.28.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/gson-2.10.1.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

@@ -3,8 +3,9 @@ package control;
 import model.*;
 
 import java.io.IOException;
-
+import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -15,6 +16,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
+
+import com.google.gson.Gson;
 
 @MultipartConfig
 @WebServlet("/GeneralProductControl")
@@ -51,6 +54,26 @@ public class GeneralProductControl extends HttpServlet
 		{
 			if(action != null) 
 			{
+				
+				if (action.equalsIgnoreCase("RicercaSuggerimenti")) 
+				{
+					String ricerca = request.getParameter("ricerca");
+			        List<String> suggerimenti = ProductModel.getSuggerimentiProdotti(ricerca);
+			        response.setContentType("application/json");
+			        response.setCharacterEncoding("UTF-8");
+			        PrintWriter out = response.getWriter();
+			        out.print("{\"suggerimenti\": " + new Gson().toJson(suggerimenti) + "}");
+			        out.flush();
+				}
+				
+				if (action.equalsIgnoreCase("Ricerca")) 
+				{
+					String ricerca = request.getParameter("ricerca");
+					request.removeAttribute("products");
+					request.setAttribute("products", ProductModel.getProdottiRicerca(ricerca));
+					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Catalogo.jsp");
+					dispatcher.forward(request, response);
+				}
 				
 				if (action.equalsIgnoreCase("Catalogo")) 
 				{

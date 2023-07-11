@@ -65,6 +65,14 @@
 		<%
 				}
 			}
+			else
+			{
+		%>
+		<br><br><br><br><br><br><br><br><br><br><br><br><br>
+		Mi dispiace nessun prodotto trovato
+		<br><br><br><br><br><br><br><br><br><br><br><br><br>
+		<%
+			}
 		%>
 		</div>
 		<%@include file="Footer.jsp" %>
