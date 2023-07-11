@@ -145,34 +145,26 @@ public class UserControl extends HttpServlet
 					}		
 				}
 				
-				
-				
-				
-				
 				if (action.equalsIgnoreCase("VisualizzaUtenti")) 
 				{
-					if(request.getParameter("ParteMod").contentEquals("Parte1"))
+					if(request.getParameter("Visual") != null && request.getParameter("Visual").contentEquals("tutti"))
 					{
-						String visualizzazione = request.getParameter("VisualizzazioneUtente");				
-						if(visualizzazione.contentEquals("Tutti"))
-						{
-							request.removeAttribute("Clienti");
-							request.setAttribute("Clienti", userModel.elencoClienti());
-						}
-						else if (visualizzazione.contentEquals("ClienteSpecifico"))
-						{
-							request.removeAttribute("Clienti");
-							request.setAttribute("Visual", visualizzazione);
-						}
+						request.removeAttribute("Clienti");
+						request.setAttribute("Clienti", userModel.elencoClienti());
 					}
-					else if(request.getParameter("ParteMod").contentEquals("Parte2"))
+					else if (request.getParameter("Visual") != null && request.getParameter("Visual").contentEquals("cliente") )
+					{
+						request.removeAttribute("Visual");
+						request.setAttribute("Visual", request.getParameter("Visual"));
+					}
+					if (request.getParameter("email") != null )
 					{
 						String email = request.getParameter("email");
 						request.removeAttribute("Cliente");
 						request.setAttribute("Cliente", userModel.ricercaCliente(email));
 					}
-					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Admin.jsp");
-					dispatcher.forward(request, response);	
+					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/VisualizzazioneClienti.jsp");
+					dispatcher.forward(request, response);
 				}
 				
 				

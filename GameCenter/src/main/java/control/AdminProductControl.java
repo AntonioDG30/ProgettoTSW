@@ -71,16 +71,8 @@ public class AdminProductControl extends HttpServlet
 				
 				if (action.equalsIgnoreCase("Elimina")) 
 				{
-					request.removeAttribute("Result");
 					String codSeriale = request.getParameter("CodSeriale");
-					if(productModel.elimina(codSeriale))
-					{
-						request.setAttribute("Result", "Il prodotto è stato eliminato correttamente.");
-					}
-					else
-					{
-						request.setAttribute("Result", "CodSeriale non valido, riprova.");
-					}
+					productModel.elimina(codSeriale);
 					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Admin.jsp");
 					dispatcher.forward(request, response);
 				}
@@ -93,8 +85,7 @@ public class AdminProductControl extends HttpServlet
 					if(request.getParameter("ParteMod").contentEquals("Parte1"))
 					{
 						request.removeAttribute("TipologiaInserimento");
-						String tipologiaString = request.getParameter("Tipologia");
-						if(tipologiaString.contentEquals("hardware"))
+						if(request.getParameter("Tipologia").contentEquals("hardware"))
 						{
 							tipologia=true;
 							request.setAttribute("TipologiaInserimento", "Hardware");
@@ -108,12 +99,10 @@ public class AdminProductControl extends HttpServlet
 						request.setAttribute("PEGI", productModel.getPegiElements());
 						request.removeAttribute("Genere");
 						request.setAttribute("Genere", productModel.getGenereElements());
-						RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Admin.jsp");
+						RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/AggiungiProdotto.jsp");
 						dispatcher.forward(request, response);
 					}
-					
-					
-					if(request.getParameter("ParteMod").contentEquals("Parte2"))
+					else if(request.getParameter("ParteMod").contentEquals("Parte1"))
 					{
 						ProductBean product = new ProductBean();
 						product.setCodSeriale(request.getParameter("CodSeriale"));
@@ -149,16 +138,10 @@ public class AdminProductControl extends HttpServlet
 						product.setDispPs5Fisico(Integer.parseInt(request.getParameter("PS5Fisico")));
 						product.setDispPs4Fisico(Integer.parseInt(request.getParameter("PS4Fisico")));
 						product.setDispXboxXFisico(Integer.parseInt(request.getParameter("XboxXFisico")));
-						if(productModel.inserisci(product))
-						{
-							request.setAttribute("Result", "Il prodotto è stato inserito correttamente.");
-						}
-						else
-						{
-							request.setAttribute("Result", "Errore imprevisto, riprova.");
-						}
+						productModel.inserisci(product);
 						RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Admin.jsp");
 						dispatcher.forward(request, response);
+						
 					}
 				}
 				
@@ -167,22 +150,16 @@ public class AdminProductControl extends HttpServlet
 				
 				if (action.equalsIgnoreCase("Modifica")) 
 				{
-					
 					if(request.getParameter("ParteMod").contentEquals("Parte1"))
 					{
 						codSerialeMod = request.getParameter("CodSeriale");
 						request.removeAttribute("product");
 						request.setAttribute("product", productModel.dettagli(codSerialeMod));
-						request.removeAttribute("Result");
-						if (request.getAttribute("product") == null)
-						{
-							request.setAttribute("Result", "il CodSeriale inserito non esiste, riprova.");
-						}
 						request.removeAttribute("PEGI");
 						request.setAttribute("PEGI", productModel.getPegiElements());
 						request.removeAttribute("Genere");
 						request.setAttribute("Genere", productModel.getGenereElements());
-						RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Admin.jsp");
+						RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ModificaProdotto.jsp");
 						dispatcher.forward(request, response);
 					}
 					else if(request.getParameter("ParteMod").contentEquals("Parte2"))

@@ -47,7 +47,7 @@
 		                    <th class="text-right py-3 px-4" style="width: 200px;">Via e Civico</th>
 		                    <th class="text-center py-3 px-4" style="width: 200px;">Città, provincia e CAP</th>
 		                    <th class="text-center py-3 px-4" style="width: 150px;">Numero di telefono</th>
-		                    <th class="text-center py-3 px-4" style="width: 100px;">Recensisci</th>
+		                    <th class="text-center py-3 px-4" style="width: 100px;">Operazioni</th>
 		                  </tr>
 		                </thead>
 		                <tbody>

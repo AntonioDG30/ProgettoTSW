@@ -161,16 +161,6 @@ public class OrdiniControl extends HttpServlet
 						response.sendRedirect("./Login.jsp");
 					}
 				}
-				if (action.equalsIgnoreCase("VisualizzaTuttiOrdini")) 
-				{
-						request.removeAttribute("Ordini");
-						request.setAttribute("Ordini", ordineModel.elencoOrdini());
-						RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/VisualizzazioneOrdini.jsp");
-						dispatcher.forward(request, response);	
-				}
-				
-
-				
 				
 				if (action.equalsIgnoreCase("VisualizzaOrdini")) 
 				{
@@ -201,28 +191,7 @@ public class OrdiniControl extends HttpServlet
 					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/VisualizzazioneOrdini.jsp");
 					dispatcher.forward(request, response);	
 				}
-				
-				
-				if (action.equalsIgnoreCase("VisualizzaOrdini2")) 
-				{
 
-					if (request.getParameter("email") != null )
-					{
-						String email = request.getParameter("email");
-						request.removeAttribute("Ordini");
-						request.setAttribute("Ordini", ordineModel.elencoOrdiniByCliente(email));
-					}
-					else if (request.getParameter("DataInizio") != null &&
-							request.getParameter("DataFine") != null)
-					{
-						String dataInizio = request.getParameter("DataInizio");
-						String dataFine = request.getParameter("DataFine");
-						request.removeAttribute("Ordini");
-						request.setAttribute("Ordini", ordineModel.elencoOrdiniByPeriodo(dataInizio, dataFine));
-					}
-					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/VisualizzazioneOrdini.jsp");
-					dispatcher.forward(request, response);	
-				}
 			}
 			else
 			{

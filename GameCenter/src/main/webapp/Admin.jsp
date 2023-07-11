@@ -60,7 +60,7 @@
 								<input type="hidden" name="CodSeriale" value="<%=bean.getCodSeriale()%>">				
 								<img src="LayoutSito/img/elimina.png" onclick="document.getElementById('elimina').submit();">
 						</form>
-						<form method="post" id="modifica" action="./AdminProductControl?action=Modifica">
+						<form method="post" id="modifica" action="./AdminProductControl?action=Modifica&ParteMod=Parte1&CodSeriale=<%=bean.getCodSeriale()%>">
 								<input type="hidden" name="CodSeriale" value="<%=bean.getCodSeriale()%>">				
 								<img src="LayoutSito/img/modifica.png" onclick="document.getElementById('modifica').submit();">
 						</form>

@@ -20,7 +20,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
-		<link href="LayoutSito/css/Ordini.css" rel="stylesheet" type="text/css">
+		<link href="LayoutSito/css/formAdmin.css" rel="stylesheet" type="text/css">
 		<title>GameCenter</title>
 	</head>
 	<body>
@@ -30,7 +30,7 @@
 			{ 
 		%>
         <div class="formCliente">
-        	<form method="post" action="./OrdiniControl?action=VisualizzaOrdini2">
+        	<form method="post" action="./OrdiniControl?action=VisualizzaOrdini">
 				<div class="form">
 			      <div class="subtitle">Inserisci l'Email del cliente di cui visualizzare gli ordini:</div>
 			      <div class="input-container ic1">
@@ -48,7 +48,7 @@
 			{ 
 		%>
         <div class="formPeriodo">
-	        <form method="post" action="./OrdiniControl?action=VisualizzaOrdini2">
+	        <form method="post" action="./OrdiniControl?action=VisualizzaOrdini">
 		        <div class="form">
 			      <div class="subtitle">Inserisci il periodo di cui visualizzare gli ordini:</div>
 			      <div class="input-container ic1">

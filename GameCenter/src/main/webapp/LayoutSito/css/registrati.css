@@ -4,15 +4,16 @@
   	background-color: #cfe5ff;
   	display: flex;
   	justify-content: center;
-  	height: 100vh;
+
 }
 
 .form {
   background-color: #013a63;
   border-radius: 20px;
-  height: 500px;
+  height: 100%;
   padding: 20px;
   width: 320px;
+  margin-top:30px;
   
 }
 
@@ -35,15 +36,18 @@
   height: 50px;
   position: relative;
   width: 100%;
+  margin-top: 20px;
 }
 
-.ic1 {
-  margin-top: 40px;
+.input-container-Foto {
+  height: 50px;
+  position: relative;
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 40px;
+  color: #eee;
 }
 
-.ic2 {
-  margin-top: 30px;
-}
 
 .input {
   background-color: #303245;
@@ -53,21 +57,46 @@
   color: #eee;
   font-size: 18px;
   height: 100%;
-  outline: 0;
-  padding: 4px 20px 0;
   width: 100%;
 }
 
+.inputFoto {
+  background-color: #303245;
+  border-radius: 12px;
+  border: 0;
+  box-sizing: border-box;
+  color: #eee;
+  font-size: 18px;
+  height: 100%;
+  width: 100%;
+}
+
+input[type=file]::file-selector-button {
+  margin-right: 20px;
+  border: none;
+  background: #084cdf;
+  padding: 14px 20px;
+  border-radius: 10px;
+  color: #fff;
+  cursor: pointer;
+  transition: background .2s ease-in-out;
+}
+
+input[type=file]::file-selector-button:hover {
+  background: #0d45a5;
+}
+
 .cut {
-  background-color: #15172b;
+  background-color: #013a63;
   border-radius: 10px;
   height: 20px;
-  left: 20px;
+  left: 10px;
+  right: 10px;
   position: absolute;
   top: -20px;
   transform: translateY(0);
   transition: transform 200ms;
-  width: 76px;
+  width: 120px;
 }
 
 .cut-short {
@@ -80,7 +109,7 @@
 }
 
 .placeholder {
-  color: #65657b;
+  color: #eee;
   font-family: sans-serif;
   left: 20px;
   line-height: 14px;
@@ -90,6 +119,7 @@
   transition: transform 200ms, color 200ms;
   top: 20px;
 }
+
 
 .input:focus ~ .placeholder,
 .input:not(:placeholder-shown) ~ .placeholder {
@@ -122,3 +152,42 @@
 .submit:active {
   background-color: #06b;
 }
+
+.box {
+  position: flex;
+  color: white;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #013a63;
+  margin-top: 50px;
+  margin-bottom: -30px;
+  margin-left: 110px;
+  flex-direction: row;
+  justify-content: flex-start;
+  font-size: 15px;
+  
+}
+
+.box select {
+  background-color: #303245;
+  color: white;
+  padding: 12px;
+  width: 310px;
+  border: none;
+  font-size: 18px;
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+  -webkit-appearance: button;
+  appearance: button;
+  outline: none;
+  border-radius: 12px;
+}
+
+
+
+.box:hover::before {
+  color: rgba(255, 255, 255, 0.6);
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+

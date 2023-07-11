@@ -20,7 +20,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>GameCenter Registrati</title>
-		<link href="LayoutSito/css/Login.css" rel="stylesheet" type="text/css">	
+		<link href="LayoutSito/css/registrati.css" rel="stylesheet" type="text/css">	
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.min.js"></script>
 		<link rel="shortcut icon" href="Immagini/favicon.ico" />
 	</head>
@@ -32,124 +32,69 @@
 			}
 		%>
 		<%@include file="NavBar.jsp" %>
-		<div class="page">
-	  		<div class="container">
-	   			<div class="left">
-		     		<div class="login">Registrati</div>
-		      		<div class="eula">
-		      			Grazie per aver deciso di registrarti al nostro sito!
-				        <%
-							if(Result != null) 
-							{
-						%>
-								<h3><%=Result%></h3>
-						<% 
-							}
-						%>
-					</div>
-	    		</div>
-	    		<div class="right">
-	      			<svg viewBox="0 0 320 300">
-	       				<defs>
-				          	<linearGradient
-					                         inkscape:collect="always"
-					                         id="linearGradient"
-					                         x1="13"
-					                         y1="193.49992"
-					                         x2="307"
-					                         y2="193.49992"
-					                         gradientUnits="userSpaceOnUse">
-					            <stop
-					                  style="stop-color:#ff00ff;"
-					                  offset="0"
-					                  id="stop876" />
-					            <stop
-					                  style="stop-color:#ff0000;"
-					                  offset="1"
-					                  id="stop878" />
-	         				 </linearGradient>
-	        			</defs>
-	        			<path d="m 40,120.00016 239.99984,-3.2e-4 c 0,0 24.99263,0.79932 25.00016,35.00016 0.008,34.20084 -25.00016,35 -25.00016,35 h -239.99984 c 0,-0.0205 -25,4.01348 -25,38.5 0,34.48652 25,38.5 25,38.5 h 215 c 0,0 20,-0.99604 20,-25 0,-24.00396 -20,-25 -20,-25 h -190 c 0,0 -20,1.71033 -20,25 0,24.00396 20,25 20,25 h 168.57143" />
-	      			</svg>
-			        <div class="form">
-			      		<form method="post" action="./UserControl?action=Registrati">
-				        	<label for="email">Email</label>
-				        	<input type="email" name="email"  id="email">
-				        	<label for="password">Password</label>
-				        	<input type="password" name="password" id="password">
-				        	<input type="submit" id="submit" value="Submit">
-			        	</form>
-			        </div>
-	    		</div>
-	  		</div>
-		</div>
-
-
-
-		<script>
-			var current = null;
-			document.querySelector('#email').addEventListener('focus', function(e) 
-			{
-			  	if (current) current.pause();
-			  	current = anime
-			  	({
-				    targets: 'path',
-				    strokeDashoffset: 
-				    {
-				     	value: 0,
-				      	duration: 700,
-				      	easing: 'easeOutQuart'
-				    },
-				    strokeDasharray: 
-				    {
-				      value: '240 1386',
-				      duration: 700,
-				      easing: 'easeOutQuart'
-				    }
-			  	});
-			});
-			
-			document.querySelector('#password').addEventListener('focus', function(e) 
-			{
-			  	if (current) current.pause();
-			  	current = anime
-			  	({
-				    targets: 'path',
-				    strokeDashoffset: 
-				    {
-				      	value: -336,
-				      	duration: 700,
-				      	easing: 'easeOutQuart'
-				    },
-				    strokeDasharray: 
-				    {
-				      	value: '240 1386',
-				      	duration: 700,
-				      	easing: 'easeOutQuart'
-				    }
-			  	});
-			});
-			
-			document.querySelector('#submit').addEventListener('focus', function(e) 
-			{
-			  	if (current) current.pause();
-			  	current = anime
-			  	({
-			    	targets: 'path',
-			    	strokeDashoffset: 
-			    	{
-			      		value: -730,
-			      		duration: 700,
-			      		easing: 'easeOutQuart'
-			   		},
-			   		strokeDasharray: 
-			   		{
-			      		value: '530 1386',
-			      		duration: 700,
-			      		easing: 'easeOutQuart'
-			    	}
-			  	});
-			});
-		</script>
+		<div class="formCliente">
+        	<form method="post" action="./OrdiniControl?action=VisualizzaOrdini">
+				<div class="form">
+			        <div class="title">Benvenuto</div>
+      				<div class="subtitle">Registra il tuo nuovo account</div>
+			      	<div class="input-container ic1">
+				        <input id="Email" class="input" type="email" placeholder=" " />
+				        <div class="cut"></div>
+				        <label for="Email" class="placeholder">Email</label>
+				    </div>
+				    <div class="input-container">
+				        <input id="Password" class="input" type="password" placeholder=" " />
+				        <div class="cut"></div>
+				        <label for="Password" class="placeholder">Password</label>
+				    </div>
+				    <div class="input-container">
+				        <input id="Nome" class="input" type="text" placeholder=" " />
+				        <div class="cut"></div>
+				        <label for="Nome" class="placeholder">Nome</label>
+				    </div>
+				    <div class="input-container">
+				        <input id="Cognome" class="input" type="text" placeholder=" " />
+				        <div class="cut"></div>
+				        <label for="Cognome" class="placeholder">Cognome</label>
+				    </div>
+				    <div class="input-container">
+				        <input id="CF" class="input" type="text" placeholder=" " />
+				        <div class="cut"></div>
+				        <label for="CF" class="placeholder">Codice Fiscale</label>
+				    </div>
+				    <div class="input-container">
+				        <input id="Via" class="input" type="text" placeholder=" " />
+				        <div class="cut"></div>
+				        <label for="Via" class="placeholder">Via</label>
+				    </div>
+				    <div class="input-container">
+				        <input id="Civico" class="input" type="number" placeholder=" " min="1"/>
+				        <div class="cut"></div>
+				        <label for="Civico" class="placeholder">Civico</label>
+				    </div>
+				    <div class="input-container">
+				        <input id="Citta" class="input" type="text" placeholder=" " />
+				        <div class="cut"></div>
+				        <label for="Citta" class="placeholder">Città</label>
+				    </div>
+				    <div class="input-container">
+				        <input id="Provincia" class="input" type="text" placeholder=" " />
+				        <div class="cut"></div>
+				        <label for="Provincia" class="placeholder">Provincia</label>
+				    </div>
+				    <div class="input-container">
+				        <input id="CAP" class="input" type="number" placeholder=" " />
+				        <div class="cut"></div>
+				        <label for="CAP" class="placeholder">CAP</label>
+				    </div>
+				    <div class="input-container">
+				        <input id="Telefono" class="input" type="text" placeholder=" " />
+				        <div class="cut"></div>
+				        <label for="Telefono" class="placeholder">Numero Telefono</label>
+				    </div>
+			      	<button type="text" class="submit">submit</button>
+			    </div>
+			</form>
+        </div>
 	</body>
 </html>
