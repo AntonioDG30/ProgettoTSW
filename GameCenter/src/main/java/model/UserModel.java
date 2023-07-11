@@ -45,13 +45,12 @@ public class UserModel
 	
 	public synchronized UserBean ricercaUtente(String email,String password) throws SQLException 
 	{
-		Connection con = null;
 		PreparedStatement ps = null;
 		UserBean bean = new UserBean();
 		String sql = "SELECT * FROM " + UserModel.TABLE_NAME_UTENTE + " WHERE Email = ? AND PasswordUtente = ?";
-		try 
+		try(Connection con = ds.getConnection())
 		{
-			con = ds.getConnection();
+			
 			ps = con.prepareStatement(sql);
 			ps.setString(1, email);
 			ps.setString(2, password);
@@ -73,10 +72,6 @@ public class UserModel
 			if(ps != null)
 			{
 				ps.close();
-			}
-			if(con != null)
-			{
-				con.close();
 			}
 		}
 
