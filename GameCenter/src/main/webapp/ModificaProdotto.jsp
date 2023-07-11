@@ -22,7 +22,6 @@
 		<%@ page contentType="text/html; charset=UTF-8" import="java.util.*,model.*"%>
 		<title>GameCenter Registrati</title>
 		<link href="LayoutSito/css/registrati.css" rel="stylesheet" type="text/css">	
-		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.min.js"></script>
 		<link rel="shortcut icon" href="Immagini/favicon.ico" />
 	</head>
 	<body>
@@ -43,7 +42,7 @@
       				<div class="subtitle">Aggiungi un nuovo prodotto</div>
 			      	<div class="input-container ic1">
 				        <input id="CodSeriale" class="input" type="text" placeholder="<%=product.getCodSeriale()%>" required/>
-				        <div class="cut">CodSeriale</div>
+				        <div class="cut"><div class="placeholder">CodSeriale</div></div>
 
 				    </div>
 				    <div class="input-container">

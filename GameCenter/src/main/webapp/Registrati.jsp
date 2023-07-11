@@ -21,7 +21,6 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>GameCenter Registrati</title>
 		<link href="LayoutSito/css/registrati.css" rel="stylesheet" type="text/css">	
-		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.min.js"></script>
 		<link rel="shortcut icon" href="Immagini/favicon.ico" />
 	</head>
 	<body>

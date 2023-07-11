@@ -21,7 +21,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>GameCenter Login</title>
 		<link href="LayoutSito/css/Login.css" rel="stylesheet" type="text/css">	
-		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.min.js"></script>
+		<script type="text/javascript" src="LayoutSito/js/prova.js"></script>
 		<link rel="shortcut icon" href="Immagini/favicon.ico" />
 	</head>
 	<body>
