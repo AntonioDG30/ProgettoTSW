@@ -17,7 +17,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>GameCenter</title>
 		<link href="LayoutSito/css/navBar.css" rel="stylesheet" type="text/css">
-		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		<script type="text/javascript" src="LayoutSito/js/jQuery3.6.0.js"></script>
 	</head>
 	<body>
 		<div class="navbar2">
