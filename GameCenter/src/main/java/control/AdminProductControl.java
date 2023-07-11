@@ -102,7 +102,7 @@ public class AdminProductControl extends HttpServlet
 						RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/AggiungiProdotto.jsp");
 						dispatcher.forward(request, response);
 					}
-					else if(request.getParameter("ParteMod").contentEquals("Parte1"))
+					else if(request.getParameter("ParteMod").contentEquals("Parte2"))
 					{
 						ProductBean product = new ProductBean();
 						product.setCodSeriale(request.getParameter("CodSeriale"));

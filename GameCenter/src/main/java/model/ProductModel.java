@@ -216,7 +216,7 @@ public class ProductModel
 		}
 		
 		
-		if(bean.getCodSeriale() != "")
+		if(!(bean.getCodSeriale().equals("")))
 		{
 			return bean;
 		}

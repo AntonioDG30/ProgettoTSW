@@ -27,7 +27,7 @@
 %>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 	<head>
 		<%@ page contentType="text/html; charset=UTF-8" import="java.util.*,model.*"%>
 		<title>Pagina Utente</title>
@@ -70,10 +70,10 @@
 		        </div>
 		        <div class="w3-container">
 		        <br>
-		          <p><img src="LayoutSito/img/Utente.png">&nbsp;&nbsp;<%=Utente.getNome()%> <%=Utente.getCognome()%></p>
-		          <p><img src="LayoutSito/img/Casa.png">&nbsp;&nbsp;<%=Utente.getVia()%> <%=Utente.getCivico()%>, <%=Utente.getCitta()%> (<%=Utente.getProvincia()%>) <%=Utente.getCAP()%></p>
-		          <p><img src="LayoutSito/img/email.png">&nbsp;&nbsp;<%=Utente.getEmail()%></p>
-		          <p><img src="LayoutSito/img/telefono.png">&nbsp;&nbsp;<%=Utente.getNumeroTelefono() %></p>
+		          <p><img src="LayoutSito/img/Utente.png" alt="errore immagine">&nbsp;&nbsp;<%=Utente.getNome()%> <%=Utente.getCognome()%></p>
+		          <p><img src="LayoutSito/img/Casa.png" alt="errore immagine">&nbsp;&nbsp;<%=Utente.getVia()%> <%=Utente.getCivico()%>, <%=Utente.getCitta()%> (<%=Utente.getProvincia()%>) <%=Utente.getCAP()%></p>
+		          <p><img src="LayoutSito/img/email.png" alt="errore immagine">&nbsp;&nbsp;<%=Utente.getEmail()%></p>
+		          <p><img src="LayoutSito/img/telefono.png" alt="errore immagine">&nbsp;&nbsp;<%=Utente.getNumeroTelefono() %></p>
 		          <hr>
 		          <a href="UserControl?action=RicercaIndirizzi">
 		          	<button type="button" class="button">Indirizzi di spedizione registrati</button>
@@ -93,7 +93,7 @@
 		    <div class="w3-twothird">
 		    
 		      <div class="w3-container w3-card w3-white w3-margin-bottom">
-		        <h2 class="w3-text-grey w3-padding-16"><img src="LayoutSito/img/ordini.png">&nbsp;&nbsp;Ordini Effettuati</h2>
+		        <h2 class="w3-text-grey w3-padding-16"><img src="LayoutSito/img/ordini.png" alt="errore immagine">&nbsp;&nbsp;Ordini Effettuati</h2>
 		        <%
 					if (Ordini != null && Ordini.size() != 0) 
 					{

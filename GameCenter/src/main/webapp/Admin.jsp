@@ -47,7 +47,7 @@
 					if (bean.getImmagine() != null && bean.getImmagine() != "") 
 					{						
 				%>
-					<a href="./GeneralProductControl?action=Dettagli&CodSeriale=<%=bean.getCodSeriale()%>"><img src="Immagini/<%=bean.getImmagine()%>"></a>
+					<a href="./GeneralProductControl?action=Dettagli&CodSeriale=<%=bean.getCodSeriale()%>"><img src="Immagini/<%=bean.getImmagine()%>" alt="errore immagine"></a>
 				<%
 					}						
 				%>
@@ -58,11 +58,11 @@
 					<div class="operazioniAdmin">
 						<form method="post" id="elimina" action="./AdminProductControl?action=Elimina">
 								<input type="hidden" name="CodSeriale" value="<%=bean.getCodSeriale()%>">				
-								<img src="LayoutSito/img/elimina.png" onclick="document.getElementById('elimina').submit();">
+								<img src="LayoutSito/img/elimina.png" alt="errore immagine" onclick="document.getElementById('elimina').submit();">
 						</form>
 						<form method="post" id="modifica" action="./AdminProductControl?action=Modifica&ParteMod=Parte1&CodSeriale=<%=bean.getCodSeriale()%>">
 								<input type="hidden" name="CodSeriale" value="<%=bean.getCodSeriale()%>">				
-								<img src="LayoutSito/img/modifica.png" onclick="document.getElementById('modifica').submit();">
+								<img src="LayoutSito/img/modifica.png" alt="errore immagine" onclick="document.getElementById('modifica').submit();">
 						</form>
 					</div>
 			</div>
