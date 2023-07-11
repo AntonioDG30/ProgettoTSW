@@ -78,6 +78,7 @@
 		        <div class="card-body">
 		            <div class="table-responsive">
 		              <table class="table table-bordered m-0">
+		              	<caption></caption>
 		                <thead>
 		                  <tr>
 		                    <!-- Set columns width -->

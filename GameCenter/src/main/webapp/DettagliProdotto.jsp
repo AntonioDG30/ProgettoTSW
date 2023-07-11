@@ -33,7 +33,7 @@
 		%>
 		<div class="contenitore">
 			<div class="prodotti">
-				<img src="Immagini/<%=product.getImmagine()%>">
+				<img src="Immagini/<%=product.getImmagine()%>" alt="errore immagine">
 				<div class="dettagli">
 					<h1><%=product.getNome()%></h1>
 					<h2>Data Uscita: <h2 class="elementi"> <%=product.getDataUscita()%></h2></h2>
@@ -199,13 +199,13 @@
 										if(bean.getValutazione()<i)
 										{
 								%>
-											<img src="LayoutSito/img/StellaGrigia.png">
+											<img src="LayoutSito/img/StellaGrigia.png" alt="errore immagine">
 								<%
 										}
 										else
 										{
 								%>
-											<img src="LayoutSito/img/StellaRossa.png">
+											<img src="LayoutSito/img/StellaRossa.png" alt="errore immagine">
 								<%		
 										}
 									}

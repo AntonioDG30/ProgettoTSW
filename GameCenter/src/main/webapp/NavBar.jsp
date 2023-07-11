@@ -22,7 +22,7 @@
 		<div class="navbar2">
 			<div class="logo">
 				<a href="index.jsp">
-					<img src="LayoutSito/img/Logo1_Scontornato.png">
+					<img src="LayoutSito/img/Logo1_Scontornato.png" alt="Home">
 				</a>
 			</div>
 			
@@ -31,7 +31,7 @@
 			   		 <div class="ricerca">
 			     		 <input type="search" class="barraRicerca" placeholder="Cerca su GameCenter" name = "ricerca">
 			     		 <button type="submit" class="pulsanteRicerca">
-			      			 <img src="LayoutSito/img/ricerca.png">
+			      			 <img src="LayoutSito/img/ricerca.png" alt="Cerca">
 			    		 </button>
 			  		 </div>
 				</form>
@@ -42,7 +42,7 @@
 					<img src="LayoutSito/img/profilo.png" alt="Account">
 				</a>
 				<a href="Carrello.jsp">
-					<img src="LayoutSito/img/carrello.png" >
+					<img src="LayoutSito/img/carrello.png" alt="Carrello">
 				</a>
 				<%
 					if(EmailUtente != null)

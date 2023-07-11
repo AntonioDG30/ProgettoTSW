@@ -51,7 +51,7 @@
 					if (bean.getImmagine() != null && bean.getImmagine() != "") 
 					{						
 				%>
-					<a href="./GeneralProductControl?action=Dettagli&CodSeriale=<%=bean.getCodSeriale()%>"><img src="Immagini/<%=bean.getImmagine()%>"></a>
+					<a href="./GeneralProductControl?action=Dettagli&CodSeriale=<%=bean.getCodSeriale()%>"><img src="Immagini/<%=bean.getImmagine()%>" alt="errore immagine"></a>
 				<%
 					}						
 				%>
