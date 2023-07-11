@@ -7,14 +7,14 @@
 		<link href="LayoutSito/css/catalogoBar.css" rel="stylesheet" type="text/css">
 	</head>
 	<body>
-		<nav role="navigation" class="sottoNav">
+		<nav role="navigation" class="sottoNav" aria-label="navigation">
 		    <ul class="sottoNav-items">
 		        <li class="sottoNav-item">
 		            <a href="AggiungiProdotto.jsp?Visual=form" class="sottoNav-link"><span>Aggiungi prodotto</span></a>
 		        </li>
 		         <li class="sottoNav-item dropdown">
 		            <a href="#" class="sottoNav-link"><span>Visualizza Elenco Ordini</span></a>
-		            <nav class="sottoMenu">
+		            <nav class="sottoMenu" aria-label="sottoMenu">
 		                <ul class="sottoMenu-items">
 		                    <li class="sottoMenu-item"><a href="./OrdiniControl?action=VisualizzaOrdini&Visual=tutti" class="sottoMenu-link">Visualizza tutti gli ordini</a></li>
 		                    <li class="sottoMenu-item"><a href="./OrdiniControl?action=VisualizzaOrdini&Visual=cliente" class="sottoMenu-link">Visualizza ordini di un determinato cliente</a></li>
@@ -24,7 +24,7 @@
 		        </li> 
 		        <li class="sottoNav-item dropdown">
 		            <a href="#" class="sottoNav-link"><span>Visualizza Elenco Clienti</span></a>
-		            <nav class="sottoMenu">
+		            <nav class="sottoMenu" aria-label="sottoMenu2">
 		                <ul class="sottoMenu-items">
 		                    <li class="sottoMenu-item"><a href="./UserControl?action=VisualizzaUtenti&Visual=tutti" class="sottoMenu-link">Visualizza tutti i clienti</a></li>
 		                    <li class="sottoMenu-item"><a href="./UserControl?action=VisualizzaUtenti&Visual=cliente" class="sottoMenu-link">Visualizza un determinato cliente</a></li>

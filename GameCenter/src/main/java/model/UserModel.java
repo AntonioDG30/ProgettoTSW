@@ -16,7 +16,7 @@ import javax.sql.DataSource;
 
 public class UserModel 
 {
-	static Logger logger = Logger.getLogger(OrdineModel.class.getName());
+	static Logger logger = Logger.getLogger(UserModel.class.getName());
 	private static DataSource ds;
 
 	static 
@@ -254,7 +254,7 @@ public class UserModel
 		Connection con = null;
 		PreparedStatement ps = null;
 		String sql = "SELECT * FROM " + UserModel.TABLE_NAME_INDIRIZZI + " WHERE Email = ?";
-		Collection<IndirizziSpedizioneBean> Indirizzi = new LinkedList<IndirizziSpedizioneBean>();
+		Collection<IndirizziSpedizioneBean> indirizzi = new LinkedList<>();
 		try 
 		{
 			con = ds.getConnection();
@@ -274,7 +274,7 @@ public class UserModel
 				bean.setCitta(rs.getString("Citta"));
 				bean.setProvincia(rs.getString("Provincia"));
 				bean.setNumeroTelefono(rs.getString("NumeroTelefono"));
-				Indirizzi.add(bean);
+				indirizzi.add(bean);
 			}
 
 		} 
@@ -294,7 +294,7 @@ public class UserModel
 			}
 		}
 
-		return Indirizzi;
+		return indirizzi;
 			
 	}
 	
@@ -307,7 +307,7 @@ public class UserModel
 		
 		String sql = "SELECT * FROM " + UserModel.TABLE_NAME_METODIPAGAMENTO + " WHERE Email = ?";
 
-		Collection<MetodiPagamentoBean> metodoPagamento = new LinkedList<MetodiPagamentoBean>();
+		Collection<MetodiPagamentoBean> metodoPagamento = new LinkedList<>();
 		
 		try 
 		{
@@ -403,7 +403,7 @@ public class UserModel
 		Connection con = null;
 		PreparedStatement ps = null;
 		String sql = "SELECT * FROM " + UserModel.TABLE_NAME_UTENTE + " WHERE Tipo = 1";
-		Collection<UserBean> Clienti = new LinkedList<UserBean>();
+		Collection<UserBean> clienti = new LinkedList<>();
 		
 		try 
 		{
@@ -420,7 +420,7 @@ public class UserModel
 				bean.setPuntiFedelta(rs.getInt("PuntiFedelta"));
 			    bean.setTipo(rs.getBoolean("Tipo"));
 			    bean = ottieniDatiUtente(bean, bean.getEmail());
-				Clienti.add(bean);
+			    clienti.add(bean);
 			}
 
 		} 
@@ -440,7 +440,7 @@ public class UserModel
 			}
 		}
 
-		return Clienti;
+		return clienti;
 			
 	}
 	
@@ -495,7 +495,7 @@ public class UserModel
 		Connection con = null;
 		PreparedStatement ps = null;
 		String sql = "SELECT * FROM " + UserModel.TABLE_NAME_UTENTE + " WHERE Email = ?";
-		UserBean Cliente = new UserBean();
+		UserBean cliente = new UserBean();
 		
 		try 
 		{
@@ -507,10 +507,10 @@ public class UserModel
 
 			if(rs.next())
 			{
-				Cliente.setEmail(rs.getString("Email"));
-				Cliente.setPuntiFedelta(rs.getInt("PuntiFedelta"));
-				Cliente.setTipo(rs.getBoolean("Tipo"));
-				Cliente = ottieniDatiUtente(Cliente, Cliente.getEmail());
+				cliente.setEmail(rs.getString("Email"));
+				cliente.setPuntiFedelta(rs.getInt("PuntiFedelta"));
+				cliente.setTipo(rs.getBoolean("Tipo"));
+				cliente = ottieniDatiUtente(cliente, cliente.getEmail());
 			}	  
 		} 
 		catch(SQLException e)
@@ -529,7 +529,7 @@ public class UserModel
 			}
 		}
 
-		return Cliente;
+		return cliente;
 			
 	}
 

@@ -7,7 +7,7 @@
 		<link href="LayoutSito/css/catalogoBar.css" rel="stylesheet" type="text/css">
 	</head>
 	<body>
-		<nav role="navigation" class="sottoNav">
+		<nav role="navigation" class="sottoNav" aria-label="navigation">
 		    <ul class="sottoNav-items">
 		        <li class="sottoNav-item">
 		            <a href="index.jsp" class="sottoNav-link"><span>Home</span></a>
@@ -17,7 +17,7 @@
 		        </li> 
 		        <li class="sottoNav-item dropdown">
 		            <a href="#" class="sottoNav-link"><span>Categorie</span></a>
-		            <nav class="sottoMenu">
+		            <nav class="sottoMenu" aria-label="sottoMenu">
 		                <ul class="sottoMenu-items">
 		                    <li class="sottoMenu-item"><a href="#" class="sottoMenu-link">Visualizza tutti i clienti</a></li>
 		                    <li class="sottoMenu-item"><a href="#" class="sottoMenu-link">Visualizza un determinato cliente</a></li>

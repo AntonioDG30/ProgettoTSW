@@ -70,7 +70,7 @@ public class OrdineModel
 	{
 		Connection con = null;
 		PreparedStatement ps = null;
-		Collection<OrdineBean> ordini = new LinkedList<OrdineBean>();
+		Collection<OrdineBean> ordini = new LinkedList<>();
 		String sql = "SELECT * FROM " + OrdineModel.TABLE_NAME_ORDINE;
 		try
 		{
@@ -113,7 +113,7 @@ public class OrdineModel
 	{
 		Connection con = null;
 		PreparedStatement ps = null;
-		Collection<OrdineBean> ordini = new LinkedList<OrdineBean>();
+		Collection<OrdineBean> ordini = new LinkedList<>();
 		String sql = "SELECT * FROM " + OrdineModel.TABLE_NAME_ORDINE + " WHERE Email = ?";
 		try
 		{
@@ -157,7 +157,7 @@ public class OrdineModel
 	{
 		Connection con = null;
 		PreparedStatement ps = null;
-		Collection<OrdineBean> ordini = new LinkedList<OrdineBean>();
+		Collection<OrdineBean> ordini = new LinkedList<>();
 		String sql = "SELECT * FROM " + OrdineModel.TABLE_NAME_ORDINE + " WHERE (DataAcquisto BETWEEN ? AND ?)";
 		try
 		{
@@ -204,7 +204,7 @@ public class OrdineModel
 	{
 		Connection con = null;
 		PreparedStatement ps = null;
-		Collection<ProductBean> products = new LinkedList<ProductBean>();
+		Collection<ProductBean> products = new LinkedList<>();
 		String sql = "SELECT * FROM " + OrdineModel.TABLE_NAME_PRODOTTI_INCLUSI_ORDINE+ " WHERE CodOrdine = ?";		
 		try
 		{
@@ -321,12 +321,15 @@ public class OrdineModel
 	
 	
 	
-	public synchronized int acquisto(CarrelloBean carrello, float prezzoTotale, float puntiFedeltàUsati, String email) throws SQLException
+	public synchronized int acquisto(CarrelloBean carrello, float prezzoTotale, float puntiFedeltaUsati, String email) throws SQLException
 	{
 		Connection con = null;
 		PreparedStatement ps = null;
 
-		int result1 = 0, result2 = 0, result3 = 0, result4 = 0;
+		int result1 = 0;
+		int result2 = 0;
+		int result3 = 0;
+		int result4 = 0;
 		int puntiFedelta =0;
 		int codOrdine = 0;
 		String piattaforma="";
@@ -337,9 +340,9 @@ public class OrdineModel
 		{
 			con = ds.getConnection();
 			ps = con.prepareStatement(sql);
-			ps.setFloat(1, -(puntiFedeltàUsati/100));
+			ps.setFloat(1, -(puntiFedeltaUsati/100));
 			ps.setString(2, LocalDate.now().toString());
-			ps.setFloat(3, (prezzoTotale - (puntiFedeltàUsati/100)));
+			ps.setFloat(3, (prezzoTotale - (puntiFedeltaUsati/100)));
 			ps.setString(4, email);
 			result1 = ps.executeUpdate();
 			codOrdine = ottieniUltimoCodOrdine();	
@@ -401,7 +404,7 @@ public class OrdineModel
 		   	}
 		   	
 		   	puntiFedelta = ottieniPuntiFedelta(email);
-		   	puntiFedelta = (int) (puntiFedelta + (prezzoTotale - puntiFedeltàUsati));
+		   	puntiFedelta = (int) (puntiFedelta + (prezzoTotale - puntiFedeltaUsati));
 		   	result4 = modPuntiFedelta(puntiFedelta, email);
 
 		} 

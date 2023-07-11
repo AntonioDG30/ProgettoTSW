@@ -99,8 +99,8 @@ public class GeneralProductControl extends HttpServlet
 				if (action.equalsIgnoreCase("AggiungiCarrello")) 
 				{
 					String codSeriale = request.getParameter("CodSeriale");
-					String Piattaforma = request.getParameter("piattaforma");
-					carrello.aggiungiProdotto(productModel.dettagli(codSeriale), Piattaforma);
+					String piattaforma = request.getParameter("piattaforma");
+					carrello.aggiungiProdotto(productModel.dettagli(codSeriale), piattaforma);
 					request.getSession().setAttribute("Carrello", carrello);
 					request.setAttribute("product", productModel.dettagli(codSeriale));
 					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Carrello.jsp");

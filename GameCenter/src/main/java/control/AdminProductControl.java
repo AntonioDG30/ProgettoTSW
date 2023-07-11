@@ -380,11 +380,7 @@ public class AdminProductControl extends HttpServlet
 			}
 				
 		}
-		catch (SQLException e) 
-		{
-			logger.log(Level.WARNING, e.getMessage());
-		}
-		catch (Exception e)
+		catch (SQLException|IOException e) 
 		{
 			logger.log(Level.WARNING, e.getMessage());
 		}

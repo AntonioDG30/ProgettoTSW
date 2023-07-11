@@ -76,8 +76,7 @@ body
     transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-.sottoNav-link:hover::before,
-.sottoNav-link:hover::before 
+.sottoNav-link:hover::before
 {
     opacity: 1;
     -webkit-transform: translate(0, 5px);

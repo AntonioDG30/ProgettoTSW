@@ -115,7 +115,7 @@ public class ProductModel
 	}
 	
 	
-	public synchronized static Collection<ProductBean> getProdottiRicerca(String ricerca) throws SQLException
+	public static synchronized Collection<ProductBean> getProdottiRicerca(String ricerca) throws SQLException
 	{
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -209,7 +209,7 @@ public class ProductModel
 		return products;
 	}
 	
-	public synchronized static List<String> getSuggerimentiProdotti(String ricerca) throws SQLException
+	public static synchronized List<String> getSuggerimentiProdotti(String ricerca) throws SQLException
 	{
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -433,7 +433,7 @@ public class ProductModel
 		Connection con = null;
 		PreparedStatement ps = null;
 		
-		Collection<GenereBean> Genere = new LinkedList<GenereBean>();
+		Collection<GenereBean> genere = new LinkedList<>();
 		
 		String sql = "SELECT * FROM " + ProductModel.TABLE_NAME_GENERE;
 		
@@ -447,7 +447,7 @@ public class ProductModel
 			{
 				GenereBean bean = new GenereBean();
 				bean.setNomeGenere(rs.getString("NomeGenere"));
-				Genere.add(bean);
+				genere.add(bean);
 			}
 			
 		}
@@ -466,7 +466,7 @@ public class ProductModel
 				con.close();
 			}
 		}
-		return Genere;
+		return genere;
 	}
 	
 	
@@ -475,7 +475,7 @@ public class ProductModel
 		Connection con = null;
 		PreparedStatement ps = null;
 		
-		Collection<PegiBean> PEGI = new LinkedList<PegiBean>();
+		Collection<PegiBean> pegi = new LinkedList<>();
 		
 		String sql = "SELECT * FROM " + ProductModel.TABLE_NAME_PEGI;
 		
@@ -489,7 +489,7 @@ public class ProductModel
 			{
 				PegiBean bean = new PegiBean();
 				bean.setCodPEGI(rs.getInt("CodPEGI"));
-				PEGI.add(bean);
+				pegi.add(bean);
 			}
 			
 		}
@@ -508,7 +508,7 @@ public class ProductModel
 				con.close();
 			}
 		}
-		return PEGI;
+		return pegi;
 	}
 	
 	
@@ -517,7 +517,17 @@ public class ProductModel
 
 		Connection con = null;
 		PreparedStatement ps = null;
-		int result1 = 0, result2 = 0, result3 = 0, result4 = 0, result5 = 0, result6 = 0, result7 = 0, result8 = 0, result9 = 0, result10 = 0, result11 = 0;
+		int result1 = 0;
+		int result2 = 0;
+		int result3 = 0;
+		int result4 = 0;
+		int result5 = 0;
+		int result6 = 0;
+		int result7 = 0;
+		int result8 = 0;
+		int result9 = 0;
+		int result10 = 0;
+		int result11 = 0;		
 		String sql = "INSERT INTO " + ProductModel.TABLE_NAME_PRODOTTO + " (CodSeriale, Nome, Prezzo, DataUscita, DescrizioneRidotta, DescrizioneCompleta, Immagine, FlagTipologia, FlagVisibita) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1)";
 
 		try 
@@ -824,42 +834,6 @@ public class ProductModel
 		}
 		return (result != 0);
 	}
-	
-	
-	/*public synchronized boolean modTipologia(String codSerialeMod, Boolean tipologia) throws SQLException 
-	{
-		Connection con = null;
-		PreparedStatement ps = null;
-
-		int result = 0;
-
-		String sql = "UPDATE " + ProductModel.TABLE_NAME_PRODOTTO + " SET FlagTipologia = ? " + " WHERE CodSeriale = ?";
-
-		try 
-		{
-			con = ds.getConnection();
-			ps = con.prepareStatement(sql);
-			ps.setBoolean(1, tipologia);
-			ps.setString(2, codSerialeMod);
-			result = ps.executeUpdate();
-		} 
-		catch(SQLException e)
-		{
-			logger.log(Level.WARNING, e.getMessage());
-		}
-		finally
-		{
-			if(ps != null)
-			{
-				ps.close();
-			}
-			if(con != null)
-			{
-				con.close();
-			}
-		}
-		return (result != 0);
-	}*/
 	
 	public synchronized boolean modPEGI(String codSerialeMod, int pegi) throws SQLException 
 	{
