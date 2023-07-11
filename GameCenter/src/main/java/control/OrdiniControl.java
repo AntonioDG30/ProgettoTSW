@@ -70,6 +70,14 @@ public class OrdiniControl extends HttpServlet
 					dispatcher.forward(request, response);	
 				}
 				
+				if (action.equalsIgnoreCase("Recensioni")) 
+				{
+					request.removeAttribute("codSeriale");
+					request.setAttribute("codSeriale", request.getParameter("Prodotto"));					
+					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Recensione.jsp");
+					dispatcher.forward(request, response);	
+				}
+				
 				
 				if (action.equalsIgnoreCase("Recensione")) 
 				{

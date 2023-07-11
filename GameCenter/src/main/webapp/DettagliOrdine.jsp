@@ -92,7 +92,7 @@
 		                    <td class="text-right font-weight-semibold align-middle p-4"><%=PrezzoString%></td>
 		                    <td class="text-right font-weight-semibold align-middle p-4">
 		                    	<div class="float-right">
-		              				<a href="Recensione.jsp?Prodotto=<%=bean.getCodSeriale()%>">
+		              				<a href="./OrdiniControl?action=Recensioni&Prodotto=<%=bean.getCodSeriale()%>">
 		              					<button type="button" class="btn btn-lg btn-primary mt-2">Recensisci</button>
 		              				</a>
 		            			</div>
