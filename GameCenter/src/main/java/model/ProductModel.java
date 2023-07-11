@@ -71,16 +71,15 @@ public class ProductModel
 	
 	public synchronized Collection<ProductBean> doAll() throws SQLException
 	{
-		Connection con = null;
+		
 		PreparedStatement ps = null;
 		
 		Collection<ProductBean> products = new LinkedList<>();
 		
 		String sql = "SELECT * FROM " + ProductModel.TABLE_NAME_PRODOTTO + " WHERE FlagVisibita = 1";
 		
-		try
+		try(Connection con = ds.getConnection())
 		{
-			con = ds.getConnection();
 			ps = con.prepareStatement(sql);
 
 			ResultSet rs = ps.executeQuery();
@@ -106,10 +105,6 @@ public class ProductModel
 			{
 				ps.close();
 			}
-			if(con != null)
-			{
-				con.close();
-			}
 		}
 		return products;
 	}
@@ -117,7 +112,7 @@ public class ProductModel
 	
 	public static synchronized Collection<ProductBean> getProdottiRicerca(String ricerca) throws SQLException
 	{
-		Connection con = null;
+		
 		PreparedStatement ps = null;
 		ricerca = "%" + ricerca + "%";
 		
@@ -125,9 +120,8 @@ public class ProductModel
 		
 		String sql = "SELECT * FROM " + ProductModel.TABLE_NAME_PRODOTTO + " WHERE Nome LIKE ? AND FlagVisibita = 1";
 		
-		try
+		try(Connection con = ds.getConnection())
 		{
-			con = ds.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setString(1, ricerca);
 
@@ -154,10 +148,6 @@ public class ProductModel
 			{
 				ps.close();
 			}
-			if(con != null)
-			{
-				con.close();
-			}
 		}
 		return products;
 	}
@@ -165,16 +155,15 @@ public class ProductModel
 	
 	public synchronized Collection<ProductBean> doTop8() throws SQLException
 	{
-		Connection con = null;
+		
 		PreparedStatement ps = null;
 		
 		Collection<ProductBean> products = new LinkedList<>();
 		String sql = "SELECT * FROM " + ProductModel.TABLE_NAME_PRODOTTO + " AS p, " + ProductModel.TABLE_NAME_INCLUDE +" AS i " 
 						+ "WHERE p.CodSeriale = i.CodSeriale AND FlagVisibita = 1 GROUP BY i.CodSeriale ORDER BY sum(i.quantita) DESC LIMIT 8";
 		
-		try
+		try(Connection con = ds.getConnection())
 		{
-			con = ds.getConnection();
 			ps = con.prepareStatement(sql);
 			
 
@@ -201,26 +190,21 @@ public class ProductModel
 			{
 				ps.close();
 			}
-			if(con != null)
-			{
-				con.close();
-			}
 		}
 		return products;
 	}
 	
 	public static synchronized List<String> getSuggerimentiProdotti(String ricerca) throws SQLException
 	{
-		Connection con = null;
+		
 		PreparedStatement ps = null;
 		ricerca = "%" + ricerca + "%";
 		
 		List<String> suggerimenti = new ArrayList<>();
 		String sql = "SELECT Nome FROM " + ProductModel.TABLE_NAME_PRODOTTO + " WHERE Nome LIKE ? AND FlagVisibita = 1";
 		
-		try
+		try(Connection con = ds.getConnection())
 		{
-			con = ds.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setString(1, ricerca);
 
@@ -241,10 +225,6 @@ public class ProductModel
 			{
 				ps.close();
 			}
-			if(con != null)
-			{
-				con.close();
-			}
 		}
 		return suggerimenti;
 	}
@@ -252,13 +232,12 @@ public class ProductModel
 	
 	public synchronized ProductBean dettagli(String codSeriale) throws SQLException 
 	{
-		Connection con = null;
+		
 		PreparedStatement ps = null;
 		ProductBean bean = new ProductBean();
 		String sql = "SELECT * FROM " + ProductModel.TABLE_NAME_PRODOTTO + " WHERE CodSeriale = ?";
-		try 
+		try(Connection con = ds.getConnection())
 		{
-			con = ds.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setString(1, codSeriale);
 
@@ -300,10 +279,6 @@ public class ProductModel
 			{
 				ps.close();
 			}
-			if(con != null)
-			{
-				con.close();
-			}
 		}
 		
 		
@@ -320,12 +295,12 @@ public class ProductModel
 	
 	public synchronized ProductBean dettagliOrdineInclude(ProductBean bean) throws SQLException
 	{
-		Connection con = null;
+		
 		PreparedStatement ps = null;
-		try
+		String sql = "SELECT * FROM " + ProductModel.TABLE_NAME_CARATTERISTICHE + " WHERE CodSeriale = ?";
+		
+		try(Connection con = ds.getConnection())
 		{
-			String sql = "SELECT * FROM " + ProductModel.TABLE_NAME_CARATTERISTICHE + " WHERE CodSeriale = ?";
-			con = ds.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setString(1, bean.getCodSeriale());
 			ResultSet rs = ps.executeQuery();
@@ -345,10 +320,6 @@ public class ProductModel
 			{
 				ps.close();
 			}
-			if(con != null)
-			{
-				con.close();
-			}
 		}
 		return bean;
 	}
@@ -356,13 +327,12 @@ public class ProductModel
 	
 	public synchronized int ottieniDisponibilita(String codSeriale, String piattaforma, String formato) throws SQLException
 	{
-		Connection con = null;
+		
 		PreparedStatement ps = null;
+		String sql = "SELECT * FROM " + TABLE_NAME_DISPONIBILITA + " WHERE CodSeriale = ? AND NomePiattaforma = ? AND TipoFormato = ?";
 		int quantita=0;
-		try
+		try(Connection con = ds.getConnection())
 		{
-			String sql = "SELECT * FROM " + TABLE_NAME_DISPONIBILITA + " WHERE CodSeriale = ? AND NomePiattaforma = ? AND TipoFormato = ?";
-			con = ds.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setString(1, codSeriale);
 			ps.setString(2, piattaforma);
@@ -383,10 +353,6 @@ public class ProductModel
 			{
 				ps.close();
 			}
-			if(con != null)
-			{
-				con.close();
-			}
 		}
 		return quantita;
 	}
@@ -394,16 +360,15 @@ public class ProductModel
 	
 	public synchronized boolean elimina(String codSeriale) throws SQLException 
 	{
-		Connection con = null;
+		
 		PreparedStatement ps = null;
 
 		int result = 0;
 
 		String sql = "UPDATE " + ProductModel.TABLE_NAME_PRODOTTO + " SET FlagVisibita = 0 " + " WHERE CodSeriale = ?";
 
-		try 
+		try(Connection con = ds.getConnection())
 		{
-			con = ds.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setString(1, codSeriale);
 			result = ps.executeUpdate();
@@ -419,10 +384,6 @@ public class ProductModel
 			{
 				ps.close();
 			}
-			if(con != null)
-			{
-				con.close();
-			}
 		}
 		return (result != 0);
 	}
@@ -430,16 +391,15 @@ public class ProductModel
 	
 	public synchronized Collection<GenereBean> getGenereElements() throws SQLException
 	{
-		Connection con = null;
+		
 		PreparedStatement ps = null;
 		
 		Collection<GenereBean> genere = new LinkedList<>();
 		
 		String sql = "SELECT * FROM " + ProductModel.TABLE_NAME_GENERE;
 		
-		try
+		try(Connection con = ds.getConnection())
 		{
-			con = ds.getConnection();
 			ps = con.prepareStatement(sql);
 
 			ResultSet rs = ps.executeQuery();
@@ -461,10 +421,6 @@ public class ProductModel
 			{
 				ps.close();
 			}
-			if(con != null)
-			{
-				con.close();
-			}
 		}
 		return genere;
 	}
@@ -472,16 +428,15 @@ public class ProductModel
 	
 	public synchronized Collection<PegiBean> getPegiElements() throws SQLException
 	{
-		Connection con = null;
+		
 		PreparedStatement ps = null;
 		
 		Collection<PegiBean> pegi = new LinkedList<>();
 		
 		String sql = "SELECT * FROM " + ProductModel.TABLE_NAME_PEGI;
 		
-		try
+		try(Connection con = ds.getConnection())
 		{
-			con = ds.getConnection();
 			ps = con.prepareStatement(sql);
 
 			ResultSet rs = ps.executeQuery();
@@ -503,10 +458,6 @@ public class ProductModel
 			{
 				ps.close();
 			}
-			if(con != null)
-			{
-				con.close();
-			}
 		}
 		return pegi;
 	}
@@ -515,7 +466,7 @@ public class ProductModel
 	public synchronized boolean inserisci(ProductBean product) throws SQLException 
 	{
 
-		Connection con = null;
+		
 		PreparedStatement ps = null;
 		int result1 = 0;
 		int result2 = 0;
@@ -530,9 +481,8 @@ public class ProductModel
 		int result11 = 0;		
 		String sql = "INSERT INTO " + ProductModel.TABLE_NAME_PRODOTTO + " (CodSeriale, Nome, Prezzo, DataUscita, DescrizioneRidotta, DescrizioneCompleta, Immagine, FlagTipologia, FlagVisibita) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1)";
 
-		try 
+		try(Connection con = ds.getConnection())
 		{
-			con = ds.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setString(1, product.getCodSeriale());
 			ps.setString(2, product.getNome());
@@ -568,10 +518,6 @@ public class ProductModel
 			{
 				ps.close();
 			}
-			if(con != null)
-			{
-				con.close();
-			}
 		}
 		
 		if(!(product.getTipologia()))
@@ -589,13 +535,12 @@ public class ProductModel
 	
 	public synchronized int inserisciCaratteristiche(ProductBean product) throws SQLException
 	{
-		Connection con = null;
+		
 		PreparedStatement ps = null;
 		int result=0;
 		String sql = "INSERT INTO " + ProductModel.TABLE_NAME_CARATTERISTICHE + " (CodSeriale, NomeGenere, CodPEGI) VALUES (?, ?, ?)";
-		try
+		try(Connection con = ds.getConnection())
 		{
-			con = ds.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setString(1, product.getCodSeriale());
 			ps.setString(2, product.getGenere());
@@ -612,23 +557,18 @@ public class ProductModel
 			{
 				ps.close();
 			}
-			if(con != null)
-			{
-				con.close();
-			}
 		}
 		return result;
 	}
 	
 	public synchronized int inserisciDisponibilita(int quantita, String codSeriale, String piattaforma, String formato) throws SQLException
 	{
-		Connection con = null;
+		
 		PreparedStatement ps = null;
 		int result=0;
 		String sql = "INSERT INTO " + ProductModel.TABLE_NAME_DISPONIBILITA + " (QuantitaDisponibile, CodSeriale, NomePiattaforma, TipoFormato) VALUES (?, ?, ?, ?)";
-		try
+		try(Connection con = ds.getConnection())
 		{
-			con = ds.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setInt(1, quantita);
 			ps.setString(2, codSeriale);
@@ -646,10 +586,6 @@ public class ProductModel
 			{
 				ps.close();
 			}
-			if(con != null)
-			{
-				con.close();
-			}
 		}
 		return result;
 	}
@@ -657,16 +593,15 @@ public class ProductModel
 	
 	public synchronized boolean modNome(String codSerialeMod, String nome) throws SQLException 
 	{
-		Connection con = null;
+		
 		PreparedStatement ps = null;
 
 		int result = 0;
 
 		String sql = "UPDATE " + ProductModel.TABLE_NAME_PRODOTTO + " SET Nome = ? " + " WHERE CodSeriale = ?";
 
-		try 
+		try(Connection con = ds.getConnection())
 		{
-			con = ds.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setString(1, nome);
 			ps.setString(2, codSerialeMod);
@@ -682,10 +617,6 @@ public class ProductModel
 			{
 				ps.close();
 			}
-			if(con != null)
-			{
-				con.close();
-			}
 		}
 		return (result != 0);
 	}
@@ -693,16 +624,15 @@ public class ProductModel
 	
 	public synchronized boolean modPrezzo(String codSerialeMod, Float prezzo) throws SQLException 
 	{
-		Connection con = null;
+		
 		PreparedStatement ps = null;
 
 		int result = 0;
 
 		String sql = "UPDATE " + ProductModel.TABLE_NAME_PRODOTTO + " SET Prezzo = ? " + " WHERE CodSeriale = ?";
 
-		try 
+		try(Connection con = ds.getConnection())
 		{
-			con = ds.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setFloat(1, prezzo);
 			ps.setString(2, codSerialeMod);
@@ -718,10 +648,6 @@ public class ProductModel
 			{
 				ps.close();
 			}
-			if(con != null)
-			{
-				con.close();
-			}
 		}
 		return (result != 0);
 	}
@@ -729,16 +655,15 @@ public class ProductModel
 	
 	public synchronized boolean modDataUscita(String codSerialeMod, String dataUscita) throws SQLException 
 	{
-		Connection con = null;
+		
 		PreparedStatement ps = null;
 
 		int result = 0;
 
 		String sql = "UPDATE " + ProductModel.TABLE_NAME_PRODOTTO + " SET DataUscita = ? " + " WHERE CodSeriale = ?";
 
-		try 
+		try(Connection con = ds.getConnection())
 		{
-			con = ds.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setString(1, dataUscita);
 			ps.setString(2, codSerialeMod);
@@ -754,10 +679,6 @@ public class ProductModel
 			{
 				ps.close();
 			}
-			if(con != null)
-			{
-				con.close();
-			}
 		}
 		return (result != 0);
 	}
@@ -765,16 +686,15 @@ public class ProductModel
 	
 	public synchronized boolean modDescrizioneRidotta(String codSerialeMod, String descrizioneRidotta) throws SQLException 
 	{
-		Connection con = null;
+		
 		PreparedStatement ps = null;
 
 		int result = 0;
 
 		String sql = "UPDATE " + ProductModel.TABLE_NAME_PRODOTTO + " SET DescrizioneRidotta = ? " + " WHERE CodSeriale = ?";
 
-		try 
+		try(Connection con = ds.getConnection())
 		{
-			con = ds.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setString(1, descrizioneRidotta);
 			ps.setString(2, codSerialeMod);
@@ -790,10 +710,6 @@ public class ProductModel
 			{
 				ps.close();
 			}
-			if(con != null)
-			{
-				con.close();
-			}
 		}
 		return (result != 0);
 	}
@@ -802,16 +718,15 @@ public class ProductModel
 	
 	public synchronized boolean modDescrizioneCompleta(String codSerialeMod, String descrizioneCompleta) throws SQLException 
 	{
-		Connection con = null;
+		
 		PreparedStatement ps = null;
 
 		int result = 0;
 
 		String sql = "UPDATE " + ProductModel.TABLE_NAME_PRODOTTO + " SET DescrizioneCompleta = ? " + " WHERE CodSeriale = ?";
 
-		try 
+		try(Connection con = ds.getConnection())
 		{
-			con = ds.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setString(1, descrizioneCompleta);
 			ps.setString(2, codSerialeMod);
@@ -827,26 +742,21 @@ public class ProductModel
 			{
 				ps.close();
 			}
-			if(con != null)
-			{
-				con.close();
-			}
 		}
 		return (result != 0);
 	}
 	
 	public synchronized boolean modPEGI(String codSerialeMod, int pegi) throws SQLException 
 	{
-		Connection con = null;
+		
 		PreparedStatement ps = null;
 
 		int result = 0;
 
 		String sql = "UPDATE " + ProductModel.TABLE_NAME_CARATTERISTICHE + " SET CodPEGI = ? " + " WHERE CodSeriale = ?";
 
-		try 
+		try(Connection con = ds.getConnection())
 		{
-			con = ds.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setInt(1, pegi);
 			ps.setString(2, codSerialeMod);
@@ -862,26 +772,21 @@ public class ProductModel
 			{
 				ps.close();
 			}
-			if(con != null)
-			{
-				con.close();
-			}
 		}
 		return (result != 0);
 	}
 	
 	public synchronized boolean modGenere(String codSerialeMod, String genere) throws SQLException 
 	{
-		Connection con = null;
+		
 		PreparedStatement ps = null;
 
 		int result = 0;
 
 		String sql = "UPDATE " + ProductModel.TABLE_NAME_CARATTERISTICHE + " SET NomeGenere = ? " + " WHERE CodSeriale = ?";
 
-		try 
+		try(Connection con = ds.getConnection())
 		{
-			con = ds.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setString(1, genere);
 			ps.setString(2, codSerialeMod);
@@ -897,26 +802,21 @@ public class ProductModel
 			{
 				ps.close();
 			}
-			if(con != null)
-			{
-				con.close();
-			}
 		}
 		return (result != 0);
 	}
 	
 	public synchronized boolean modImmagine(String codSerialeMod, String immagine) throws SQLException 
 	{
-		Connection con = null;
+		
 		PreparedStatement ps = null;
 
 		int result = 0;
 
 		String sql = "UPDATE " + ProductModel.TABLE_NAME_PRODOTTO + " SET Immagine = ? " + " WHERE codSeriale = ?";
 
-		try 
+		try(Connection con = ds.getConnection())
 		{
-			con = ds.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setString(1, immagine);
 			ps.setString(2, codSerialeMod);
@@ -932,26 +832,21 @@ public class ProductModel
 			{
 				ps.close();
 			}
-			if(con != null)
-			{
-				con.close();
-			}
 		}
 		return (result != 0);
 	}
 	
 	public synchronized boolean modDisponibilita(String codSerialeMod, int  disponibilita, String piattaforma, String formato) throws SQLException 
 	{
-		Connection con = null;
+		
 		PreparedStatement ps = null;
 
 		int result = 0;
 
 		String sql = "UPDATE " + ProductModel.TABLE_NAME_DISPONIBILITA + " SET QuantitaDisponibile = ? " + " WHERE CodSeriale = ? AND NomePiattaforma = ? AND TipoFormato = ?";
 
-		try 
+		try(Connection con = ds.getConnection())
 		{
-			con = ds.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setInt(1, disponibilita);
 			ps.setString(2, codSerialeMod);
@@ -970,10 +865,6 @@ public class ProductModel
 			{
 				ps.close();
 			}
-			if(con != null)
-			{
-				con.close();
-			}
 		}
 		return (result != 0);
 	}
@@ -981,16 +872,15 @@ public class ProductModel
 	
 	public synchronized boolean modCodSeriale(String codSerialeMod, String codSeriale) throws SQLException 
 	{
-		Connection con = null;
+		
 		PreparedStatement ps = null;
 
 		int result = 0;
 
 		String sql = "UPDATE " + ProductModel.TABLE_NAME_PRODOTTO + " SET CodSeriale = ? " + " WHERE CodSeriale = ?";
 
-		try 
+		try(Connection con = ds.getConnection())
 		{
-			con = ds.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setString(1, codSeriale);
 			ps.setString(2, codSerialeMod);
@@ -1006,10 +896,6 @@ public class ProductModel
 			{
 				ps.close();
 			}
-			if(con != null)
-			{
-				con.close();
-			}
 		}
 		return (result != 0);
 	}
@@ -1017,15 +903,14 @@ public class ProductModel
 	
 	public synchronized Collection<RecensioneBean> getRecensione(String codSeriale) throws SQLException
 	{
-		Connection con = null;
+		
 		PreparedStatement ps = null;
 		
 		Collection<RecensioneBean> recensioni = new LinkedList<>();
 
 		String sql = "SELECT * FROM " + ProductModel.TABLE_NAME_RECENSIONE + " WHERE CodSeriale = ?";
-		try
+		try(Connection con = ds.getConnection())
 		{
-			con = ds.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setString(1, codSeriale);
 			
@@ -1048,10 +933,6 @@ public class ProductModel
 			if(ps != null)
 			{
 				ps.close();
-			}
-			if(con != null)
-			{
-				con.close();
 			}
 		}
 		
