@@ -23,7 +23,7 @@
 <html lang="it">
 	<head>
 		<%@ page contentType="text/html; charset=UTF-8" import="java.util.*,model.*"%>
-		<title>GameCenter Registrati</title>
+		<title>GameCenter</title>
 		<link href="LayoutSito/css/registrati.css" rel="stylesheet" type="text/css">	
 		<link rel="shortcut icon" href="Immagini/favicon.ico" />
 	</head>
@@ -39,7 +39,7 @@
 	        if (Visual != null && Visual.contentEquals("form")) 
 			{ 
 		%>
-        <div class="formCliente">
+        <div class="formRegistraProdotto">
         	<form method="post" action="./AdminProductControl?action=Inserisci">
 				<div class="form">
 			      <div class="subtitle">Inserisci la tipologia del nuovo prodotto:</div>

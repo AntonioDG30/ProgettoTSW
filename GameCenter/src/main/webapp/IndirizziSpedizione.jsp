@@ -26,7 +26,7 @@
 	</head>
 	<body>
 		<%@include file="NavBar.jsp" %>
-		<div class="container px-3 my-5 clearfix">
+		<div class="container px-3 my-5 clearfix" style="min-height:600px;">
 		    <!-- Shopping cart table -->
 		    <div class="card">
 		        <div class="card-header">

@@ -7,6 +7,7 @@
 
 <%!	
 	String Email="";
+	Boolean Tipo;
 %>
 
 <%
@@ -14,6 +15,7 @@
 	{
 		session = request.getSession();
 	    Email=(String)session.getAttribute("Email");
+	    Tipo= (Boolean)session.getAttribute("Tipo");
 	}
 %>
 <!DOCTYPE html>
@@ -93,6 +95,10 @@
 					</div>
 					<h2>Prezzo: <h2 class="prezzo"><%=product.getPrezzo()%></h2></h2>
 				</div>
+				<%
+					if (Email == null || Tipo) 
+					{
+				%>
 				<div class="carrello">					
 				    <h1>Aggiungi al carrello</h1>
 				    <form class="form cf" method="post" action="GeneralProductControl?action=AggiungiCarrello&CodSeriale=<%=product.getCodSeriale()%>">
@@ -174,6 +180,9 @@
 				      	<input class="submit" type="submit" value="Submit">   
 				    </form>
 				</div>
+				<%
+					}
+				%>
 			</div>
 			
 			<div class = "descrizione">

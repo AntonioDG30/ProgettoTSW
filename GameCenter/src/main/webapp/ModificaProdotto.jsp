@@ -20,7 +20,7 @@
 <html lang="it">
 	<head>
 		<%@ page contentType="text/html; charset=UTF-8" import="java.util.*,model.*"%>
-		<title>GameCenter Registrati</title>
+		<title>GameCenter</title>
 		<link href="LayoutSito/css/registrati.css" rel="stylesheet" type="text/css">	
 		<link rel="shortcut icon" href="Immagini/favicon.ico" />
 	</head>
@@ -40,38 +40,27 @@
         	<form method="post" action="./OrdiniControl?action=VisualizzaOrdini">
 				<div class="form">
       				<div class="subtitle">Aggiungi un nuovo prodotto</div>
-			      	<div class="input-container ic1">
-				        <input id="CodSeriale" class="input" type="text" placeholder="<%=product.getCodSeriale()%>" required/>
-				        <div class="cut"><div class="placeholder">CodSeriale</div></div>
-
+			      	<div class="input-container2">
+				        CodSeriale: <input id="CodSeriale" class="input" type="text" placeholder="<%=product.getCodSeriale()%>" required/>
 				    </div>
-				    <div class="input-container">
-				        <input id="Nome" class="input" type="text" placeholder=" " required/>
-				        <div class="cut"></div>
-				        <label for="Nome" class="placeholder">Nome</label>
+				    <div class="input-container2">
+				        Nome: <input id="Nome" class="input" type="text" placeholder=" " required/>
 				    </div>
 				    <div class="input-container-Foto">
 				        Foto: <input id="Immagine" class="inputFoto" type="file" />
 				    </div>
-				    <div class="input-container">
-				        <input id="Prezzo" class="input" type="number" placeholder=" " required min="0"/>
-				        <div class="cut"></div>
-				        <label for="Prezzo" class="placeholder">Prezzo</label>
+				    <div class="input-container2">
+				        Prezzo: <input id="Prezzo" class="input" type="number" placeholder=" " required min="0"/>
+
 				    </div>
-				    <div class="input-container">
-				        <input id="DataUscita" class="input" type="date" placeholder=" " />
-				        <div class="cut"></div>
-				        <label for="DataUscita" class="placeholder">Data Uscita</label>
+				    <div class="input-container2">
+				        Data Uscita: <input id="DataUscita" class="input" type="date" placeholder=" " />
 				    </div>
-				    <div class="input-container">
-				        <input id="DescrizioneRidotta" class="input" type="text" placeholder=" " required min="1"/>
-				        <div class="cut"></div>
-				        <label for="DescrizioneRidotta" class="placeholder">Descrizione Ridotta</label>
+				    <div class="input-container2">
+				        Descrizione Ridotta: <input id="DescrizioneRidotta" class="input" type="text" placeholder=" " required min="1"/>
 				    </div>
-				    <div class="input-container">
-				        <input id="DescrizioneCompleta" class="input" type="text" placeholder=" " required/>
-				        <div class="cut"></div>
-				        <label for="DescrizioneCompleta" class="placeholder">Descrizione Completa</label>
+				    <div class="input-container2">
+				        Descrizione Completa: <input id="DescrizioneCompleta" class="input" type="text" placeholder=" " required/>
 				    </div>
 				    <%
 						if(!(product.getTipologia()))  
@@ -119,53 +108,35 @@
 									
 									 </select>
 							</div>
-						    <div class="input-container">
-						        <input id="PS5Digitale" class="input" type="number" placeholder=" " required min="0"/>
-						        <div class="cut"></div>
-						        <label for="PS5Digitale" class="placeholder">PS5 Digitale</label>
+						    <div class="input-container2">
+						        PS5 Digitale: <input id="PS5Digitale" class="input" type="number" placeholder=" " required min="0"/>
 						    </div>
-						    <div class="input-container">
-						        <input id="PS4Digitale" class="input" type="number" placeholder=" " required min="0"/>
-						        <div class="cut"></div>
-						        <label for="PS4Digitale" class="placeholder">PS4 Digitale</label>
+						    <div class="input-container2">
+						        PS4 Digitale: <input id="PS4Digitale" class="input" type="number" placeholder=" " required min="0"/>
 						    </div>
-						    <div class="input-container">
-						        <input id="XboxXDigitale" class="input" type="number" placeholder=" " required min="0"/>
-						        <div class="cut"></div>
-						        <label for="XboxXDigitale" class="placeholder">Xbox Series X Digitale</label>
+						    <div class="input-container2">
+						        Xbox Series X Digitale: <input id="XboxXDigitale" class="input" type="number" placeholder=" " required min="0"/>
 						    </div>
-						    <div class="input-container">
-						        <input id="XboxSDigitale" class="input" type="number" placeholder=" " required min="0"/>
-						        <div class="cut"></div>
-						        <label for="XboxSDigitale" class="placeholder">Xbox Series S Digitale</label>
+						    <div class="input-container2">
+						        >Xbox Series S Digitale: <input id="XboxSDigitale" class="input" type="number" placeholder=" " required min="0"/>
 						    </div>
-						    <div class="input-container">
-						        <input id="PcDigitale" class="input" type="number" placeholder=" " required min="0"/>
-						        <div class="cut"></div>
-						        <label for="PcDigitale" class="placeholder">Pc Digitale</label>
+						    <div class="input-container2">
+						        Pc Digitale: <input id="PcDigitale" class="input" type="number" placeholder=" " required min="0"/>
 						    </div>
 				    <% 
 						}
 					%>
 				    <div class="input-container">
-				        <input id="PS5Fisico" class="input" type="number" placeholder=" " required min="0"/>
-				        <div class="cut"></div>
-				        <label for="PS5Fisico" class="placeholder">PS5 Fisico</label>
+				        PS5 Fisico: <input id="PS5Fisico" class="input" type="number" placeholder=" " required min="0"/>
 				    </div>
 				    <div class="input-container">
-				        <input id="PS4Fisico" class="input" type="number" placeholder=" " required min="0"/>
-				        <div class="cut"></div>
-				        <label for="PS4Fisico" class="placeholder">PS4 Fisico</label>
+				        PS4 Fisico: <input id="PS4Fisico" class="input" type="number" placeholder=" " required min="0"/>
 				    </div>
 				    <div class="input-container">
-				        <input id="XboxXFisico" class="input" type="number" placeholder=" " required min="0"/>
-				        <div class="cut"></div>
-				        <label for="XboxXFisico" class="placeholder">Xbox Series X Fisico</label>
+				        Xbox Series X Fisico: <input id="XboxXFisico" class="input" type="number" placeholder=" " required min="0"/>
 				    </div>
 				    <div class="input-container">
-				        <input id="PcFisico" class="input" type="number" placeholder=" " required min="0"/>
-				        <div class="cut"></div>
-				        <label for="PcFisico" class="placeholder">Pc Fisico</label>
+				        Pc Fisico: <input id="PcFisico" class="input" type="number" placeholder=" " required min="0"/>
 				    </div>	    
 				    <input name="ParteMod" type="hidden" value="Parte2" />
 			      	<button type="submit" class="submit">submit</button>
