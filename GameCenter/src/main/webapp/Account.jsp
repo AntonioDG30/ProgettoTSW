@@ -6,14 +6,12 @@
 	String Email="";
 	String Result="";
 	String FormMod="";
-	int PuntiFedelta=0;
 	Boolean Tipo;
 %>
 <%	
 	Collection<?> Ordini = (Collection<?>) request.getAttribute("Ordini");
 	Result = (String) request.getAttribute("Result");
 	FormMod = (String) request.getAttribute("FormMod");
-	PuntiFedelta = (int) request.getAttribute("PuntiFedelta");
 	UserBean Utente = (UserBean) request.getAttribute("Cliente");
 	
 	synchronized(session) 
@@ -74,6 +72,7 @@
 		          <p><img src="LayoutSito/img/Casa.png" alt="errore immagine">&nbsp;&nbsp;<%=Utente.getVia()%> <%=Utente.getCivico()%>, <%=Utente.getCitta()%> (<%=Utente.getProvincia()%>) <%=Utente.getCAP()%></p>
 		          <p><img src="LayoutSito/img/email.png" alt="errore immagine">&nbsp;&nbsp;<%=Utente.getEmail()%></p>
 		          <p><img src="LayoutSito/img/telefono.png" alt="errore immagine">&nbsp;&nbsp;<%=Utente.getNumeroTelefono() %></p>
+		          <p><img src="LayoutSito/img/punti.png" alt="errore immagine">&nbsp;&nbsp; <span id="PuntiFedelta"></span></p>
 		          <hr>
 		          <a href="UserControl?action=RicercaIndirizzi">
 		          	<button type="button" class="button">Indirizzi di spedizione registrati</button>
@@ -132,6 +131,21 @@
 		</div>
 		
 		<%@include file="Footer.jsp" %>	
-	
+		<script>
+			$(document).ready(function() {
+				$.ajax({
+					url: "UserControl?action=PuntiFedelta",
+					type: "POST",
+					dataType: 'json',
+					success: function(response) {
+						var PuntiFedelta = response.PF;
+						document.getElementById("PuntiFedelta").innerText = PuntiFedelta;
+					},
+					error: function(xhr, status, error) {
+						console.error(error);
+					}
+				});
+			});
+		</script>
 	</body>
 </html>

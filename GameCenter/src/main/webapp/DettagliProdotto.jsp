@@ -102,13 +102,13 @@
 				<div class="carrello">					
 				    <h1>Aggiungi al carrello</h1>
 				    <form class="form cf" method="post" action="GeneralProductControl?action=AggiungiCarrello&CodSeriale=<%=product.getCodSeriale()%>">
-				    	<section class="plan cf">
+				    	<section class="plan cf" required>
 				        	<h2>Seleziona la piattaforma e il formato che desideri acquistare:</h2>
 				        	<%
 								if (product.getDispPs5Fisico() >0) 
 								{
 							%>
-								<input type="radio" name="piattaforma" id="PS5 Fisico" value="PS5 Fisico"><label class="PS5-label four col" for="PS5 Fisico">PS5 Fisico</label>
+								<input type="radio" name="piattaforma" id="PS5 Fisico" value="PS5 Fisico" required="required" ><label class="PS5-label four col" for="PS5 Fisico">PS5 Fisico</label>
 							<%
 								}
 							%>
@@ -116,7 +116,7 @@
 								if (product.getDispPs5Digitale() >0) 
 								{
 							%>
-								<input type="radio" name="piattaforma" id="PS5 Digitale" value="PS5 Digitale"><label class="PS5-label four col" for="PS5 Digitale">PS5 Digitale</label>
+								<input type="radio" name="piattaforma" id="PS5 Digitale" value="PS5 Digitale" required="required" ><label class="PS5-label four col" for="PS5 Digitale">PS5 Digitale</label>
 							<%
 								}
 							%>
@@ -124,7 +124,7 @@
 								if (product.getDispPs4Fisico()>0) 
 								{
 							%>
-								<input type="radio" name="piattaforma" id="Ps4 Fisico" value="Ps4 Fisico"><label class="PS4-label four col" for="Ps4 Fisico">Ps4 Fisico</label>
+								<input type="radio" name="piattaforma" id="Ps4 Fisico" value="Ps4 Fisico" required="required" ><label class="PS4-label four col" for="Ps4 Fisico">Ps4 Fisico</label>
 							<%
 								}
 							%>
@@ -132,7 +132,7 @@
 								if (product.getDispPs4Digitale()>0) 
 								{
 							%>
-								<input type="radio" name="piattaforma" id="Ps4 Digitale" value="Ps4 Digitale"><label class="PS4-label four col" for="Ps4 Digitale">Ps4 Digitale</label>
+								<input type="radio" name="piattaforma" id="Ps4 Digitale" value="Ps4 Digitale" required="required" ><label class="PS4-label four col" for="Ps4 Digitale">Ps4 Digitale</label>
 							<%
 								}
 							%>
@@ -140,7 +140,7 @@
 								if (product.getDispXboxXFisico() >0) 
 								{
 							%>
-								<input type="radio" name="piattaforma" id="XboxX Fisico" value="XboxX Fisico"><label class="XboxX-label four col" for="XboxX Fisico">Xbox X Fisico</label>
+								<input type="radio" name="piattaforma" id="XboxX Fisico" value="XboxX Fisico" required="required" ><label class="XboxX-label four col" for="XboxX Fisico">Xbox X Fisico</label>
 							<%
 								}
 							%>
@@ -148,7 +148,7 @@
 								if (product.getDispXboxXDigitale()>0) 
 								{
 							%>
-								<input type="radio" name="piattaforma" id="XboxX Digitale" value="XboxX Digitale"><label class="XboxX-label four col" for="XboxX Digitale">Xbox X Digitale</label>
+								<input type="radio" name="piattaforma" id="XboxX Digitale" value="XboxX Digitale" required="required" ><label class="XboxX-label four col" for="XboxX Digitale">Xbox X Digitale</label>
 							<%
 								}
 							%>
@@ -156,7 +156,7 @@
 								if (product.getDispXboxSDigitale()>0) 
 								{
 							%>
-								<input type="radio" name="piattaforma" id="XboxS Digitale" value="XboxS Digitale"><label class="XboxS-label four col" for="XboxS Digitale">Xbox S</label>
+								<input type="radio" name="piattaforma" id="XboxS Digitale" value="XboxS Digitale" required="required" ><label class="XboxS-label four col" for="XboxS Digitale">Xbox S</label>
 							<%
 								}
 							%>
@@ -164,7 +164,7 @@
 								if (product.getDispPcFisico()>0) 
 								{
 							%>
-								<input type="radio" name="piattaforma" id="Pc Fisico" value="Pc Fisico"><label class="four col" for="Pc Fisico">Pc Fisico</label>
+								<input type="radio" name="piattaforma" id="Pc Fisico" value="Pc Fisico" required="required" ><label class="four col" for="Pc Fisico">Pc Fisico</label>
 							<%
 								}
 							%>
@@ -172,7 +172,7 @@
 								if (product.getDispPcDigitale()>0) 
 								{
 							%>
-								<input type="radio" name="piattaforma" id="Pc Digitale" value="Pc Digitale"><label class="four col" for="Pc Digitale">Pc Digitale</label>
+								<input type="radio" name="piattaforma" id="Pc Digitale" value="Pc Digitale" required="required" ><label class="four col" for="Pc Digitale">Pc Digitale</label>
 							<%
 								}
 							%>

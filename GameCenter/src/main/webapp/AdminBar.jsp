@@ -13,7 +13,7 @@
 		            <a href="AggiungiProdotto.jsp?Visual=form" class="sottoNav-link"><span>Aggiungi prodotto</span></a>
 		        </li>
 		         <li class="sottoNav-item dropdown">
-		            <a href="#" class="sottoNav-link"><span>Visualizza Elenco Ordini</span></a>
+		            <a href="#" class="sottoNav-link"><span>Ordini</span></a>
 		            <nav class="sottoMenu" aria-label="sottoMenu">
 		                <ul class="sottoMenu-items">
 		                    <li class="sottoMenu-item"><a href="./OrdiniControl?action=VisualizzaOrdini&Visual=tutti" class="sottoMenu-link">Visualizza tutti gli ordini</a></li>
@@ -23,7 +23,7 @@
 		            </nav>
 		        </li> 
 		        <li class="sottoNav-item dropdown">
-		            <a href="#" class="sottoNav-link"><span>Visualizza Elenco Clienti</span></a>
+		            <a href="#" class="sottoNav-link"><span>Clienti</span></a>
 		            <nav class="sottoMenu" aria-label="sottoMenu2">
 		                <ul class="sottoMenu-items">
 		                    <li class="sottoMenu-item"><a href="./UserControl?action=VisualizzaUtenti&Visual=tutti" class="sottoMenu-link">Visualizza tutti i clienti</a></li>

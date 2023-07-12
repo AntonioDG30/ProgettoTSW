@@ -186,7 +186,7 @@ public class UserModel
 	}
 	
 	
-	public synchronized int getPuntiFedelta(String email) throws SQLException 
+	public static synchronized  int getPuntiFedelta(String email) throws SQLException 
 	{
 		PreparedStatement ps = null;
 		

@@ -3,8 +3,9 @@ package control;
 import model.*;
 
 import java.io.IOException;
-
+import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -14,6 +15,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.annotation.WebServlet;
+
+import com.google.gson.Gson;
 
 
 @WebServlet("/UserControl")
@@ -167,6 +170,19 @@ public class UserControl extends HttpServlet
 					dispatcher.forward(request, response);
 				}
 				
+				
+				
+				if (action.equalsIgnoreCase("PuntiFedelta"))
+				{
+					String email = (String) request.getSession().getAttribute("Email");
+			        int PF = UserModel.getPuntiFedelta(email);
+			        
+			        response.setContentType("application/json");
+			        response.setCharacterEncoding("UTF-8");
+			        PrintWriter out = response.getWriter();
+			        out.print("{\"PF\": " + new Gson().toJson(PF) + "}");
+			        out.flush();
+				}
 				
 				
 				if (action.equalsIgnoreCase("VisualizzaDati"))
