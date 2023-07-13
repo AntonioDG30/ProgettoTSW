@@ -2,11 +2,9 @@
 
 <%!	
 	String Email="";
-	String Result="";
 %>
 
 <%
-	Result = (String) request.getAttribute("Result");
 	Collection<?> MetodiPagamento = (Collection<?>) request.getAttribute("MetodiPagamento");
 	synchronized(session) 
 	{
@@ -77,7 +75,7 @@
 		            </div>	            
 		            				        
 		            <div class="float-right">
-		              <a href=""><button type="button" class="btn btn-lg btn-primary mt-2">Aggiungi nuovo metodo</button></a>
+		              <a href="RegistraMetodoPagamento.jsp"><button type="button" class="btn btn-lg btn-primary mt-2">Aggiungi nuovo metodo</button></a>
 		            </div>
 		        	<% 
 	

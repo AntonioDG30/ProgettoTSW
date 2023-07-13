@@ -2,11 +2,9 @@
 
 <%!	
 	String Email="";
-	String Result="";
 %>
 
 <%
-	Result = (String) request.getAttribute("Result");
 	Collection<?> Indirizzi = (Collection<?>) request.getAttribute("Indirizzi");
 	synchronized(session) 
 	{
@@ -79,7 +77,7 @@
 		            </div>	            
 		            				        
 		            <div class="float-right">
-		              <a href=""><button type="button" class="btn btn-lg btn-primary mt-2">Aggiungi nuovo indirizzo</button></a>
+		              <a href="RegistraIndirizzo.jsp"><button type="button" class="btn btn-lg btn-primary mt-2">Aggiungi nuovo indirizzo</button></a>
 		            </div>
 		        	<% 
 	

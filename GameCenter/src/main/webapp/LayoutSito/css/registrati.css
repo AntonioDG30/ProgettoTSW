@@ -6,13 +6,24 @@
   	justify-content: center;
 }
 
-.formRegistraProdotto
+.formRegistraProdotto, .formIndirizzi
 {
 	align-items: center;
   	background-color: #cfe5ff;
   	display: flex;
   	justify-content: center;
   	height: 860px;
+  	width: 100%;
+
+}
+
+.formMetodiPagamento
+{
+	align-items: center;
+  	background-color: #cfe5ff;
+  	display: flex;
+  	justify-content: center;
+  	height: 660px;
   	width: 100%;
 
 }

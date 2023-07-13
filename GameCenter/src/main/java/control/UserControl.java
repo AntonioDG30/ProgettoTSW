@@ -190,8 +190,6 @@ public class UserControl extends HttpServlet
 					String email = (String) request.getSession().getAttribute("Email");
 					request.removeAttribute("Cliente");	
 					request.setAttribute("Cliente", userModel.ricercaCliente(email));
-					request.removeAttribute("PuntiFedelta");
-					request.setAttribute("PuntiFedelta", userModel.getPuntiFedelta(email));
 					request.removeAttribute("Ordini");
 					request.setAttribute("Ordini", ordineModel.elencoOrdiniByCliente(email));
 					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Account.jsp");

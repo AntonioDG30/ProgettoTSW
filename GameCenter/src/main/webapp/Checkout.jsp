@@ -72,7 +72,7 @@
             /*Tronchiamo float a solo due cifre decimali*/
             Locale.setDefault(Locale.US);
             String PrezzoTotaleString = String.format("%.2f", PrezzoTotale);
-            ScontoMax = Math.min((PrezzoTotale * 100), PuntiFedelta);
+            ScontoMax = Math.min((PrezzoTotale), PuntiFedelta);
             Locale.setDefault(Locale.ITALY);
             %>
 
@@ -80,7 +80,6 @@
             <input id="sconto-input" class='input-field' type="number" name="Sconto" min="0" max="<%= ScontoMax %>" required>
             <div id="sconto-info" class='thin dense'></div>
             <div class='line'></div>
-            <br>
             <div class='total'>
                 <span style='float:left;'>
                     <div class='thin dense'>Prezzo Totale</div>
@@ -97,9 +96,11 @@
                 <div class="radio-list">
                     <h1>Metodo Pagamento</h1>
                     <%
-                        if (MetodiPagamento != null && MetodiPagamento.size() != 0) {
+                        if (MetodiPagamento != null && MetodiPagamento.size() != 0) 
+                        {
                             Iterator<?> it = MetodiPagamento.iterator();
-                            while (it.hasNext()) {
+                            while (it.hasNext()) 
+                            {
                                 MetodiPagamentoBean bean = (MetodiPagamentoBean) it.next();
                     %>
                     <div class="radio-item">
@@ -110,7 +111,13 @@
                     </div>
                     <%
                             }
-                        } else {
+                     %> 
+                     	<br>      
+                        <center><a href="RegistraMetodoPagamento.jsp" style='color:black;'>Vuoi aggiungere un nuovo metodo di pagamento?</a></center>
+                    <%
+                        } 
+                        else 
+                        {
                     %>
                     Nessun Metodo di pagamento memorizzato
                     <%
@@ -123,9 +130,11 @@
                 <div class="radio-list">
                     <h1>Indirizzo di Spedizione:</h1>
                     <%
-                        if (Indirizzi != null && Indirizzi.size() != 0) {
+                        if (Indirizzi != null && Indirizzi.size() != 0) 
+                        {
                             Iterator<?> it = Indirizzi.iterator();
-                            while (it.hasNext()) {
+                            while (it.hasNext()) 
+                            {
                                 IndirizziSpedizioneBean bean = (IndirizziSpedizioneBean) it.next();
                     %>
                     <div class="radio-item">
@@ -137,7 +146,13 @@
                     </div>
                     <%
                             }
-                        } else {
+                   	%>       
+                   		<br>      
+                        <center><a href="RegistraIndirizzo.jsp" style='color:black;'>Vuoi aggiungere un nuovo indirizzo di spedizione?</a></center>
+                    <%
+                        }
+                        else 
+                        {
                     %>
                     Nessun Indirizzo Memorizzato
                     <%
