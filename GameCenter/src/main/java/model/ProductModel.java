@@ -152,6 +152,90 @@ public class ProductModel
 		return products;
 	}
 	
+	public static synchronized Collection<ProductBean> getProdottiPerGenere(String nomeGenere) throws SQLException
+	{
+		
+		PreparedStatement ps = null;
+		
+		Collection<ProductBean> products = new LinkedList<>();
+		
+		String sql = "SELECT * FROM " + ProductModel.TABLE_NAME_PRODOTTO + " WHERE FlagVisibita = 1 "
+				+ "AND CodSeriale IN (SELECT CodSeriale FROM "+ ProductModel.TABLE_NAME_CARATTERISTICHE + " WHERE NomeGenere = ?)";
+		
+		try(Connection con = ds.getConnection())
+		{
+			ps = con.prepareStatement(sql);
+			ps.setString(1, nomeGenere);
+
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) 
+			{
+				ProductBean bean = new ProductBean();
+				bean.setCodSeriale(rs.getString("CodSeriale"));
+				bean.setNome(rs.getString("Nome"));
+				bean.setPrezzo(rs.getFloat("Prezzo"));
+				bean.setDescrizioneRidotta(rs.getString("DescrizioneRidotta"));
+				bean.setImmagine(rs.getString("Immagine"));
+				products.add(bean);
+			}
+			
+		}
+		catch(SQLException e)
+		{
+			logger.log(Level.WARNING, e.getMessage());
+		}
+		finally
+		{
+			if(ps != null)
+			{
+				ps.close();
+			}
+		}
+		return products;
+	}
+	
+	public static synchronized Collection<ProductBean> getProdottiPerPiattaforma(String nomePiattaforma) throws SQLException
+	{
+		
+		PreparedStatement ps = null;
+		
+		Collection<ProductBean> products = new LinkedList<>();
+		
+		String sql = "SELECT * FROM " + ProductModel.TABLE_NAME_PRODOTTO + " WHERE FlagVisibita = 1 "
+				+ "AND CodSeriale IN (SELECT CodSeriale FROM "+ ProductModel.TABLE_NAME_DISPONIBILITA + " WHERE NomePiattaforma = ?)";
+		
+		try(Connection con = ds.getConnection())
+		{
+			ps = con.prepareStatement(sql);
+			ps.setString(1, nomePiattaforma);
+
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) 
+			{
+				ProductBean bean = new ProductBean();
+				bean.setCodSeriale(rs.getString("CodSeriale"));
+				bean.setNome(rs.getString("Nome"));
+				bean.setPrezzo(rs.getFloat("Prezzo"));
+				bean.setDescrizioneRidotta(rs.getString("DescrizioneRidotta"));
+				bean.setImmagine(rs.getString("Immagine"));
+				products.add(bean);
+			}
+			
+		}
+		catch(SQLException e)
+		{
+			logger.log(Level.WARNING, e.getMessage());
+		}
+		finally
+		{
+			if(ps != null)
+			{
+				ps.close();
+			}
+		}
+		return products;
+	}
+	
 	
 	public synchronized Collection<ProductBean> doTop8() throws SQLException
 	{

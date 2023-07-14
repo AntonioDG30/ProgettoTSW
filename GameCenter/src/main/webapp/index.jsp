@@ -45,9 +45,9 @@
 		<%@include file="NavBar.jsp" %>	
 		<%@include file="catalogoBar.jsp" %>		
 		<div class="slideShow">
-		  <a href="Login.jsp"><img class="mySlides" src="LayoutSito/img/PS5_Slide.jpg" alt="errore immagine"></a>
-		  <a href="Registrati.jsp"><img class="mySlides" src="LayoutSito/img/NVIDIA4090_Slide.jpg" alt="errore immagine"></a>
-		  <a href="prova.jsp"><img class="mySlides" src="LayoutSito/img/TLOU2_Slide.jpg" alt="errore immagine"></a>
+		  <a href="./GeneralProductControl?action=Dettagli&CodSeriale=ACX5Z6DGXMUJR454"><img class="mySlides" src="LayoutSito/img/PS5_Slide.jpg" alt="errore immagine"></a>
+		  <a href="./GeneralProductControl?action=Dettagli&CodSeriale=AMREDHZOCDS"><img class="mySlides" src="LayoutSito/img/NVIDIA4090_Slide.jpg" alt="errore immagine"></a>
+		  <a href="./GeneralProductControl?action=Dettagli&CodSeriale=CUR3N43VS23YA"><img class="mySlides" src="LayoutSito/img/TLOU2_Slide.jpg" alt="errore immagine"></a>
 		</div>
 		<h2>I prodotti più ricercati:</h2><br>
 		
@@ -87,11 +87,11 @@
 		<br>
 		<h2>Cerca tramite la tua piattaforma preferita:</h2><br>
 		<div class="categorie">
-			<a href="Catalogo.jsp"><img src="LayoutSito/img/PS5.jpg" alt="errore immagine"></a>
-			<a href="#"><img src="LayoutSito/img/PS4.jpg" alt="errore immagine"></a>
-			<a href="#"><img src="LayoutSito/img/xboxsx.jpg" alt="errore immagine"></a>
-			<a href="#"><img src="LayoutSito/img/xboxss.jpg" alt="errore immagine"></a>
-			<a href="#"><img src="LayoutSito/img/pc.jpg" alt="errore immagine"></a>
+			<a href="GeneralProductControl?action=piattaforma&nomePiattaforma=PlayStation 5"><img src="LayoutSito/img/PS5.jpg" alt="errore immagine"></a>
+			<a href="GeneralProductControl?action=piattaforma&nomePiattaforma=PlayStation 4"><img src="LayoutSito/img/PS4.jpg" alt="errore immagine"></a>
+			<a href="GeneralProductControl?action=piattaforma&nomePiattaforma=XBOX Series X"><img src="LayoutSito/img/xboxsx.jpg" alt="errore immagine"></a>
+			<a href="GeneralProductControl?action=piattaforma&nomePiattaforma=XBOX Series S"><img src="LayoutSito/img/xboxss.jpg" alt="errore immagine"></a>
+			<a href="GeneralProductControl?action=piattaforma&nomePiattaforma=PC"><img src="LayoutSito/img/pc.jpg" alt="errore immagine"></a>
 		</div>
 		
 		

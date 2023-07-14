@@ -8,6 +8,14 @@ background-color: #89C2D9;
   font-family:lato;
 }
 
+a
+{
+	color:black; 
+	display: flex; 
+	justify-content: center; 
+	margin-top:7px;
+}
+
 h2 {
   margin-bottom:0px;
   margin-top:25px;

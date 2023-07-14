@@ -122,3 +122,9 @@
 .submit:active {
   background-color: #06b;
 }
+
+textarea
+{
+	background-color:#303245;
+	color: white;
+}

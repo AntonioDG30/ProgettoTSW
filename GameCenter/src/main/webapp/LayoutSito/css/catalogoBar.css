@@ -25,8 +25,8 @@ body
 
 .sottoNav-item 
 {
-    display: inline-block;
-    margin-right: 25px;
+    display: inline-flex;
+    margin-right: 20px;
 }
 
 .sottoNav-item:last-child 
@@ -190,4 +190,24 @@ body
     -webkit-transform: translate(0, 25px) scale(1);
     transform: translate(0, 25px) scale(1);
     pointer-events: auto;
+}
+
+
+
+@media all and (max-width: 449px) 
+{
+	.sottoNav-item 
+	{
+	    display: list-item;
+	    margin-right: 0;
+	    height: 25px;
+	    width: 100%;
+	    text-align: center;
+	    border: 1px solid black;
+	}
+	
+	.sottoNav 
+	{
+	    height: 75px;
+	}
 }

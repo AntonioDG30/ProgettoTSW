@@ -111,9 +111,8 @@
                     </div>
                     <%
                             }
-                     %> 
-                     	<br>      
-                        <center><a href="RegistraMetodoPagamento.jsp" style='color:black;'>Vuoi aggiungere un nuovo metodo di pagamento?</a></center>
+                     %>     
+                        <a href="RegistraMetodoPagamento.jsp">Vuoi aggiungere un nuovo metodo di pagamento?</a>
                     <%
                         } 
                         else 
@@ -146,9 +145,8 @@
                     </div>
                     <%
                             }
-                   	%>       
-                   		<br>      
-                        <center><a href="RegistraIndirizzo.jsp" style='color:black;'>Vuoi aggiungere un nuovo indirizzo di spedizione?</a></center>
+                   	%>             
+                        <a href="RegistraIndirizzo.jsp">Vuoi aggiungere un nuovo indirizzo di spedizione?</a>
                     <%
                         }
                         else 

@@ -72,15 +72,19 @@
 				        <label for="Civico" class="placeholder">Civico</label>
 				    </div>
 				    <div class="input-container">
-				        <input id="Citta" class="input" type="text" placeholder=" " />
-				        <div class="cut"></div>
-				        <label for="Citta" class="placeholder">Città</label>
-				    </div>
-				    <div class="input-container">
-				        <input id="Provincia" class="input" type="text" placeholder=" " />
-				        <div class="cut"></div>
-				        <label for="Provincia" class="placeholder">Provincia</label>
-				    </div>
+					    <select id="Provincia" class="input" name="Provincia">
+					        <option value="" selected disabled>Seleziona una provincia</option>
+					    </select>
+					    <div class="cut"></div>
+					    <label for="Provincia" class="placeholder">Provincia</label>
+					</div>
+					<div class="input-container">
+					    <select id="Citta" class="input" name="Citta" disabled>
+					        <option value="" selected disabled>Seleziona una città</option>
+					    </select>
+					    <div class="cut"></div>
+					    <label for="Citta" class="placeholder">Città</label>
+					</div>
 				    <div class="input-container">
 				        <input id="CAP" class="input" type="number" placeholder=" " />
 				        <div class="cut"></div>
@@ -95,5 +99,38 @@
 			    </div>
 			</form>
         </div>
+        
+        <script>
+		    $(document).ready(function() {
+		        // Carica il file JSON contenente i dati dei comuni e delle province d'Italia
+		        $.getJSON("LayoutSito/js/citta.json", function(data) {
+		            // Popola il menu a tendina delle province
+		            var provinceSelect = $("#Provincia");
+		            $.each(data.province, function(index, provincia) {
+		                provinceSelect.append($("<option></option>")
+		                    .attr("value", provincia)
+		                    .text(provincia));
+		            });
+		
+		            // Aggiorna il menu a tendina delle città quando viene selezionata una provincia
+		            provinceSelect.on("change", function() {
+		                var selectedProvincia = $(this).val();
+		                var comuniSelect = $("#Citta");
+		                comuniSelect.empty().prop("disabled", true);
+		                comuniSelect.append($("<option></option>")
+		                    .attr("value", "")
+		                    .text("Seleziona una città"));
+		                if (selectedProvincia !== "") {
+		                    $.each(data.comuni[selectedProvincia], function(index, comune) {
+		                        comuniSelect.append($("<option></option>")
+		                            .attr("value", comune)
+		                            .text(comune));
+		                    });
+		                    comuniSelect.prop("disabled", false);
+		                }
+		            });
+		        });
+		    });
+		</script>
 	</body>
 </html>

@@ -16,14 +16,20 @@
 		            <a href="Catalogo.jsp" class="sottoNav-link"><span>Catalogo</span></a>
 		        </li> 
 		        <li class="sottoNav-item dropdown">
-		            <a href="#" class="sottoNav-link"><span>Categorie</span></a>
+		            <a href="#" class="sottoNav-link"><span>Genere</span></a>
 		            <nav class="sottoMenu" aria-label="sottoMenu">
 		                <ul class="sottoMenu-items">
-		                    <li class="sottoMenu-item"><a href="#" class="sottoMenu-link">Visualizza tutti i clienti</a></li>
-		                    <li class="sottoMenu-item"><a href="#" class="sottoMenu-link">Visualizza un determinato cliente</a></li>
+		                    <li class="sottoMenu-item"><a href="GeneralProductControl?action=Genere&nomeGenere=Battle Royale" class="sottoMenu-link">Battle Royale</a></li>
+		                    <li class="sottoMenu-item"><a href="GeneralProductControl?action=Genere&nomeGenere=FPS" class="sottoMenu-link">FPS</a></li>
+		                    <li class="sottoMenu-item"><a href="GeneralProductControl?action=Genere&nomeGenere=Picchiaduro" class="sottoMenu-link">Picchiaduro</a></li>
+		                    <li class="sottoMenu-item"><a href="GeneralProductControl?action=Genere&nomeGenere=RPG" class="sottoMenu-link">RPG</a></li>
+		                    <li class="sottoMenu-item"><a href="GeneralProductControl?action=Genere&nomeGenere=Simulazione" class="sottoMenu-link">Simulazione</a></li>
+		                    <li class="sottoMenu-item"><a href="GeneralProductControl?action=Genere&nomeGenere=Sparattutto" class="sottoMenu-link">Sparattutto</a></li>
+		                    <li class="sottoMenu-item"><a href="GeneralProductControl?action=Genere&nomeGenere=Sportivo" class="sottoMenu-link">Sportivo</a></li>
+		                    <li class="sottoMenu-item"><a href="GeneralProductControl?action=Genere&nomeGenere=Survivol" class="sottoMenu-link">Survivol</a></li>
 		                </ul>
 		            </nav>
-		        </li>  
+		        </li> 
 		    </ul>
 		</nav>
 

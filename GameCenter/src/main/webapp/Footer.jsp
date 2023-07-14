@@ -15,8 +15,8 @@
         <div class="footer-col">
           <h4>Servizi</h4>
           <ul>
-            <li><a href="#">Punti Fedelta'</a></li>
-            <li><a href="#">Termini e Condizioni</a></li>
+            <li><a href="PuntiFedelta.jsp">Punti Fedelt&agrave;</a></li>
+            <li><a href="ChiSiamo.jsp">Chi Siamo</a></li>
           </ul>
         </div>
         <div class="footer-col">

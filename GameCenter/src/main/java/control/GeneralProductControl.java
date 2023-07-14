@@ -75,6 +75,24 @@ public class GeneralProductControl extends HttpServlet
 					dispatcher.forward(request, response);
 				}
 				
+				if (action.equalsIgnoreCase("Genere")) 
+				{
+					String nomeGenere = request.getParameter("nomeGenere");
+					request.removeAttribute("products");
+					request.setAttribute("products", ProductModel.getProdottiPerGenere(nomeGenere));
+					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Catalogo.jsp");
+					dispatcher.forward(request, response);
+				}
+				
+				if (action.equalsIgnoreCase("piattaforma")) 
+				{
+					String nomePiattaforma = request.getParameter("nomePiattaforma");
+					request.removeAttribute("products");
+					request.setAttribute("products", ProductModel.getProdottiPerPiattaforma(nomePiattaforma));
+					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Catalogo.jsp");
+					dispatcher.forward(request, response);
+				}
+				
 				if (action.equalsIgnoreCase("Catalogo")) 
 				{
 					request.removeAttribute("products");

@@ -89,15 +89,13 @@
 				        <label for="DataUscita" class="placeholder">Data Uscita</label>
 				    </div>
 				    <div class="input-container">
-				        <input id="DescrizioneRidotta" class="input" type="text" placeholder=" " required min="1"/>
-				        <div class="cut"></div>
-				        <label for="DescrizioneRidotta" class="placeholder">Descrizione Ridotta</label>
+				        Descrizione Ridotta: <textarea name="Descrizione" rows="5" cols="40" required placeholder="Scrivi qui la tua descrizione ridotta"></textarea>	
 				    </div>
+				    <br><br>
 				    <div class="input-container">
-				        <input id="DescrizioneCompleta" class="input" type="text" placeholder=" " required/>
-				        <div class="cut"></div>
-				        <label for="DescrizioneCompleta" class="placeholder">Descrizione Completa</label>
+				        Descrizione Completa: <textarea name="Descrizione" rows="5" cols="40" required placeholder="Scrivi qui la tua descrizione ridotta"></textarea>
 				    </div>
+				    <br><br>
 				    <%
 						if(TipologiaInserimento.contentEquals("Videogioco")) 
 						{
