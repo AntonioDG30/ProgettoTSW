@@ -10,7 +10,7 @@
 <body>
 	<%@include file="NavBar.jsp" %>
 	<div class="box">
-		<h1>Chi Siamo</h1>
+		<h1>Chi Siamo </h1>
     	<p>
 	    	Sono entusiasta di condividere il nostro progetto universitario, che abbiamo realizzato con passione e 
 	    	dedizione. Abbiamo deciso di creare un ecommerce completo dedicato al mondo dei videogiochi, 
