@@ -2,6 +2,7 @@ package control;
 
 import model.*;
 
+<<<<<<< HEAD
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -147,6 +148,152 @@ public class UserControl extends HttpServlet
 						request.getSession().setAttribute("Email", user.getEmail());
 						request.getSession().setAttribute("Tipo", user.getTipo());
 						request.getSession().setAttribute("PuntiFedelta", user.getPuntiFedelta());
+=======
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.annotation.WebServlet;
+
+import com.google.gson.Gson;
+
+@MultipartConfig
+@WebServlet("/UserControl")
+public class UserControl extends HttpServlet 
+{
+	private static final long serialVersionUID = 1L;
+	
+	static UserModel userModel = new UserModel();
+	static OrdineModel ordineModel = new OrdineModel();
+	
+	Logger logger = Logger.getLogger(UserControl.class.getName());
+       
+    public UserControl() 
+    {
+        super();
+    }
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	{
+		String action = request.getParameter("action");
+		try
+		{
+			if(action != null) 
+			{
+				if (action.equalsIgnoreCase("Login")) 
+				{
+					UserBean utente = null;
+					String email = request.getParameter("email");
+					String pass = request.getParameter("password");
+					
+					if (email==null || pass==null )
+					{
+						response.sendRedirect("./index.jsp");
+					}
+						
+					else 
+					{
+						utente = userModel.ricercaUtente(email, pass);
+						if(utente == null)
+						{
+							request.removeAttribute("Result");
+							request.setAttribute("Result", "Credenziali Sbagliate. Riprova");
+							RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Login.jsp");
+							dispatcher.forward(request, response);
+						}
+						else
+						{
+							request.getSession().setAttribute("Email", utente.getEmail());
+							request.getSession().setAttribute("Tipo", utente.getTipo());
+							
+							if(!(utente.getTipo()))
+							{
+								response.sendRedirect("./Admin.jsp");
+							}
+							else
+							{
+								response.sendRedirect("./index.jsp");
+							}
+						}								
+					}					
+				}
+				
+				if (action.equalsIgnoreCase("Logout")) 
+				{
+					request.getSession().invalidate();
+					response.sendRedirect("./index.jsp");
+				}
+				
+				if (action.equalsIgnoreCase("RicercaEmail")) 
+				{
+					String email = request.getParameter("email");
+					boolean trovato = userModel.ricercaEmail(email);
+			        response.setContentType("text/plain");
+			        response.setCharacterEncoding("UTF-8");
+			        if(trovato)
+					{
+			        	PrintWriter out = response.getWriter();
+				        out.print("exists");
+				        out.flush();
+					}
+			        else
+			        {
+			        	PrintWriter out = response.getWriter();
+				        out.print("non exists");
+				        out.flush();
+			        }
+			        
+				}
+				
+				
+				if (action.equalsIgnoreCase("Registrati")) 
+				{
+
+					UserBean utente = new UserBean();
+					utente.setEmail(request.getParameter("Email"));
+					System.out.println("prova: " + request.getParameter("Email"));
+					utente.setPassword(request.getParameter("Password"));
+					utente.setCodiceFiscale(request.getParameter("CF"));
+					utente.setNome(request.getParameter("Nome"));
+					utente.setCognome(request.getParameter("Cognome"));
+
+					Part immaginePart = request.getPart("Immagine");
+					String immagineFileName = immaginePart.getSubmittedFileName();
+					String path = "C:/Users/anton/git/ProgettoTSW/GameCenter/src/main/webapp/ImgUser/" +immagineFileName;
+					FileOutputStream fos = new FileOutputStream(path);
+					InputStream is = immaginePart.getInputStream();
+					byte[] data = new byte[is.available()];
+					if(is.read(data) > 0)
+					{
+						fos.write(data);
+					}
+					fos.close();
+					utente.setImmagine(immagineFileName);
+					
+					utente.setCAP(Integer.parseInt(request.getParameter("CAP")));
+					utente.setCitta(request.getParameter("Citta"));
+					utente.setProvincia(request.getParameter("Provincia"));
+					utente.setVia(request.getParameter("Via"));
+					utente.setCivico(Integer.parseInt(request.getParameter("Civico")));
+					utente.setNumeroTelefono(request.getParameter("Telefono"));
+					if(userModel.registraUtente(utente))
+					{
+						request.getSession().setAttribute("Email", utente.getEmail());
+						request.getSession().setAttribute("Tipo", utente.getTipo());
+						request.getSession().setAttribute("PuntiFedelta", utente.getPuntiFedelta());
+>>>>>>> branch 'master' of https://gitHub.com/AntonioDG30/ProgettoTSW
 						response.sendRedirect("./index.jsp");
 					}
 					else

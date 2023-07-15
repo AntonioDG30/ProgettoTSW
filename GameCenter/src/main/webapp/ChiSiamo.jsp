@@ -10,7 +10,11 @@
 <body>
 	<%@include file="NavBar.jsp" %>
 	<div class="box">
+<<<<<<< HEAD
 		<h1>Chi Siamo</h1>
+=======
+		<h1>Chi Siamo </h1>
+>>>>>>> branch 'master' of https://gitHub.com/AntonioDG30/ProgettoTSW
     	<p>
 	    	Sono entusiasta di condividere il nostro progetto universitario, che abbiamo realizzato con passione e 
 	    	dedizione. Abbiamo deciso di creare un ecommerce completo dedicato al mondo dei videogiochi, 
