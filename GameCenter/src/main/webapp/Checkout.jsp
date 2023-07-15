@@ -3,8 +3,8 @@
 <%!
     String Email = "";
     String Result = "";
-    int PuntiFedelta = 0;
-    Float ScontoMax = 0.0f;
+    float PuntiFedelta = 0.02f;
+    float ScontoMax = 0.02f;
     float PrezzoTotale;
     float ScontoApplicato = 0.0f;
     CarrelloBean Carrello = null;
@@ -32,6 +32,7 @@
 </head>
 <body>
 <%@include file="NavBar.jsp" %>
+<form method="post" action="./OrdiniControl?action=Acquista">
 <div class='container'>
     <div class='window'>
         <div class='order-info'>
@@ -43,7 +44,7 @@
                         List<ProductBean> ProdottoCarrello = Carrello.getListaCarrello();
                         for (ProductBean Prod : ProdottoCarrello) {
                 %>
-
+				
                 <table class='order-table'>
                     <tbody>
                     <tr>
@@ -72,7 +73,7 @@
             /*Tronchiamo float a solo due cifre decimali*/
             Locale.setDefault(Locale.US);
             String PrezzoTotaleString = String.format("%.2f", PrezzoTotale);
-            ScontoMax = Math.min((PrezzoTotale), PuntiFedelta);
+            ScontoMax = Math.min(PrezzoTotale*100, PuntiFedelta);
             Locale.setDefault(Locale.ITALY);
             %>
 
@@ -104,7 +105,7 @@
                                 MetodiPagamentoBean bean = (MetodiPagamentoBean) it.next();
                     %>
                     <div class="radio-item">
-                        <input name="MetodoScelto" value="<%=bean.getNumeroCarta()%>" id="<%=bean.getNumeroCarta()%>" type="radio">
+                        <input name="MetodoScelto" value="<%=bean.getNumeroCarta()%>" id="<%=bean.getNumeroCarta()%>" type="radio" required>
                         <label for="<%=bean.getNumeroCarta()%>">
                             Carta: <%=bean.getNumeroCarta()%>, <%=bean.getTitolareCarta()%>, <%=bean.getScadenza()%>
                         </label>
@@ -112,7 +113,7 @@
                     <%
                             }
                      %>     
-                        <a href="RegistraMetodoPagamento.jsp">Vuoi aggiungere un nuovo metodo di pagamento?</a>
+                        <a href="RegistraMetodoPagamento.jsp" class="link">Vuoi aggiungere un nuovo metodo di pagamento?</a>
                     <%
                         } 
                         else 
@@ -137,16 +138,16 @@
                                 IndirizziSpedizioneBean bean = (IndirizziSpedizioneBean) it.next();
                     %>
                     <div class="radio-item">
-                        <input id="<%=bean.getCodIndirizzo()%>" name="IndirizzoScelto" value="<%=bean.getCodIndirizzo()%>" type="radio">
+                        <input id="<%=bean.getCodIndirizzo()%>" name="IndirizzoScelto" value="<%=bean.getCodIndirizzo()%>" type="radio" required>
                         <label for="<%=bean.getCodIndirizzo()%>">
                             <%=bean.getNome()%> <%=bean.getCognome()%>, Via <%=bean.getVia()%>, <%=bean.getCivico()%>,
-                            <%=bean.getCitta()%>, <%=bean.getCAP()%> <%=bean.getNumeroTelefono()%>
+                            <%=bean.getCitta()%>, <%=bean.getCAP()%>
                         </label>
                     </div>
                     <%
                             }
                    	%>             
-                        <a href="RegistraIndirizzo.jsp">Vuoi aggiungere un nuovo indirizzo di spedizione?</a>
+                        <a href="RegistraIndirizzo.jsp" class="link">Vuoi aggiungere un nuovo indirizzo di spedizione?</a>
                     <%
                         }
                         else 
@@ -158,18 +159,20 @@
                     %>
                 </div>
             </section>
-            <button class='pay-btn'>Checkout</button>
+            <input type="hidden" name="PrezzoTotale" value="<%=PrezzoTotaleString%>">
+            <button type="submit" class='pay-btn'>Checkout</button>
 
         </div>
-
+</div>
     </div>
 </div>
+</form>
 
 <script>
     // Funzione per calcolare il prezzo totale scontato
     function calcolaPrezzoScontato() {
         var prezzoTotale = parseFloat(<%=PrezzoTotale%>);
-        var sconto = parseFloat(document.getElementById("sconto-input").value);
+        var sconto = parseFloat(document.getElementById("sconto-input").value/100);
         var scontoMax = parseFloat(<%=ScontoMax%>);
         var scontoApplicato = Math.min(sconto, scontoMax);
         var prezzoScontato = prezzoTotale - scontoApplicato;

@@ -56,8 +56,8 @@
 		                <thead>
 		                  <tr>
 		                    <!-- Set columns width -->
-		                    <th class="text-center py-3 px-4" style="min-width: 300px;">Prodotto</th>
-		                    <th class="text-right py-3 px-4" style="width: 100px;">Piattaforma</th>
+		                    <th class="text-center py-3 px-4" style="min-width: 250px;">Prodotto</th>
+		                    <th class="text-right py-3 px-4" style="width: 200px;">Piattaforma e Formato</th>
 		                    <th class="text-right py-3 px-4" style="width: 100px;">Prezzo</th>
 		                    <th class="text-center py-3 px-4" style="width: 50px;">Quantità</th>
 		                    <th class="text-center py-3 px-4" style="width: 100px;">Totale</th>

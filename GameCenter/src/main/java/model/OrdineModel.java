@@ -201,6 +201,8 @@ public class OrdineModel
 				ProductBean bean = new ProductBean();
 				bean.setQuantita(rs.getInt("Quantita"));
 				bean.setCodSeriale(rs.getString("CodSeriale"));
+				bean.setPrezzo(rs.getFloat("PrezzoMomento"));
+				bean.setPiattaforma(rs.getString("Piattaforma"));
 				bean = dettagliOrdineProdotto(bean);
 				products.add(bean);
 			}
@@ -233,7 +235,6 @@ public class OrdineModel
 			while(rs.next()) 
 			{
 				bean.setNome(rs.getString("Nome"));
-				bean.setPrezzo(rs.getFloat("Prezzo"));
 				bean.setDescrizioneCompleta(rs.getString("DescrizioneCompleta"));
 				bean.setImmagine(rs.getString("Immagine"));
 				bean.setTipologia(rs.getBoolean("FlagTipologia"));
@@ -319,7 +320,7 @@ public class OrdineModel
 			List<ProductBean> prodottoCarrello = carrello.getListaCarrello(); 	
 		   	for(ProductBean prod: prodottoCarrello) 
 		   	{
-		   			result2 = acquistaInInclude(prod, codOrdine);
+		   			result2 = acquistaInInclude(prod, codOrdine, prod.getPiattaforma());
 			   		if (prod.getPiattaforma().contentEquals("Ps5 Digitale"))
 			   		{
 			   			piattaforma = OrdineModel.PIATTAFORMA_PS5;
@@ -430,18 +431,20 @@ public class OrdineModel
 	}
 	
 	
-	public synchronized int acquistaInInclude(ProductBean prod, int codOrdine) throws SQLException
+	public synchronized int acquistaInInclude(ProductBean prod, int codOrdine, String piattaforma) throws SQLException
 	{
 		
 		PreparedStatement ps = null;
 		int result = 0;
-		String sql = "INSERT INTO " + OrdineModel.TABLE_NAME_PRODOTTI_INCLUSI_ORDINE + " (Quantita, CodSeriale, CodOrdine) VALUES (?, ?, ?)";
+		String sql = "INSERT INTO " + OrdineModel.TABLE_NAME_PRODOTTI_INCLUSI_ORDINE + " (Quantita, CodSeriale, CodOrdine, PrezzoMomento, Piattaforma) VALUES (?, ?, ?, ?, ?)";
 		try(Connection con = ds.getConnection())
 		{
 			ps = con.prepareStatement(sql);
 	   		ps.setInt(1, prod.getQuantita());
 	   		ps.setString(2, prod.getCodSeriale());
 	   		ps.setInt(3, codOrdine);
+	   		ps.setFloat(4, prod.getPrezzo());
+	   		ps.setString(5, piattaforma);
 	   		result = ps.executeUpdate();
 		}
 		catch(SQLException e)

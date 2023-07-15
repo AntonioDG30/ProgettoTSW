@@ -62,13 +62,13 @@
 		    
 		      <div class="w3-white w3-text-grey w3-card-4">
 		        <div class="w3-display-container">
-		          <img src="LayoutSito/img/Avatar.png" style="width:100%" alt="Foto assente">
+		          <img src="LayoutSito/img/<%=Utente.getImmagine()%>" style="width:100%" alt="Foto assente">
 		          <div class="w3-display-bottomleft w3-container w3-text-black">
 		          </div>
 		        </div>
 		        <div class="w3-container">
 		        <br>
-		          <p><img src="LayoutSito/img/Utente.png" alt="errore immagine">&nbsp;&nbsp;<%=Utente.getNome()%> <%=Utente.getCognome()%></p>
+		          <p><img src="LayoutSito/img/Utente.png" alt="errore immagine">&nbsp;&nbsp;<%=Utente.getNome()%> <%=Utente.getCognome()%> </p>
 		          <p><img src="LayoutSito/img/Casa.png" alt="errore immagine">&nbsp;&nbsp;<%=Utente.getVia()%> <%=Utente.getCivico()%>, <%=Utente.getCitta()%> (<%=Utente.getProvincia()%>) <%=Utente.getCAP()%></p>
 		          <p><img src="LayoutSito/img/email.png" alt="errore immagine">&nbsp;&nbsp;<%=Utente.getEmail()%></p>
 		          <p><img src="LayoutSito/img/telefono.png" alt="errore immagine">&nbsp;&nbsp;<%=Utente.getNumeroTelefono() %></p>

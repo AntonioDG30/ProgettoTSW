@@ -77,6 +77,7 @@ CREATE TABLE DatiSensibileUtente
     CodiceFiscale char(16) NOT NULL,
     Nome varchar(50) NOT NULL,
     Cognome varchar(50) NOT NULL,
+	Immagine varchar(100),
     CAP int NOT NULL,
     Via varchar(20) NOT NULL,
     Civico int NOT NULL,
@@ -140,6 +141,7 @@ CREATE TABLE Include
     CodSeriale varchar(20) NOT NULL,
     CodOrdine int,
     PrezzoMomento float,
+    Piattaforma varchar(50) NOT NULL,
     FOREIGN KEY(CodSeriale) REFERENCES Prodotto(CodSeriale) ON UPDATE cascade ON DELETE cascade,
     FOREIGN KEY(CodOrdine) REFERENCES Ordine(CodOrdine) ON UPDATE cascade ON DELETE cascade
 );
@@ -357,12 +359,12 @@ INSERT INTO Utente(Email, PasswordUtente, PuntiFedelta, Tipo)
 VALUES (@LUCAemail, 'Luca2023!', '0', 0);
 
 
-INSERT INTO DatiSensibileUtente(CodiceFiscale, Nome, Cognome, CAP, Via, Civico, Citta, Provincia, NumeroTelefono, Email)
-VALUES ('TCCCRL02M12H501L', 'Carlo', 'Tucci', '00118', 'Giovanni Falcone', '3', 'Roma', 'Roma', '+393342518794', @CARLOemail);
-INSERT INTO DatiSensibileUtente(CodiceFiscale, Nome, Cognome, CAP, Via, Civico, Citta, Provincia, NumeroTelefono, Email)
-VALUES ('CRYU34FTOK903DGW', 'Pasquale', 'Corvini', '80020', 'Campania', '3', 'Frattaminore', 'Napoli', '+393334455667', @PASQUALEemail);
-INSERT INTO DatiSensibileUtente(CodiceFiscale, Nome, Cognome, CAP, Via, Civico, Citta, Provincia, NumeroTelefono, Email)
-VALUES ('RSSLCU96M27L219U', 'Luca', 'Rossi', '10071', 'Clanio', '24', 'Torino', 'Torino', '+393478951025',@LUCAemail);
+INSERT INTO DatiSensibileUtente(CodiceFiscale, Nome, Cognome, Immagine, CAP, Via, Civico, Citta, Provincia, NumeroTelefono, Email)
+VALUES ('TCCCRL02M12H501L', 'Carlo', 'Tucci', 'Avatar.png', '00118', 'Giovanni Falcone', '3', 'Roma', 'Roma', '+393342518794', @CARLOemail);
+INSERT INTO DatiSensibileUtente(CodiceFiscale, Nome, Cognome, Immagine, CAP, Via, Civico, Citta, Provincia, NumeroTelefono, Email)
+VALUES ('CRYU34FTOK903DGW', 'Pasquale', 'Corvini', 'Avatar.png', '80020', 'Campania', '3', 'Frattaminore', 'Napoli', '+393334455667', @PASQUALEemail);
+INSERT INTO DatiSensibileUtente(CodiceFiscale, Nome, Cognome, Immagine, CAP, Via, Civico, Citta, Provincia, NumeroTelefono, Email)
+VALUES ('RSSLCU96M27L219U', 'Luca', 'Rossi', 'Avatar.png', '10071', 'Clanio', '24', 'Torino', 'Torino', '+393478951025',@LUCAemail);
 
 
 INSERT INTO MetodoPagamento(NumeroCarta, TitolareCarta, Scadenza, Email)
@@ -399,32 +401,23 @@ VALUES ('-0','2023-04-06','2174.99','In Lavorazione',@CARLOemail);
 INSERT INTO Ordine(Sconto, DataAcquisto, PrezzoTotale, StatoOrdine, Email)
 VALUES ('-0','2023-05-16','84.97','In Lavorazione',@CARLOemail);
 
-INSERT INTO Include(Quantita, CodSeriale, CodOrdine, PrezzoMomento)
-VALUES ('2',@DUALSENSEcode,'01', '55.00');
-INSERT INTO Include(Quantita, CodSeriale, CodOrdine, PrezzoMomento)
-VALUES ('1',@PS5code,'01', '550.00');
-INSERT INTO Include(Quantita, CodSeriale, CodOrdine, PrezzoMomento)
-VALUES ('3',@MAFIA3code,'02', '14.99');
-INSERT INTO Include(Quantita, CodSeriale, CodOrdine, PrezzoMomento)
-VALUES ('2',@CYBERPUNK77code,'02', '34.99');
-INSERT INTO Include(Quantita, CodSeriale, CodOrdine, PrezzoMomento)
-VALUES ('1',@RTX4090code,'03', '2155.00');
-INSERT INTO Include(Quantita, CodSeriale, CodOrdine, PrezzoMomento)
-VALUES ('1',@TLOU2code,'03', '19.99');
-INSERT INTO Include(Quantita, CodSeriale, CodOrdine, PrezzoMomento)
-VALUES ('1',@MAFIA3code,'04', '14.99');
-INSERT INTO Include(Quantita, CodSeriale, CodOrdine, PrezzoMomento)
-VALUES ('2',@CYBERPUNK77code,'04', '34.99');
+INSERT INTO Include(Quantita, CodSeriale, CodOrdine, PrezzoMomento, Piattaforma)
+VALUES ('2',@DUALSENSEcode,'01', '55.00','Ps5 Fisico');
+INSERT INTO Include(Quantita, CodSeriale, CodOrdine, PrezzoMomento, Piattaforma)
+VALUES ('1',@PS5code,'01', '550.00','Ps5 Fisico');
+INSERT INTO Include(Quantita, CodSeriale, CodOrdine, PrezzoMomento, Piattaforma)
+VALUES ('3',@MAFIA3code,'02', '14.99','Ps4 Digitale');
+INSERT INTO Include(Quantita, CodSeriale, CodOrdine, PrezzoMomento, Piattaforma)
+VALUES ('2',@CYBERPUNK77code,'02', '34.99', 'XboxS Digitale');
+INSERT INTO Include(Quantita, CodSeriale, CodOrdine, PrezzoMomento, Piattaforma)
+VALUES ('1',@RTX4090code,'03', '2155.00', 'Pc Fisico');
+INSERT INTO Include(Quantita, CodSeriale, CodOrdine, PrezzoMomento, Piattaforma)
+VALUES ('1',@TLOU2code,'03', '19.99','Ps4 Digitale');
+INSERT INTO Include(Quantita, CodSeriale, CodOrdine, PrezzoMomento, Piattaforma)
+VALUES ('1',@MAFIA3code,'04', '14.99', 'XboxX Fisico');
+INSERT INTO Include(Quantita, CodSeriale, CodOrdine, PrezzoMomento, Piattaforma)
+VALUES ('2',@CYBERPUNK77code,'04', '34.99','Ps4 Digitale');
 
-SET @FIFA23code := 'CD9D8G352NC5JA';
-SET @TLOU2code := 'CUR3N43VS23YA';
-
-SET @CYBERPUNK77code := '45HY33DD2SE24';
-SET @MAFIA3code := 'BYD32A5KYNC4E3';
-SET @PS5code := 'ACX5Z6DGXMUJR454';
-SET @DUALSENSEcode := 'DVCH5342SDR';
-SET @RTX4090code := 'AMREDHZOCDS';
-SET @PS4code := 'GHYFVRSTEV';
 
 INSERT INTO Comprende(CodOrdine, CodIndirizzo, NumeroCarta)
 VALUES('01', '01', '5879485763284798');

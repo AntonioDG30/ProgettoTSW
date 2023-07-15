@@ -14,6 +14,7 @@ public class UserBean implements Serializable
 	String codiceFiscale;
 	String nome;
 	String cognome;
+	String immagine;
 	int cap;
 	String via;
 	int civico;
@@ -31,6 +32,7 @@ public class UserBean implements Serializable
 		this.codiceFiscale="";
 		this.nome="";
 		this.cognome="";
+		this.immagine="";
 		this.cap=0;
 		this.via="";
 		this.civico=0;
@@ -107,6 +109,16 @@ public class UserBean implements Serializable
 	public void setCognome(String cognome) 
 	{
 		this.cognome = cognome;
+	}
+	
+	public String getImmagine() 
+	{
+		return immagine;
+	}
+
+	public void setImmagine(String immagine) 
+	{
+		this.immagine = immagine;
 	}
 
 	public int getCAP() 

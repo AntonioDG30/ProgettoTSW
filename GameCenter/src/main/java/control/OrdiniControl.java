@@ -91,7 +91,7 @@ public class OrdiniControl extends HttpServlet
 					{
 						request.setAttribute("Result", "Recensione inserita Correttamente");
 					    request.removeAttribute("PuntiFedelta");
-						request.setAttribute("PuntiFedelta", userModel.getPuntiFedelta(email));
+						request.setAttribute("PuntiFedelta", UserModel.getPuntiFedelta(email));
 						request.removeAttribute("Ordini");
 						request.setAttribute("Ordini", ordineModel.elencoOrdiniByCliente(email));
 						RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Account.jsp");
@@ -115,7 +115,7 @@ public class OrdiniControl extends HttpServlet
 						String email=(String) request.getSession().getAttribute("Email");
 						CarrelloBean carrello=(CarrelloBean) request.getSession().getAttribute("Carrello");
 						request.removeAttribute("PuntiFedelta");
-						request.setAttribute("PuntiFedelta", userModel.getPuntiFedelta(email));
+						request.setAttribute("PuntiFedelta", UserModel.getPuntiFedelta(email));
 						request.removeAttribute("Indirizzi");
 						request.setAttribute("Indirizzi", userModel.getIndirizziSpedizione(email));
 						request.removeAttribute("MetodiPagamento");
@@ -148,7 +148,7 @@ public class OrdiniControl extends HttpServlet
 							String numeroCarta = request.getParameter("MetodoScelto");
 							ordineModel.updateComprende(codOrdine, codIndirizzo, numeroCarta);
 							request.removeAttribute("PuntiFedelta");
-							request.setAttribute("PuntiFedelta", userModel.getPuntiFedelta(email));
+							request.setAttribute("PuntiFedelta", UserModel.getPuntiFedelta(email));
 							request.removeAttribute("Ordini");
 							request.setAttribute("Ordini", ordineModel.elencoOrdiniByCliente(email));
 							request.setAttribute("Result", "Grazie per aver acquistato sul nostro sito");
@@ -161,7 +161,7 @@ public class OrdiniControl extends HttpServlet
 							request.setAttribute("Result", "Errore imprevisto, riprova.");
 						}
 						
-						RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Account.jsp");
+						RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
 						dispatcher.forward(request, response);
 					}
 					else
@@ -212,7 +212,7 @@ public class OrdiniControl extends HttpServlet
 			    else
 			    {
 			    	request.removeAttribute("PuntiFedelta");
-					request.setAttribute("PuntiFedelta", userModel.getPuntiFedelta(email));
+					request.setAttribute("PuntiFedelta", UserModel.getPuntiFedelta(email));
 					request.removeAttribute("Ordini");
 					request.setAttribute("Ordini", ordineModel.elencoOrdiniByCliente(email));
 					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Account.jsp");
@@ -240,7 +240,7 @@ public class OrdiniControl extends HttpServlet
 			
 			String servletPath = "C:/Users/anton/git/ProgettoTSW/GameCenter/src/main/webapp";
 			String totalPath = servletPath + "/Fatture/Fattura" + codOrdine + ".pdf";
-			Float subTotale = 0.0f;
+			Float subTotale = 0.02f;
 		
 			String pdf = ordineModel.ricercaFattura(codOrdine);
 		
@@ -279,6 +279,7 @@ public class OrdiniControl extends HttpServlet
 			    //inserimento Dati Utente
 			    UserBean utente = userModel.ricercaDatiSensibili(email); 
 			    
+			    
 			    x = 395;
 			    y = 710;
 			    contentStream.beginText();
@@ -299,7 +300,7 @@ public class OrdiniControl extends HttpServlet
 			    contentStream.beginText();
 			    contentStream.setFont(font, 11);
 			    contentStream.newLineAtOffset(x, y); 
-			    contentStream.showText(utente.getCitta() + ", " + utente.getProvincia() + ", " + utente.getCAP()); 
+			    contentStream.showText(utente.getCitta() + ", (" + utente.getProvincia() + "), " + utente.getCAP()); 
 			    contentStream.endText();
 			    
 			    
@@ -313,9 +314,8 @@ public class OrdiniControl extends HttpServlet
 			    //inserimento prodotti
 			    y = 604;
 			    Collection<?> ordini =ordineModel.dettagliOrdine(codOrdine);
-			    if (ordini != null && ordini.isEmpty()) 
+			    if (ordini != null && ordini.size() != 0) 
 				{
-			    	
 					Iterator<?> it = ordini.iterator();
 					while (it.hasNext()) 
 					{
@@ -382,7 +382,7 @@ public class OrdiniControl extends HttpServlet
 			    y = 94;
 			    contentStream.beginText();
 			    contentStream.setFont(font, 11);
-			    contentStream.newLineAtOffset(x, y); 
+			    contentStream.newLineAtOffset(x, y);
 			    contentStream.showText("subTotale: " + subTotale); 
 			    contentStream.endText();
 			    

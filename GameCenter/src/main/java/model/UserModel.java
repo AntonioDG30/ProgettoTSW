@@ -118,17 +118,23 @@ public class UserModel
 	}
 	
 	
-	public synchronized boolean registraUtente(String email,String password) throws SQLException 
+	public synchronized boolean registraUtente(UserBean utente) throws SQLException 
 	{
 		PreparedStatement ps = null;
 		int rs = 0;
+		boolean result = false;
 		String sql = "INSERT INTO " + UserModel.TABLE_NAME_UTENTE + " (Email, PasswordUtente, PuntiFedelta, Tipo) VALUES (?,?,0,1) ";
 		try(Connection con = ds.getConnection())
 		{
 			ps = con.prepareStatement(sql);
-			ps.setString(1, email);
-			ps.setString(2, password);
+			ps.setString(1, utente.getEmail());
+			ps.setString(2, utente.getPassword());
 			rs = ps.executeUpdate();
+			if (rs != 0)
+			{
+				result = registraDatiSensibili(utente);
+			}
+			
 		} 
 		catch(SQLException e)
 		{
@@ -143,30 +149,31 @@ public class UserModel
 		}
 		
 
-		return (rs != 0);
+		return result;
 			
 	}
 	
 	
-	public synchronized boolean registraDatiSensibili(String email, String codiceFiscale, String nome, String cognome, int cap, String citta, String provincia, String via, int civico, String telefono) throws SQLException 
+	public synchronized boolean registraDatiSensibili(UserBean utente) throws SQLException 
 	{
 		PreparedStatement ps = null;
 
 		int rs = 0;
-		String sql = "INSERT INTO " + UserModel.TABLE_NAME_DATI + " (CodiceFiscale, Nome, Cognome, CAP, Via, Civico, Citta, Provincia, NumeroTelefono, Email) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ";
+		String sql = "INSERT INTO " + UserModel.TABLE_NAME_DATI + " (CodiceFiscale, Nome, Cognome, Immagine, CAP, Via, Civico, Citta, Provincia, NumeroTelefono, Email) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ";
 		try(Connection con = ds.getConnection())
 		{
 			ps = con.prepareStatement(sql);
-			ps.setString(1, codiceFiscale);
-			ps.setString(2, nome);
-			ps.setString(3, cognome);
-			ps.setInt(4, cap);
-			ps.setString(5, via);
-			ps.setInt(6, civico);
-			ps.setString(7, citta);
-			ps.setString(8, provincia);
-			ps.setString(9, telefono);
-			ps.setString(10, email);
+			ps.setString(1, utente.getCodiceFiscale());
+			ps.setString(2, utente.getNome());
+			ps.setString(3, utente.getCognome());
+			ps.setString(4, utente.getImmagine());
+			ps.setInt(5, utente.getCAP());
+			ps.setString(6, utente.getVia());
+			ps.setInt(7, utente.getCivico());
+			ps.setString(8, utente.getCitta());
+			ps.setString(9, utente.getProvincia());
+			ps.setString(10, utente.getNumeroTelefono());
+			ps.setString(11, utente.getEmail());
 			rs = ps.executeUpdate();
 		} 
 		catch(SQLException e)
@@ -305,8 +312,6 @@ public class UserModel
 			
 	}
 	
-	
-	
 	public synchronized UserBean ricercaDatiSensibili(String email) throws SQLException 
 	{
 		PreparedStatement ps = null;
@@ -348,6 +353,7 @@ public class UserModel
 		}
 		return bean;			
 	}
+	
 	
 	
 	public synchronized Collection<UserBean> elencoClienti() throws SQLException 
@@ -405,6 +411,7 @@ public class UserModel
 				bean.setCodiceFiscale(rs.getString("CodiceFiscale"));
 				bean.setNome(rs.getString("Nome"));
 				bean.setCognome(rs.getString("Cognome"));
+				bean.setImmagine(rs.getString("Immagine"));
 				bean.setCAP(rs.getInt("CAP"));
 				bean.setVia(rs.getString("Via"));
 				bean.setCivico(rs.getInt("Civico"));

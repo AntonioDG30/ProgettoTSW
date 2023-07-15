@@ -2,7 +2,9 @@ package control;
 
 import model.*;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.List;
@@ -14,6 +16,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 import javax.servlet.annotation.WebServlet;
 
 import com.google.gson.Gson;
@@ -109,33 +112,39 @@ public class UserControl extends HttpServlet
 				
 				if (action.equalsIgnoreCase("Registrati")) 
 				{
-					String email = request.getParameter("Email");
-					String pass = request.getParameter("Password");
-					UserBean utente = null;
-					if(userModel.registraUtente(email, pass))
+
+					UserBean utente = new UserBean();
+					utente.setEmail(request.getParameter("Email"));
+					utente.setPassword(request.getParameter("Password"));
+					utente.setCodiceFiscale(request.getParameter("CF"));
+					utente.setNome(request.getParameter("Nome"));
+					utente.setCognome(request.getParameter("Cognome"));
+
+					Part immaginePart = request.getPart("Immagine");
+					String immagineFileName = immaginePart.getSubmittedFileName();
+					String path = "C:/Users/anton/git/ProgettoTSW/GameCenter/src/main/webapp/Immagini/" +immagineFileName;
+					FileOutputStream fos = new FileOutputStream(path);
+					InputStream is = immaginePart.getInputStream();
+					byte[] data = new byte[is.available()];
+					if(is.read(data) > 0)
 					{
-						utente = userModel.ricercaUtente(email, pass);
+						fos.write(data);
+					}
+					fos.close();
+					utente.setImmagine(immagineFileName);
+					
+					utente.setCAP(Integer.parseInt(request.getParameter("CAP")));
+					utente.setCitta(request.getParameter("Citta"));
+					utente.setProvincia(request.getParameter("Provincia"));
+					utente.setVia(request.getParameter("Via"));
+					utente.setCivico(Integer.parseInt(request.getParameter("Civico")));
+					utente.setNumeroTelefono(request.getParameter("Telefono"));
+					if(userModel.registraUtente(utente))
+					{
 						request.getSession().setAttribute("Email", utente.getEmail());
 						request.getSession().setAttribute("Tipo", utente.getTipo());
 						request.getSession().setAttribute("PuntiFedelta", utente.getPuntiFedelta());
-						String codiceFiscale = request.getParameter("CF");
-						String nome = request.getParameter("Nome");
-						String cognome = request.getParameter("Cognome");
-						int cap = Integer.parseInt(request.getParameter("CAP"));
-						String citta = request.getParameter("Citta");
-						String provincia = request.getParameter("Provincia");
-						String via = request.getParameter("Via");
-						int civico = Integer.parseInt(request.getParameter("Civico"));
-						String telefono = request.getParameter("Telefono");
-						if(userModel.registraDatiSensibili(email, codiceFiscale, nome, cognome, cap, citta, provincia, via, civico, telefono))
-						{
-							response.sendRedirect("./index.jsp");
-						}
-						else
-						{
-							RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Registrati.jsp");
-							dispatcher.forward(request, response);
-						}
+						response.sendRedirect("./index.jsp");
 					}
 					else
 					{
@@ -196,124 +205,6 @@ public class UserControl extends HttpServlet
 					dispatcher.forward(request, response);	
 				}
 				
-				
-				
-				if (action.equalsIgnoreCase("ModificaDati"))
-				{
-						String email = (String) request.getSession().getAttribute("Email");
-						Boolean rsCodiceFiscale = false;
-						Boolean rsNome = false;
-						Boolean rsCognome = false; 
-						Boolean rsCap = false; 
-						Boolean rsCitta = false;
-						Boolean rsProvincia = false;
-						Boolean rsVia = false;
-						Boolean rsCivico = false;
-						Boolean rsNumeroTelefono = false;
-
-						if(!(request.getParameter("CodiceFiscale").isEmpty()))
-						{	
-							rsCodiceFiscale = userModel.modCodiceFiscale(email, request.getParameter("CodiceFiscale"));
-						}
-						else
-						{
-							rsCodiceFiscale = true;
-						}
-						
-						if(!(request.getParameter("Nome").isEmpty()))
-						{	
-							rsNome = userModel.modNome(email, request.getParameter("Nome"));
-						}
-						else
-						{
-							rsNome = true;
-						}
-						
-						if(!(request.getParameter("Cognome").isEmpty()))
-						{	
-							rsCognome = userModel.modCognome(email, request.getParameter("Cognome"));
-						}
-						else
-						{
-							rsCognome = true;
-						}
-						
-						if(!(request.getParameter("CAP").isEmpty()))
-						{	
-							int cap = Integer.parseInt(request.getParameter("CAP"));
-							rsCap = userModel.modCap(email, cap);
-						}
-						else
-						{
-							rsCap = true;
-						}
-						
-						if(!(request.getParameter("Citta").isEmpty()))
-						{	
-							rsCitta = userModel.modCitta(email, request.getParameter("Citta"));
-						}
-						else
-						{
-							rsCitta = true;
-						}
-						
-						if(!(request.getParameter("Provincia").isEmpty()))
-						{	
-							rsProvincia = userModel.modProvincia(email, request.getParameter("Provincia"));
-						}
-						else
-						{
-							rsProvincia = true;
-						}
-						
-						if(!(request.getParameter("Via").isEmpty()))
-						{	
-							rsVia = userModel.modVia(email, request.getParameter("Via"));
-						}
-						else
-						{
-							rsVia = true;
-						}
-						
-						if(!(request.getParameter("Civico").isEmpty()))
-						{	
-							int civico = Integer.parseInt(request.getParameter("Civico"));
-							rsCivico = userModel.modCivico(email, civico);
-						}
-						else
-						{
-							rsCivico = true;
-						}
-						
-						if(!(request.getParameter("NumeroTelefono").isEmpty()))
-						{	
-							rsNumeroTelefono = userModel.modTelefono(email, request.getParameter("NumeroTelefono"));
-						}
-						else
-						{
-							rsNumeroTelefono = true;
-						}
-						
-						
-						
-						if(rsCodiceFiscale && rsNome && rsCognome && rsCap && rsCitta && rsProvincia && rsVia && rsCivico && rsNumeroTelefono)
-						{
-							request.setAttribute("Result", "I tuoi dati sono stati modificati correttamente.");
-						}
-						else
-						{
-							request.setAttribute("Result", "Errore imprevisto, riprova.");
-						}			
-						
-						request.removeAttribute("Cliente");	
-						request.setAttribute("Cliente", userModel.ricercaCliente(email));
-						request.removeAttribute("PuntiFedelta");
-						request.setAttribute("PuntiFedelta", UserModel.getPuntiFedelta(email));
-						request.removeAttribute("Ordini");
-						request.setAttribute("Ordini", ordineModel.elencoOrdiniByCliente(email));
-						RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Account.jsp");
-						dispatcher.forward(request, response);
-				}
 				
 				
 				

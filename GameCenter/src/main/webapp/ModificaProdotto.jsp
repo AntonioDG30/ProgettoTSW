@@ -37,9 +37,9 @@
 			{
 		%>
 		<div class="formCliente">
-        	<form method="post" action="./AdminProductControl?action=Modifica" name="modifica" onsubmit="return validate()">
+        	<form method="post" action="./AdminProductControl?action=Modifica" name="modifica" onsubmit="return validate()" enctype="multipart/form-data">
 				<div class="form">
-      				<div class="subtitle">Aggiungi un nuovo prodotto</div>
+      				<div class="subtitle">Modifica un prodotto</div>
 			      	<div class="input-container2">
 				        CodSeriale: <input id="CodSerialeNew" name="CodSerialeNew" class="input" type="text" placeholder="<%=product.getCodSeriale()%>"/>
 				    </div>
@@ -148,5 +148,29 @@
         <% 
 			}
 		%>
+		<script>
+		 	function validate() 
+		    {
+
+ 		  		var CodSerialeNewInput = document.modifica.CodSerialeNew.value;
+ 		  		var nomeInput = document.modifica.Nome.value;
+ 		  	
+		    	
+		    	if (nomeInput.length>50) 
+		    	{
+		    		alert("Il campo Nome è troppo lungo max 50");
+		    		document.modifica.Nome.focus();
+		    		return false;
+		    	}
+		    	
+		    	if (CodSerialeNewInput.length>20) 
+		    	{
+		    		alert("Il campo CodSeriale è troppo lungo max 20");
+		    		document.modifica.CodSerialeNew.focus();
+		    		return false;
+		    	}
+		    	return true;
+		    }
+		</script>
 	</body>
 </html>

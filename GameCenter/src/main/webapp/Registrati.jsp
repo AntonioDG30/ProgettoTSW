@@ -32,15 +32,14 @@
 		%>
 		<%@include file="NavBar.jsp" %>
 		<div class="formCliente">
-        	<form method="post" name="registrati" action="./UserControl?action=Registrati" onsubmit="return validate()">
+        	<form method="post" name="registrati" action="./UserControl?action=Registrati" onsubmit="return validate()" enctype="multipart/form-data">
 				<div class="form">
 			        <div class="title">Benvenuto</div>
       				<div class="subtitle">Registra il tuo nuovo account</div>
-			      	<div class="input-container ic1">
+			      	<div class="input-container">
 				        <input id="Email" name="Email" class="input" type="email" placeholder=" " />
 				        <div class="cut"></div>
 				        <label for="Email" class="placeholder">Email</label>
-
 				    </div>
 				    <div class="input-container">
 				        <input id="Password" name="Password" class="input" type="password" placeholder=" " />
@@ -56,6 +55,9 @@
 				        <input id="Cognome" name="Cognome" class="input" type="text" placeholder=" " />
 				        <div class="cut"></div>
 				        <label for="Cognome" class="placeholder">Cognome</label>
+				    </div>
+				    <div class="input-container-Foto">
+				        Foto: <input id="Immagine" name="Immagine" class="inputFoto" type="file" />
 				    </div>
 				    <div class="input-container">
 				        <input id="CF" name="CF" class="input" type="text" placeholder=" " />
