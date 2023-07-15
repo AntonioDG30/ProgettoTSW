@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Context>
+    <Resource name="jdbc/GameCenter"
+        auth="Container"
+        driverClassName="com.mysql.cj.jdbc.Driver"
+        type="javax.sql.DataSource"
+        username="root"
+        password="Digiorgio"
+        url="jdbc:mysql://localhost:3306/GameCenter?serverTimezone=Europe/Rome"/>
+</Context>

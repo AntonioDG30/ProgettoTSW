@@ -1,0 +1,239 @@
+@charset "ISO-8859-1";
+
+body
+{
+	background-color: #cfe5ff;
+}
+
+.slideShow 
+{
+  position: relative;
+  width: 100%;
+  height: 600px;
+  overflow: hidden;
+}
+
+.mySlides 
+{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.mySlides.active 
+{
+  opacity: 1;
+}
+
+.slideImage 
+{
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+
+
+.prodotti 
+{
+	height: 100%;
+	display: flex; 
+	flex-direction: row; 
+	justify-content: space-evenly;
+	align-items: stretch;
+	flex-wrap: wrap; 
+	margin-left:100px!important;
+	margin-right:100px!important;
+}
+
+.prodotti2 h2
+{
+	margin-top: 0;
+	float: center;
+}
+
+.prodotti2 
+{
+	border: 1px solid #eee;
+	display: flex; 
+	flex-direction: column; 
+	justify-content: flex-start;
+	align-items: stretch;
+  	margin-top:10px!important;
+	margin-bottom:16px!important;
+	
+}
+
+.prodotti2 img:hover 
+{
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
+
+
+
+.prodotti2 img
+{
+	float: center; 
+	width: 400px; 
+	height: 400px; 
+}
+
+.prodotti2 p
+{
+	margin-top: 0px;
+	width: 400px; 
+
+}
+
+.prodotti2 a 
+{ 
+	color: black; 
+}
+.prodotti2 a:active 
+{ 
+	color: black; 
+}
+.prodotti2 a:visited 
+{
+	color: black; 
+}
+
+
+	
+.prodotti2 h3 
+{
+	margin-top: 0;
+}
+
+.categorie 
+{
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: stretch;
+  flex-wrap: wrap;
+}
+
+.categorie img 
+{
+  float: left;
+  padding-left: 20px;
+  width: 600px;
+  height: 300px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.categorie img:hover 
+{
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
+
+.operazioniAdmin 
+{
+	display: flex; 
+	flex-direction: row; 
+	justify-content: right;
+	align-items: right;
+}
+
+
+
+
+
+
+
+
+
+@media all and (max-width: 800px) 
+{
+  	.mySlides 
+	{
+		height: 400px;
+	}
+	
+	.slideShow 
+	{
+	  height: 400px;
+	}
+	
+	.prodotti 
+	{
+		height: 50%;
+	}
+	
+	.prodotti2 img
+	{
+		width: 250px; 
+		height: 250px; 
+	}
+
+	
+	.prodotti2 p
+	{
+		width: 250px;
+	}
+	
+	.categorie img
+	{
+		float:left; 
+		padding-left: 20px;
+		padding-right: 20px;
+		width: 100%; 
+		height: 250px; 
+	}
+
+}
+
+
+@media all and (max-width: 400px) 
+{
+  	.mySlides 
+	{
+		height: 200px;
+	}
+	
+	.slideShow 
+	{
+	  height: 200px;
+	}
+	
+	.prodotti 
+	{
+		height: 50%;
+	}
+	
+	.prodotti2 img
+	{
+		width: 200px; 
+		height: 200px; 
+	}
+
+	
+	.prodotti2 p
+	{
+		width: 200px;
+	}
+	
+	.categorie img
+	{
+		float:left; 
+		padding-left: 20px;
+		padding-right: 20px;
+		width: 100%; 
+		height: 150px; 
+	}
+
+}
+
+
+	
+	
