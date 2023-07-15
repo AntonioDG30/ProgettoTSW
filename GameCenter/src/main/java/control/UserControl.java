@@ -17,11 +17,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 
 import com.google.gson.Gson;
 
-
+@MultipartConfig
 @WebServlet("/UserControl")
 public class UserControl extends HttpServlet 
 {
@@ -115,6 +116,7 @@ public class UserControl extends HttpServlet
 
 					UserBean utente = new UserBean();
 					utente.setEmail(request.getParameter("Email"));
+					System.out.println("prova: " + request.getParameter("Email"));
 					utente.setPassword(request.getParameter("Password"));
 					utente.setCodiceFiscale(request.getParameter("CF"));
 					utente.setNome(request.getParameter("Nome"));
@@ -122,7 +124,7 @@ public class UserControl extends HttpServlet
 
 					Part immaginePart = request.getPart("Immagine");
 					String immagineFileName = immaginePart.getSubmittedFileName();
-					String path = "C:/Users/anton/git/ProgettoTSW/GameCenter/src/main/webapp/Immagini/" +immagineFileName;
+					String path = "C:/Users/anton/git/ProgettoTSW/GameCenter/src/main/webapp/ImgUser/" +immagineFileName;
 					FileOutputStream fos = new FileOutputStream(path);
 					InputStream is = immaginePart.getInputStream();
 					byte[] data = new byte[is.available()];

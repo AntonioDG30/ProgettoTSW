@@ -37,64 +37,64 @@
 			        <div class="title">Benvenuto</div>
       				<div class="subtitle">Registra il tuo nuovo account</div>
 			      	<div class="input-container">
-				        <input id="Email" name="Email" class="input" type="email" placeholder=" " />
+				        <input id="Email" name="Email" class="input" type="email" placeholder=" " required/>
 				        <div class="cut"></div>
 				        <label for="Email" class="placeholder">Email</label>
 				    </div>
 				    <div class="input-container">
-				        <input id="Password" name="Password" class="input" type="password" placeholder=" " />
+				        <input id="Password" name="Password" class="input" type="password" placeholder=" " required/>
 				        <div class="cut"></div>
 				        <label for="Password" class="placeholder">Password</label>
 				    </div>
 				    <div class="input-container">
-				        <input id="Nome" name="Nome" class="input" type="text" placeholder=" " />
+				        <input id="Nome" name="Nome" class="input" type="text" placeholder=" " required/>
 				        <div class="cut"></div>
 				        <label for="Nome" class="placeholder">Nome</label>
 				    </div>
 				    <div class="input-container">
-				        <input id="Cognome" name="Cognome" class="input" type="text" placeholder=" " />
+				        <input id="Cognome" name="Cognome" class="input" type="text" placeholder=" " required/>
 				        <div class="cut"></div>
 				        <label for="Cognome" class="placeholder">Cognome</label>
 				    </div>
 				    <div class="input-container-Foto">
-				        Foto: <input id="Immagine" name="Immagine" class="inputFoto" type="file" />
+				        Foto: <input id="Immagine" name="Immagine" class="inputFoto" type="file" required/>
 				    </div>
 				    <div class="input-container">
-				        <input id="CF" name="CF" class="input" type="text" placeholder=" " />
+				        <input id="CF" name="CF" class="input" type="text" placeholder=" " required/>
 				        <div class="cut"></div>
 				        <label for="CF" class="placeholder">Codice Fiscale</label>
 				    </div>
 				    <div class="input-container">
-				        <input id="Via" name="Via" class="input" type="text" placeholder=" " />
+				        <input id="Via" name="Via" class="input" type="text" placeholder=" " required/>
 				        <div class="cut"></div>
 				        <label for="Via" class="placeholder">Via</label>
 				    </div>
 				    <div class="input-container">
-				        <input id="Civico" name="Civico" class="input" type="number" placeholder=" " min="1"/>
+				        <input id="Civico" name="Civico" class="input" type="number" placeholder=" " min="1" required/>
 				        <div class="cut"></div>
 				        <label for="Civico" class="placeholder">Civico</label>
 				    </div>
 				    <div class="input-container">
-					    <select id="Provincia" name="Provincia" class="input" name="Provincia">
+					    <select id="Provincia" name="Provincia" class="input" name="Provincia" required>
 					        <option value="" selected disabled>Seleziona una provincia</option>
 					    </select>
 					    <div class="cut"></div>
 					    <label for="Provincia" class="placeholder">Provincia</label>
 					</div>
 					<div class="input-container">
-					    <select id="Citta" name="Citta" class="input" name="Citta" disabled>
+					    <select id="Citta" name="Citta" class="input" name="Citta" disabled required>
 					        <option value="" selected disabled>Seleziona una città</option>
 					    </select>
 					    <div class="cut"></div>
 					    <label for="Citta" class="placeholder">Città</label>
 					</div>
 				    <div class="input-container">
-				        <input id="CAP" name="CAP" class="input" type="number" placeholder=" " />
+				        <input id="CAP" name="CAP" class="input" type="number" placeholder=" " required/>
 				        <div class="cut"></div>
 				        <label for="CAP" class="placeholder">CAP</label>
 				    </div>
 				    <div class="input-container">
-				        <input id="Telefono" name="Telefono" class="input" type="text" placeholder=" " />
+				        <input id="Telefono" name="Telefono" class="input" type="text" placeholder=" " required/>
 				        <div class="cut"></div>
 				        <label for="Telefono" class="placeholder">Numero Telefono</label>
 				    </div>
@@ -146,6 +146,7 @@
     		  	var nomeInput = document.registrati.Nome.value;
     		  	var str = /^[a-zA-Z]+$/;
     		  	var cognomeInput = document.registrati.Cognome.value;
+    		  	var fotoInput = document.registrati.Immagine.value
     		  	var cfInput = document.registrati.CF.value;
     		  	var viaInput = document.registrati.Via.value;
     		  	var civicoInput = document.registrati.Civico.value;
@@ -226,6 +227,13 @@
 		    	{
 		    		alert("Il campo Cognome è errato, riprova!");
 		    		document.registrati.Cognome.focus();
+		    		return false;
+		    	}
+		    	
+		    	if (fotoInput === "") 
+		    	{
+		    		alert("Il campo Immagine è obbligatorio");
+		    		document.registrati.Immagine.focus();
 		    		return false;
 		    	}
 		    	

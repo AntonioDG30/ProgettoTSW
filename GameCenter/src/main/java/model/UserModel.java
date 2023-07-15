@@ -159,7 +159,7 @@ public class UserModel
 		PreparedStatement ps = null;
 
 		int rs = 0;
-		String sql = "INSERT INTO " + UserModel.TABLE_NAME_DATI + " (CodiceFiscale, Nome, Cognome, Immagine, CAP, Via, Civico, Citta, Provincia, NumeroTelefono, Email) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ";
+		String sql = "INSERT INTO " + UserModel.TABLE_NAME_DATI + " (CodiceFiscale, Nome, Cognome, Immagine, CAP, Via, Civico, Citta, Provincia, NumeroTelefono, Email) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ";
 		try(Connection con = ds.getConnection())
 		{
 			ps = con.prepareStatement(sql);
