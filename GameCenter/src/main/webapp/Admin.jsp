@@ -58,12 +58,13 @@
 					<div class="operazioniAdmin">
 						<form method="post" id="elimina" action="./AdminProductControl?action=Elimina">
 								<input type="hidden" name="CodSeriale" value="<%=bean.getCodSeriale()%>">				
-								<img src="LayoutSito/img/elimina.png" alt="errore immagine" onclick="document.getElementById('elimina').submit();">
+								<input type="image" src="LayoutSito/img/elimina.png" alt="errore immagine">
 						</form>
-						<form method="post" id="modifica" action="./AdminProductControl?action=Modifica&ParteMod=Parte1&CodSeriale=<%=bean.getCodSeriale()%>">
+						<form method="post" id="modifica" action="./AdminProductControl?action=ModificaPage">
 								<input type="hidden" name="CodSeriale" value="<%=bean.getCodSeriale()%>">				
-								<img src="LayoutSito/img/modifica.png" alt="errore immagine" onclick="document.getElementById('modifica').submit();">
+								<input type="image" src="LayoutSito/img/modifica.png" alt="errore immagine">
 						</form>
+						
 					</div>
 			</div>
 		

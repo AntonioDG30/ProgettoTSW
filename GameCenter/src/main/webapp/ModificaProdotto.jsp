@@ -37,37 +37,39 @@
 			{
 		%>
 		<div class="formCliente">
-        	<form method="post" action="./OrdiniControl?action=VisualizzaOrdini">
+        	<form method="post" action="./AdminProductControl?action=Modifica" name="modifica" onsubmit="return validate()">
 				<div class="form">
       				<div class="subtitle">Aggiungi un nuovo prodotto</div>
 			      	<div class="input-container2">
-				        CodSeriale: <input id="CodSeriale" class="input" type="text" placeholder="<%=product.getCodSeriale()%>" required/>
+				        CodSeriale: <input id="CodSerialeNew" name="CodSerialeNew" class="input" type="text" placeholder="<%=product.getCodSeriale()%>"/>
 				    </div>
 				    <div class="input-container2">
-				        Nome: <input id="Nome" class="input" type="text" placeholder=" " required/>
+				        Nome: <input id="Nome" name="Nome" class="input" type="text" placeholder="<%=product.getNome()%>"/>
 				    </div>
 				    <div class="input-container-Foto">
-				        Foto: <input id="Immagine" class="inputFoto" type="file" />
+				        Foto: <input id="Immagine" name="Immagine" class="inputFoto" type="file" />
 				    </div>
 				    <div class="input-container2">
-				        Prezzo: <input id="Prezzo" class="input" type="number" placeholder=" " required min="0"/>
+				        Prezzo: <input id="Prezzo" name="Prezzo" class="input" type="number" placeholder="<%=product.getPrezzo()%>" min="0"/>
 
 				    </div>
 				    <div class="input-container2">
-				        Data Uscita: <input id="DataUscita" class="input" type="date" placeholder=" " />
+				        Data Uscita: <input id="DataUscita" name="DataUscita" class="input" type="date" placeholder="<%=product.getDataUscita()%>" />
 				    </div>
 				    <div class="input-container2">
-				        Descrizione Ridotta: <input id="DescrizioneRidotta" class="input" type="text" placeholder=" " required min="1"/>
+				        Descrizione Ridotta: <textarea id="DescrizioneRidotta" name="DescrizioneRidotta" rows="5" cols="40"  placeholder="<%=product.getDescrizioneRidotta()%>"></textarea>
 				    </div>
+				    <br><br>
 				    <div class="input-container2">
-				        Descrizione Completa: <input id="DescrizioneCompleta" class="input" type="text" placeholder=" " required/>
+				        Descrizione Completa: <textarea id="DescrizioneCompleta" name="DescrizioneCompleta" rows="5" cols="40"  placeholder="<%=product.getDescrizioneCompleta()%>"></textarea>
 				    </div>
+				    <br><br>
 				    <%
 						if(!(product.getTipologia()))  
 						{
 					%>
 							<div class="box">
-								PEGI: <select name="PEGI" required>
+								PEGI: <select name="PEGI" id="PEGI">
 									<%
 										if (PEGI != null && PEGI.size() != 0) 
 										{
@@ -88,7 +90,7 @@
 									   
 							</div>
 							<div class="box">
-								Genere: <select name="Genere" required>
+								Genere: <select name="Genere" id="Genere">
 									<%
 										if (Genere != null && Genere.size() != 0) 
 										{
@@ -109,36 +111,36 @@
 									 </select>
 							</div>
 						    <div class="input-container2">
-						        PS5 Digitale: <input id="PS5Digitale" class="input" type="number" placeholder=" " required min="0"/>
+						        PS5 Digitale: <input id="PS5Digitale" name="PS5Digitale" class="input" type="number" placeholder="<%=product.getDispPs5Digitale()%>" min="0"/>
 						    </div>
 						    <div class="input-container2">
-						        PS4 Digitale: <input id="PS4Digitale" class="input" type="number" placeholder=" " required min="0"/>
+						        PS4 Digitale: <input id="PS4Digitale" name="PS4Digitale" class="input" type="number" placeholder="<%=product.getDispPs4Digitale()%>" min="0"/>
 						    </div>
 						    <div class="input-container2">
-						        Xbox Series X Digitale: <input id="XboxXDigitale" class="input" type="number" placeholder=" " required min="0"/>
+						        Xbox Series X Digitale: <input id="XboxXDigitale" name="XboxXDigitale" class="input" type="number" placeholder="<%=product.getDispXboxXDigitale()%>" min="0"/>
 						    </div>
 						    <div class="input-container2">
-						        >Xbox Series S Digitale: <input id="XboxSDigitale" class="input" type="number" placeholder=" " required min="0"/>
+						        Xbox Series S Digitale: <input id="XboxSDigitale" name="XboxSDigitale" class="input" type="number" placeholder="<%=product.getDispXboxSDigitale()%>" min="0"/>
 						    </div>
 						    <div class="input-container2">
-						        Pc Digitale: <input id="PcDigitale" class="input" type="number" placeholder=" " required min="0"/>
+						        Pc Digitale: <input id="PcDigitale" name="PcDigitale" class="input" type="number" placeholder="<%=product.getDispPcDigitale()%>" min="0"/>
 						    </div>
 				    <% 
 						}
 					%>
 				    <div class="input-container">
-				        PS5 Fisico: <input id="PS5Fisico" class="input" type="number" placeholder=" " required min="0"/>
+				        PS5 Fisico: <input id="PS5Fisico" name="PS5Fisico" class="input" type="number" placeholder="<%=product.getDispPs5Fisico()%>" min="0"/>
 				    </div>
 				    <div class="input-container">
-				        PS4 Fisico: <input id="PS4Fisico" class="input" type="number" placeholder=" " required min="0"/>
+				        PS4 Fisico: <input id="PS4Fisico" name="PS4Fisico" class="input" type="number" placeholder="<%=product.getDispPs4Fisico()%>" min="0"/>
 				    </div>
 				    <div class="input-container">
-				        Xbox Series X Fisico: <input id="XboxXFisico" class="input" type="number" placeholder=" " required min="0"/>
+				        Xbox Series X Fisico: <input id="XboxXFisico" name="XboxXFisico" class="input" type="number" placeholder="<%=product.getDispXboxXFisico()%>" min="0"/>
 				    </div>
 				    <div class="input-container">
-				        Pc Fisico: <input id="PcFisico" class="input" type="number" placeholder=" " required min="0"/>
+				        Pc Fisico: <input id="PcFisico" name="PcFisico" class="input" type="number" placeholder="<%=product.getDispPcFisico()%>" min="0"/>
 				    </div>	    
-				    <input name="ParteMod" type="hidden" value="Parte2" />
+				    <input name="CodSeriale" type="hidden" value="<%=product.getCodSeriale()%>" />
 			      	<button type="submit" class="submit">submit</button>
 			    </div>
 			</form>

@@ -145,11 +145,6 @@ body
 	align-items: right;
 }
 
-.operazioniAdmin img
-{
-	width: 40px; 
-	height: 40px
-}
 
 
 
@@ -195,12 +190,7 @@ body
 		width: 100%; 
 		height: 250px; 
 	}
-	
-	.operazioniAdmin img
-	{
-		width: 40px; 
-		height: 40px
-	}
+
 }
 
 
@@ -241,12 +231,7 @@ body
 		width: 100%; 
 		height: 150px; 
 	}
-	
-	.operazioniAdmin img
-	{
-		width: 40px; 
-		height: 40px
-	}
+
 }
 
 

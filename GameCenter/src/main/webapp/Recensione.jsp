@@ -36,7 +36,7 @@
 				        <label for="Valutazione" class="placeholder">Valutazione</label>
 				    </div>
 				    <div class="input-container">
-				    	Descrizione: <textarea name="Descrizione" rows="5" cols="35" required placeholder="Scrivi qui la tua recensione"></textarea>				    
+				    	Descrizione: <textarea name="Descrizione" rows="5" cols="35" required placeholder="Scrivi qui la tua recensione"></textarea>			    
 				    </div>
 				    <input type="hidden" name="CodProdotto" value="<%=CodSeriale%>">
 				    <br>

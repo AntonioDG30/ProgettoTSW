@@ -85,68 +85,68 @@ public class UserControl extends HttpServlet
 					response.sendRedirect("./index.jsp");
 				}
 				
+				if (action.equalsIgnoreCase("RicercaEmail")) 
+				{
+					String email = request.getParameter("email");
+					boolean trovato = userModel.ricercaEmail(email);
+			        response.setContentType("text/plain");
+			        response.setCharacterEncoding("UTF-8");
+			        if(trovato)
+					{
+			        	PrintWriter out = response.getWriter();
+				        out.print("exists");
+				        out.flush();
+					}
+			        else
+			        {
+			        	PrintWriter out = response.getWriter();
+				        out.print("non exists");
+				        out.flush();
+			        }
+			        
+				}
+				
 				
 				if (action.equalsIgnoreCase("Registrati")) 
 				{
-					String email = request.getParameter("email");
-					String pass = request.getParameter("password");
+					String email = request.getParameter("Email");
+					String pass = request.getParameter("Password");
 					UserBean utente = null;
-					boolean trovato = userModel.ricercaEmail(email);
-					if(trovato)
+					if(userModel.registraUtente(email, pass))
 					{
-						request.removeAttribute("Result");
-						request.setAttribute("Result", "L'email risulta già registarata. Riprova");
-						RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Registrati.jsp");
-						dispatcher.forward(request, response);
-					}
-					else
-					{
-						if(userModel.registraUtente(email, pass))
+						utente = userModel.ricercaUtente(email, pass);
+						request.getSession().setAttribute("Email", utente.getEmail());
+						request.getSession().setAttribute("Tipo", utente.getTipo());
+						request.getSession().setAttribute("PuntiFedelta", utente.getPuntiFedelta());
+						String codiceFiscale = request.getParameter("CF");
+						String nome = request.getParameter("Nome");
+						String cognome = request.getParameter("Cognome");
+						int cap = Integer.parseInt(request.getParameter("CAP"));
+						String citta = request.getParameter("Citta");
+						String provincia = request.getParameter("Provincia");
+						String via = request.getParameter("Via");
+						int civico = Integer.parseInt(request.getParameter("Civico"));
+						String telefono = request.getParameter("Telefono");
+						if(userModel.registraDatiSensibili(email, codiceFiscale, nome, cognome, cap, citta, provincia, via, civico, telefono))
 						{
-							utente = userModel.ricercaUtente(email, pass);
-							request.getSession().setAttribute("Email", utente.getEmail());
-							request.getSession().setAttribute("Tipo", utente.getTipo());
-							request.getSession().setAttribute("PuntiFedelta", utente.getPuntiFedelta());
-							response.sendRedirect("./RegistraDatiSensibili.jsp");
+							response.sendRedirect("./index.jsp");
 						}
 						else
 						{
-							request.removeAttribute("Result");
-							request.setAttribute("Result", "Errore creazione utente. Riprova");
 							RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Registrati.jsp");
 							dispatcher.forward(request, response);
 						}
-						
-					}
-				}
-				
-				
-				
-				if (action.equalsIgnoreCase("RegistraDatiSensibili")) 
-				{
-					String email = (String) request.getSession().getAttribute("Email");
-					String codiceFiscale = request.getParameter("CF");
-					String nome = request.getParameter("Nome");
-					String cognome = request.getParameter("Cognome");
-					int cap = Integer.parseInt(request.getParameter("CAP"));
-					String citta = request.getParameter("Citta");
-					String provincia = request.getParameter("Provincia");
-					String via = request.getParameter("Via");
-					int civico = Integer.parseInt(request.getParameter("Civico"));
-					String telefono = request.getParameter("Telefono");
-
-					if(userModel.registraDatiSensibili(email, codiceFiscale, nome, cognome, cap, citta, provincia, via, civico, telefono))
-					{
-						response.sendRedirect("./index.jsp");
 					}
 					else
 					{
-						request.removeAttribute("Result");
-						request.setAttribute("Result", "Errore salvataggio dati sesnsibili. Riprova");
-						RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/RegistraDatiSensibili.jsp");
+						RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Registrati.jsp");
 						dispatcher.forward(request, response);
-					}		
+					}
+						
 				}
+				
+				
+				
 				
 				if (action.equalsIgnoreCase("VisualizzaUtenti")) 
 				{
@@ -308,7 +308,7 @@ public class UserControl extends HttpServlet
 						request.removeAttribute("Cliente");	
 						request.setAttribute("Cliente", userModel.ricercaCliente(email));
 						request.removeAttribute("PuntiFedelta");
-						request.setAttribute("PuntiFedelta", userModel.getPuntiFedelta(email));
+						request.setAttribute("PuntiFedelta", UserModel.getPuntiFedelta(email));
 						request.removeAttribute("Ordini");
 						request.setAttribute("Ordini", ordineModel.elencoOrdiniByCliente(email));
 						RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Account.jsp");
@@ -331,12 +331,10 @@ public class UserControl extends HttpServlet
 
 					if(userModel.registraNuovoIndirizzo(nome, cognome, cap, citta, provincia, via, civico, telefono, email))
 					{
-						response.sendRedirect("./OrdiniControl?action=Checkout");
+						response.sendRedirect("./UserControl?action=RicercaIndirizzi");
 					}
 					else
 					{
-						request.removeAttribute("Result");
-						request.setAttribute("Result", "Errore salvataggio Indirizzo. Riprova");
 						RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/RegistraIndirizzo.jsp");
 						dispatcher.forward(request, response);
 					}
@@ -371,12 +369,10 @@ public class UserControl extends HttpServlet
 
 					if(userModel.registraNuovoMetodoPagamento(numeroCarta, titolare, dataScadenza, email))
 					{
-						response.sendRedirect("./OrdiniControl?action=Checkout");
+						response.sendRedirect("./UserControl?action=RicercaMetodi");
 					}
 					else
 					{
-						request.removeAttribute("Result");
-						request.setAttribute("Result", "Errore salvataggio Metodo Pagamento. Riprova");
 						RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/RegistraMetodoPagamento.jsp");
 						dispatcher.forward(request, response);
 					}

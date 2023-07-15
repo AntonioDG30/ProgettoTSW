@@ -81,7 +81,7 @@ CREATE TABLE DatiSensibileUtente
     Via varchar(20) NOT NULL,
     Civico int NOT NULL,
     Citta varchar(50) NOT NULL,
-    Provincia char(2) NOT NULL,
+    Provincia varchar(50) NOT NULL,
     NumeroTelefono varchar(20) NOT NULL,
     Email varchar(50) NOT NULL,
     PRIMARY KEY(CodiceFiscale),
@@ -107,7 +107,7 @@ CREATE TABLE IndirizziSpedizione
     Via varchar(20) NOT NULL,
     Civico int NOT NULL,
     Citta varchar(50) NOT NULL,
-    Provincia char(2) NOT NULL,
+    Provincia varchar(50) NOT NULL,
     NumeroTelefono varchar(20) NOT NULL,
     Email varchar(50) NOT NULL,
     PRIMARY KEY(CodIndirizzo),
@@ -350,19 +350,19 @@ SET @LUCAemail := 'Luca.Rossi@gmail.com';
 
 
 INSERT INTO Utente(Email, PasswordUtente, PuntiFedelta, Tipo)
-VALUES (@CARLOemail, 'cliente', '2', 1);
+VALUES (@CARLOemail, 'Carlo2023!', '2', 1);
 INSERT INTO Utente(Email, PasswordUtente, PuntiFedelta, Tipo)
-VALUES (@PASQUALEemail, 'cliente', '114', 1);
+VALUES (@PASQUALEemail, 'Pasquale2023!', '114', 1);
 INSERT INTO Utente(Email, PasswordUtente, PuntiFedelta, Tipo)
-VALUES (@LUCAemail, 'admin', '0', 0);
+VALUES (@LUCAemail, 'Luca2023!', '0', 0);
 
 
 INSERT INTO DatiSensibileUtente(CodiceFiscale, Nome, Cognome, CAP, Via, Civico, Citta, Provincia, NumeroTelefono, Email)
-VALUES ('TCCCRL02M12H501L', 'Carlo', 'Tucci', '00118', 'Giovanni Falcone', '3', 'Roma', 'RO', '+393342518794', @CARLOemail);
+VALUES ('TCCCRL02M12H501L', 'Carlo', 'Tucci', '00118', 'Giovanni Falcone', '3', 'Roma', 'Roma', '+393342518794', @CARLOemail);
 INSERT INTO DatiSensibileUtente(CodiceFiscale, Nome, Cognome, CAP, Via, Civico, Citta, Provincia, NumeroTelefono, Email)
-VALUES ('CRYU34FTOK903DGW', 'Pasquale', 'Corvini', '80020', 'Campania', '3', 'Frattaminore', 'NA', '+393334455667', @PASQUALEemail);
+VALUES ('CRYU34FTOK903DGW', 'Pasquale', 'Corvini', '80020', 'Campania', '3', 'Frattaminore', 'Napoli', '+393334455667', @PASQUALEemail);
 INSERT INTO DatiSensibileUtente(CodiceFiscale, Nome, Cognome, CAP, Via, Civico, Citta, Provincia, NumeroTelefono, Email)
-VALUES ('RSSLCU96M27L219U', 'Luca', 'Rossi', '10071', 'Clanio', '24', 'Torino', 'TO', '+393478951025',@LUCAemail);
+VALUES ('RSSLCU96M27L219U', 'Luca', 'Rossi', '10071', 'Clanio', '24', 'Torino', 'Torino', '+393478951025',@LUCAemail);
 
 
 INSERT INTO MetodoPagamento(NumeroCarta, TitolareCarta, Scadenza, Email)
@@ -374,11 +374,11 @@ VALUES ('5684956215478955', 'Pasquale Corvino', '2027-02-11', @PASQUALEemail);
 
 
 INSERT INTO IndirizziSpedizione(Nome, Cognome, CAP, Via, Civico, Citta, Provincia, NumeroTelefono, Email)
-VALUES ('Carlo', 'Tucci', '00118', 'Giovanni Falcone', '3', 'Roma', 'RO', '+393342518794', @CARLOemail);
+VALUES ('Carlo', 'Tucci', '00118', 'Giovanni Falcone', '3', 'Roma', 'Roma', '+393342518794', @CARLOemail);
 INSERT INTO IndirizziSpedizione(Nome, Cognome, CAP, Via, Civico, Citta, Provincia, NumeroTelefono, Email)
-VALUES ('Pasquale', 'Corvini', '80020', 'Campania', '3', 'Frattaminore', 'NA', '+393334455667', @PASQUALEemail);
+VALUES ('Pasquale', 'Corvini', '80020', 'Campania', '3', 'Frattaminore', 'Napoli', '+393334455667', @PASQUALEemail);
 INSERT INTO IndirizziSpedizione(Nome, Cognome, CAP, Via, Civico, Citta, Provincia, NumeroTelefono, Email)
-VALUES ('Carlo', 'Tucci', '80020', 'Roma', '31', 'Orta Di Atella', 'CE', '+393332211000', @CARLOemail);
+VALUES ('Carlo', 'Tucci', '80020', 'Roma', '31', 'Orta Di Atella', 'Caserta', '+393332211000', @CARLOemail);
 
 
 INSERT INTO StatoOrdine(Stato)

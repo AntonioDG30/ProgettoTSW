@@ -456,7 +456,6 @@ public class ProductModel
 			ps = con.prepareStatement(sql);
 			ps.setString(1, codSeriale);
 			result = ps.executeUpdate();
-			con.commit();
 		} 
 		catch(SQLException e)
 		{

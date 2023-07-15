@@ -75,7 +75,7 @@
 	        			<path d="m 40,120.00016 239.99984,-3.2e-4 c 0,0 24.99263,0.79932 25.00016,35.00016 0.008,34.20084 -25.00016,35 -25.00016,35 h -239.99984 c 0,-0.0205 -25,4.01348 -25,38.5 0,34.48652 25,38.5 25,38.5 h 215 c 0,0 20,-0.99604 20,-25 0,-24.00396 -20,-25 -20,-25 h -190 c 0,0 -20,1.71033 -20,25 0,24.00396 20,25 20,25 h 168.57143" />
 	      			</svg>
 			        <div class="form">
-			      		<form method="post" name="invio" action = "./UserControl?action=Login">
+			      		<form method="post" name="invio" action = "./UserControl?action=Login" onsubmit="return validate()">
 				        	<label for="email">Email</label>
 				        	<input type="email" name="email"  id="email">
 				        	<label for="password">Password</label>
@@ -177,6 +177,44 @@
 			    	}
 			  	});
 			});
+			
+			
+			function validate() 
+		    {		    	
+		    	var Email = document.invio.email.value;
+		    	var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    		  	var passwordInput = document.invio.password.value;
+    		  	var passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+		    	
+		    	if (Email === "") 
+		    	{
+		    		alert("Il campo Email è obbligatorio");
+		    		document.invio.email.focus();
+		    		return false;
+		    	}
+		    	else if (!emailRegex.test(Email)) 
+		    	{
+		    		alert("Il campo Email è errato, riprova!");
+		    		document.invio.email.focus();
+		    		return false;
+		    	}   		  	
+    		  			    	
+		    	if (passwordInput === "") 
+		    	{
+		    		alert("Il campo Password è obbligatorio");
+		    		document.invio.password.focus();
+		    		return false;
+		    	}
+		    	else if (!passwordRegex.test(passwordInput)) 
+		    	{
+		    		alert("Il campo Password è errato, deve contenere almeno 8 caratteri" 
+		    				+ "di cui almeno uno speciale, una maiuscola, una minuscola e un numero");
+		    		document.invio.password.focus();
+		    		return false;
+		    	}
+		    	
+		    	return true;
+		    }
 		</script>
 
 	</body>
