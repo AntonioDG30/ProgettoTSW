@@ -40,7 +40,8 @@
                 <h2>Ordine</h2>
                 <div class='line'></div>
                 <%
-                    if (Carrello != null) {
+                    if (Carrello != null) 
+                    {
                         List<ProductBean> ProdottoCarrello = Carrello.getListaCarrello();
                         for (ProductBean Prod : ProdottoCarrello) 
                         {
@@ -122,9 +123,8 @@
                         } 
                         else 
                         {
-                    %>
-                    Nessun Metodo di pagamento memorizzato
-                    <%
+                        	response.setStatus(response.SC_MOVED_TEMPORARILY);
+                            response.setHeader("Location", "./RegistraMetodoPagamento.jsp");
                         }
                     %>
                 </div>
@@ -156,9 +156,8 @@
                         }
                         else 
                         {
-                    %>
-                    Nessun Indirizzo Memorizzato
-                    <%
+                        	response.setStatus(response.SC_MOVED_TEMPORARILY);
+                            response.setHeader("Location", "./RegistraIndirizzo.jsp");                  
                         }
                     %>
                 </div>

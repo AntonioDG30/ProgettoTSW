@@ -190,7 +190,7 @@
 	    	            success: function(response) {
 	    	                if (response === "exists") 
 	    	                {
-	    	                	alert("La mail inserita risulta già presente registrata");
+	    	                	alert("La mail inserita risulta già registrata");
 	    	                    return false;
 	    	                } 
 	    	            },
@@ -313,7 +313,7 @@
     	            success: function(response) {
     	                if (response === "exists") 
     	                {
-    	                	alert("il CF inserito risulta già presente registrata");
+    	                	alert("il CF inserito risulta già registrato");
     	                    return false;
     	                } 
     	            },

@@ -12,7 +12,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.annotation.WebServlet;
 
 import java.util.Collection;
 import java.util.Locale;
@@ -26,10 +25,6 @@ import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 
 
-
-
-
-@WebServlet("/OrdiniControl")
 public class OrdiniControl extends HttpServlet 
 {
 	private static final long serialVersionUID = 1L;
