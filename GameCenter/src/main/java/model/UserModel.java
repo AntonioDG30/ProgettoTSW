@@ -129,7 +129,6 @@ public class UserModel
 			ResultSet rs = ps.executeQuery();
 			if (rs.next())
 			{
-				System.out.println("val: " + rs.getString("CodiceFiscale"));
 				trovato = true;
 			}
 		} 
