@@ -505,7 +505,7 @@ public class UserModel
 	}
 
 			
-	public synchronized boolean registraNuovoIndirizzo(String nome, String cognome, int cap, String citta, String provincia, String via, int civico, String telefono, String email) throws SQLException 
+	public synchronized boolean registraNuovoIndirizzo(IndirizziSpedizioneBean indirizzo) throws SQLException 
 	{
 		
 		PreparedStatement ps = null;
@@ -517,15 +517,15 @@ public class UserModel
 		try(Connection con = ds.getConnection())
 		{
 			ps = con.prepareStatement(sql);
-			ps.setString(1, nome);
-			ps.setString(2, cognome);
-			ps.setInt(3, cap);
-			ps.setString(4, via);
-			ps.setInt(5, civico);
-			ps.setString(6, citta);
-			ps.setString(7, provincia);
-			ps.setString(8, telefono);
-			ps.setString(9, email);
+			ps.setString(1, indirizzo.getNome());
+			ps.setString(2, indirizzo.getCognome());
+			ps.setInt(3, indirizzo.getCAP());
+			ps.setString(4, indirizzo.getVia());
+			ps.setInt(5, indirizzo.getCivico());
+			ps.setString(6, indirizzo.getCitta());
+			ps.setString(7, indirizzo.getProvincia());
+			ps.setString(8, indirizzo.getNumeroTelefono());
+			ps.setString(9, indirizzo.getEmail());
 
 			rs = ps.executeUpdate();
 			

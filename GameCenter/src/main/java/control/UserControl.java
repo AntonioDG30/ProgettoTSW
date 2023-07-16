@@ -261,17 +261,20 @@ public class UserControl extends HttpServlet
 				
 				if (action.equalsIgnoreCase("NuovoIndirizzo")) 
 				{
+					IndirizziSpedizioneBean indirizzo = new IndirizziSpedizioneBean();
 					String email = (String) request.getSession().getAttribute("Email");
-					String nome = request.getParameter("Nome");
-					String cognome = request.getParameter("Cognome");
-					int cap = Integer.parseInt(request.getParameter("CAP"));
-					String citta = request.getParameter("Citta");
-					String provincia = request.getParameter("Provincia");
-					String via = request.getParameter("Via");
-					int civico = Integer.parseInt(request.getParameter("Civico"));
-					String telefono = request.getParameter("Telefono");
+					indirizzo.setEmail(email);
+					indirizzo.setNome(request.getParameter("Nome"));
+					indirizzo.setCognome(request.getParameter("Cognome"));
+					indirizzo.setCAP(Integer.parseInt(request.getParameter("CAP")));
+					indirizzo.setCitta(request.getParameter("Citta"));
+					indirizzo.setProvincia(request.getParameter("Provincia"));
+					indirizzo.setVia(request.getParameter("Via"));
+					indirizzo.setCivico(Integer.parseInt(request.getParameter("Civico")));
+					indirizzo.setNumeroTelefono(request.getParameter("Telefono"));
 
-					if(userModel.registraNuovoIndirizzo(nome, cognome, cap, citta, provincia, via, civico, telefono, email))
+
+					if(userModel.registraNuovoIndirizzo(indirizzo))
 					{
 						response.sendRedirect("./UserControl?action=RicercaIndirizzi");
 					}
