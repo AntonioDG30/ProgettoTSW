@@ -42,12 +42,14 @@
                 <%
                     if (Carrello != null) {
                         List<ProductBean> ProdottoCarrello = Carrello.getListaCarrello();
-                        for (ProductBean Prod : ProdottoCarrello) {
+                        for (ProductBean Prod : ProdottoCarrello) 
+                        {
                 %>
 				<div class="order-table">
                 <table >
                 <caption></caption>
                     <tbody>
+                    <th></th>
                     <tr>
                         <td><img src="Immagini/<%=Prod.getImmagine()%>" alt="Immagine non disponibile"
                                  class='full-width'>
