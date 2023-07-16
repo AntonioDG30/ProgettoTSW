@@ -179,8 +179,36 @@ SET @XBOXXcode := 'FBDTRNCF54';
 SET @DUALSENSEcode := 'DVCH5342SDR';
 SET @RTX4090code := 'AMREDHZOCDS';
 SET @PS4code := 'GHYFVRSTEV';
+SET @NITROKG2code := 'ANTPRCHRTL748D';
+SET @RX6700XTcode := 'LRTE54HFJFI33DD';
+SET @G305code := 'RTD342SERV78';
+SET @DEADSPACEcode := 'GRT43SDC46';
+SET @MORTALKOMBAT11code := 'MLI897HY5FF';
+SET @HALO3code := 'BGT78UY5DDS';
+SET @THESIMS4code := 'LMR56FDS2321AA';
+SET @FORTNITEcode := 'NCBDGG55DSSWE';
 
 
+
+
+INSERT INTO Prodotto(CodSeriale, Nome, Prezzo, DataUscita, DescrizioneRidotta, DescrizioneCompleta, Immagine, FlagTipologia, FlagVisibita)
+VALUES (@FORTNITEcode,'Fortnite: Salva il mondo', '9.99', '2017-07-25','Il magico mondo di Fortnite si amplica conuna campagna online, dove sfiderai ondate di nemici. Sarai in grado di salvati? Ricorda la tempesta è dietro l angolo ','
+Fortnite: Salva il Mondo è una modalità di gioco cooperativa e a pagamento del popolare videogioco Fortnite, sviluppato da Epic Games. In questo contesto, i giocatori si uniscono in squadre per affrontare ondate di nemici controllati dall intelligenza artificiale. Il principale obiettivo del gioco è sopravvivere, costruire difese e proteggere gli oggetti essenziali dall attacco di creature mostruose note come "Tempesta". I giocatori possono scegliere tra vari personaggi con abilità uniche e potenziabili, che consentono loro di svolgere ruoli specifici nel team. Utilizzando risorse raccolte nell ambiente di gioco, come legno, pietra e metallo, possono costruire strutture difensive per respingere le tempeste e gli avversari. Il gioco presenta una serie di missioni e sfide, ognuna con obiettivi specifici, che portano i giocatori attraverso una storia avvincente in un mondo post-apocalittico. Completando missioni e sfide, i giocatori guadagnano ricompense come esperienza, materiali di costruzione, armi migliorate e nuovi eroi. Fortnite: Salva il Mondo offre un esperienza di gioco diversa rispetto alla modalità più popolare e gratuita di Fortnite: Battle Royale, incentrata sulla competizione tra giocatori. Questa modalità cooperativa permette agli appassionati di cooperare con amici o giocatori di tutto il mondo per affrontare insieme le sfide di un ambiente ostile e misterioso.', 'Fortnite.jpg',0,1);
+INSERT INTO Prodotto(CodSeriale, Nome, Prezzo, DataUscita, DescrizioneRidotta, DescrizioneCompleta, Immagine, FlagTipologia, FlagVisibita)
+VALUES (@THESIMS4code,'The Sims 4', '9.99', '2014-09-02','Quarto capitolo della amata saga dei "sims", affronta nuove sfide e tantissimi nuovi scenari in questo magnifico gioco di simulazione di vita','The Sims 4 è un videogioco di simulazione di vita sviluppato da Maxis e pubblicato da Electronic Arts. È il quarto capitolo della celebre serie "The Sims", in cui i giocatori possono creare, personalizzare e controllare la vita dei propri personaggi virtuali, noti come "Sims". Nel gioco, i giocatori hanno il potere di costruire e arredare case, creare Sims unici selezionando caratteristiche, personalità, abiti e obiettivi di vita. I Sims possono sviluppare relazioni, socializzare, cercare lavoro e perseguire varie carriere o hobby. Il gioco offre una vasta gamma di attività e interazioni, consentendo ai giocatori di seguire le vite dei Sims attraverso diversi momenti della giornata, come il lavoro, il tempo libero e le relazioni sociali. La gestione delle necessità fisiche e emotive dei Sims, come fame, sonno, divertimento e salute mentale, è fondamentale per mantenerli felici e soddisfatti. The Sims 4 è noto per il suo approccio creativo e la libertà di esplorare un mondo virtuale in cui ogni azione dei giocatori può avere conseguenze sulle vite dei Sims. Il gioco è stato continuamente supportato con espansioni, pacchetti di contenuti e aggiornamenti, offrendo sempre nuove sfide e possibilità per creare storie uniche all interno di questa simulazione di vita coinvolgente.', 'theSims4.jpg',0,1);
+INSERT INTO Prodotto(CodSeriale, Nome, Prezzo, DataUscita, DescrizioneRidotta, DescrizioneCompleta, Immagine, FlagTipologia, FlagVisibita)
+VALUES (@HALO3code,'HALO 3', '14.90', '2007-09-25','Master Chief è un supersoldato impegnato in una guerra interstellare, saprai indossare i suoi panni e vincere la guerra?','La storia di Halo 3 si concentra su una guerra interstellare in corso nel XXVI secolo tra l umanità, un alleanza di razze aliene nota come Covenant e dei parassiti alieni conosciuti con il nome di Flood. Il giocatore veste i panni di Master Chief, un supersoldato dotato di una solida armatura con cui combatte i Covenant e i Flood. Il gioco presenta veicoli, armi ed elementi di gioco non presenti nei titoli precedenti della serie, oltre a concedere la possibilità di registrare filmati di gioco, condividere dei file multimediali e usufruire dell editor di mappe detto Fucina, uno strumento che consente al giocatore di apportare modifiche alle mappe del multigiocatore.', 'HALO3.jpg',0,1);
+INSERT INTO Prodotto(CodSeriale, Nome, Prezzo, DataUscita, DescrizioneRidotta, DescrizioneCompleta, Immagine, FlagTipologia, FlagVisibita)
+VALUES (@MORTALKOMBAT11code,'Mortal Kombat 11', '9.99', '2019-04-19','l undicesimo capitolo della saga Mortal Kombat, unico nel suo genere un picchiaduro forte e violento.','Mortal Kombat 11 è un picchiaduro sviluppato da NetherRealm Studios e pubblicato da Warner Bros. Interactive Entertainment . È l undicesimo capitolo principale della serie Mortal Kombat e un sequel di Mortal Kombat X (2015). Il gioco è stato annunciato ai The Game Awards 2018 ed è stato rilasciato in Nord America ed Europa il 23 aprile 2019. Al momento del rilascio, le versioni per console di Mortal Kombat 11 hanno ricevuto recensioni molto favorevoli, che hanno elogiato il gameplay, la storia, la grafica e il netcode migliorato, ma hanno ricevuto critiche per la presenza di microtransazioni e l eccessiva dipendenza dal grinding.', 'MortalKombat.jpg',0,1);
+INSERT INTO Prodotto(CodSeriale, Nome, Prezzo, DataUscita, DescrizioneRidotta, DescrizioneCompleta, Immagine, FlagTipologia, FlagVisibita)
+VALUES (@DEADSPACEcode,'Dead Space', '49.98', '2008-10-14','la nuova avventura di Isaac Clarke in un nuovo sparatutto horros, sei pronto alla sfida?','Il ritorno di un classico sparattutto horror fantascientifico, completamente ricostruito da zero, con un realismo visivo senza precedenti e un audio atmosferico 3D. Quella che doveva essere una missione di riparazione ordinaria per l ingegnere Isaac Clarke e per l equipaggio della USG Kellion si trasforma rapidamente in una battaglia per la sopravvivenza mentre la verità dietro agli orrori a bordo della nave inizia a svelarsi.', 'DeadSpace.jpg',0,1);
+INSERT INTO Prodotto(CodSeriale, Nome, Prezzo, DataUscita, DescrizioneRidotta, DescrizioneCompleta, Immagine, FlagTipologia, FlagVisibita)
+VALUES (@G305code,'Logitech G305 LIGHTSPEED', '42.99', '2018-06-01','Mouse economico ma di grande affidabilita. Possiede una gramde autonomia e risuta essere estremamente sensibile.','Sensore Gaming HERO: il sensore ottico per mouse gaming offre fino a 10 volte più efficienza energetica rispetto ad altri mouse gaming grazie all IPS 400 e alla sensibilità fino a 12.000 DPI. La tecnologia LIGHTSPEED Wireless ultraveloce offre un esperienza di gioco senza lag, grazie a una velocità di aggiornamento superveloce di 1 ms', 'G305.jpg',1,1);
+INSERT INTO Prodotto(CodSeriale, Nome, Prezzo, DataUscita, DescrizioneRidotta, DescrizioneCompleta, Immagine, FlagTipologia, FlagVisibita)
+VALUES (@NITROKG2code,'Acer Nitro KG272S Monitor 27"', '189.90', '2021-04-14','Il bellissimo monitor dell Asus con protezione degli occhi e ottimo refresh rate','La tecnologia AMD FreeSync Premium elimina le interruzioni e le interferenze durante il gameplay, sincronizzando il refresh rate del monitor da gaming con il frame rate del computer per una grafica fluida e reattiva. Proteggi gli occhi dall affaticamento grazie ad Acer BlueLightShield e Flickerless. Affronta lunghe sessioni di gioco sul tuo computer da gaming senza il fastidio dei riflessi del monitor con le tecnologie Acer ComfyView e Low Dimming.', 'AcerNitro.jpg',1,1);
+INSERT INTO Prodotto(CodSeriale, Nome, Prezzo, DataUscita, DescrizioneRidotta, DescrizioneCompleta, Immagine, FlagTipologia, FlagVisibita)
+VALUES (@RX6700XTcode,'ASUS DUAL AMD Radeon RX 6700 XT', '394.99', '2021-03-18','La bellissimi scheda video casa ASUS unica nel suo genere, la miglione nei test prestazionali ','Le ventole con design Axial-tech abbinate ai doppi cuscinetti a sfera offrono maggior durata e meno turbolenze, aumentando la dispersione del calore e conseguentemente anche le prestazioni. L’avanzato controller ferma le ventole quando la temperatura interna della CPU scende sotto i 55 gradi.
+La piastra posteriore in metallo e la staffa di montaggio in acciaio inossidabile migliorano durata e resistenza alla torsione.', 'AsusRadeon.jpg',1,1);
 INSERT INTO Prodotto(CodSeriale, Nome, Prezzo, DataUscita, DescrizioneRidotta, DescrizioneCompleta, Immagine, FlagTipologia, FlagVisibita)
 VALUES (@GTAcode,'Grand Theft Auto 5', '14.99', '2013-09-17','Si tratta del quinto capitolo della saga Grand Theft Auto, racconta la storia di tre diversi personaggi molto diversi tra loro la cui vita si intreccia ai fini di diventare ricchi sfondati. Il gioco è ambientato all interno dello Stato immaginario di San Andreas e offre al giocatore la possibilità di muoversi liberamente nella città immaginaria di Los Santos. Il gioco possiede anche una modalità online.','Los Santos: un enorme e soleggiata metropoli piena di sedicenti guru, attricette e celebrità sul viale del tramonto. Un tempo era l invidia del mondo occidentale, ma ora è costretta ad arrangiarsi per restare a galla in un epoca di incertezza economica e TV via cavo da quattro soldi. In mezzo a tutto questo, tre criminali molto diversi tra loro si danno da fare per sopravvivere e realizzarsi, ognuno a modo suo: l ambizioso Franklin è a caccia di soldi e di opportunità; Michael, un ex criminale professionista, sta facendo i conti con una "pensione" meno rosea del previsto; e Trevor, un maniaco violento, pensa solo a farsi e al prossimo, grande colpo. I tre non hanno altra scelta: decidono di rischiare il tutto per tutto in una serie di colpi audaci e pericolosi che potrebbero sistemarli per la vita. Con il più grande, il più dinamico e il più vario mondo di gioco mai creato, Grand Theft Auto V mescola sapientemente storia e gioco in modi del tutto nuovi, con i giocatori intenti a passare da una vita all altra dei tre protagonisti e a vivere lintreccio delle loro avventure. Ritornano tutti gli elementi distintivi tipici della serie, compresa l incredibile attenzione ai dettagli e il pungente umorismo di Grand Theft Auto, oltre che un nuovo e ambizioso approccio al mondo di gioco in multiplayer.', 'GTA5.jpg',0,1);
 INSERT INTO Prodotto(CodSeriale, Nome, Prezzo, DataUscita, DescrizioneRidotta, DescrizioneCompleta, Immagine, FlagTipologia, FlagVisibita)
@@ -198,7 +226,7 @@ VALUES (@PS5code,'Playstation 5', '550.00', '2020-11-12','La quinta generazione 
 INSERT INTO Prodotto(CodSeriale, Nome, Prezzo, DataUscita, DescrizioneRidotta, DescrizioneCompleta, Immagine, FlagTipologia, FlagVisibita)
 VALUES (@XBOXXcode,'XBOX Series X', '499.00', '2020-11-10', 'L ultima generazione della console della Microsoft, la più potente del mercato con una potenza che supera i 12 teraflops.', 'Arriva la nuova Xbox Series X, la console Xbox più veloce e potente di sempre. Gioca a migliaia di titoli di quattro generazioni di console: tutti i giochi hanno un aspetto e una riproduzione ottimale su Xbox Series X. Il cuore di Series X è Xbox Velocity Architecture, che abbina una SSD personalizzata con software integrato per un gameplay più veloce e semplificato, con tempi di caricamento notevolmente ridotti. Con Quick Resume passi senza problemi e in un lampo da un gioco all’altro. Esplora nuovi e ricchi mondi e goditi l azione come mai prima d ora con l impareggiabile potenza di elaborazione grafica di 12 teraflop. Divertiti con giochi 4K fino a 120 fotogrammi al secondo, suono spaziale 3D avanzato e altro ancora. Inizia con una libreria istantanea di più di 100 giochi di alta qualità, inclusi tutti i nuovi titoli Xbox Game Studios nel giorno del lancio, con Xbox Game Pass Ultimate.','XboxSeriesX.jpg',1,1);
 INSERT INTO Prodotto(CodSeriale, Nome, Prezzo, DataUscita, DescrizioneRidotta, DescrizioneCompleta, Immagine, FlagTipologia, FlagVisibita)
-VALUES (@DUALSENSEcode,'DualeSense', '55.00', '2020-11-12','Il controller per la nuovissima PlayStation 5 estremamente ergonomico, un design ultra moderno ma soprattuto le funzionalità della vibrazione con feedback aptico e dei grilletti adattivi dinamici che permettono al videogiocatore una maggior immersione nel proprio gioco preferito', 'Il nuovo controller per PlayStation 5 è realizzato per regalarti un’esperienza di gioco unica! Innovativo e tecnologicamente avanzato, il controller wireless DualSense è dotato di tutte le funzionalità di cui hai bisogno per sentirti il vero protagonista del gioco, come: Feedback aptico, Grilletti adattivi, Microfono integrato e ingresso cuffie, Tasto Crea, Funzionalità familiari del Dualshock®4, Sensore di movimento, Design iconico e confortevole, Batteria incorporata e ricarica tramite USB Type-C®4. A stupirti, poi, sarà anche il design: iconico, confortevole e compatto, per renderti il vero protagonista del gioco! Grazie alla tecnologia innovativa del controller per PlayStation 5 DualSense™, ti sembrerà di entrare nella finzione e di vivere l’avventura in prima persona. Con il feedback fisico, il coinvolgimento è assicurato: il joystick per PS5 reagisce alle tue azioni in gioco grazie ai doppi attuatori che sostituiscono i tradizionali motori di vibrazione. In questo modo, ogni sensazione viene simulata direttamente nelle tue mani: ti basterà impugnare il controller wireless DualSense™ per sentire le vere vibrazioni del rinculo delle diverse armi o dell’ambiente circostante. Inoltre, attraverso i grilletti adattivi avrai modo di sperimentare i livelli di forza e tensione ogni qual volta interagirai con l equipaggiamento e le scene del gioco. Che si tratti del lancio di una freccia d’arco o di arrestare improvvisamente la tua auto da corsa sul fango, con il controller PlayStation 5 ti sentirai fisicamente collegato alle azioni sullo schermo. Durante l’avventura, non dimenticare di condividere i successi con i tuoi amici! Il nuovo joypad PlayStation 5 ha il microfono integrato per chiacchierare direttamente con i compagni di gioco. Attivare o disattivare l acquisizione vocale, poi, è semplice e immediato: basta un click sul tasto Mute dedicato per silenziarti o urlare a gran voce!','Dualsense.jpg',1,1);
+VALUES (@DUALSENSEcode,'DualSense', '55.00', '2020-11-12','Il controller per la nuovissima PlayStation 5 estremamente ergonomico, un design ultra moderno ma soprattuto le funzionalità della vibrazione con feedback aptico e dei grilletti adattivi dinamici che permettono al videogiocatore una maggior immersione nel proprio gioco preferito', 'Il nuovo controller per PlayStation 5 è realizzato per regalarti un’esperienza di gioco unica! Innovativo e tecnologicamente avanzato, il controller wireless DualSense è dotato di tutte le funzionalità di cui hai bisogno per sentirti il vero protagonista del gioco, come: Feedback aptico, Grilletti adattivi, Microfono integrato e ingresso cuffie, Tasto Crea, Funzionalità familiari del Dualshock®4, Sensore di movimento, Design iconico e confortevole, Batteria incorporata e ricarica tramite USB Type-C®4. A stupirti, poi, sarà anche il design: iconico, confortevole e compatto, per renderti il vero protagonista del gioco! Grazie alla tecnologia innovativa del controller per PlayStation 5 DualSense™, ti sembrerà di entrare nella finzione e di vivere l’avventura in prima persona. Con il feedback fisico, il coinvolgimento è assicurato: il joystick per PS5 reagisce alle tue azioni in gioco grazie ai doppi attuatori che sostituiscono i tradizionali motori di vibrazione. In questo modo, ogni sensazione viene simulata direttamente nelle tue mani: ti basterà impugnare il controller wireless DualSense™ per sentire le vere vibrazioni del rinculo delle diverse armi o dell’ambiente circostante. Inoltre, attraverso i grilletti adattivi avrai modo di sperimentare i livelli di forza e tensione ogni qual volta interagirai con l equipaggiamento e le scene del gioco. Che si tratti del lancio di una freccia d’arco o di arrestare improvvisamente la tua auto da corsa sul fango, con il controller PlayStation 5 ti sentirai fisicamente collegato alle azioni sullo schermo. Durante l’avventura, non dimenticare di condividere i successi con i tuoi amici! Il nuovo joypad PlayStation 5 ha il microfono integrato per chiacchierare direttamente con i compagni di gioco. Attivare o disattivare l acquisizione vocale, poi, è semplice e immediato: basta un click sul tasto Mute dedicato per silenziarti o urlare a gran voce!','Dualsense.jpg',1,1);
 INSERT INTO Prodotto(CodSeriale, Nome, Prezzo, DataUscita, DescrizioneRidotta, DescrizioneCompleta, Immagine, FlagTipologia, FlagVisibita)
 VALUES (@RTX4090code,'Nvidia GeForce RTX 4090', '2155.00', '2022-11-16', 'NVIDIA GeForce RTX 4090 è la GPU GeForce definitiva. Si tratta di un enorme passo avanti in termini di prestazioni, efficienza e grafica basata su IA. Scopri il gaming ad altissime prestazioni, mondi virtuali incredibilmente dettagliati, produttività senza precedenti e nuovi modi di creare. Basata sull architettura NVIDIA Ada Lovelace e include 24 GB di memoria G6X per offrire l esperienza definitiva per giocatori e creativi.', 'Nvidia GeForce RTX 4090 è una delle schede video NVIDIA top di gamma ad essere basate sull architettura Ada Lovelace, introdotta sul mercato nel 2022. Costruita con tecnologia produttiva a 4nm, è in grado di assicurare frame al secondo medi molto elevati a tutte le risoluzioni video anche selezionando impostazioni qualitative molto spinte. Questa scheda implementa la terza generazione di architettura NVIDIA con supporto al Ray Tracing, tecnica grazie alla quale si ottiene un netto incremento della qualità l immagine grazie ad un calcolo più preciso delle sorgenti di illuminazione e di come queste si riflettono all interno delle scene dei videogiochi. Le prestazioni ottenibili con i giochi abilitando il Ray Tracing sono quindi ben più elevate di quanto concesso in precedenza con le schede GeForce RTX della famiglia 3000 basate su architettura di seconda generazione. Nvidia GeForce RTX 4090 è dotata di 24GB di memoria GDDR6X, su bus a 384bit con una frequenza di clock di 1325 MHz per una bandwidth complessiva di 1008 GB/s. La GPU AD 102 opera con una frequenza di base clock di 2230MHz, potendosi spingere sino a 2520MHz come frequenza di clock massima. La scheda ha un design a tre slot d ingombro sulla scheda madre e viene alimentata dal sistema con un collegamento a 1x16 pin. Il TDP è pari a 450W.','NvidiaGeForce4090.jpg',1,1);
 INSERT INTO Prodotto(CodSeriale, Nome, Prezzo, DataUscita, DescrizioneRidotta, DescrizioneCompleta, Immagine, FlagTipologia, FlagVisibita)
@@ -234,6 +262,16 @@ INSERT INTO PEGI(CodPEGI)
 VALUES('18');
 
 INSERT INTO Caratteristiche(CodPEGI, CodSeriale, NomeGenere)
+VALUES ('18', @DEADSPACEcode, 'Sparattutto');
+INSERT INTO Caratteristiche(CodPEGI, CodSeriale, NomeGenere)
+VALUES ('18', @MORTALKOMBAT11code, 'Picchiaduro');
+INSERT INTO Caratteristiche(CodPEGI, CodSeriale, NomeGenere)
+VALUES ('16', @HALO3code, 'FPS');
+INSERT INTO Caratteristiche(CodPEGI, CodSeriale, NomeGenere)
+VALUES ('12', @THESIMS4code, 'Simulazione');
+INSERT INTO Caratteristiche(CodPEGI, CodSeriale, NomeGenere)
+VALUES ('12', @FORTNITEcode, 'Battle Royale');
+INSERT INTO Caratteristiche(CodPEGI, CodSeriale, NomeGenere)
 VALUES ('18', @GTAcode, 'RPG');
 INSERT INTO Caratteristiche(CodPEGI, CodSeriale, NomeGenere)
 VALUES ('3', @FIFA23code, 'Sportivo');
@@ -263,7 +301,71 @@ INSERT INTO Formato(TipoFormato)
 VALUES ('Digitale');
 INSERT INTO Formato(TipoFormato)
 VALUES ('Fisico');
-     
+
+INSERT INTO Disponibilita(QuantitaDisponibile, CodSeriale, NomePiattaforma, TipoFormato)
+VALUES ('12', @FORTNITEcode,'PlayStation 5','Digitale');
+INSERT INTO Disponibilita(QuantitaDisponibile, CodSeriale, NomePiattaforma, TipoFormato)
+VALUES ('4', @FORTNITEcode,'PlayStation 5','Fisico');
+INSERT INTO Disponibilita(QuantitaDisponibile, CodSeriale, NomePiattaforma, TipoFormato)
+VALUES ('8', @FORTNITEcode,'PlayStation 4','Digitale');
+INSERT INTO Disponibilita(QuantitaDisponibile, CodSeriale, NomePiattaforma, TipoFormato)
+VALUES ('32', @FORTNITEcode,'PlayStation 4','Fisico');
+INSERT INTO Disponibilita(QuantitaDisponibile, CodSeriale, NomePiattaforma, TipoFormato)
+VALUES ('111', @FORTNITEcode,'XBOX Series X','Digitale');
+INSERT INTO Disponibilita(QuantitaDisponibile, CodSeriale, NomePiattaforma, TipoFormato)
+VALUES ('41', @FORTNITEcode,'XBOX Series X','Fisico');
+INSERT INTO Disponibilita(QuantitaDisponibile, CodSeriale, NomePiattaforma, TipoFormato)
+VALUES ('20', @FORTNITEcode,'XBOX Series S','Digitale');
+INSERT INTO Disponibilita(QuantitaDisponibile, CodSeriale, NomePiattaforma, TipoFormato)
+VALUES ('33', @FORTNITEcode,'PC','Digitale');
+INSERT INTO Disponibilita(QuantitaDisponibile, CodSeriale, NomePiattaforma, TipoFormato)
+VALUES ('71', @FORTNITEcode,'PC','Fisico');
+INSERT INTO Disponibilita(QuantitaDisponibile, CodSeriale, NomePiattaforma, TipoFormato)
+VALUES ('44', @THESIMS4code,'PlayStation 5','Digitale');
+INSERT INTO Disponibilita(QuantitaDisponibile, CodSeriale, NomePiattaforma, TipoFormato)
+VALUES ('37', @THESIMS4code,'PlayStation 5','Fisico');
+INSERT INTO Disponibilita(QuantitaDisponibile, CodSeriale, NomePiattaforma, TipoFormato)
+VALUES ('112', @THESIMS4code,'PlayStation 4','Digitale');
+INSERT INTO Disponibilita(QuantitaDisponibile, CodSeriale, NomePiattaforma, TipoFormato)
+VALUES ('234', @THESIMS4code,'PlayStation 4','Fisico');
+INSERT INTO Disponibilita(QuantitaDisponibile, CodSeriale, NomePiattaforma, TipoFormato)
+VALUES ('21', @THESIMS4code,'XBOX Series X','Digitale');
+INSERT INTO Disponibilita(QuantitaDisponibile, CodSeriale, NomePiattaforma, TipoFormato)
+VALUES ('221', @THESIMS4code,'XBOX Series X','Fisico');
+INSERT INTO Disponibilita(QuantitaDisponibile, CodSeriale, NomePiattaforma, TipoFormato)
+VALUES ('112', @THESIMS4code,'XBOX Series S','Digitale');
+INSERT INTO Disponibilita(QuantitaDisponibile, CodSeriale, NomePiattaforma, TipoFormato)
+VALUES ('321', @THESIMS4code,'PC','Digitale');
+INSERT INTO Disponibilita(QuantitaDisponibile, CodSeriale, NomePiattaforma, TipoFormato)
+VALUES ('21', @THESIMS4code,'PC','Fisico');
+INSERT INTO Disponibilita(QuantitaDisponibile, CodSeriale, NomePiattaforma, TipoFormato)
+VALUES ('6', @HALO3code,'PC','Digitale');
+INSERT INTO Disponibilita(QuantitaDisponibile, CodSeriale, NomePiattaforma, TipoFormato)
+VALUES ('23', @MORTALKOMBAT11code,'PlayStation 5','Digitale');
+INSERT INTO Disponibilita(QuantitaDisponibile, CodSeriale, NomePiattaforma, TipoFormato)
+VALUES ('7', @MORTALKOMBAT11code,'PlayStation 5','Fisico');
+INSERT INTO Disponibilita(QuantitaDisponibile, CodSeriale, NomePiattaforma, TipoFormato)
+VALUES ('10', @MORTALKOMBAT11code,'PlayStation 4','Digitale');
+INSERT INTO Disponibilita(QuantitaDisponibile, CodSeriale, NomePiattaforma, TipoFormato)
+VALUES ('0', @MORTALKOMBAT11code,'PlayStation 4','Fisico');
+INSERT INTO Disponibilita(QuantitaDisponibile, CodSeriale, NomePiattaforma, TipoFormato)
+VALUES ('12', @MORTALKOMBAT11code,'XBOX Series X','Digitale');
+INSERT INTO Disponibilita(QuantitaDisponibile, CodSeriale, NomePiattaforma, TipoFormato)
+VALUES ('4', @MORTALKOMBAT11code,'XBOX Series X','Fisico');
+INSERT INTO Disponibilita(QuantitaDisponibile, CodSeriale, NomePiattaforma, TipoFormato)
+VALUES ('10', @MORTALKOMBAT11code,'XBOX Series S','Digitale');
+INSERT INTO Disponibilita(QuantitaDisponibile, CodSeriale, NomePiattaforma, TipoFormato)
+VALUES ('11', @MORTALKOMBAT11code,'PC','Digitale');
+INSERT INTO Disponibilita(QuantitaDisponibile, CodSeriale, NomePiattaforma, TipoFormato)
+VALUES ('7', @MORTALKOMBAT11code,'PC','Fisico');
+INSERT INTO Disponibilita(QuantitaDisponibile, CodSeriale, NomePiattaforma, TipoFormato)
+VALUES ('4', @DEADSPACEcode,'PC','Digitale');
+INSERT INTO Disponibilita(QuantitaDisponibile, CodSeriale, NomePiattaforma, TipoFormato)
+VALUES ('22', @NITROKG2code,'PC','Fisico');  
+INSERT INTO Disponibilita(QuantitaDisponibile, CodSeriale, NomePiattaforma, TipoFormato)
+VALUES ('12', @RX6700XTcode,'PC','Fisico');  
+INSERT INTO Disponibilita(QuantitaDisponibile, CodSeriale, NomePiattaforma, TipoFormato)
+VALUES ('28', @G305code,'PC','Fisico');     
 INSERT INTO Disponibilita(QuantitaDisponibile, CodSeriale, NomePiattaforma, TipoFormato)
 VALUES ('30', @GTAcode, 'PlayStation 5','Digitale');
 INSERT INTO Disponibilita(QuantitaDisponibile, CodSeriale, NomePiattaforma, TipoFormato)
@@ -352,9 +454,9 @@ SET @LUCAemail := 'Luca.Rossi@gmail.com';
 
 
 INSERT INTO Utente(Email, PasswordUtente, PuntiFedelta, Tipo)
-VALUES (@CARLOemail, 'Carlo2023!', '2', 1);
+VALUES (@CARLOemail, 'Carlo2023!', '2918', 1);
 INSERT INTO Utente(Email, PasswordUtente, PuntiFedelta, Tipo)
-VALUES (@PASQUALEemail, 'Pasquale2023!', '114', 1);
+VALUES (@PASQUALEemail, 'Pasquale2023!', '797', 1);
 INSERT INTO Utente(Email, PasswordUtente, PuntiFedelta, Tipo)
 VALUES (@LUCAemail, 'Luca2023!', '0', 0);
 
@@ -392,14 +494,19 @@ VALUES ('In Consegna');
 INSERT INTO StatoOrdine(Stato)
 VALUES ('Consegnato');
 
-INSERT INTO Ordine(Sconto, DataAcquisto, PrezzoTotale, StatoOrdine, Email)
-VALUES ('-0','2023-01-03','660','In Lavorazione',@CARLOemail);
-INSERT INTO Ordine(Sconto, DataAcquisto, PrezzoTotale, StatoOrdine, Email)
-VALUES ('-0','2023-02-05','114.95','In Lavorazione',@PASQUALEemail);
-INSERT INTO Ordine(Sconto, DataAcquisto, PrezzoTotale, StatoOrdine, Email)
-VALUES ('-0','2023-04-06','2174.99','In Lavorazione',@CARLOemail);
-INSERT INTO Ordine(Sconto, DataAcquisto, PrezzoTotale, StatoOrdine, Email)
-VALUES ('-0','2023-05-16','84.97','In Lavorazione',@CARLOemail);
+
+INSERT INTO Ordine(Sconto, DataAcquisto, Fattura, PrezzoTotale, StatoOrdine, Email)
+VALUES ('-0','2023-01-03', 'Fattura1.pdf', '660','In Lavorazione',@CARLOemail);
+INSERT INTO Ordine(Sconto, DataAcquisto, Fattura, PrezzoTotale, StatoOrdine, Email)
+VALUES ('-0','2023-02-05', 'Fattura2.pdf','114.95','In Lavorazione',@PASQUALEemail);
+INSERT INTO Ordine(Sconto, DataAcquisto, Fattura, PrezzoTotale, StatoOrdine, Email)
+VALUES ('-0','2023-04-06', 'Fattura3.pdf', '2174.99','In Lavorazione',@CARLOemail);
+INSERT INTO Ordine(Sconto, DataAcquisto, Fattura, PrezzoTotale, StatoOrdine, Email)
+VALUES ('-0','2023-05-16', 'Fattura4.pdf', '84.97','In Lavorazione',@CARLOemail);
+INSERT INTO Ordine(Sconto, DataAcquisto, Fattura, PrezzoTotale, StatoOrdine, Email)
+VALUES ('-0','2023-04-05', 'Fattura5.pdf', '279.85','In Lavorazione',@PASQUALEemail);
+INSERT INTO Ordine(Sconto, DataAcquisto, Fattura, PrezzoTotale, StatoOrdine, Email)
+VALUES ('-0','2023-07-05', 'Fattura6.pdf', '404.98','In Lavorazione',@PASQUALEemail);
 
 INSERT INTO Include(Quantita, CodSeriale, CodOrdine, PrezzoMomento, Piattaforma)
 VALUES ('2',@DUALSENSEcode,'01', '55.00','Ps5 Fisico');
@@ -417,6 +524,16 @@ INSERT INTO Include(Quantita, CodSeriale, CodOrdine, PrezzoMomento, Piattaforma)
 VALUES ('1',@MAFIA3code,'04', '14.99', 'XboxX Fisico');
 INSERT INTO Include(Quantita, CodSeriale, CodOrdine, PrezzoMomento, Piattaforma)
 VALUES ('2',@CYBERPUNK77code,'04', '34.99','Ps4 Digitale');
+INSERT INTO Include(Quantita, CodSeriale, CodOrdine, PrezzoMomento, Piattaforma)
+VALUES ('3',@THESIMS4code,'05', '9.99','Ps4 Digitale');
+INSERT INTO Include(Quantita, CodSeriale, CodOrdine, PrezzoMomento, Piattaforma)
+VALUES ('2',@FIFA23code,'05', '29.99','XboxX Fisico');
+INSERT INTO Include(Quantita, CodSeriale, CodOrdine, PrezzoMomento, Piattaforma)
+VALUES ('1',@NITROKG2code,'05', '189.90','Pc Fisico');
+INSERT INTO Include(Quantita, CodSeriale, CodOrdine, PrezzoMomento, Piattaforma)
+VALUES ('1',@RX6700XTcode,'06', '394.99','Pc Fisico');
+INSERT INTO Include(Quantita, CodSeriale, CodOrdine, PrezzoMomento, Piattaforma)
+VALUES ('1',@THESIMS4code,'06', '9.99','Pc Fisico');
 
 
 INSERT INTO Comprende(CodOrdine, CodIndirizzo, NumeroCarta)
@@ -425,6 +542,12 @@ INSERT INTO Comprende(CodOrdine, CodIndirizzo, NumeroCarta)
 VALUES('02', '02', '5684956215478955');
 INSERT INTO Comprende(CodOrdine, CodIndirizzo, NumeroCarta)
 VALUES('03', '01', '5896475896542158');
+INSERT INTO Comprende(CodOrdine, CodIndirizzo, NumeroCarta)
+VALUES('04', '01', '5896475896542158');
+INSERT INTO Comprende(CodOrdine, CodIndirizzo, NumeroCarta)
+VALUES('05', '02', '5684956215478955');
+INSERT INTO Comprende(CodOrdine, CodIndirizzo, NumeroCarta)
+VALUES('06', '02', '5684956215478955');
 
 INSERT INTO Recensione(Descrizione, Valutazione, CodSeriale, Email)
 VALUES ('La console è perfetta ed è molto divertente da usare', '5', @PS5code, @CARLOemail);
