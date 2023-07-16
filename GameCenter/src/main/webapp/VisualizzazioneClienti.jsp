@@ -39,7 +39,7 @@
 			        	<input type="email" name="email" placeholder="Inserisci Email cliente" required>	
 			        </div>
 			      </div>
-			      <button type="text" class="submit">submit</button>
+			      <button type="submit" class="submit">submit</button>
 			    </div>
 			</form>
         </div>

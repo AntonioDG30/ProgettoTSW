@@ -38,7 +38,7 @@
 			        	<input type="email" name="email" placeholder="Inserisci Email cliente" required>	
 			        </div>
 			      </div>
-			      <button type="text" class="submit">submit</button>
+			      <button type="submit" class="submit">submit</button>
 			    </div>
 			</form>
         </div>
@@ -61,7 +61,7 @@
 			        	<input type="date" name="DataFine" placeholder="Inserisci Data fine periodo" required>
 			        </div>
 			      </div>
-			      <button type="text" class="submit">submit</button>
+			      <button type="submit" class="submit">submit</button>
 			    </div>
 			</form>
         </div>
