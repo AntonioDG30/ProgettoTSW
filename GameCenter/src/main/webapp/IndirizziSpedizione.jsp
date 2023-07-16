@@ -63,7 +63,7 @@
 		                    <td class="text-right font-weight-semibold align-middle p-4"><%=bean.getNumeroTelefono()%></td>
 		                    <td class="text-right font-weight-semibold align-middle p-4">
 		                    	<div class="float-right">
-		              				<a href="">
+		              				<a href="UserControl?action=EliminaIndirizzo&CodIndirizzo=<%=bean.getCodIndirizzo()%>">
 		              					<button type="button" class="btn btn-lg btn-primary mt-2">Elimina</button>
 		              				</a>
 		            			</div>

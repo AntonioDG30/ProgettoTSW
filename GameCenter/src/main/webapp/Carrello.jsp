@@ -86,28 +86,14 @@
 										Locale.setDefault(Locale.ITALY);
 									%>
 				                    <td class="text-right font-weight-semibold align-middle p-4"><%=PrezzoeString%></td>
-				                    <%PrezzoTotale = PrezzoTotale + Prezzo;%>
 				                  </tr>
 				                 <% 
 								   	}
-								   	/*Tronchiamo float a solo due cifre decimali*/
-									Locale.setDefault(Locale.US);
-									String PrezzoTotaleString = String.format("%.2f", PrezzoTotale);
-									Locale.setDefault(Locale.ITALY);
 								%>
 				                </tbody>
 				              </table>
 				            </div>
 				            <!-- / Shopping cart table -->
-				        	
-				            <div class="d-flex flex-wrap justify-content-between align-items-center pb-4">
-				              <div class="d-flex">
-				                <div class="text-right mt-4">
-				                  <label class="text-muted font-weight-normal m-0">Prezzo Totale</label>
-				                  <div class="text-large"><strong><%=PrezzoTotaleString%></strong></div>
-				                </div>
-				              </div>
-				            </div>
 				        
 				            <div class="float-right">
 				              <a href="./OrdiniControl?action=Checkout"><button type="button" class="btn btn-lg btn-primary mt-2">Checkout</button></a>
