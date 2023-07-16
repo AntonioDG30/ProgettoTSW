@@ -273,7 +273,7 @@ public class AdminProductControl extends HttpServlet
 					product.setNome(request.getParameter("Nome"));
 					Part immaginePart = request.getPart("Immagine");
 					String immagineFileName = immaginePart.getSubmittedFileName();
-					String path = "C:/Users/anton/git/ProgettoTSW/GameCenter/src/main/webapp/Immagini/" +immagineFileName;
+					String path = request.getServletContext().getRealPath("") + "Immagini" + File.separator  +immagineFileName;
 					FileOutputStream fos = new FileOutputStream(path);
 					InputStream is = immaginePart.getInputStream();
 					byte[] data = new byte[is.available()];
@@ -334,8 +334,7 @@ public class AdminProductControl extends HttpServlet
 					{
 						Part immaginePart = request.getPart("Immagine");
 						String immagineFileName = immaginePart.getSubmittedFileName();
-						String path = "C:/Users/anton/git/ProgettoTSW/GameCenter/src/main/webapp/Immagini/" +immagineFileName;
->>>>>>> branch 'master' of https://gitHub.com/AntonioDG30/ProgettoTSW
+						String path = request.getServletContext().getRealPath("") + "Immagini" + File.separator  +immagineFileName;
 						FileOutputStream fos = new FileOutputStream(path);
 						InputStream is = immaginePart.getInputStream();
 						byte[] data = new byte[is.available()];

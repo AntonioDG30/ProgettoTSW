@@ -271,7 +271,7 @@ public class UserControl extends HttpServlet
 
 					Part immaginePart = request.getPart("Immagine");
 					String immagineFileName = immaginePart.getSubmittedFileName();
-					String path = "C:/Users/anton/git/ProgettoTSW/GameCenter/src/main/webapp/ImgUser/" +immagineFileName;
+					String path = request.getServletContext().getRealPath("") + "ImgUser" + File.separator  +immagineFileName;
 					FileOutputStream fos = new FileOutputStream(path);
 					InputStream is = immaginePart.getInputStream();
 					byte[] data = new byte[is.available()];
