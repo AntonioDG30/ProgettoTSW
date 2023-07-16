@@ -44,8 +44,9 @@
                         List<ProductBean> ProdottoCarrello = Carrello.getListaCarrello();
                         for (ProductBean Prod : ProdottoCarrello) {
                 %>
-				
-                <table class='order-table'>
+				<div class="order-table">
+                <table >
+                <caption></caption>
                     <tbody>
                     <tr>
                         <td><img src="Immagini/<%=Prod.getImmagine()%>" alt="Immagine non disponibile"
@@ -65,6 +66,7 @@
                     </tr>
                     </tbody>
                 </table>
+                </div>
                 <div class='line'></div>
                 <%
                     PrezzoTotale = PrezzoTotale + (Prod.getPrezzo() * Prod.getQuantita());
