@@ -111,13 +111,34 @@ public class UserControl extends HttpServlet
 			        
 				}
 				
+				if (action.equalsIgnoreCase("RicercaCF")) 
+				{
+					String CF = request.getParameter("CF");
+					System.out.println("val: " + request.getParameter("CF"));
+					boolean trovato = userModel.ricercaCF(CF);
+			        response.setContentType("text/plain");
+			        response.setCharacterEncoding("UTF-8");
+			        if(trovato)
+					{
+			        	PrintWriter out = response.getWriter();
+				        out.print("exists");
+				        out.flush();
+					}
+			        else
+			        {
+			        	PrintWriter out = response.getWriter();
+				        out.print("non exists");
+				        out.flush();
+			        }
+			        
+				}
+				
 				
 				if (action.equalsIgnoreCase("Registrati")) 
 				{
 
 					UserBean utente = new UserBean();
 					utente.setEmail(request.getParameter("Email"));
-					System.out.println("prova: " + request.getParameter("Email"));
 					utente.setPassword(request.getParameter("Password"));
 					utente.setCodiceFiscale(request.getParameter("CF"));
 					utente.setNome(request.getParameter("Nome"));
@@ -144,13 +165,19 @@ public class UserControl extends HttpServlet
 					utente.setNumeroTelefono(request.getParameter("Telefono"));
 					if(userModel.registraUtente(utente))
 					{
-						request.getSession().setAttribute("Email", utente.getEmail());
-						request.getSession().setAttribute("Tipo", utente.getTipo());
-						request.getSession().setAttribute("PuntiFedelta", utente.getPuntiFedelta());
+						UserBean user = userModel.ricercaUtente(request.getParameter("Email"), request.getParameter("Password"));
+						if(user != null)
+						{
+							request.getSession().setAttribute("Email", user.getEmail());
+							request.getSession().setAttribute("Tipo", user.getTipo());
+							request.getSession().setAttribute("PuntiFedelta", user.getPuntiFedelta());
+						}
 						response.sendRedirect("./index.jsp");
 					}
 					else
 					{
+						request.removeAttribute("Result");
+						request.setAttribute("Result", "Mi dispiace c'è stato un errore, controlla i dati e riprova");
 						RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Registrati.jsp");
 						dispatcher.forward(request, response);
 					}

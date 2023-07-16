@@ -35,7 +35,20 @@
         	<form method="post" name="registrati" action="./UserControl?action=Registrati" onsubmit="return validate()" enctype="multipart/form-data">
 				<div class="form">
 			        <div class="title">Benvenuto</div>
+			        <% 
+						if(Result != null)
+						{
+					%>
+						<div class="subtitle" style="color:red;"><%=Result %></div>
+					<%		
+						}
+						else
+						{
+					%>
       				<div class="subtitle">Registra il tuo nuovo account</div>
+      				<%		
+						}
+					%>
 			      	<div class="input-container">
 				        <input id="Email" name="Email" class="input" type="email" placeholder=" " required/>
 				        <div class="cut"></div>
@@ -245,8 +258,7 @@
 		    	}
 		    	else
 		    	{
-
-		    	    var validi, i, s, set1, set2, setpari, setdisp;
+		    		var validi, i, s, set1, set2, setpari, setdisp;
 		    	    cf = cfInput.toUpperCase();
 		    	    if (cf.length != 16)
 	
@@ -291,10 +303,31 @@
 
 		    	    if (s % 26 != cf.charCodeAt(15) - 'A'.charCodeAt(0))
 
-		    	    	alert("Il codice fiscale non è corretto:\n" +
-
-		    	            "il codice di controllo non corrisponde.\n");
+		    	    	alert("Il codice fiscale non è corretto in quanto il codice di controllo non corrisponde");
 		    	}
+		    	
+		    	$.ajax({
+    	            url: "./UserControl?action=RicercaCF", 
+    	            type: "POST",
+    	            data: { CF: cfInput },
+    	            success: function(response) {
+    	                if (response === "exists") 
+    	                {
+    	                	alert("il CF inserito risulta già presente registrata");
+    	                    return false;
+    	                } 
+    	            },
+    	            error: function() {
+    	                alert("Si è verificato un errore durante la verifica del CF");
+    	                return false;
+    	            }
+    	        });
+
+		    		
+
+	    		
+
+		    	
 		    	
 		    	if (viaInput === "") 
 		    	{

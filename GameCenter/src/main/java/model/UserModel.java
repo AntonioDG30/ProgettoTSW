@@ -117,6 +117,36 @@ public class UserModel
 		return trovato;			
 	}
 	
+	public synchronized boolean ricercaCF(String CF) throws SQLException 
+	{
+		PreparedStatement ps = null;
+		boolean trovato = false;
+		String sql = "SELECT * FROM " + UserModel.TABLE_NAME_DATI + " WHERE CodiceFiscale = ?";
+		try(Connection con = ds.getConnection())
+		{
+			ps = con.prepareStatement(sql);
+			ps.setString(1, CF);
+			ResultSet rs = ps.executeQuery();
+			if (rs.next())
+			{
+				System.out.println("val: " + rs.getString("CodiceFiscale"));
+				trovato = true;
+			}
+		} 
+		catch(SQLException e)
+		{
+			logger.log(Level.WARNING, e.getMessage());
+		}
+		finally
+		{
+			if(ps != null)
+			{
+				ps.close();
+			}
+		}
+		return trovato;			
+	}
+	
 	
 	public synchronized boolean registraUtente(UserBean utente) throws SQLException 
 	{
