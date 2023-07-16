@@ -313,7 +313,7 @@ public class OrdiniControl extends HttpServlet
 			    //inserimento prodotti
 			    y = 604;
 			    Collection<?> ordini =ordineModel.dettagliOrdine(codOrdine);
-			    if (ordini != null && ordini.size() != 0) 
+			    if (ordini != null && (!(ordini.isEmpty()))) 
 				{
 					Iterator<?> it = ordini.iterator();
 					while (it.hasNext()) 
