@@ -18,17 +18,63 @@ public class CarrelloBean
 			product.setPiattaforma(piattaforma);
 			for(ProductBean prod : listaCarrello) 
 			{
-				if(prod.getCodSeriale().contentEquals(product.getCodSeriale()) && prod.getPiattaforma().contentEquals(product.getPiattaforma())) 
+				if(prod.getCodSeriale().contentEquals(product.getCodSeriale()) 
+						&& prod.getPiattaforma().contentEquals(product.getPiattaforma())) 
 				{
-					prod.incrementQuantita();
-					return;
-				}
+					if(prod.quantita<verificaQuantita(prod))
+					{
+						System.out.println(" piat " + prod.getPiattaforma());
+						prod.incrementQuantita();
+						return;
+					}
+					else
+					{
+						 return;
+					}	
+				}		
 			}
 			this.listaCarrello.add(product);
-			product.incrementQuantita();
-
-		
-		
+			product.incrementQuantita();	
+	}
+	public int verificaQuantita(ProductBean product) 
+	{
+		if (product.getPiattaforma().contentEquals("PS5 Digitale"))
+   		{
+			return	product.getDispPs5Digitale();
+   		}
+   		if (product.getPiattaforma().contentEquals("PS5 Fisico"))
+   		{
+   			return	product.getDispPs5Fisico();
+   		}
+   		if (product.getPiattaforma().contentEquals("PS4 Digitale"))
+   		{
+   			return	product.getDispPs4Digitale();
+   		}
+   		if (product.getPiattaforma().contentEquals("PS4 Fisico"))
+   		{
+   			return	product.getDispPs4Fisico();
+   		}
+   		if (product.getPiattaforma().contentEquals("XboxX Digitale"))
+   		{
+   			return	product.getDispXboxXDigitale();
+   		}
+   		if (product.getPiattaforma().contentEquals("XboxX Fisico"))
+   		{
+   			return	product.getDispXboxXFisico();
+   		}
+   		if (product.getPiattaforma().contentEquals("XboxS Digitale"))
+   		{
+   			return	product.getDispXboxSDigitale();
+   		}
+   		if (product.getPiattaforma().contentEquals("Pc Digitale"))
+   		{
+   			return	product.getDispPcDigitale();
+   		}
+   		if (product.getPiattaforma().contentEquals("Pc Fisico"))
+   		{
+   			return	product.getDispPcFisico();
+   		}
+		return 100000;
 	}
 	
 	public void rimuoviProdotto(ProductBean product) 

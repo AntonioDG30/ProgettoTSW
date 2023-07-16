@@ -587,6 +587,70 @@ public class UserModel
 			
 	}
 	
+	public synchronized boolean EliminaIndirizzo(int codIndirizzo) throws SQLException 
+	{
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try(Connection con = ds.getConnection())
+		{
+			
+			String updateQuery = "DELETE FROM " + UserModel.TABLE_NAME_INDIRIZZI + " WHERE CodIndirizzo = ?";
+
+            pstmt = con.prepareStatement(updateQuery);
+            pstmt.setInt(1, codIndirizzo);
+            result = pstmt.executeUpdate();
+                           
+        } 
+		catch (SQLException e) 
+		{
+			logger.log(Level.WARNING, e.getMessage());        
+        }	
+		finally
+		{
+			if(pstmt != null)
+			{
+				pstmt.close();
+			}
+
+		}
+		return (result != 0);
+		
+	}
+	
+	public synchronized boolean EliminaMetodo(String numeroCarta) throws SQLException 
+	{
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try(Connection con = ds.getConnection())
+		{
+			
+			String updateQuery = "DELETE FROM " + UserModel.TABLE_NAME_METODIPAGAMENTO + " WHERE NumeroCarta = ?";
+
+            pstmt = con.prepareStatement(updateQuery);
+            pstmt.setString(1, numeroCarta);
+            result = pstmt.executeUpdate();
+                           
+        } 
+		catch (SQLException e) 
+		{
+			logger.log(Level.WARNING, e.getMessage());        
+        }	
+		finally
+		{
+			if(pstmt != null)
+			{
+				pstmt.close();
+			}
+
+		}
+		return (result != 0);
+		
+	}
+	
 	
 	public synchronized boolean modCodiceFiscale(String email,String codiceFiscale) throws SQLException 
 	{

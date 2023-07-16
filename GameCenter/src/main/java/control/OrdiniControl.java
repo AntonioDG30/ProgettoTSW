@@ -152,7 +152,7 @@ public class OrdiniControl extends HttpServlet
 							request.removeAttribute("Ordini");
 							request.setAttribute("Ordini", ordineModel.elencoOrdiniByCliente(email));
 							request.setAttribute("Result", "Grazie per aver acquistato sul nostro sito");
-							generaFattura(codOrdine, puntiFedeltaUsati, email);
+							generaFattura(codOrdine, puntiFedeltaUsati, email, request);
 							ordineModel.updateFattura(codOrdine);
 							request.getSession().setAttribute("Carrello", null);
 						}
@@ -227,7 +227,7 @@ public class OrdiniControl extends HttpServlet
 		
 	}
 
-	private void generaFattura(int codOrdine, float puntiFedeltaUsati, String email) throws IOException 
+	private void generaFattura(int codOrdine, float puntiFedeltaUsati, String email, HttpServletRequest request) throws IOException 
 	{
 		
 		float x=0;
@@ -237,9 +237,8 @@ public class OrdiniControl extends HttpServlet
 		
 		try 
 		{
-			
-			String servletPath = "C:/Users/anton/git/ProgettoTSW/GameCenter/src/main/webapp";
-			String totalPath = servletPath + "/Fatture/Fattura" + codOrdine + ".pdf";
+			String servletPath = request.getServletContext().getRealPath("");
+			String totalPath = servletPath + File.separator  + "Fatture" + File.separator  + "Fattura" + codOrdine + ".pdf";
 			Float subTotale = 0.02f;
 		
 			String pdf = ordineModel.ricercaFattura(codOrdine);
@@ -248,7 +247,7 @@ public class OrdiniControl extends HttpServlet
 		
 			if(pdf == null)
 			{
-			    File file = new File(servletPath + "/TemplateFattura.pdf");
+			    File file = new File(servletPath + File.separator  + "TemplateFattura.pdf");
 			    PDDocument fattura = PDDocument.load(file);    
 			    PDPage page = (PDPage)fattura.getDocumentCatalog().getPages().get(0);											
 			    PDPageContentStream contentStream = new PDPageContentStream(fattura, page, PDPageContentStream.AppendMode.APPEND, true, true);
@@ -322,7 +321,7 @@ public class OrdiniControl extends HttpServlet
 						numProd++;
 						if(numProd > limit )
 			    	    {
-			    	    	file = new File(servletPath + "/Template_Page2.pdf");
+			    	    	file = new File(servletPath + File.separator  + "Template_Page2.pdf");
 				    		page = (PDPage)PDDocument.load(file).getDocumentCatalog().getPages().get(0);
 				    		
 				    		fattura.addPage(page);

@@ -235,8 +235,31 @@ public class UserControl extends HttpServlet
 					dispatcher.forward(request, response);	
 				}
 				
+				if (action.equalsIgnoreCase("EliminaIndirizzo")) 
+				{
+					String email = (String) request.getSession().getAttribute("Email");
+					int codIndirizzo = Integer.parseInt(request.getParameter("CodIndirizzo"));
+					if(userModel.EliminaIndirizzo(codIndirizzo))
+					{
+						request.removeAttribute("Indirizzi");
+						request.setAttribute("Indirizzi", userModel.getIndirizziSpedizione(email));					
+						RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/IndirizziSpedizione.jsp");
+						dispatcher.forward(request, response);
+					}
+				}
 				
-				
+				if (action.equalsIgnoreCase("EliminaMetodo")) 
+				{
+					String email = (String) request.getSession().getAttribute("Email");
+					String numeroCarta = request.getParameter("NumeroCarta");
+					if(userModel.EliminaMetodo(numeroCarta))
+					{
+						request.removeAttribute("MetodiPagamento");
+						request.setAttribute("MetodiPagamento", userModel.getMetodiPagamento(email));
+						RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/MetodiPagamento.jsp");
+						dispatcher.forward(request, response);
+					}
+				}
 				
 				if (action.equalsIgnoreCase("NuovoIndirizzo")) 
 				{
