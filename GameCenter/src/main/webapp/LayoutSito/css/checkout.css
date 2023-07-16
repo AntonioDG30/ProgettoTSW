@@ -236,9 +236,7 @@ ul li:hover {
   -webkit-transition:background .2s ease;
           transition:background .2s ease;
 }
-.dropdown-select {
-  display:none;
-}
+
 .credit-card-image {
   display:block;
   max-height:80px;
@@ -267,9 +265,7 @@ ul li:hover {
 a {
 	text-decoration: none;
 }
-ul {
-	list-style-type: none;
-}
+
 
 
 .radio-section {

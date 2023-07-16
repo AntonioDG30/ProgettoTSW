@@ -23,7 +23,6 @@ public class CarrelloBean
 				{
 					if(prod.quantita<verificaQuantita(prod))
 					{
-						System.out.println(" piat " + prod.getPiattaforma());
 						prod.incrementQuantita();
 						return;
 					}

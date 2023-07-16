@@ -117,7 +117,7 @@ public class UserModel
 		return trovato;			
 	}
 	
-	public synchronized boolean ricercaCF(String CF) throws SQLException 
+	public synchronized boolean ricercaCF(String cf) throws SQLException 
 	{
 		PreparedStatement ps = null;
 		boolean trovato = false;
@@ -125,7 +125,7 @@ public class UserModel
 		try(Connection con = ds.getConnection())
 		{
 			ps = con.prepareStatement(sql);
-			ps.setString(1, CF);
+			ps.setString(1, cf);
 			ResultSet rs = ps.executeQuery();
 			if (rs.next())
 			{
@@ -587,7 +587,7 @@ public class UserModel
 			
 	}
 	
-	public synchronized boolean EliminaIndirizzo(int codIndirizzo) throws SQLException 
+	public synchronized boolean eliminaIndirizzo(int codIndirizzo) throws SQLException 
 	{
 		
 		PreparedStatement pstmt = null;
@@ -619,7 +619,7 @@ public class UserModel
 		
 	}
 	
-	public synchronized boolean EliminaMetodo(String numeroCarta) throws SQLException 
+	public synchronized boolean eliminaMetodo(String numeroCarta) throws SQLException 
 	{
 		
 		PreparedStatement pstmt = null;

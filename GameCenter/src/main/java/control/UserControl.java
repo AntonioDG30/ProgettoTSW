@@ -112,9 +112,8 @@ public class UserControl extends HttpServlet
 				
 				if (action.equalsIgnoreCase("RicercaCF")) 
 				{
-					String CF = request.getParameter("CF");
-					System.out.println("val: " + request.getParameter("CF"));
-					boolean trovato = userModel.ricercaCF(CF);
+					String cf = request.getParameter("CF");
+					boolean trovato = userModel.ricercaCF(cf);
 			        response.setContentType("text/plain");
 			        response.setCharacterEncoding("UTF-8");
 			        if(trovato)
@@ -213,12 +212,12 @@ public class UserControl extends HttpServlet
 				if (action.equalsIgnoreCase("PuntiFedelta"))
 				{
 					String email = (String) request.getSession().getAttribute("Email");
-			        int PF = UserModel.getPuntiFedelta(email);
+			        int pf = UserModel.getPuntiFedelta(email);
 			        
 			        response.setContentType("application/json");
 			        response.setCharacterEncoding("UTF-8");
 			        PrintWriter out = response.getWriter();
-			        out.print("{\"PF\": " + new Gson().toJson(PF) + "}");
+			        out.print("{\"PF\": " + new Gson().toJson(pf) + "}");
 			        out.flush();
 				}
 				
@@ -238,7 +237,7 @@ public class UserControl extends HttpServlet
 				{
 					String email = (String) request.getSession().getAttribute("Email");
 					int codIndirizzo = Integer.parseInt(request.getParameter("CodIndirizzo"));
-					if(userModel.EliminaIndirizzo(codIndirizzo))
+					if(userModel.eliminaIndirizzo(codIndirizzo))
 					{
 						request.removeAttribute("Indirizzi");
 						request.setAttribute("Indirizzi", userModel.getIndirizziSpedizione(email));					
@@ -251,7 +250,7 @@ public class UserControl extends HttpServlet
 				{
 					String email = (String) request.getSession().getAttribute("Email");
 					String numeroCarta = request.getParameter("NumeroCarta");
-					if(userModel.EliminaMetodo(numeroCarta))
+					if(userModel.eliminaMetodo(numeroCarta))
 					{
 						request.removeAttribute("MetodiPagamento");
 						request.setAttribute("MetodiPagamento", userModel.getMetodiPagamento(email));
