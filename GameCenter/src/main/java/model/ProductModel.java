@@ -243,7 +243,7 @@ public class ProductModel
 		PreparedStatement ps = null;
 		
 		Collection<ProductBean> products = new LinkedList<>();
-		String sql = "SELECT * FROM " + ProductModel.TABLE_NAME_PRODOTTO + " AS p, " + ProductModel.TABLE_NAME_INCLUDE +" AS i " 
+		String sql = "SELECT p.CodSeriale, p.Nome, p.Prezzo, p.DescrizioneRidotta, p.Immagine FROM " + ProductModel.TABLE_NAME_PRODOTTO + " AS p, " + ProductModel.TABLE_NAME_INCLUDE +" AS i " 
 						+ "WHERE p.CodSeriale = i.CodSeriale AND FlagVisibita = 1 GROUP BY i.CodSeriale ORDER BY sum(i.quantita) DESC LIMIT 8";
 		
 		try(Connection con = ds.getConnection())

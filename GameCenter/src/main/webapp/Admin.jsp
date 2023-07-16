@@ -32,6 +32,15 @@
 	<body>
 		<%@include file="NavBar.jsp" %>
 		<%@include file="AdminBar.jsp" %>
+		<% 
+			if(Tipo != null)
+			{
+				if(Tipo)
+				{
+					response.sendRedirect("./index.jsp");
+				}
+			}
+		%>
 		<div class="prodotti">
 		<%
 			if (products != null && products.size() != 0) 
