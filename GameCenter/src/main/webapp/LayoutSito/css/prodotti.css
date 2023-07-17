@@ -7,35 +7,19 @@ body
 
 .slideShow 
 {
-  position: relative;
-  width: 100%;
+ width:100%;
   height: 600px;
-  overflow: hidden;
 }
 
 .mySlides 
 {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  transition: opacity 0.5s ease;
+  display:none;
+  width:100%;
+  height: 600px;
 }
 
-.mySlides.active 
-{
-  opacity: 1;
-}
 
-.slideImage 
-{
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
+
 
 
 
