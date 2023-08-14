@@ -60,6 +60,7 @@ public class OrdiniControl extends HttpServlet
 					request.setAttribute("PrezzoEffettivo", prezzoEffettivo);
 					request.removeAttribute("Fattura");
 					request.setAttribute("Fattura", ordineModel.ricercaFattura(codOrdine));
+					System.out.println(ordineModel.ricercaFattura(codOrdine));
 
 					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/DettagliOrdine.jsp");
 					dispatcher.forward(request, response);	
@@ -84,9 +85,8 @@ public class OrdiniControl extends HttpServlet
 					request.removeAttribute("Result");
 					if(ordineModel.recensione(valutazione, descrizione, codProdotto, email))
 					{
-						request.setAttribute("Result", "Recensione inserita Correttamente");
-					    request.removeAttribute("PuntiFedelta");
-						request.setAttribute("PuntiFedelta", UserModel.getPuntiFedelta(email));
+						request.removeAttribute("Cliente");	
+						request.setAttribute("Cliente", userModel.ricercaCliente(email));
 						request.removeAttribute("Ordini");
 						request.setAttribute("Ordini", ordineModel.elencoOrdiniByCliente(email));
 						RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Account.jsp");
@@ -206,8 +206,8 @@ public class OrdiniControl extends HttpServlet
 			    }
 			    else
 			    {
-			    	request.removeAttribute("PuntiFedelta");
-					request.setAttribute("PuntiFedelta", UserModel.getPuntiFedelta(email));
+					request.removeAttribute("Cliente");	
+					request.setAttribute("Cliente", userModel.ricercaCliente(email));
 					request.removeAttribute("Ordini");
 					request.setAttribute("Ordini", ordineModel.elencoOrdiniByCliente(email));
 					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Account.jsp");

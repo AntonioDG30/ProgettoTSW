@@ -31,7 +31,7 @@
 				<div class="form">
       				<div class="subtitle">Recensisci prodotto: <%=CodSeriale%></div>
 			      	<div class="input-container ic1">
-				        <input id="Valutazione" name="NumeroCarta" class="input" type="number" min="1" max="5" placeholder=" " required/>
+				        <input id="Valutazione" name="Valutazione" class="input" type="number" min="1" max="5" placeholder=" " required/>
 				        <div class="cut"></div>
 				        <label for="Valutazione" class="placeholder">Valutazione</label>
 				    </div>
